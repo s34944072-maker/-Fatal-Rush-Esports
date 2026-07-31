@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>NEXUS ARENA - Ultimate Esports Engine</title>
+    <title>FETAL RUSH SPORTS - Ultimate Esports Engine</title>
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Pro Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <!-- Google Gaming Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <script>
@@ -37,7 +40,6 @@
                         'neon-cyan': '0 0 25px rgba(0, 242, 254, 0.3)',
                         'neon-accent': '0 0 25px rgba(255, 0, 85, 0.3)',
                         'neon-gold': '0 0 25px rgba(255, 183, 3, 0.3)',
-                        'cyber-inset': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)'
                     }
                 }
             }
@@ -104,11 +106,11 @@
         ::-webkit-scrollbar { width: 4px; height: 4px; }
         ::-webkit-scrollbar-track { background: #030408; }
         ::-webkit-scrollbar-thumb { background: #1a2238; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #00f2fe; }
     </style>
 </head>
 <body class="pb-28">
 
+    <!-- SYSTEM NOTIFICATION TOAST -->
     <div id="toast-dispatcher-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-32 opacity-0 transition-all duration-300 w-[92%] max-w-md pointer-events-none">
         <div class="glass-panel p-4 rounded-2xl border flex items-center gap-3 shadow-2xl backdrop-blur-2xl">
             <div id="toast-icon-container" class="w-11 h-11 rounded-xl bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0 border border-cyber-cyan/30">
@@ -121,16 +123,17 @@
         </div>
     </div>
 
+    <!-- HEADER NAVIGATION -->
     <header class="sticky top-0 z-40 glass-panel border-b border-cyber-border px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
             <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-blue to-cyber-purple p-[1.5px] shadow-neon-cyan">
                 <div class="w-full h-full bg-cyber-base rounded-xl flex items-center justify-center font-gaming text-2xl text-cyber-cyan font-bold tracking-widest">
-                    NA
+                    FR
                 </div>
             </div>
             <div class="flex flex-col">
                 <h1 class="font-gaming text-3xl font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple">
-                    NEXUS ARENA
+                    FETAL RUSH SPORTS
                 </h1>
                 <p class="text-[9px] font-heading text-cyber-cyan/80 tracking-widest font-extrabold uppercase -mt-1">
                     PRO ESPORTS HUB
@@ -152,8 +155,10 @@
         </div>
     </header>
 
+    <!-- MAIN VIEWPORTS -->
     <main class="p-4 max-w-md mx-auto space-y-6">
 
+        <!-- TAB 1: HOME TOURNAMENTS -->
         <div id="view-tab-home" class="viewport-tab-content space-y-5">
             <div class="glass-panel-glow rounded-3xl p-5 relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
@@ -177,6 +182,7 @@
                 </div>
             </div>
 
+            <!-- Game Category Filter -->
             <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
                 <button onclick="SystemTournamentEngine.filterGameCategory('ALL')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-cyber-cyan border-cyber-cyan/50 whitespace-nowrap">🎮 ALL GAMES</button>
                 <button onclick="SystemTournamentEngine.filterGameCategory('BGMI')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔫 BGMI</button>
@@ -199,6 +205,7 @@
             <div id="dynamic-tournament-cards-container" class="space-y-4"></div>
         </div>
 
+        <!-- TAB 2: MY MATCHES -->
         <div id="view-tab-matches" class="viewport-tab-content hidden space-y-5">
             <div class="flex items-center justify-between border-b border-cyber-border pb-3">
                 <div>
@@ -209,6 +216,7 @@
             <div id="dynamic-joined-matches-container" class="space-y-4"></div>
         </div>
 
+        <!-- TAB 3: LEADERBOARD -->
         <div id="view-tab-ranks" class="viewport-tab-content hidden space-y-5">
             <div class="flex items-center justify-between border-b border-cyber-border pb-3">
                 <div>
@@ -219,6 +227,7 @@
             <div id="dynamic-winners-board-container" class="space-y-3"></div>
         </div>
 
+        <!-- TAB 4: PROFILE & MASTER ADMIN -->
         <div id="view-tab-profile" class="viewport-tab-content hidden space-y-5">
             <div class="glass-panel p-4 rounded-3xl flex items-center justify-between border border-cyber-cyan/30">
                 <div class="flex items-center gap-3">
@@ -233,6 +242,7 @@
                 <button onclick="SystemModalController.openAuthModal()" id="profile-auth-trigger-btn" class="text-xs text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl font-heading font-bold">Login</button>
             </div>
 
+            <!-- Wallet Engine -->
             <div class="glass-panel-glow p-5 rounded-3xl border border-cyber-cyan/30">
                 <p class="text-xs font-heading font-bold text-slate-400 uppercase">TOTAL WALLET BALANCE</p>
                 <h2 class="font-gaming text-5xl text-cyber-cyan my-1 font-bold">₹<span id="profile-wallet-balance-display">0.00</span></h2>
@@ -242,11 +252,13 @@
                 </div>
             </div>
 
+            <!-- MASTER ADMIN PANEL -->
             <div id="master-admin-panel-container" class="glass-panel p-5 rounded-3xl border border-cyber-accent/50 shadow-neon-accent space-y-5 hidden">
                 <div class="flex items-center justify-between border-b border-cyber-accent/30 pb-2">
                     <span class="text-xs text-cyber-accent font-heading font-extrabold uppercase"><i class="fas fa-user-shield"></i> MASTER ADMIN PANEL</span>
                 </div>
                 
+                <!-- Create Tournament -->
                 <div class="space-y-2">
                     <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">1. CREATE TOURNAMENT</h4>
                     <input type="text" id="admin-input-match-title" placeholder="Match Title (e.g. BGMI Solo Rush)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
@@ -264,6 +276,7 @@
                     <button onclick="SystemAdminEngine.createNewTournamentMatch()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">HOST MATCH LIVE NOW</button>
                 </div>
 
+                <!-- Release Room ID/Pass -->
                 <div class="border-t border-slate-800 pt-3 space-y-2">
                     <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">2. RELEASE ROOM ID & PASS</h4>
                     <select id="admin-select-target-match" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"><option value="">Select Match</option></select>
@@ -275,6 +288,7 @@
         </div>
     </main>
 
+    <!-- AUTH MODAL -->
     <div id="authentication-modal-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
         <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-6 relative border border-cyber-cyan/40">
             <button onclick="SystemModalController.closeAuthModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
@@ -283,13 +297,14 @@
                 <p class="text-[11px] text-slate-400">Enter your credentials below</p>
             </div>
             <div class="space-y-3">
-                <input type="email" id="auth-email-input-field" placeholder="admin@nexus.com or player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
+                <input type="email" id="auth-email-input-field" placeholder="admin@fetalrush.com or player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
                 <input type="password" id="auth-password-input-field" placeholder="Password (admin123 for admin)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
                 <button onclick="SystemAuthEngine.processUserAuthentication()" class="w-full btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">AUTHENTICATE</button>
             </div>
         </div>
     </div>
 
+    <!-- BOTTOM NAVIGATION -->
     <nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-cyber-border py-2 px-6 z-40">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <button onclick="SystemTabController.switchTab('home')" id="nav-btn-home" class="nav-tab-button flex flex-col items-center gap-1 active-tab-icon text-slate-500">
@@ -307,6 +322,7 @@
         </div>
     </nav>
 
+    <!-- CORE JAVASCRIPT ARCHITECTURE -->
     <script>
         const SystemState = {
             currentUser: null,
@@ -316,19 +332,19 @@
             activeCategoryFilter: 'ALL',
 
             initializeState: function() {
-                this.currentUser = JSON.parse(localStorage.getItem('na_user')) || null;
-                this.tournaments = JSON.parse(localStorage.getItem('na_tournaments')) || [
+                this.currentUser = JSON.parse(localStorage.getItem('fr_user')) || null;
+                this.tournaments = JSON.parse(localStorage.getItem('fr_tournaments')) || [
                     { id: 101, title: 'BGMI Erangel Solo Cash', game: 'BGMI', type: 'SOLO', fee: 10, prize: 300, roomId: '', roomPass: '' },
                     { id: 102, title: 'Free Fire Bermuda Squad', game: 'FREE FIRE', type: 'SQUAD', fee: 20, prize: 800, roomId: '', roomPass: '' }
                 ];
-                this.joinedMatches = JSON.parse(localStorage.getItem('na_joined')) || [];
-                this.winners = JSON.parse(localStorage.getItem('na_winners')) || [];
+                this.joinedMatches = JSON.parse(localStorage.getItem('fr_joined')) || [];
+                this.winners = JSON.parse(localStorage.getItem('fr_winners')) || [];
             },
             persistState: function(key) {
-                if (key === 'user') localStorage.setItem('na_user', JSON.stringify(this.currentUser));
-                if (key === 'tournaments') localStorage.setItem('na_tournaments', JSON.stringify(this.tournaments));
-                if (key === 'joined') localStorage.setItem('na_joined', JSON.stringify(this.joinedMatches));
-                if (key === 'winners') localStorage.setItem('na_winners', JSON.stringify(this.winners));
+                if (key === 'user') localStorage.setItem('fr_user', JSON.stringify(this.currentUser));
+                if (key === 'tournaments') localStorage.setItem('fr_tournaments', JSON.stringify(this.tournaments));
+                if (key === 'joined') localStorage.setItem('fr_joined', JSON.stringify(this.joinedMatches));
+                if (key === 'winners') localStorage.setItem('fr_winners', JSON.stringify(this.winners));
             }
         };
 
@@ -374,7 +390,7 @@
 
                 if (!email || !pass) return SystemNotificationEngine.showToast("Email/Password daliye!", "ERROR", true);
 
-                let isAdmin = (email.toLowerCase() === "admin@nexus.com" && pass === "admin123");
+                let isAdmin = (email.toLowerCase() === "admin@fetalrush.com" && pass === "admin123");
                 SystemState.currentUser = { email: email, isAdmin: isAdmin, balance: SystemState.currentUser ? SystemState.currentUser.balance : 50 };
                 SystemState.persistState('user');
                 
@@ -384,7 +400,7 @@
             },
             logoutUserSession: function() {
                 SystemState.currentUser = null;
-                localStorage.removeItem('na_user');
+                localStorage.removeItem('fr_user');
                 SystemUIRenderer.updateUserContextUI();
                 SystemNotificationEngine.showToast("Logged out.");
             }
