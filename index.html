@@ -235,30 +235,28 @@
 
     </main>
 
-    <!-- Login / Gmail Modal -->
+    <!-- Clean Login Modal -->
     <div id="login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
         <div class="glass-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/30">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 text-lg">✕</button>
-            <h3 class="font-bold text-lg text-center mb-1">Login to Fatal Rush</h3>
-            <p class="text-[11px] text-gray-400 text-center mb-4">Enter Admin or User Credentials</p>
+            <h3 class="font-bold text-lg text-center mb-1">Login to Account</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Enter your login details to continue</p>
 
             <!-- Google Login Button -->
             <button onclick="googleLogin()" class="w-full bg-white text-black font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 mb-4 shadow">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Continue with Google (Gmail)
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Continue with Google
             </button>
 
-            <div class="text-center text-[10px] text-gray-500 mb-4">— OR LOGIN WITH ID & PASS —</div>
+            <div class="text-center text-[10px] text-gray-500 mb-4">— OR LOGIN WITH EMAIL —</div>
 
             <div class="space-y-3">
-                <input type="email" id="login-email" placeholder="Email Address (e.g. admin@fatalrush.com)" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
-                <input type="password" id="login-pass" placeholder="Password (e.g. admin123)" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                <input type="email" id="login-email" placeholder="Email Address" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                <input type="password" id="login-pass" placeholder="Password" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
                 
                 <button onclick="processLogin()" class="w-full bg-cyan-500 text-black font-extrabold py-2.5 rounded-xl text-xs shadow-lg shadow-cyan-500/20">
                     LOGIN NOW
                 </button>
             </div>
-            
-            <p class="text-[10px] text-gray-400 text-center mt-3">Admin Access: Email: <b class="text-white">admin@fatalrush.com</b> | Pass: <b class="text-white">admin123</b></p>
         </div>
     </div>
 
@@ -351,10 +349,10 @@
         function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
 
         function googleLogin() {
-            document.getElementById('user-display-name').innerText = "Naitik Singh (Gmail)";
+            document.getElementById('user-display-name').innerText = "Player User";
             document.getElementById('user-display-role').innerText = "Status: Player Logged In";
             document.getElementById('login-btn-top').innerText = "Logged In";
-            alert("Signed in via Gmail Successfully!");
+            alert("Signed in via Google Successfully!");
             closeLoginModal();
         }
 
@@ -362,6 +360,7 @@
             let email = document.getElementById('login-email').value;
             let pass = document.getElementById('login-pass').value;
 
+            // Secret Admin Login Check
             if (email === "admin@fatalrush.com" && pass === "admin123") {
                 isAdmin = true;
                 document.getElementById('user-display-name').innerText = "Fatal Rush Admin";
@@ -373,9 +372,9 @@
                 document.getElementById('user-display-name').innerText = email.split('@')[0];
                 document.getElementById('user-display-role').innerText = "Status: Player Logged In";
                 document.getElementById('login-btn-top').innerText = "Player";
-                alert("Player Login Successful!");
+                alert("Login Successful!");
             } else {
-                alert("Please enter valid credentials!");
+                alert("Please enter valid Email and Password!");
             }
             closeLoginModal();
         }
