@@ -170,6 +170,25 @@
                 <button onclick="handleProfileAuthClick()" id="profile-login-btn" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-3 py-1.5 rounded-lg hover:bg-cyan-500/10 transition-all">Login</button>
             </div>
 
+            <!-- 🎮 GAMER PROFILE DATA (AUTO-DETECT FOR MATCHES) -->
+            <div class="cyber-card p-4 rounded-2xl mb-4 border border-cyan-500/30">
+                <div class="flex items-center justify-between mb-2">
+                    <h3 class="font-heading font-bold text-xs text-cyan-400 uppercase"><i class="fas fa-id-card text-xs mr-1"></i> GAMER PROFILE DETAILS</h3>
+                    <span class="text-[9px] text-gray-400 italic">Auto-detects in matches</span>
+                </div>
+                <div class="space-y-2">
+                    <div>
+                        <label class="text-[9px] text-gray-400 font-heading uppercase block mb-1">In-Game Name (IGN)</label>
+                        <input type="text" id="profile-ign" placeholder="e.g. Fatal_Killer99" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-gray-400 font-heading uppercase block mb-1">Game UID (Character ID)</label>
+                        <input type="text" id="profile-uid" placeholder="e.g. 5182930412" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    </div>
+                    <button onclick="saveGamerProfile()" class="w-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 py-2 rounded-xl text-xs font-heading font-bold hover:bg-cyan-500 hover:text-black transition-all">SAVE GAMER DETAILS</button>
+                </div>
+            </div>
+
             <!-- 👑 FULL MASTER ADMIN PANEL -->
             <div id="admin-panel-box" class="cyber-card p-4 rounded-2xl mb-4 border border-red-500/40 bg-red-950/10 hidden">
                 <span class="text-[10px] bg-red-500/20 text-red-400 font-heading font-bold px-2 py-0.5 rounded border border-red-500/30 uppercase mb-3 inline-block">👑 Pro Admin Creator Hub</span>
@@ -235,6 +254,19 @@
         </div>
     </main>
 
+    <!-- 🔮 MODAL: REGISTERED PLAYERS LIST MODAL -->
+    <div id="players-list-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/40 glow-cyan max-h-[80vh] flex flex-col">
+            <button onclick="closePlayersListModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            <h3 class="font-gaming text-2xl font-bold text-cyan-400 text-center mb-0.5" id="modal-match-title">REGISTERED PLAYERS</h3>
+            <p class="text-[10px] text-gray-400 text-center mb-4">Official Player Roster</p>
+            
+            <div id="modal-players-container" class="overflow-y-auto space-y-2 pr-1 flex-1">
+                <!-- Dynamic Player List items will render here -->
+            </div>
+        </div>
+    </div>
+
     <!-- 🔮 MODAL 1: PHONE NUMBER & OTP LOGIN MODAL -->
     <div id="login-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/40 glow-cyan">
@@ -242,7 +274,6 @@
             <h3 class="font-gaming text-3xl font-bold text-center mb-1">PLAYER LOGIN</h3>
             <p class="text-[11px] text-gray-400 text-center mb-4">Enter Mobile Number to receive OTP</p>
             
-            <!-- STEP 1: Phone Number Box -->
             <div id="otp-step-1" class="space-y-3">
                 <div class="flex items-center bg-black/60 border border-gray-800 rounded-xl px-3 py-1">
                     <span class="text-xs text-gray-400 font-bold border-r border-gray-700 pr-2 mr-2">+91</span>
@@ -251,7 +282,6 @@
                 <button onclick="sendOTP()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-wider">SEND OTP</button>
             </div>
 
-            <!-- STEP 2: OTP Verification Box -->
             <div id="otp-step-2" class="space-y-3 hidden">
                 <div class="bg-cyan-500/10 border border-cyan-500/30 p-2 rounded-xl text-center">
                     <p class="text-[10px] text-cyan-400">OTP Sent to +91 <span id="sent-phone-num"></span></p>
@@ -324,6 +354,8 @@
         let wallet = 0;
         let isLoggedIn = false;
         let isAdmin = false;
+        let gamerIGN = "";
+        let gamerUID = "";
         let currentRoomId = "WAITING...";
         let currentRoomPass = "WAITING...";
         let activeTournaments = [];
@@ -356,6 +388,20 @@
                 if(game === 'all' || card.classList.contains(game)) card.classList.remove('hidden');
                 else card.classList.add('hidden');
             });
+        }
+
+        function saveGamerProfile() {
+            let ign = document.getElementById('profile-ign').value.trim();
+            let uid = document.getElementById('profile-uid').value.trim();
+
+            if(!ign || !uid) {
+                showToast("Enter both IGN and UID!", "PROFILE ERROR", "error");
+                return;
+            }
+
+            gamerIGN = ign;
+            gamerUID = uid;
+            showToast("Gamer Profile Saved!", "SUCCESS", "success");
         }
 
         function openLoginModal() { 
@@ -397,7 +443,7 @@
         function verifyOTP() {
             let otp = document.getElementById('login-otp').value;
             
-            // Admin Number Secret Pass
+            // Admin Login
             if(tempPhone === "9999999999" || otp === "9999") {
                 isAdmin = true;
                 isLoggedIn = true;
@@ -405,7 +451,6 @@
                 document.getElementById('user-display-role').innerText = "Role: Master Admin";
                 document.getElementById('admin-panel-box').classList.remove('hidden');
                 
-                // Set Header & Profile Logout Button
                 updateUIForLoggedInState("👑 LOGOUT");
                 showToast("Admin Panel Unlocked!", "ADMIN LOGIN", "success");
                 closeLoginModal();
@@ -418,7 +463,6 @@
                 document.getElementById('user-display-name').innerText = "PLAYER (+91 " + tempPhone.slice(0,4) + "****)";
                 document.getElementById('user-display-role').innerText = "Status: Phone Verified";
                 
-                // Set Header & Profile Logout Button
                 updateUIForLoggedInState("LOGOUT");
                 showToast("Phone Verified Successfully!", "LOGIN SUCCESS", "success");
                 closeLoginModal();
@@ -442,11 +486,15 @@
             isLoggedIn = false;
             isAdmin = false;
             wallet = 0;
+            gamerIGN = "";
+            gamerUID = "";
             updateWalletDisplay();
 
             document.getElementById('user-display-name').innerText = "GUEST PLAYER";
             document.getElementById('user-display-role').innerText = "Status: Not Logged In";
             document.getElementById('admin-panel-box').classList.add('hidden');
+            document.getElementById('profile-ign').value = '';
+            document.getElementById('profile-uid').value = '';
 
             let topBtn = document.getElementById('login-btn-top');
             let profileBtn = document.getElementById('profile-login-btn');
@@ -476,7 +524,22 @@
 
             if (!title) { showToast("Match Title required!", "ERROR", "error"); return; }
 
-            activeTournaments.push({ id: Date.now(), title, game, type, fee: parseFloat(fee), prize, map, time, image, rules });
+            activeTournaments.push({ 
+                id: Date.now(), 
+                title, 
+                game, 
+                type, 
+                fee: parseFloat(fee), 
+                prize, 
+                map, 
+                time, 
+                image, 
+                rules,
+                players: [
+                    { name: "Fatal_Ghost", uid: "591028301" },
+                    { name: "Pro_RiderX", uid: "882301923" }
+                ] 
+            });
             renderTournaments();
             showToast("Tournament Published Live!", "SUCCESS", "success");
             document.getElementById('host-title').value = '';
@@ -506,11 +569,94 @@
                                 <div><p class="text-gray-500 text-[9px] font-heading">PRIZE POOL</p><p class="font-heading font-extrabold text-cyan-400 text-sm">₹${t.prize}</p></div>
                                 <div><p class="text-gray-500 text-[9px] font-heading">ENTRY FEE</p><p class="font-heading font-extrabold text-emerald-400 text-sm">₹${t.fee}</p></div>
                             </div>
-                            <button onclick="registerMatch(${t.fee}, '${t.title}')" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-wider">REGISTER NOW (₹${t.fee})</button>
+                            <div class="flex gap-2">
+                                <button onclick="viewPlayersList(${t.id})" class="flex-1 bg-gray-800 hover:bg-gray-700 text-cyan-400 font-heading font-bold py-2.5 rounded-xl text-xs border border-gray-700">
+                                    <i class="fas fa-users"></i> ROSTER (${t.players.length})
+                                </button>
+                                <button onclick="registerMatch(${t.id}, ${t.fee}, '${t.title}')" class="flex-2 cyber-btn px-4 py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-wider">
+                                    JOIN (₹${t.fee})
+                                </button>
+                            </div>
                         </div>
                     </div>
                 `;
             });
+        }
+
+        function registerMatch(matchId, fee, title) {
+            if(!isLoggedIn) {
+                showToast("Please Login to register!", "LOGIN REQUIRED", "error");
+                openLoginModal();
+                return;
+            }
+
+            // Check if profile IGN & UID exist
+            let ignInput = document.getElementById('profile-ign').value.trim();
+            let uidInput = document.getElementById('profile-uid').value.trim();
+
+            if (!ignInput || !uidInput) {
+                showToast("First fill In-Game Name & UID in Profile!", "PROFILE INCOMPLETE", "error");
+                switchTab('profile');
+                return;
+            }
+
+            gamerIGN = ignInput;
+            gamerUID = uidInput;
+
+            if (wallet < fee) {
+                showToast("Low Balance! Please add money.", "WALLET", "error");
+                switchTab('profile');
+                openDepositModal();
+            } else {
+                wallet -= fee;
+                updateWalletDisplay();
+
+                // Find match & push auto-detected player details
+                let match = activeTournaments.find(m => m.id === matchId);
+                if(match) {
+                    match.players.push({ name: gamerIGN, uid: gamerUID });
+                }
+
+                myJoinedTournaments.push({ title, room: currentRoomId, pass: currentRoomPass, ign: gamerIGN, uid: gamerUID });
+                renderJoinedMatches();
+                renderTournaments();
+
+                showToast(`Registered as '${gamerIGN}'!`, "REGISTERED", "success");
+            }
+        }
+
+        function viewPlayersList(matchId) {
+            let match = activeTournaments.find(m => m.id === matchId);
+            if(!match) return;
+
+            document.getElementById('modal-match-title').innerText = match.title;
+            const container = document.getElementById('modal-players-container');
+            container.innerHTML = '';
+
+            if(match.players.length === 0) {
+                container.innerHTML = `<p class="text-xs text-center text-gray-500 py-4">No players registered yet.</p>`;
+            } else {
+                match.players.forEach((p, index) => {
+                    container.innerHTML += `
+                        <div class="cyber-card p-2.5 rounded-xl flex items-center justify-between border border-gray-800">
+                            <div class="flex items-center gap-3">
+                                <span class="font-gaming text-cyan-400 font-bold text-lg w-5 text-center">${index + 1}.</span>
+                                <div>
+                                    <h5 class="text-xs font-bold text-white leading-none">${p.name}</h5>
+                                    <p class="text-[9px] text-gray-400 mt-0.5">UID: ${p.uid}</p>
+                                </div>
+                            </div>
+                            <span class="text-[9px] bg-emerald-500/20 text-emerald-400 font-heading font-bold px-2 py-0.5 rounded">READY</span>
+                        </div>
+                    `;
+                });
+            }
+
+            document.getElementById('players-list-modal').classList.remove('hidden');
+        }
+
+        function closePlayersListModal() {
+            document.getElementById('players-list-modal').classList.add('hidden');
         }
 
         function publishRoomDetails() {
@@ -556,25 +702,6 @@
             document.getElementById('player-proof-link').value = '';
         }
 
-        function registerMatch(fee, title) {
-            if(!isLoggedIn) {
-                showToast("Please Login to register!", "LOGIN REQUIRED", "error");
-                openLoginModal();
-                return;
-            }
-            if (wallet < fee) {
-                showToast("Low Balance! Please add money.", "WALLET", "error");
-                switchTab('profile');
-                openDepositModal();
-            } else {
-                wallet -= fee;
-                updateWalletDisplay();
-                myJoinedTournaments.push({ title, room: currentRoomId, pass: currentRoomPass });
-                renderJoinedMatches();
-                showToast("Registered for " + title, "REGISTERED", "success");
-            }
-        }
-
         function renderJoinedMatches() {
             const list = document.getElementById('joined-matches-list');
             if (myJoinedTournaments.length === 0) return;
@@ -584,6 +711,7 @@
                     <div class="cyber-card p-4 rounded-xl text-left border border-cyan-500/40">
                         <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-heading font-bold px-2 py-0.5 rounded">REGISTERED</span>
                         <h4 class="font-heading font-bold text-sm mt-1 text-white">${m.title}</h4>
+                        <p class="text-[10px] text-gray-400">Player: <b class="text-cyan-400">${m.ign}</b> (UID: ${m.uid})</p>
                         <div class="bg-black/60 p-3 rounded-xl mt-3 space-y-1 text-xs border border-gray-800">
                             <p class="text-cyan-400 font-heading font-bold text-xs">ROOM DETAILS:</p>
                             <p class="text-gray-300">Room ID: <b class="text-white">${m.room}</b></p>
