@@ -44,7 +44,7 @@
 </head>
 <body class="pb-24 font-body select-none">
 
-    <!-- Custom Toast Notification -->
+    <!-- Custom Notification Toast -->
     <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 w-[90%] max-w-xs pointer-events-none">
         <div id="toast-box" class="cyber-card p-3 rounded-2xl border border-cyan-500/50 shadow-2xl flex items-center gap-3 backdrop-blur-xl">
             <div id="toast-icon-bg" class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg flex-shrink-0">
@@ -83,10 +83,10 @@
         <!-- TAB 1: HOME -->
         <div id="tab-home" class="tab-content">
             <div class="cyber-card rounded-2xl p-5 mb-5 relative overflow-hidden border border-cyan-500/30 glow-cyan">
-                <span class="bg-red-500/20 text-red-400 text-[10px] font-heading font-bold px-2.5 py-0.5 rounded uppercase border border-red-500/30">🔥 GameX Pro Standard</span>
-                <h2 class="font-gaming text-3xl font-bold tracking-wide mt-1 leading-none text-white">PLAY & WIN DAILY CASH PRIZES</h2>
-                <p class="text-[11px] text-gray-400 mt-1 mb-3">Join tournaments, submit proof & earn instantly.</p>
-                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold py-2 rounded-xl text-xs flex items-center justify-center gap-2">
+                <span class="bg-red-500/20 text-red-400 text-[10px] font-heading font-bold px-2.5 py-0.5 rounded uppercase border border-red-500/30">🔥 Official Pro League</span>
+                <h2 class="font-gaming text-3xl font-bold tracking-wide mt-1 leading-none text-white">PLAY & WIN REAL CASH PRIZES</h2>
+                <p class="text-[11px] text-gray-400 mt-1 mb-3">Join BGMI, Free Fire & COD Tournaments daily.</p>
+                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2">
                     <i class="fab fa-whatsapp text-sm"></i> JOIN OFFICIAL WHATSAPP CHANNEL
                 </a>
             </div>
@@ -115,7 +115,7 @@
             </div>
         </div>
 
-        <!-- TAB 2: MATCHES & PROOF UPLOAD -->
+        <!-- TAB 2: MATCHES -->
         <div id="tab-matches" class="tab-content hidden">
             <h2 class="font-gaming text-2xl font-bold tracking-wider mb-3">MY REGISTERED MATCHES</h2>
             <div id="joined-matches-list" class="space-y-3">
@@ -125,28 +125,28 @@
                 </div>
             </div>
 
-            <!-- Upload Proof Section for Players -->
+            <!-- Upload Proof Section -->
             <div class="cyber-card p-4 rounded-2xl mt-5 border border-cyan-500/30">
-                <h3 class="font-heading font-bold text-xs text-cyan-400 uppercase mb-2">📸 Submit Match Winner Proof</h3>
-                <p class="text-[10px] text-gray-400 mb-3">Agar aap match jeete ho ya kill ka screenshot bhejna hai, toh yahan link/proof submit karein.</p>
+                <h3 class="font-heading font-bold text-xs text-cyan-400 uppercase mb-2"><i class="fas fa-camera"></i> Submit Match Winner Proof</h3>
+                <p class="text-[10px] text-gray-400 mb-3">Match jeetne ke baad screenshot ya kill details yahan submit karein.</p>
                 <div class="space-y-2">
-                    <input type="text" id="player-proof-match" placeholder="Match Name" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <input type="text" id="player-proof-link" placeholder="Screenshot Image URL / Details" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="submitPlayerProof()" class="w-full cyber-btn py-2 rounded-xl text-xs font-heading font-extrabold">SUBMIT PROOF TO ADMIN</button>
+                    <input type="text" id="player-proof-match" placeholder="Match Title" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    <input type="text" id="player-proof-link" placeholder="Screenshot Image URL / Proof Link" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    <button onclick="submitPlayerProof()" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-wider">SUBMIT PROOF TO ADMIN</button>
                 </div>
             </div>
         </div>
 
-        <!-- TAB 3: LEADERBOARD & WINNERS -->
+        <!-- TAB 3: LEADERBOARD -->
         <div id="tab-ranks" class="tab-content hidden">
             <h2 class="font-gaming text-2xl font-bold tracking-wider mb-3">🏆 OFFICIAL WINNERS BOARD</h2>
             <div id="winners-board-list" class="space-y-2">
                 <div class="cyber-card p-3 rounded-xl flex items-center justify-between border-l-2 border-l-yellow-400">
                     <div class="flex items-center gap-3">
-                        <span class="font-gaming text-xl font-bold text-yellow-400">#1</span>
+                        <span class="font-gaming text-xl font-bold text-yellow-400">👑</span>
                         <div>
                             <span class="text-xs font-bold text-white block">Fatal_ProRider</span>
-                            <span class="text-[9px] text-gray-400">Erangel Solo Battle</span>
+                            <span class="text-[9px] text-gray-400">Erangel Solo Cash War</span>
                         </div>
                     </div>
                     <span class="font-heading font-bold text-xs text-cyan-400">₹500 Won</span>
@@ -154,7 +154,7 @@
             </div>
         </div>
 
-        <!-- TAB 4: PROFILE & ADMIN PANEL WITH WINNER DECLARATION -->
+        <!-- TAB 4: PROFILE & ADMIN HUB -->
         <div id="tab-profile" class="tab-content hidden">
             <div class="cyber-card p-4 rounded-2xl mb-4 flex items-center justify-between border border-cyan-500/20">
                 <div class="flex items-center gap-3">
@@ -169,23 +169,21 @@
                 <button onclick="openLoginModal()" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-2.5 py-1 rounded-lg">Login</button>
             </div>
 
-            <!-- 👑 ADMIN PANEL -->
+            <!-- 👑 FULL MASTER ADMIN PANEL -->
             <div id="admin-panel-box" class="cyber-card p-4 rounded-2xl mb-4 border border-red-500/40 bg-red-950/10 hidden">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-[10px] bg-red-500/20 text-red-400 font-heading font-bold px-2 py-0.5 rounded border uppercase">👑 Admin Creator & Winner Hub</span>
-                </div>
+                <span class="text-[10px] bg-red-500/20 text-red-400 font-heading font-bold px-2 py-0.5 rounded border border-red-500/30 uppercase mb-3 inline-block">👑 Pro Admin Creator Hub</span>
                 
-                <!-- Create Tournament -->
+                <!-- 1. Host Tournament -->
                 <h4 class="font-heading font-bold text-xs text-gray-300 mb-2 uppercase">1. Host Tournament</h4>
                 <div class="space-y-2 mb-4">
-                    <input type="text" id="host-title" placeholder="Match Title (e.g. Solo Cash War)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="text" id="host-title" placeholder="Match Title (e.g. Erangel Solo Cash Battle)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <div class="grid grid-cols-2 gap-2">
                         <select id="host-game" class="bg-black/60 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
                             <option value="bgmi">BGMI</option>
                             <option value="ff">FREE FIRE</option>
                             <option value="cod">COD MOBILE</option>
                         </select>
-                        <input type="text" id="host-type" placeholder="Mode (SOLO/SQUAD)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="text" id="host-type" placeholder="Mode (SOLO / SQUAD)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="number" id="host-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
@@ -193,62 +191,76 @@
                     </div>
                     <div class="grid grid-cols-2 gap-2">
                         <input type="text" id="host-map" placeholder="Map" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <input type="text" id="host-time" placeholder="Time" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="text" id="host-time" placeholder="Start Time" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
-                    <input type="text" id="host-image" placeholder="Banner Image URL" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <textarea id="host-rules" rows="2" placeholder="Rules & Details" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white"></textarea>
-                    <button onclick="adminCreateTournament()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-heading font-extrabold py-2 rounded-xl text-xs">PUBLISH TOURNAMENT</button>
+                    <input type="text" id="host-image" placeholder="Banner Image URL Link" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <textarea id="host-rules" rows="2" placeholder="Rules & Tournament Info" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white"></textarea>
+                    <button onclick="adminCreateTournament()" class="w-full bg-cyan-500 text-black font-heading font-extrabold py-2 rounded-xl text-xs">PUBLISH TOURNAMENT LIVE</button>
                 </div>
 
-                <!-- Room Credentials -->
-                <h4 class="font-heading font-bold text-xs text-gray-300 mb-2 uppercase border-t border-gray-800 pt-3">2. Room Credentials</h4>
+                <!-- 2. Room Creds -->
+                <h4 class="font-heading font-bold text-xs text-gray-300 mb-2 uppercase border-t border-gray-800 pt-3">2. Room Credentials Release</h4>
                 <div class="space-y-2 mb-4">
                     <input type="text" id="admin-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <input type="text" id="admin-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <button onclick="publishRoomDetails()" class="w-full bg-red-600 text-white font-heading font-bold py-2 rounded-xl text-xs">RELEASE ROOM CREDS</button>
                 </div>
 
-                <!-- Announce Winner Panel -->
-                <h4 class="font-heading font-bold text-xs text-yellow-400 mb-2 uppercase border-t border-gray-800 pt-3">3. Declare Match Winner 🏆</h4>
-                <div class="space-y-2">
+                <!-- 3. Winner Declare -->
+                <h4 class="font-heading font-bold text-xs text-yellow-400 mb-2 uppercase border-t border-gray-800 pt-3">3. Announce Match Winner 🏆</h4>
+                <div class="space-y-2 mb-4">
                     <input type="text" id="admin-winner-match" placeholder="Tournament Name" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <input type="text" id="admin-winner-name" placeholder="Winner Player Username" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <input type="number" id="admin-winner-prize" placeholder="Prize Won (₹)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                     <button onclick="declareWinner()" class="w-full bg-yellow-500 text-black font-heading font-extrabold py-2 rounded-xl text-xs">ANNOUNCE WINNER LIVE</button>
                 </div>
+
+                <!-- 4. Withdrawal Requests -->
+                <h4 class="font-heading font-bold text-xs text-cyan-400 mb-2 uppercase border-t border-gray-800 pt-3">4. Player Withdrawal Requests</h4>
+                <div id="admin-withdrawal-list" class="space-y-2 text-xs text-gray-400">
+                    <p class="text-[11px] italic text-gray-600">No pending withdrawal requests.</p>
+                </div>
             </div>
 
-            <!-- Wallet -->
+            <!-- Wallet Box -->
             <div class="cyber-card p-5 rounded-2xl mb-4 border border-cyan-500/20">
                 <p class="text-[10px] font-heading text-gray-400">TOTAL WALLET BALANCE</p>
                 <h2 class="font-gaming text-4xl text-cyan-400 leading-none my-1">₹<span id="wallet-balance">0.00</span></h2>
                 <div class="flex gap-2 mt-4">
-                    <button onclick="openDepositModal()" class="flex-1 cyber-btn py-2 rounded-xl text-xs font-heading font-bold"><i class="fas fa-plus-circle"></i> ADD MONEY</button>
-                    <button onclick="withdrawMoney()" class="flex-1 cyber-card text-white py-2 rounded-xl text-xs font-heading font-bold border"><i class="fas fa-arrow-up-from-bracket"></i> WITHDRAW</button>
+                    <button onclick="openDepositModal()" class="flex-1 cyber-btn py-2.5 rounded-xl text-xs font-heading font-bold flex items-center justify-center gap-2"><i class="fas fa-plus-circle"></i> ADD MONEY</button>
+                    <button onclick="openWithdrawModal()" class="flex-1 cyber-card text-white py-2.5 rounded-xl text-xs font-heading font-bold border border-gray-700 flex items-center justify-center gap-2"><i class="fas fa-arrow-up-from-bracket"></i> WITHDRAW</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Login Modal -->
+    <!-- 🔮 MODAL 1: LOGIN MODAL -->
     <div id="login-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/40 glow-cyan">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
-            <h3 class="font-gaming text-3xl font-bold text-center mb-4">PLAYER LOGIN</h3>
+            <h3 class="font-gaming text-3xl font-bold text-center mb-1">PLAYER LOGIN</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Enter credentials to join matches</p>
             <div class="space-y-3">
                 <input type="email" id="login-email" placeholder="Email" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
                 <input type="password" id="login-pass" placeholder="Password" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white">
-                <button onclick="processLogin()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold">LOGIN</button>
+                <button onclick="processLogin()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-wider">LOGIN</button>
             </div>
         </div>
     </div>
 
-    <!-- Deposit Modal -->
+    <!-- 🔮 MODAL 2: DEPOSIT MODAL -->
     <div id="deposit-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
         <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/40 glow-cyan">
             <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
-            <h3 class="font-gaming text-3xl font-bold text-center mb-2">DEPOSIT MONEY</h3>
-            <p class="text-[11px] text-gray-400 text-center mb-4">UPI: <span class="text-cyan-400 font-bold">9910483218@fam</span></p>
+            <h3 class="font-gaming text-3xl font-bold text-center mb-1">ADD MONEY</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-3">Pay via UPI & enter UTR details</p>
+            <div class="bg-black/60 p-3 rounded-xl mb-4 border border-gray-800 text-center">
+                <p class="text-[9px] font-heading text-gray-400 uppercase">OFFICIAL UPI ID</p>
+                <div class="flex items-center justify-center gap-2 mt-1">
+                    <span class="font-heading font-bold text-cyan-400 text-sm">9910483218@fam</span>
+                    <button onclick="copyUpi()" class="bg-gray-800 text-[10px] px-2 py-0.5 rounded text-gray-300 font-bold">Copy</button>
+                </div>
+            </div>
             <div class="space-y-3">
                 <input type="number" id="deposit-amount" placeholder="Amount (₹)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
                 <input type="text" id="deposit-utr" placeholder="12-digit UTR Number" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
@@ -257,7 +269,32 @@
         </div>
     </div>
 
-    <!-- Bottom Nav -->
+    <!-- 🔮 MODAL 3: HIGH-END CYBER WITHDRAWAL MODAL (WHITE PROMPT REPLACED!) -->
+    <div id="withdraw-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/50 glow-cyan">
+            <button onclick="closeWithdrawModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            <div class="text-center mb-4">
+                <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-2xl flex items-center justify-center mx-auto mb-2 text-xl border border-cyan-500/30">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3 class="font-gaming text-3xl font-bold text-white leading-none">WITHDRAW CASH</h3>
+                <p class="text-[11px] text-gray-400 mt-1">Instant Payout to your UPI Account</p>
+            </div>
+            <div class="space-y-3">
+                <div>
+                    <label class="text-[10px] font-heading text-gray-400 uppercase block mb-1">Amount to Withdraw (₹)</label>
+                    <input type="number" id="withdraw-amt-input" placeholder="e.g. 100" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="text-[10px] font-heading text-gray-400 uppercase block mb-1">Your UPI ID (GPay / PhonePe / Paytm)</label>
+                    <input type="text" id="withdraw-upi-input" placeholder="e.g. 9876543210@ybl" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                </div>
+                <button onclick="processWithdrawal()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-wider mt-2">CONFIRM WITHDRAWAL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
     <nav class="fixed bottom-0 left-0 right-0 cyber-card border-t border-cyber-border py-2 px-6 z-40 backdrop-blur-lg">
         <div class="max-w-md mx-auto flex justify-between items-center">
             <button onclick="switchTab('home')" id="btn-home" class="nav-btn flex flex-col items-center gap-1 active-tab text-gray-500"><i class="fas fa-fire text-base"></i><span class="text-[9px] font-heading font-bold">HOME</span></button>
@@ -267,7 +304,7 @@
         </div>
     </nav>
 
-    <!-- JavaScript Script -->
+    <!-- JavaScript Logic -->
     <script>
         let wallet = 0;
         let isAdmin = false;
@@ -275,6 +312,7 @@
         let currentRoomPass = "WAITING...";
         let activeTournaments = [];
         let myJoinedTournaments = [];
+        let withdrawalRequests = [];
 
         function showToast(msg, title = "SYSTEM", type = "cyan") {
             const container = document.getElementById('toast-container');
@@ -316,7 +354,7 @@
                 document.getElementById('user-display-role').innerText = "Role: Master Admin";
                 document.getElementById('admin-panel-box').classList.remove('hidden');
                 document.getElementById('login-btn-top').innerText = "👑 ADMIN";
-                showToast("Admin Panel Unlocked!", "ADMIN", "success");
+                showToast("Admin Panel Unlocked!", "ADMIN LOGIN", "success");
             } else if(email && pass) {
                 document.getElementById('user-display-name').innerText = email.split('@')[0].toUpperCase();
                 document.getElementById('user-display-role').innerText = "Status: Player Verified";
@@ -338,13 +376,13 @@
             let map = document.getElementById('host-map').value || "Erangel";
             let time = document.getElementById('host-time').value || "Today, 8:00 PM";
             let image = document.getElementById('host-image').value || "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80";
-            let rules = document.getElementById('host-rules').value || "Standard rules apply.";
+            let rules = document.getElementById('host-rules').value || "Standard esports rules apply.";
 
             if (!title) { showToast("Match Title required!", "ERROR", "error"); return; }
 
             activeTournaments.push({ id: Date.now(), title, game, type, fee: parseFloat(fee), prize, map, time, image, rules });
             renderTournaments();
-            showToast("Tournament Live!", "SUCCESS", "success");
+            showToast("Tournament Published Live!", "SUCCESS", "success");
             document.getElementById('host-title').value = '';
         }
 
@@ -363,16 +401,16 @@
                         <div class="h-32 w-full relative">
                             <img src="${t.image}" alt="Banner" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#0f101f] via-transparent to-black/40"></div>
-                            <span class="absolute top-2 left-2 bg-black/70 text-cyan-400 text-[10px] font-heading font-bold px-2.5 py-0.5 rounded border">${t.game.toUpperCase()} · ${t.type.toUpperCase()}</span>
+                            <span class="absolute top-2 left-2 bg-black/70 text-cyan-400 text-[10px] font-heading font-bold px-2.5 py-0.5 rounded border border-cyan-500/30">${t.game.toUpperCase()} · ${t.type.toUpperCase()}</span>
                         </div>
                         <div class="p-4">
                             <h4 class="font-heading font-bold text-lg text-white">${t.title}</h4>
                             <p class="text-[11px] text-gray-400 mt-1 mb-3"><i class="fas fa-info-circle text-cyan-400"></i> ${t.rules}</p>
-                            <div class="grid grid-cols-2 gap-2 bg-black/50 p-2.5 rounded-xl mb-3 text-xs border">
-                                <div><p class="text-gray-500 text-[9px] font-heading">PRIZE</p><p class="font-heading font-extrabold text-cyan-400 text-sm">₹${t.prize}</p></div>
-                                <div><p class="text-gray-500 text-[9px] font-heading">FEE</p><p class="font-heading font-extrabold text-emerald-400 text-sm">₹${t.fee}</p></div>
+                            <div class="grid grid-cols-2 gap-2 bg-black/50 p-2.5 rounded-xl mb-3 text-xs border border-gray-900">
+                                <div><p class="text-gray-500 text-[9px] font-heading">PRIZE POOL</p><p class="font-heading font-extrabold text-cyan-400 text-sm">₹${t.prize}</p></div>
+                                <div><p class="text-gray-500 text-[9px] font-heading">ENTRY FEE</p><p class="font-heading font-extrabold text-emerald-400 text-sm">₹${t.fee}</p></div>
                             </div>
-                            <button onclick="registerMatch(${t.fee}, '${t.title}')" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold">REGISTER NOW (₹${t.fee})</button>
+                            <button onclick="registerMatch(${t.fee}, '${t.title}')" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-wider">REGISTER NOW (₹${t.fee})</button>
                         </div>
                     </div>
                 `;
@@ -387,7 +425,6 @@
             showToast("Room Credentials Released!", "SUCCESS", "success");
         }
 
-        // Declare Winner Function (Admin)
         function declareWinner() {
             let match = document.getElementById('admin-winner-match').value;
             let winner = document.getElementById('admin-winner-name').value;
@@ -408,7 +445,7 @@
                     <span class="font-heading font-bold text-xs text-cyan-400">₹${prize} Won</span>
                 </div>
             `;
-            showToast("Winner Announced Successfully!", "SUCCESS", "success");
+            showToast("Winner Announced Live!", "SUCCESS", "success");
             document.getElementById('admin-winner-match').value = '';
             document.getElementById('admin-winner-name').value = '';
             document.getElementById('admin-winner-prize').value = '';
@@ -418,23 +455,22 @@
             let match = document.getElementById('player-proof-match').value;
             let link = document.getElementById('player-proof-link').value;
             if(!match || !link) { showToast("Fill all fields!", "ERROR", "error"); return; }
-            showToast("Screenshot proof sent to Admin!", "SUCCESS", "success");
+            showToast("Proof Sent to Admin!", "SUCCESS", "success");
             document.getElementById('player-proof-match').value = '';
             document.getElementById('player-proof-link').value = '';
         }
 
         function registerMatch(fee, title) {
             if (wallet < fee) {
-                showToast("Insufficient Balance!", "LOW BALANCE", "error");
+                showToast("Low Balance! Please add money.", "WALLET", "error");
                 switchTab('profile');
                 openDepositModal();
             } else {
                 wallet -= fee;
-                document.getElementById('header-balance').innerText = wallet.toFixed(2);
-                document.getElementById('wallet-balance').innerText = wallet.toFixed(2);
+                updateWalletDisplay();
                 myJoinedTournaments.push({ title, room: currentRoomId, pass: currentRoomPass });
                 renderJoinedMatches();
-                showToast("Registered for " + title, "SUCCESS", "success");
+                showToast("Registered for " + title, "REGISTERED", "success");
             }
         }
 
@@ -447,7 +483,7 @@
                     <div class="cyber-card p-4 rounded-xl text-left border border-cyan-500/40">
                         <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-heading font-bold px-2 py-0.5 rounded">REGISTERED</span>
                         <h4 class="font-heading font-bold text-sm mt-1 text-white">${m.title}</h4>
-                        <div class="bg-black/60 p-3 rounded-xl mt-3 space-y-1 text-xs border">
+                        <div class="bg-black/60 p-3 rounded-xl mt-3 space-y-1 text-xs border border-gray-800">
                             <p class="text-cyan-400 font-heading font-bold text-xs">ROOM DETAILS:</p>
                             <p class="text-gray-300">Room ID: <b class="text-white">${m.room}</b></p>
                             <p class="text-gray-300">Password: <b class="text-white">${m.pass}</b></p>
@@ -459,19 +495,72 @@
 
         function openDepositModal() { document.getElementById('deposit-modal').classList.remove('hidden'); }
         function closeDepositModal() { document.getElementById('deposit-modal').classList.add('hidden'); }
+        function copyUpi() { navigator.clipboard.writeText("9910483218@fam"); showToast("UPI Copied!", "COPIED", "success"); }
         function submitDeposit() {
             let amt = document.getElementById('deposit-amount').value;
             let utr = document.getElementById('deposit-utr').value;
             if(!amt || !utr) { showToast("Fill all fields!", "ERROR", "error"); return; }
-            showToast("Proof submitted successfully!", "SUCCESS", "success");
+            showToast("Deposit Proof Submitted!", "SUCCESS", "success");
             closeDepositModal();
         }
-        function withdrawMoney() {
-            let amt = prompt("Withdrawal Amount (₹):", "100");
-            if(amt && !isNaN(amt)) {
-                if(parseFloat(amt) > wallet) showToast("Low wallet balance!", "ERROR", "error");
-                else { wallet -= parseFloat(amt); document.getElementById('header-balance').innerText = wallet.toFixed(2); document.getElementById('wallet-balance').innerText = wallet.toFixed(2); showToast("Withdrawal requested!", "SUCCESS", "success"); }
+
+        // Custom Cyber Withdrawal Modal Functions
+        function openWithdrawModal() { document.getElementById('withdraw-modal').classList.remove('hidden'); }
+        function closeWithdrawModal() { document.getElementById('withdraw-modal').classList.add('hidden'); }
+
+        function processWithdrawal() {
+            let amt = parseFloat(document.getElementById('withdraw-amt-input').value);
+            let upi = document.getElementById('withdraw-upi-input').value;
+
+            if(!amt || !upi) {
+                showToast("Enter Amount and UPI ID!", "ERROR", "error");
+                return;
             }
+
+            if(amt > wallet) {
+                showToast("Insufficient Wallet Balance!", "LOW BALANCE", "error");
+                return;
+            }
+
+            wallet -= amt;
+            updateWalletDisplay();
+
+            // Add request for admin
+            withdrawalRequests.push({ amt, upi, user: document.getElementById('user-display-name').innerText });
+            renderAdminWithdrawals();
+
+            showToast("Withdrawal Request Submitted!", "SUCCESS", "success");
+            closeWithdrawModal();
+            document.getElementById('withdraw-amt-input').value = '';
+            document.getElementById('withdraw-upi-input').value = '';
+        }
+
+        function renderAdminWithdrawals() {
+            const list = document.getElementById('admin-withdrawal-list');
+            if(withdrawalRequests.length === 0) return;
+            list.innerHTML = '';
+            withdrawalRequests.forEach((w, index) => {
+                list.innerHTML += `
+                    <div class="bg-black/60 p-2.5 rounded-xl border border-gray-800 flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-white text-xs">₹${w.amt} ➔ ${w.upi}</p>
+                            <p class="text-[9px] text-gray-500">Player: ${w.user}</p>
+                        </div>
+                        <button onclick="approveWithdrawal(${index})" class="bg-emerald-600 text-white font-bold text-[10px] px-2.5 py-1 rounded">Paid ✓</button>
+                    </div>
+                `;
+            });
+        }
+
+        function approveWithdrawal(index) {
+            withdrawalRequests.splice(index, 1);
+            renderAdminWithdrawals();
+            showToast("Withdrawal Marked as Paid!", "PAID", "success");
+        }
+
+        function updateWalletDisplay() {
+            document.getElementById('header-balance').innerText = wallet.toFixed(2);
+            document.getElementById('wallet-balance').innerText = wallet.toFixed(2);
         }
     </script>
 </body>
