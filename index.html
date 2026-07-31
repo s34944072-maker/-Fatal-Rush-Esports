@@ -172,6 +172,27 @@
                 <button onclick="handleAuthClick()" id="profile-login-btn" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-3 py-1.5 rounded-lg hover:bg-cyan-500/10">Login</button>
             </div>
 
+            <!-- Wallet Box -->
+            <div class="cyber-card p-5 rounded-2xl mb-4 border border-cyan-500/20">
+                <p class="text-[10px] font-heading text-gray-400">TOTAL WALLET BALANCE</p>
+                <h2 class="font-gaming text-4xl text-cyan-400 leading-none my-1">₹<span id="wallet-balance">0.00</span></h2>
+                <div class="flex gap-2 mt-4">
+                    <button onclick="openDepositModal()" class="flex-1 cyber-btn py-2.5 rounded-xl text-xs font-heading font-bold flex items-center justify-center gap-2"><i class="fas fa-plus-circle"></i> ADD MONEY</button>
+                    <button onclick="openWithdrawModal()" class="flex-1 cyber-card text-white py-2.5 rounded-xl text-xs font-heading font-bold border border-gray-700 flex items-center justify-center gap-2"><i class="fas fa-arrow-up-from-bracket"></i> WITHDRAW</button>
+                </div>
+            </div>
+
+            <!-- WhatsApp Community Button -->
+            <div class="cyber-card p-4 rounded-2xl mb-4 border border-emerald-500/30 flex items-center justify-between">
+                <div>
+                    <h4 class="font-heading font-bold text-xs text-emerald-400 uppercase">OFFICIAL WHATSAPP COMMUNITY</h4>
+                    <p class="text-[10px] text-gray-400 mt-0.5">Get instant match Room ID & Password</p>
+                </div>
+                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="bg-emerald-600 text-white px-3 py-1.5 rounded-lg text-xs font-heading font-bold flex items-center gap-1.5">
+                    <i class="fab fa-whatsapp"></i> JOIN
+                </a>
+            </div>
+
             <!-- MULTI-GAME GAMER PROFILES (BGMI, FREE FIRE, COD) -->
             <div class="cyber-card p-4 rounded-2xl mb-4 border border-cyan-500/30">
                 <div class="flex items-center justify-between mb-3">
@@ -257,18 +278,55 @@
                     <button onclick="declareWinner()" class="w-full bg-yellow-500 text-black font-heading font-extrabold py-2 rounded-xl text-xs">ANNOUNCE WINNER LIVE</button>
                 </div>
             </div>
+        </div>
+    </main>
 
-            <!-- Wallet Box -->
-            <div class="cyber-card p-5 rounded-2xl mb-4 border border-cyan-500/20">
-                <p class="text-[10px] font-heading text-gray-400">TOTAL WALLET BALANCE</p>
-                <h2 class="font-gaming text-4xl text-cyan-400 leading-none my-1">₹<span id="wallet-balance">0.00</span></h2>
-                <div class="flex gap-2 mt-4">
-                    <button onclick="showToast('Add money gateway coming soon!', 'INFO')" class="flex-1 cyber-btn py-2.5 rounded-xl text-xs font-heading font-bold flex items-center justify-center gap-2"><i class="fas fa-plus-circle"></i> ADD MONEY</button>
-                    <button onclick="showToast('Withdrawal request system active!', 'INFO')" class="flex-1 cyber-card text-white py-2.5 rounded-xl text-xs font-heading font-bold border border-gray-700 flex items-center justify-center gap-2"><i class="fas fa-arrow-up-from-bracket"></i> WITHDRAW</button>
+    <!-- 💳 ADD MONEY / DEPOSIT UPI MODAL -->
+    <div id="deposit-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/40 glow-cyan">
+            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            <h3 class="font-gaming text-3xl font-bold text-center mb-1">ADD MONEY TO WALLET</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Scan QR or Pay via UPI</p>
+
+            <div class="space-y-3">
+                <div class="bg-black/60 p-3 rounded-xl border border-gray-800">
+                    <label class="text-[10px] text-gray-400 font-bold block mb-1">ADMIN UPI ID</label>
+                    <div class="flex justify-between items-center bg-gray-900 px-3 py-2 rounded-lg border border-gray-700">
+                        <span id="admin-upi-text" class="text-xs font-bold text-cyan-400">fatalrush@upi</span>
+                        <button onclick="copyUpiId()" class="text-xs text-cyan-400 font-bold hover:underline">COPY</button>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <input type="number" id="deposit-amount" placeholder="Enter Amount (e.g. 50)" oninput="updateQrCode()" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    
+                    <!-- Dynamic UPI QR Code Box -->
+                    <div class="text-center p-3 bg-white rounded-xl my-2">
+                        <img id="upi-qr-img" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=fatalrush@upi&pn=FatalRushEsports" alt="Scan QR Code" class="mx-auto w-32 h-32">
+                        <p class="text-[10px] text-black font-bold mt-1">Scan with GPay / PhonePe / Paytm</p>
+                    </div>
+
+                    <input type="text" id="deposit-utr" placeholder="12-Digit UTR / Transaction Ref No." class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                    <button onclick="submitDepositRequest()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-wider">SUBMIT DEPOSIT PAYMENT</button>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+
+    <!-- 💸 WITHDRAWAL MODAL -->
+    <div id="withdraw-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/40 glow-cyan">
+            <button onclick="closeWithdrawModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white">✕</button>
+            <h3 class="font-gaming text-3xl font-bold text-center mb-1">WITHDRAW WINNINGS</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Transfer cash directly to your UPI</p>
+
+            <div class="space-y-3">
+                <input type="number" id="withdraw-amount" placeholder="Enter Amount (Min ₹50)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                <input type="text" id="withdraw-upi" placeholder="Your UPI ID (e.g. 9876543210@paytm)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyan-500 focus:outline-none">
+                <button onclick="submitWithdrawRequest()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-wider">SUBMIT WITHDRAWAL REQUEST</button>
+            </div>
+        </div>
+    </div>
 
     <!-- 🌐 ADVANCED MULTI-OPTION LOGIN MODAL -->
     <div id="login-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
@@ -327,7 +385,7 @@
         </div>
     </nav>
 
-    <!-- Complete JavaScript Logic -->
+    <!-- JavaScript Logic -->
     <script>
         let wallet = 0;
         let isLoggedIn = false;
@@ -360,11 +418,56 @@
             document.getElementById('btn-' + tabName).classList.add('active-tab');
         }
 
-        function openLoginModal() { 
-            document.getElementById('login-modal').classList.remove('hidden'); 
+        function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
+        function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
+
+        function openDepositModal() {
+            if(!isLoggedIn) { openLoginModal(); return; }
+            document.getElementById('deposit-modal').classList.remove('hidden');
         }
-        function closeLoginModal() { 
-            document.getElementById('login-modal').classList.add('hidden'); 
+        function closeDepositModal() { document.getElementById('deposit-modal').classList.add('hidden'); }
+
+        function openWithdrawModal() {
+            if(!isLoggedIn) { openLoginModal(); return; }
+            document.getElementById('withdraw-modal').classList.remove('hidden');
+        }
+        function closeWithdrawModal() { document.getElementById('withdraw-modal').classList.add('hidden'); }
+
+        function copyUpiId() {
+            navigator.clipboard.writeText("fatalrush@upi");
+            showToast("UPI ID Copied to Clipboard!", "COPIED");
+        }
+
+        function updateQrCode() {
+            let amt = document.getElementById('deposit-amount').value || "0";
+            let qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=fatalrush@upi%26pn=FatalRushEsports%26am=${amt}%26cu=INR`;
+            document.getElementById('upi-qr-img').src = qrUrl;
+        }
+
+        function submitDepositRequest() {
+            let amt = document.getElementById('deposit-amount').value;
+            let utr = document.getElementById('deposit-utr').value;
+            if(!amt || !utr) {
+                showToast("Enter Amount & Transaction UTR No.!", "ERROR");
+                return;
+            }
+            closeDepositModal();
+            showToast(`Deposit of ₹${amt} submitted! Pending Admin Verification.`, "SUCCESS");
+        }
+
+        function submitWithdrawRequest() {
+            let amt = document.getElementById('withdraw-amount').value;
+            let upi = document.getElementById('withdraw-upi').value;
+            if(!amt || !upi) {
+                showToast("Enter Withdrawal Amount & UPI ID!", "ERROR");
+                return;
+            }
+            if(Number(amt) > wallet) {
+                showToast("Insufficient balance in wallet!", "ERROR");
+                return;
+            }
+            closeWithdrawModal();
+            showToast(`Withdrawal of ₹${amt} requested to ${upi}`, "REQUEST SENT");
         }
 
         function switchLoginMode(mode) {
@@ -468,7 +571,7 @@
             profileBtn.className = "text-xs text-red-400 font-heading font-bold border border-red-500/30 px-3 py-1.5 rounded-lg hover:bg-red-500/10";
         }
 
-        function saveGamerProfile() {
+        function saveGramerProfile() {
             userGamerProfile.bgmi.ign = document.getElementById('bgmi-ign').value.trim();
             userGamerProfile.bgmi.uid = document.getElementById('bgmi-uid').value.trim();
             userGamerProfile.ff.ign = document.getElementById('ff-ign').value.trim();
