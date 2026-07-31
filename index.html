@@ -1,1117 +1,564 @@
-<!DOCTYPE html>
-<html lang="en" class="dark">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>FATAL RUSH - Ultimate Esports Engine</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Pro Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Gaming Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        gaming: ['Teko', 'sans-serif'],
-                        heading: ['Rajdhani', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        cyber: {
-                            base: '#030408',
-                            surface: '#090b14',
-                            card: '#0f1322',
-                            border: '#1a2238',
-                            hover: '#222d4a',
-                            cyan: '#00f2fe',
-                            blue: '#4facfe',
-                            accent: '#ff0055',
-                            gold: '#ffb703',
-                            emerald: '#10b981',
-                            purple: '#8b5cf6'
-                        }
-                    },
-                    boxShadow: {
-                        'neon-cyan': '0 0 25px rgba(0, 242, 254, 0.3)',
-                        'neon-accent': '0 0 25px rgba(255, 0, 85, 0.3)',
-                        'neon-gold': '0 0 25px rgba(255, 183, 3, 0.3)',
-                        'cyber-inset': 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.6)'
-                    }
-                }
+import React, { useState } from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  ScrollView,
+  TextInput,
+  Image,
+  SafeAreaView,
+  StatusBar,
+  Modal,
+  Alert,
+} from 'react-native';
+
+export default function App() {
+  // Navigation & User Auth States
+  const [currentTab, setCurrentTab] = useState('Home'); // Home, Wallet, Profile
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const [authScreen, setAuthScreen] = useState('Login'); // Login, SignUp
+
+  // Profile Data
+  const [profile, setProfile] = useState({
+    name: 'Rajput',
+    email: 'user@nexus.com',
+    bgmiId: '582194301',
+    freeFireId: '2548917831',
+    avatar: '🦁',
+  });
+
+  // Wallet Data
+  const [balance, setBalance] = useState(0);
+  const [addMoneyModal, setAddMoneyModal] = useState(false);
+  const [depositAmount, setDepositAmount] = useState('');
+
+  // Tournaments Data
+  const [activeCategory, setActiveCategory] = useState('ALL');
+  const [tournaments, setTournaments] = useState([
+    {
+      id: '1',
+      game: 'BGMI',
+      type: 'SQUAD',
+      title: 'Pro Scrim Showdown',
+      round: 'Round 1 - Erangel',
+      date: '22 Jul, 06:00 pm',
+      entryFee: 2,
+      prizePool: 500,
+      totalSlots: 100,
+      filledSlots: 64,
+      image: 'https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=400',
+    },
+    {
+      id: '2',
+      game: 'FREE FIRE',
+      type: 'SQUAD',
+      title: 'Free Fire Firestorm',
+      round: 'Round 1 - Bermuda',
+      date: '23 Jul, 07:00 pm',
+      entryFee: 2,
+      prizePool: 800,
+      totalSlots: 100,
+      filledSlots: 78,
+      image: 'https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=400',
+    },
+    {
+      id: '3',
+      game: 'BGMI',
+      type: 'SQUAD TPP',
+      title: 'Friday Night Clash',
+      round: 'Round 1 - Miramar',
+      date: '25 Jul, 08:00 pm',
+      entryFee: 2,
+      prizePool: 1500,
+      totalSlots: 100,
+      filledSlots: 41,
+      image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=400',
+    },
+  ]);
+
+  const [joinedMatches, setJoinedMatches] = useState([]);
+
+  // Filter Tournaments
+  const filteredTournaments = tournaments.filter((item) => {
+    if (activeCategory === 'ALL') return true;
+    return item.game === activeCategory;
+  });
+
+  // Join Tournament Handler
+  const handleJoinTournament = (match) => {
+    if (balance < match.entryFee) {
+      Alert.alert('Insufficient Balance', 'Kripya wallet me paise add karein match join karne ke liye.');
+      return;
+    }
+    if (joinedMatches.some((m) => m.id === match.id)) {
+      Alert.alert('Already Joined', 'Aapne yeh match pehle se join kar rakha hai.');
+      return;
+    }
+
+    setBalance(balance - match.entryFee);
+    setJoinedMatches([...joinedMatches, match]);
+    setTournaments(
+      tournaments.map((t) =>
+        t.id === match.id ? { ...t, filledSlots: t.filledSlots + 1 } : t
+      )
+    );
+    Alert.alert('Success!', `${match.title} me entry successfully ho gayi hai!`);
+  };
+
+  // Add Money Handler
+  const handleAddMoney = () => {
+    const amt = parseFloat(depositAmount);
+    if (isNaN(amt) || amt <= 0) {
+      Alert.alert('Invalid Amount', 'Sahi amount enter karein.');
+      return;
+    }
+    setBalance(balance + amt);
+    setDepositAmount('');
+    setAddMoneyModal(false);
+    Alert.alert('Wallet Updated', `₹${amt} aapke wallet me add ho gaye hain.`);
+  };
+
+  // Auth Screen Render
+  if (!isLoggedIn) {
+    return (
+      <SafeAreaView style={styles.authContainer}>
+        <StatusBar barStyle="light-content" backgroundColor="#0B0E14" />
+        <View style={styles.authBox}>
+          <Text style={styles.authTitle}>
+            {authScreen === 'Login' ? 'Welcome to, Login' : 'Welcome to, Sign Up'}
+          </Text>
+
+          <TextInput
+            placeholder="Email / Mobile No / Username"
+            placeholderTextColor="#6B7280"
+            style={styles.input}
+          />
+          <TextInput
+            placeholder="Password"
+            placeholderTextColor="#6B7280"
+            secureTextEntry
+            style={styles.input}
+          />
+
+          {authScreen === 'SignUp' && (
+            <>
+              <TextInput
+                placeholder="In-Game Name (IGN)"
+                placeholderTextColor="#6B7280"
+                style={styles.input}
+              />
+              <TextInput
+                placeholder="BGMI Character ID"
+                placeholderTextColor="#6B7280"
+                style={styles.input}
+              />
+            </>
+          )}
+
+          <TouchableOpacity
+            style={styles.mainBtn}
+            onPress={() => setIsLoggedIn(true)}
+          >
+            <Text style={styles.mainBtnText}>
+              {authScreen === 'Login' ? 'LOGIN' : 'SIGN UP'}
+            </Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            onPress={() =>
+              setAuthScreen(authScreen === 'Login' ? 'SignUp' : 'Login')
             }
-        }
-    </script>
-    
-    <style>
-        /* Base Engine Reset and Core Styles */
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        
-        body {
-            background-color: #030408;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-
-        /* Typography Helper Classes */
-        .font-gaming { font-family: 'Teko', sans-serif; }
-        .font-heading { font-family: 'Rajdhani', sans-serif; }
-
-        /* Custom UI Components & Layout Utilities */
-        .glass-panel {
-            background: linear-gradient(135deg, rgba(15, 19, 34, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid #1a2238;
-        }
-
-        .glass-panel-glow {
-            background: linear-gradient(135deg, rgba(15, 19, 34, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
-        }
-
-        .btn-gradient-cyan {
-            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
-            color: #030408;
-            font-weight: 800;
-            transition: all 0.2s ease;
-        }
-
-        .btn-gradient-cyan:active {
-            transform: scale(0.97);
-            filter: brightness(0.9);
-        }
-
-        .btn-gradient-accent {
-            background: linear-gradient(90deg, #ff0055 0%, #ff5500 100%);
-            color: #ffffff;
-            font-weight: 800;
-            transition: all 0.2s ease;
-        }
-
-        .btn-gradient-accent:active {
-            transform: scale(0.97);
-            filter: brightness(0.9);
-        }
-
-        .active-tab-icon {
-            color: #00f2fe !important;
-            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.8));
-        }
-
-        .active-tab-text {
-            color: #00f2fe !important;
-            font-weight: 700 !important;
-        }
-
-        /* Custom Smooth Scrollbar */
-        ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #030408;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1a2238;
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #00f2fe;
-        }
-
-        /* Custom Dynamic Pulse Effect */
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.4; }
-            50% { opacity: 0.8; }
-        }
-        .animate-cyber-pulse {
-            animation: pulseGlow 2.5s infinite ease-in-out;
-        }
-    </style>
-</head>
-<body class="pb-28">
-
-    <!-- ================================================================= -->
-    <!-- 1. GLOBAL SYSTEM NOTIFICATION ENGINE (TOAST DISPATCHER)          -->
-    <!-- ================================================================= -->
-    <div id="toast-dispatcher-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-32 opacity-0 transition-all duration-300 w-[92%] max-w-md pointer-events-none">
-        <div id="toast-card-element" class="glass-panel p-4 rounded-2xl border flex items-center gap-3 shadow-2xl backdrop-blur-2xl">
-            <div id="toast-icon-container" class="w-11 h-11 rounded-xl bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0 border border-cyber-cyan/30">
-                <i id="toast-main-icon" class="fas fa-shield-alt"></i>
-            </div>
-            <div class="flex-1 overflow-hidden">
-                <h4 id="toast-heading-text" class="font-heading font-bold text-sm text-white leading-none tracking-wider uppercase">SYSTEM NOTIFICATION</h4>
-                <p id="toast-body-text" class="text-xs text-slate-300 mt-1 leading-tight truncate"></p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- 2. APPLICATION TOP NAVIGATION HEADER                             -->
-    <!-- ================================================================= -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-cyber-border px-4 py-3 flex items-center justify-between">
-        <!-- Brand Identity -->
-        <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-blue to-cyber-purple p-[1.5px] shadow-neon-cyan">
-                <div class="w-full h-full bg-cyber-base rounded-xl flex items-center justify-center font-gaming text-2xl text-cyber-cyan font-bold tracking-widest">
-                    FR
-                </div>
-            </div>
-            <div class="flex flex-col">
-                <h1 class="font-gaming text-3xl font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple">
-                    FATAL RUSH
-                </h1>
-                <p class="text-[9px] font-heading text-cyber-cyan/80 tracking-widest font-extrabold uppercase -mt-1">
-                    PRO ESPORTS ARENA ENGINE
-                </p>
-            </div>
-        </div>
-        
-        <!-- Header Controls -->
-        <div class="flex items-center gap-2">
-            <!-- Auth Status Trigger -->
-            <button onclick="SystemModalController.openAuthModal()" id="header-auth-trigger" class="bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl text-xs font-heading font-bold hover:bg-cyber-cyan/20 transition-all flex items-center gap-1.5">
-                <i class="fas fa-sign-in-alt"></i>
-                <span id="header-auth-btn-label">LOGIN</span>
-            </button>
-            
-            <!-- Quick Balance Widget -->
-            <button onclick="SystemTabController.switchTab('profile')" class="glass-panel px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 border border-cyber-cyan/30">
-                <div class="w-2 h-2 rounded-full bg-cyber-emerald animate-ping"></div>
-                <i class="fas fa-wallet text-cyber-cyan"></i>
-                <span class="font-heading text-sm text-white">₹<span id="header-user-wallet-balance">0.00</span></span>
-            </button>
-        </div>
-    </header>
-
-    <!-- ================================================================= -->
-    <!-- 3. MAIN INTERACTIVE CONTENT VIEWPORTS CONTAINER                  -->
-    <!-- ================================================================= -->
-    <main class="p-4 max-w-md mx-auto space-y-6">
-
-        <!-- ============================================================= -->
-        <!-- VIEW 1: HOME DASHBOARD & MATCH ENGINE                          -->
-        <!-- ============================================================= -->
-        <div id="view-tab-home" class="viewport-tab-content space-y-5">
-            
-            <!-- Dynamic Promotional Hero Carousel Banner -->
-            <div class="glass-panel-glow rounded-3xl p-5 relative overflow-hidden">
-                <div class="absolute -right-8 -bottom-8 text-cyber-cyan/5 text-9xl font-gaming pointer-events-none select-none">
-                    ARENA
-                </div>
-                
-                <div class="flex items-center justify-between mb-2">
-                    <span class="bg-cyber-accent/20 text-cyber-accent text-[10px] font-heading font-extrabold px-3 py-0.5 rounded-md border border-cyber-accent/30 uppercase tracking-widest flex items-center gap-1">
-                        <i class="fas fa-fire"></i> DAILY CASH TOURNAMENTS
-                    </span>
-                    <span class="text-[10px] font-heading text-slate-400 font-bold tracking-wider">
-                        SEASON 12
-                    </span>
-                </div>
-
-                <h2 class="font-gaming text-4xl font-bold text-white leading-none tracking-wide">
-                    COMPETE & WIN REAL PRIZES
-                </h2>
-                <p class="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">
-                    Automated esports hosting engine for BGMI, Free Fire Max, and Call of Duty Mobile.
-                </p>
-
-                <div class="grid grid-cols-2 gap-2 mb-4">
-                    <div class="bg-black/40 p-2.5 rounded-xl border border-cyber-border text-center">
-                        <p class="text-[10px] font-heading text-slate-400 font-bold uppercase">TOTAL WINNINGS DISBURSED</p>
-                        <p class="font-gaming text-2xl text-cyber-gold font-bold leading-none mt-0.5">₹2,50,000+</p>
-                    </div>
-                    <div class="bg-black/40 p-2.5 rounded-xl border border-cyber-border text-center">
-                        <p class="text-[10px] font-heading text-slate-400 font-bold uppercase">REGISTERED PLAYERS</p>
-                        <p class="font-gaming text-2xl text-cyber-cyan font-bold leading-none mt-0.5">15,000+</p>
-                    </div>
-                </div>
-                
-                <a href="https://whatsapp.com" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold py-3 rounded-2xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-950/50 transition-all uppercase tracking-wider">
-                    <i class="fab fa-whatsapp text-lg"></i> JOIN OFFICIAL WHATSAPP COMMUNITY
-                </a>
-            </div>
-
-            <!-- Game Category Filters -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-                <button onclick="SystemTournamentEngine.filterGameCategory('ALL')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-cyber-cyan border-cyber-cyan/50 whitespace-nowrap">
-                    🎮 ALL GAMES
-                </button>
-                <button onclick="SystemTournamentEngine.filterGameCategory('BGMI')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap hover:text-white">
-                    🔫 BGMI
-                </button>
-                <button onclick="SystemTournamentEngine.filterGameCategory('FREE FIRE')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap hover:text-white">
-                    🔥 FREE FIRE
-                </button>
-                <button onclick="SystemTournamentEngine.filterGameCategory('COD')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap hover:text-white">
-                    🎯 COD MOBILE
-                </button>
-            </div>
-
-            <!-- Match Section Header -->
-            <div class="flex items-center justify-between">
-                <h3 class="font-heading font-bold text-xs text-slate-400 tracking-widest uppercase flex items-center gap-2">
-                    <i class="fas fa-gamepad text-cyber-cyan"></i> LIVE & UPCOMING MATCHES
-                </h3>
-                <span id="live-match-counter-badge" class="text-[10px] bg-cyber-cyan/10 text-cyber-cyan px-2.5 py-0.5 rounded-full border border-cyber-cyan/30 font-bold font-heading">
-                    0 ACTIVE
-                </span>
-            </div>
-
-            <!-- Empty State Fallback Screen -->
-            <div id="fallback-no-tournaments-view" class="glass-panel p-10 rounded-3xl text-center border border-dashed border-slate-800">
-                <div class="w-16 h-16 rounded-2xl bg-slate-900 border border-slate-800 text-slate-600 flex items-center justify-center text-2xl mx-auto mb-3 animate-cyber-pulse">
-                    <i class="fas fa-trophy"></i>
-                </div>
-                <h4 class="font-heading font-bold text-base text-slate-300 uppercase tracking-wider">NO MATCHES HOSTED CURRENTLY</h4>
-                <p class="text-xs text-slate-500 mt-1 max-w-xs mx-auto">
-                    The admin panel has not published any active tournaments yet. Check back soon!
-                </p>
-            </div>
-
-            <!-- Dynamic Tournament List Container -->
-            <div id="dynamic-tournament-cards-container" class="space-y-4"></div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- VIEW 2: REGISTERED MATCHES & PRIVATE ROOM ACCESS               -->
-        <!-- ============================================================= -->
-        <div id="view-tab-matches" class="viewport-tab-content hidden space-y-5">
-            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-                <div>
-                    <h2 class="font-gaming text-3xl font-bold text-white tracking-wide leading-none">MY REGISTERED MATCHES</h2>
-                    <p class="text-[11px] text-slate-400 font-heading">EXCLUSIVE PLAYER SLOT ACCESS</p>
-                </div>
-                <span class="text-xs bg-cyber-purple/20 text-cyber-purple font-heading font-bold px-2.5 py-1 rounded-lg border border-cyber-purple/30">
-                    SLOTS LOCKED
-                </span>
-            </div>
-
-            <!-- Dynamic Registered Matches Container -->
-            <div id="dynamic-joined-matches-container" class="space-y-4">
-                <div class="glass-panel p-8 rounded-3xl text-center border border-slate-800 text-slate-400">
-                    <i class="fas fa-ticket-alt text-4xl text-slate-700 mb-2"></i>
-                    <p class="text-xs">Aapne abhi tak kisi bhi tournament mein spot register nahi kiya hai.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- VIEW 3: LEADERBOARD & WINNERS ARCHIVE                          -->
-        <!-- ============================================================= -->
-        <div id="view-tab-ranks" class="viewport-tab-content hidden space-y-5">
-            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-                <div>
-                    <h2 class="font-gaming text-3xl font-bold text-white tracking-wide leading-none">🏆 HALL OF FAME</h2>
-                    <p class="text-[11px] text-cyber-gold font-heading font-bold">VERIFIED TOURNAMENT WINNERS</p>
-                </div>
-                <span class="text-xs bg-cyber-gold/20 text-cyber-gold font-heading font-bold px-2.5 py-1 rounded-lg border border-cyber-gold/30">
-                    OFFICIAL
-                </span>
-            </div>
-
-            <div id="dynamic-winners-board-container" class="space-y-3">
-                <div class="glass-panel p-4 rounded-2xl border border-cyber-gold/30 flex items-center justify-between shadow-neon-gold">
-                    <div class="flex items-center gap-3">
-                        <div class="w-11 h-11 rounded-xl bg-cyber-gold/20 text-cyber-gold flex items-center justify-center text-2xl font-bold border border-cyber-gold/40">
-                            👑
-                        </div>
-                        <div>
-                            <h4 class="font-heading font-bold text-base text-white leading-none">Fatal_ProRider</h4>
-                            <p class="text-[10px] text-slate-400 mt-1">Erangel Solo Cash War • 14 Kills</p>
-                        </div>
-                    </div>
-                    <span class="font-gaming text-3xl font-bold text-cyber-gold">₹500 WON</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- ============================================================= -->
-        <!-- VIEW 4: USER PROFILE, WALLET & MASTER ADMIN ENGINE             -->
-        <!-- ============================================================= -->
-        <div id="view-tab-profile" class="viewport-tab-content hidden space-y-5">
-            
-            <!-- Gamer Identity Profile Header -->
-            <div class="glass-panel p-4 rounded-3xl flex items-center justify-between border border-cyber-cyan/30">
-                <div class="flex items-center gap-3">
-                    <div class="w-14 h-14 bg-gradient-to-tr from-cyber-purple via-cyber-accent to-cyber-cyan rounded-2xl flex items-center justify-center text-white text-2xl shadow-lg p-[1px]">
-                        <div class="w-full h-full bg-cyber-base rounded-2xl flex items-center justify-center">
-                            <i class="fas fa-user-shield text-cyber-cyan"></i>
-                        </div>
-                    </div>
-                    <div>
-                        <h3 class="font-heading font-bold text-lg text-white leading-none" id="user-profile-display-name">
-                            GUEST PLAYER
-                        </h3>
-                        <p class="text-[11px] text-slate-400 mt-1" id="user-profile-display-role">
-                            Status: Not Authenticated
-                        </p>
-                    </div>
-                </div>
-                <button onclick="SystemModalController.openAuthModal()" id="profile-auth-trigger-btn" class="text-xs text-cyber-cyan border border-cyber-cyan/30 px-3 py-2 rounded-xl font-heading font-bold hover:bg-cyber-cyan/10 transition-all">
-                    Login
-                </button>
-            </div>
-
-            <!-- Wallet Engine Dashboard -->
-            <div class="glass-panel-glow p-5 rounded-3xl border border-cyber-cyan/30">
-                <div class="flex justify-between items-center">
-                    <p class="text-xs font-heading font-bold text-slate-400 uppercase tracking-widest">
-                        TOTAL WALLET BALANCE
-                    </p>
-                    <span class="text-[10px] bg-cyber-emerald/20 text-cyber-emerald px-2.5 py-0.5 rounded-full border border-cyber-emerald/30 font-bold">
-                        VERIFIED SECURE
-                    </span>
-                </div>
-
-                <h2 class="font-gaming text-6xl text-cyber-cyan my-1 font-bold tracking-wide">
-                    ₹<span id="profile-wallet-balance-display">0.00</span>
-                </h2>
-                
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <button onclick="SystemWalletEngine.handleAddMoneyTrigger()" class="btn-gradient-cyan py-3.5 rounded-2xl text-xs font-heading font-extrabold tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-cyber-cyan/20 uppercase">
-                        <i class="fas fa-plus-circle text-base"></i> ADD MONEY
-                    </button>
-                    <button onclick="SystemWalletEngine.handleWithdrawalTrigger()" class="glass-panel py-3.5 rounded-2xl text-xs font-heading font-bold text-white border border-slate-700 hover:border-slate-500 flex items-center justify-center gap-2 uppercase">
-                        <i class="fas fa-arrow-alt-circle-up text-cyber-cyan text-base"></i> WITHDRAW
-                    </button>
-                </div>
-            </div>
-
-            <!-- Gamer In-Game Identity Form -->
-            <div class="glass-panel p-5 rounded-3xl border border-slate-800 space-y-4">
-                <h4 class="font-heading font-bold text-xs text-slate-300 uppercase tracking-wider flex items-center gap-2 border-b border-slate-800 pb-2">
-                    <i class="fas fa-id-card text-cyber-cyan"></i> GAMER IN-GAME CREDENTIALS
-                </h4>
-                
-                <div class="space-y-3">
-                    <div>
-                        <label class="text-[10px] text-slate-400 font-bold block mb-1 uppercase">BGMI IN-GAME NAME & ID</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="gamer-bgmi-ign-input" placeholder="IGN (e.g. FatalRider)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                            <input type="text" id="gamer-bgmi-uid-input" placeholder="Character UID" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <label class="text-[10px] text-slate-400 font-bold block mb-1 uppercase">FREE FIRE MAX NAME & UID</label>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="gamer-ff-ign-input" placeholder="FF Name" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                            <input type="text" id="gamer-ff-uid-input" placeholder="FF UID" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                        </div>
-                    </div>
-
-                    <button onclick="SystemProfileEngine.saveGamerProfileDetails()" class="w-full bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 py-3 rounded-xl text-xs font-heading font-bold hover:bg-cyber-cyan/20 transition-all uppercase tracking-wider">
-                        SAVE GAMER IDENTITIES
-                    </button>
-                </div>
-            </div>
-
-            <!-- ========================================================= -->
-            <!-- SECURE MASTER ADMIN ENGINE (RESTRICTED TO ADMIN)           -->
-            <!-- ========================================================= -->
-            <div id="master-admin-panel-container" class="glass-panel p-5 rounded-3xl border border-cyber-accent/50 shadow-neon-accent space-y-6 hidden">
-                
-                <!-- Admin Header -->
-                <div class="flex items-center justify-between border-b border-cyber-accent/30 pb-3">
-                    <span class="text-xs bg-cyber-accent/20 text-cyber-accent font-heading font-extrabold px-3 py-1 rounded-lg border border-cyber-accent/40 uppercase tracking-widest flex items-center gap-2">
-                        <i class="fas fa-user-shield"></i> MASTER ADMIN CONTROL ENGINE
-                    </span>
-                    <span class="text-[10px] text-slate-400 font-mono">v4.2 PRO</span>
-                </div>
-                
-                <!-- Admin Section 1: Publish Tournament -->
-                <div class="space-y-3">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-plus-circle text-cyber-accent"></i> 1. PUBLISH NEW TOURNAMENT MATCH
-                    </h4>
-                    
-                    <div class="space-y-2.5">
-                        <input type="text" id="admin-input-match-title" placeholder="Match Title (e.g. Erangel Solo Cash War)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-accent focus:outline-none">
-                        
-                        <div class="grid grid-cols-2 gap-2">
-                            <select id="admin-input-game-title" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-accent focus:outline-none">
-                                <option value="BGMI">BGMI</option>
-                                <option value="FREE FIRE">FREE FIRE</option>
-                                <option value="COD">CALL OF DUTY</option>
-                            </select>
-                            <input type="text" id="admin-input-match-type" placeholder="Mode (SOLO / DUO / SQUAD)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-accent focus:outline-none">
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="number" id="admin-input-entry-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-accent focus:outline-none">
-                            <input type="number" id="admin-input-prize-pool" placeholder="Prize Pool (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-accent focus:outline-none">
-                        </div>
-
-                        <button onclick="SystemAdminEngine.createNewTournamentMatch()" class="w-full btn-gradient-accent py-3 rounded-xl text-xs font-heading font-extrabold uppercase tracking-wider shadow-lg">
-                            PUBLISH TOURNAMENT LIVE NOW
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Admin Section 2: Release Room Credentials -->
-                <div class="border-t border-slate-800 pt-5 space-y-3">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-key text-cyber-cyan"></i> 2. RELEASE ROOM ID & PASS TO PLAYERS
-                    </h4>
-                    
-                    <div class="space-y-2.5">
-                        <select id="admin-select-target-match" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none">
-                            <option value="">Select Target Match</option>
-                        </select>
-                        <input type="text" id="admin-input-room-id" placeholder="Enter Room ID" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none">
-                        <input type="text" id="admin-input-room-pass" placeholder="Enter Room Password" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-cyan focus:outline-none">
-                        
-                        <button onclick="SystemAdminEngine.releaseRoomCredentials()" class="w-full bg-cyber-cyan hover:bg-cyber-blue text-black font-heading font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider transition-all">
-                            RELEASE ROOM CREDS TO REGISTERED SLOTS
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Admin Section 3: Announce Winners -->
-                <div class="border-t border-slate-800 pt-5 space-y-3">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase tracking-wider flex items-center gap-1.5">
-                        <i class="fas fa-crown text-cyber-gold"></i> 3. ANNOUNCE OFFICIAL MATCH WINNER
-                    </h4>
-                    
-                    <div class="space-y-2.5">
-                        <input type="text" id="admin-winner-match-title" placeholder="Match Title" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-gold focus:outline-none">
-                        <input type="text" id="admin-winner-player-name" placeholder="Winner In-Game Name" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-gold focus:outline-none">
-                        <input type="number" id="admin-winner-prize-amount" placeholder="Prize Amount Won (₹)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2.5 text-xs text-white focus:border-cyber-gold focus:outline-none">
-                        
-                        <button onclick="SystemAdminEngine.publishMatchWinner()" class="w-full bg-cyber-gold hover:bg-yellow-400 text-black font-heading font-extrabold py-3 rounded-xl text-xs uppercase tracking-wider transition-all">
-                            PUBLISH WINNER ON LEADERBOARD
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- ================================================================= -->
-    <!-- 4. AUTHENTICATION & LOGIN MODAL OVERLAY                          -->
-    <!-- ================================================================= -->
-    <div id="authentication-modal-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-6 relative border border-cyber-cyan/40">
-            <!-- Close Trigger -->
-            <button onclick="SystemModalController.closeAuthModal()" class="absolute top-5 right-5 text-slate-500 hover:text-white transition-all text-sm">
-                <i class="fas fa-times"></i>
-            </button>
-            
-            <div class="text-center mb-6">
-                <div class="w-14 h-14 rounded-2xl bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 flex items-center justify-center mx-auto mb-3 text-2xl font-bold shadow-neon-cyan">
-                    <i class="fas fa-user-lock"></i>
-                </div>
-                <h3 class="font-gaming text-3xl font-bold text-white leading-none tracking-wide">
-                    PLAYER AUTHENTICATION
-                </h3>
-                <p class="text-[11px] text-slate-400 mt-1 font-heading">
-                    Access tournament slots and internal wallet engine
-                </p>
-            </div>
-
-            <div class="space-y-4">
-                <div>
-                    <label class="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">EMAIL / GMAIL ADDRESS</label>
-                    <input type="email" id="auth-email-input-field" placeholder="player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-3 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                </div>
-
-                <div>
-                    <label class="text-[10px] text-slate-400 font-bold block mb-1 uppercase tracking-wider">ACCOUNT PASSWORD</label>
-                    <input type="password" id="auth-password-input-field" placeholder="••••••••" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-3 text-xs text-white focus:border-cyber-cyan focus:outline-none transition-all">
-                </div>
-
-                <button onclick="SystemAuthEngine.processUserAuthentication()" class="w-full btn-gradient-cyan py-3.5 rounded-xl text-xs font-heading font-extrabold tracking-wider uppercase shadow-lg shadow-cyber-cyan/20">
-                    AUTHENTICATE & ACCESS SYSTEM
-                </button>
-
-                <p class="text-[10px] text-slate-500 text-center mt-2">
-                    Master Admin Access: Use registered admin credentials.
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ================================================================= -->
-    <!-- 5. BOTTOM SYSTEM NAVIGATION FOOTER DOCK                          -->
-    <!-- ================================================================= -->
-    <nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-cyber-border py-2 px-6 z-40">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            
-            <button onclick="SystemTabController.switchTab('home')" id="nav-btn-home" class="nav-tab-button flex flex-col items-center gap-1 active-tab-icon text-slate-500 transition-all">
-                <i class="fas fa-fire text-lg"></i>
-                <span class="text-[9px] font-heading font-bold tracking-wider active-tab-text">HOME</span>
-            </button>
-
-            <button onclick="SystemTabController.switchTab('matches')" id="nav-btn-matches" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500 transition-all">
-                <i class="fas fa-trophy text-lg"></i>
-                <span class="text-[9px] font-heading font-bold tracking-wider">MATCHES</span>
-            </button>
-
-            <button onclick="SystemTabController.switchTab('ranks')" id="nav-btn-ranks" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500 transition-all">
-                <i class="fas fa-chart-line text-lg"></i>
-                <span class="text-[9px] font-heading font-bold tracking-wider">RANKS</span>
-            </button>
-
-            <button onclick="SystemTabController.switchTab('profile')" id="nav-btn-profile" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500 transition-all">
-                <i class="fas fa-user-shield text-lg"></i>
-                <span class="text-[9px] font-heading font-bold tracking-wider">PROFILE</span>
-            </button>
-
-        </div>
-    </nav>
-
-    <!-- ================================================================= -->
-    <!-- 6. COMPLETE JAVASCRIPT APPLICATION ENGINE (LOGIC ARCHITECTURE)   -->
-    <!-- ================================================================= -->
-    <script>
-        /**
-         * FATAL RUSH ESPORTS ENGINE - CORE JAVASCRIPT LOGIC
-         * Entire state, modular engines, storage handlers, and DOM renderers.
-         */
-
-        // =================================================================
-        // MODULE 1: GLOBAL STATE MANAGER & PERSISTENCE ENGINE
-        // =================================================================
-        const SystemState = {
-            currentUser: null,
-            tournaments: [],
-            joinedMatches: [],
-            winners: [],
-            activeCategoryFilter: 'ALL',
-
-            // Initialize App Memory State
-            initializeState: function() {
-                this.currentUser = JSON.parse(localStorage.getItem('fr_system_user')) || null;
-                this.tournaments = JSON.parse(localStorage.getItem('fr_system_tournaments')) || [];
-                this.joinedMatches = JSON.parse(localStorage.getItem('fr_system_joined')) || [];
-                this.winners = JSON.parse(localStorage.getItem('fr_system_winners')) || [];
-            },
-
-            // Synchronize State To Browser Storage
-            persistState: function(key) {
-                if (key === 'user') localStorage.setItem('fr_system_user', JSON.stringify(this.currentUser));
-                if (key === 'tournaments') localStorage.setItem('fr_system_tournaments', JSON.stringify(this.tournaments));
-                if (key === 'joined') localStorage.setItem('fr_system_joined', JSON.stringify(this.joinedMatches));
-                if (key === 'winners') localStorage.setItem('fr_system_winners', JSON.stringify(this.winners));
-            }
-        };
-
-        // =================================================================
-        // MODULE 2: SYSTEM NOTIFICATION TOAST ENGINE
-        // =================================================================
-        const SystemNotificationEngine = {
-            timerInstance: null,
-
-            showToast: function(message, title = "SYSTEM ALERT", isError = false) {
-                const container = document.getElementById('toast-dispatcher-container');
-                const iconContainer = document.getElementById('toast-icon-container');
-                const mainIcon = document.getElementById('toast-main-icon');
-                const headingText = document.getElementById('toast-heading-text');
-                const bodyText = document.getElementById('toast-body-text');
-
-                headingText.innerText = title;
-                bodyText.innerText = message;
-
-                if (isError) {
-                    iconContainer.className = "w-11 h-11 rounded-xl bg-cyber-accent/20 text-cyber-accent flex items-center justify-center text-xl flex-shrink-0 border border-cyber-accent/40";
-                    mainIcon.className = "fas fa-exclamation-triangle";
-                } else {
-                    iconContainer.className = "w-11 h-11 rounded-xl bg-cyber-cyan/20 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0 border border-cyber-cyan/40";
-                    mainIcon.className = "fas fa-shield-alt";
-                }
-
-                container.classList.remove('-translate-y-32', 'opacity-0');
-                container.classList.add('translate-y-0', 'opacity-100');
-
-                if (this.timerInstance) clearTimeout(this.timerInstance);
-
-                this.timerInstance = setTimeout(() => {
-                    container.classList.remove('translate-y-0', 'opacity-100');
-                    container.classList.add('-translate-y-32', 'opacity-0');
-                }, 3500);
-            }
-        };
-
-        // =================================================================
-        // MODULE 3: VIEWPORT TAB NAVIGATION CONTROLLER
-        // =================================================================
-        const SystemTabController = {
-            switchTab: function(targetTabName) {
-                // Hide all tab viewports
-                document.querySelectorAll('.viewport-tab-content').forEach(viewport => {
-                    viewport.classList.add('hidden');
-                });
-
-                // Reset navigation buttons visual states
-                document.querySelectorAll('.nav-tab-button').forEach(btn => {
-                    btn.classList.remove('active-tab-icon');
-                    const labelSpan = btn.querySelector('span');
-                    if (labelSpan) labelSpan.classList.remove('active-tab-text');
-                });
-
-                // Show targeted viewport
-                const activeViewport = document.getElementById('view-tab-' + targetTabName);
-                if (activeViewport) activeViewport.classList.remove('hidden');
-
-                // Highlight active navigation button
-                const activeNavButton = document.getElementById('nav-btn-' + targetTabName);
-                if (activeNavButton) {
-                    activeNavButton.classList.add('active-tab-icon');
-                    const activeLabel = activeNavButton.querySelector('span');
-                    if (activeLabel) activeLabel.classList.add('active-tab-text');
-                }
-            }
-        };
-
-        // =================================================================
-        // MODULE 4: MODAL DISPLAY CONTROLLER
-        // =================================================================
-        const SystemModalController = {
-            openAuthModal: function() {
-                document.getElementById('authentication-modal-overlay').classList.remove('hidden');
-            },
-            closeAuthModal: function() {
-                document.getElementById('authentication-modal-overlay').classList.add('hidden');
-            }
-        };
-
-        // =================================================================
-        // MODULE 5: USER AUTHENTICATION & SECURITY ENGINE
-        // =================================================================
-        const SystemAuthEngine = {
-            processUserAuthentication: function() {
-                const emailInput = document.getElementById('auth-email-input-field').value.trim();
-                const passwordInput = document.getElementById('auth-password-input-field').value.trim();
-
-                if (!emailInput || !emailInput.includes('@') || passwordInput.length < 4) {
-                    SystemNotificationEngine.showToast("Kripya sahi Email aur Password enter karein!", "AUTH VALIDATION ERROR", true);
-                    return;
-                }
-
-                // Verify Admin Identity Credentials
-                let isMasterAdmin = false;
-                if (emailInput.toLowerCase() === "admin@fatalrush.com" && passwordInput === "admin123") {
-                    isMasterAdmin = true;
-                }
-
-                SystemState.currentUser = {
-                    email: emailInput,
-                    isAdmin: isMasterAdmin,
-                    balance: SystemState.currentUser ? SystemState.currentUser.balance : 0
-                };
-
-                SystemState.persistState('user');
-                SystemUIRenderer.updateUserContextUI();
-                SystemModalController.closeAuthModal();
-
-                if (isMasterAdmin) {
-                    SystemNotificationEngine.showToast("Master Admin Control Panel Unlocked!", "ADMIN GRANTED");
-                } else {
-                    SystemNotificationEngine.showToast("Successfully Authenticated as " + emailInput, "WELCOME BACK");
-                }
-            },
-
-            logoutUserSession: function() {
-                SystemState.currentUser = null;
-                localStorage.removeItem('fr_system_user');
-                SystemUIRenderer.updateUserContextUI();
-                SystemNotificationEngine.showToast("Aapka session secure logout ho gaya hai.", "LOGOUT COMPLETE");
-            }
-        };
-
-        // =================================================================
-        // MODULE 6: MASTER ADMIN CONTROL ENGINE
-        // =================================================================
-        const SystemAdminEngine = {
-            createNewTournamentMatch: function() {
-                if (!SystemState.currentUser || !SystemState.currentUser.isAdmin) return;
-
-                const title = document.getElementById('admin-input-match-title').value.trim();
-                const game = document.getElementById('admin-input-game-title').value;
-                const mode = document.getElementById('admin-input-match-type').value.trim() || 'SOLO';
-                const fee = parseFloat(document.getElementById('admin-input-entry-fee').value);
-                const prize = parseFloat(document.getElementById('admin-input-prize-pool').value);
-
-                if (!title || isNaN(fee) || isNaN(prize)) {
-                    SystemNotificationEngine.showToast("Match Title, Entry Fee aur Prize Pool sahi bharein!", "INPUT ERROR", true);
-                    return;
-                }
-
-                const newMatch = {
-                    id: Date.now(),
-                    title: title,
-                    game: game,
-                    type: mode,
-                    fee: fee,
-                    prize: prize,
-                    roomId: "",
-                    roomPass: ""
-                };
-
-                SystemState.tournaments.push(newMatch);
-                SystemState.persistState('tournaments');
-
-                // Clear Form Inputs
-                document.getElementById('admin-input-match-title').value = "";
-                document.getElementById('admin-input-match-type').value = "";
-                document.getElementById('admin-input-entry-fee').value = "";
-                document.getElementById('admin-input-prize-pool').value = "";
-
-                SystemUIRenderer.renderTournamentsList();
-                SystemNotificationEngine.showToast("Naya Match Successful Host Ho Gaya!", "TOURNAMENT PUBLISHED");
-            },
-
-            releaseRoomCredentials: function() {
-                if (!SystemState.currentUser || !SystemState.currentUser.isAdmin) return;
-
-                const targetMatchId = document.getElementById('admin-select-target-match').value;
-                const roomId = document.getElementById('admin-input-room-id').value.trim();
-                const roomPass = document.getElementById('admin-input-room-pass').value.trim();
-
-                if (!targetMatchId || !roomId || !roomPass) {
-                    SystemNotificationEngine.showToast("Target Match, Room ID aur Password teeno bharein!", "CREDS ERROR", true);
-                    return;
-                }
-
-                const matchIndex = SystemState.tournaments.findIndex(m => m.id == targetMatchId);
-                if (matchIndex !== -1) {
-                    SystemState.tournaments[matchIndex].roomId = roomId;
-                    SystemState.tournaments[matchIndex].roomPass = roomPass;
-                    SystemState.persistState('tournaments');
-
-                    // Synchronize with joined matches
-                    SystemState.joinedMatches.forEach(joinedMatch => {
-                        if (joinedMatch.id == targetMatchId) {
-                            joinedMatch.roomId = roomId;
-                            joinedMatch.roomPass = roomPass;
-                        }
-                    });
-                    SystemState.persistState('joined');
-
-                    document.getElementById('admin-input-room-id').value = "";
-                    document.getElementById('admin-input-room-pass').value = "";
-
-                    SystemUIRenderer.renderJoinedMatchesList();
-                    SystemNotificationEngine.showToast("Room Credentials Release Kar Diye Gaye!", "ROOM ACCESS GRANTED");
-                }
-            },
-
-            publishMatchWinner: function() {
-                if (!SystemState.currentUser || !SystemState.currentUser.isAdmin) return;
-
-                const matchTitle = document.getElementById('admin-winner-match-title').value.trim();
-                const playerName = document.getElementById('admin-winner-player-name').value.trim();
-                const prizeWon = document.getElementById('admin-winner-prize-amount').value.trim();
-
-                if (!matchTitle || !playerName || !prizeWon) {
-                    SystemNotificationEngine.showToast("Winner ki saari details fill karein!", "WINNER ERROR", true);
-                    return;
-                }
-
-                const winnerRecord = {
-                    matchName: matchTitle,
-                    playerName: playerName,
-                    prizeWon: prizeWon
-                };
-
-                SystemState.winners.unshift(winnerRecord);
-                SystemState.persistState('winners');
-
-                document.getElementById('admin-winner-match-title').value = "";
-                document.getElementById('admin-winner-player-name').value = "";
-                document.getElementById('admin-winner-prize-amount').value = "";
-
-                SystemUIRenderer.renderWinnersList();
-                SystemNotificationEngine.showToast("Winner Leaderboard par update ho gaya!", "WINNER PUBLISHED");
-            }
-        };
-
-        // =================================================================
-        // MODULE 7: PLAYER TOURNAMENT REGISTRATION ENGINE
-        // =================================================================
-        const SystemTournamentEngine = {
-            filterGameCategory: function(category) {
-                SystemState.activeCategoryFilter = category;
-                
-                // Update Button Active Styling
-                document.querySelectorAll('.category-filter-btn').forEach(btn => {
-                    btn.classList.remove('text-cyber-cyan', 'border-cyber-cyan/50');
-                    btn.classList.add('text-slate-400');
-                });
-
-                SystemUIRenderer.renderTournamentsList();
-            },
-
-            registerPlayerSlot: function(matchId) {
-                if (!SystemState.currentUser) {
-                    SystemModalController.openAuthModal();
-                    SystemNotificationEngine.showToast("Match join karne ke liye pehle login karein!", "AUTH REQUIRED", true);
-                    return;
-                }
-
-                const targetMatch = SystemState.tournaments.find(m => m.id == matchId);
-                if (!targetMatch) return;
-
-                // Check wallet balance vs entry fee
-                if (SystemState.currentUser.balance < targetMatch.fee) {
-                    SystemNotificationEngine.showToast("Aapke wallet mein paryapt balance nahi hai!", "INSUFFICIENT BALANCE", true);
-                    return;
-                }
-
-                const isAlreadyJoined = SystemState.joinedMatches.some(m => m.id == matchId);
-                if (isAlreadyJoined) {
-                    SystemNotificationEngine.showToast("Aap pehle se iss match mein registered hain!", "SLOT LOCKED");
-                    return;
-                }
-
-                // Deduct entry fee
-                SystemState.currentUser.balance -= targetMatch.fee;
-                SystemState.persistState('user');
-
-                // Save joined match
-                SystemState.joinedMatches.push(targetMatch);
-                SystemState.persistState('joined');
-
-                SystemUIRenderer.updateUserContextUI();
-                SystemUIRenderer.renderJoinedMatchesList();
-                SystemNotificationEngine.showToast("Match Slot Successfully Reserved!", "SLOT CONFIRMED");
-            }
-        };
-
-        // =================================================================
-        // MODULE 8: WALLET ENGINE & TRANSACTIONS
-        // =================================================================
-        const SystemWalletEngine = {
-            handleAddMoneyTrigger: function() {
-                if (!SystemState.currentUser) return SystemModalController.openAuthModal();
-                SystemNotificationEngine.showToast("Redirecting to Automated Payment Gateway...", "GATEWAY INITIATED");
-            },
-
-            handleWithdrawalTrigger: function() {
-                if (!SystemState.currentUser) return SystemModalController.openAuthModal();
-                SystemNotificationEngine.showToast("Withdrawal requests processed daily at 10:00 AM", "WITHDRAWAL TIMINGS");
-            }
-        };
-
-        // =================================================================
-        // MODULE 9: GAMER PROFILE DATA ENGINE
-        // =================================================================
-        const SystemProfileEngine = {
-            saveGamerProfileDetails: function() {
-                SystemNotificationEngine.showToast("Aapke gamer profiles safe update ho gaye hain!", "PROFILE SAVED");
-            }
-        };
-
-        // =================================================================
-        // MODULE 10: COMPLETE DOM UI RENDERER ENGINE
-        // =================================================================
-        const SystemUIRenderer = {
-            updateUserContextUI: function() {
-                const headerAuthBtnLabel = document.getElementById('header-auth-btn-label');
-                const headerAuthTrigger = document.getElementById('header-auth-trigger');
-                const profileAuthTriggerBtn = document.getElementById('profile-auth-trigger-btn');
-                const nameDisplay = document.getElementById('user-profile-display-name');
-                const roleDisplay = document.getElementById('user-profile-display-role');
-                const adminPanel = document.getElementById('master-admin-panel-container');
-                
-                const headerWallet = document.getElementById('header-user-wallet-balance');
-                const profileWallet = document.getElementById('profile-wallet-balance-display');
-
-                if (SystemState.currentUser) {
-                    headerAuthTrigger.onclick = SystemAuthEngine.logoutUserSession;
-                    headerAuthBtnLabel.innerText = "LOGOUT";
-                    
-                    profileAuthTriggerBtn.onclick = SystemAuthEngine.logoutUserSession;
-                    profileAuthTriggerBtn.innerText = "Logout";
-
-                    const formattedBalance = (SystemState.currentUser.balance || 0).toFixed(2);
-                    headerWallet.innerText = formattedBalance;
-                    profileWallet.innerText = formattedBalance;
-
-                    if (SystemState.currentUser.isAdmin) {
-                        nameDisplay.innerText = "MASTER SYSTEM ADMIN";
-                        roleDisplay.innerText = "Status: Master Control Engine Active";
-                        adminPanel.classList.remove('hidden');
-                    } else {
-                        nameDisplay.innerText = SystemState.currentUser.email.split('@')[0].toUpperCase();
-                        roleDisplay.innerText = "Status: Verified Gamer";
-                        adminPanel.classList.add('hidden');
-                    }
-                } else {
-                    headerAuthTrigger.onclick = SystemModalController.openAuthModal;
-                    headerAuthBtnLabel.innerText = "LOGIN";
-
-                    profileAuthTriggerBtn.onclick = SystemModalController.openAuthModal;
-                    profileAuthTriggerBtn.innerText = "Login";
-
-                    nameDisplay.innerText = "GUEST PLAYER";
-                    roleDisplay.innerText = "Status: Not Authenticated";
-                    adminPanel.classList.add('hidden');
-                    headerWallet.innerText = "0.00";
-                    profileWallet.innerText = "0.00";
-                }
-            },
-
-            renderTournamentsList: function() {
-                const container = document.getElementById('dynamic-tournament-cards-container');
-                const fallbackView = document.getElementById('fallback-no-tournaments-view');
-                const badgeCounter = document.getElementById('live-match-counter-badge');
-                const adminMatchSelect = document.getElementById('admin-select-target-match');
-
-                container.innerHTML = "";
-                adminMatchSelect.innerHTML = '<option value="">Select Target Match</option>';
-
-                let filteredList = SystemState.tournaments;
-                if (SystemState.activeCategoryFilter !== 'ALL') {
-                    filteredList = SystemState.tournaments.filter(m => m.game === SystemState.activeCategoryFilter);
-                }
-
-                badgeCounter.innerText = filteredList.length + " ACTIVE";
-
-                if (filteredList.length === 0) {
-                    fallbackView.classList.remove('hidden');
-                    return;
-                }
-
-                fallbackView.classList.add('hidden');
-
-                filteredList.forEach(match => {
-                    // Populate Admin Dropdown
-                    const selectOption = document.createElement('option');
-                    selectOption.value = match.id;
-                    selectOption.innerText = match.title + " (" + match.game + ")";
-                    adminMatchSelect.appendChild(selectOption);
-
-                    // Build Tournament Card DOM
-                    const card = document.createElement('div');
-                    card.className = "glass-panel rounded-3xl p-4 border border-cyber-border hover:border-cyber-cyan/40 transition-all";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 text-[10px] font-heading font-extrabold px-2.5 py-0.5 rounded-md uppercase tracking-wider">
-                                ${match.game} • ${match.type}
-                            </span>
-                            <span class="text-xs text-cyber-gold font-heading font-bold">ENTRY: ₹${match.fee}</span>
-                        </div>
-                        <h4 class="font-heading font-bold text-lg text-white leading-tight mb-1">${match.title}</h4>
-                        <div class="flex items-center justify-between text-xs text-slate-400 mb-4">
-                            <span>PRIZE POOL: <strong class="text-cyber-emerald font-bold">₹${match.prize}</strong></span>
-                            <span>MAP: <strong class="text-slate-200 font-bold">ERANGEL</strong></span>
-                        </div>
-                        <button onclick="SystemTournamentEngine.registerPlayerSlot(${match.id})" class="w-full btn-gradient-cyan py-3 rounded-2xl text-xs font-heading font-extrabold uppercase tracking-wider shadow-lg">
-                            REGISTER FOR TOURNAMENT
-                        </button>
-                    `;
-                    container.appendChild(card);
-                });
-            },
-
-            renderJoinedMatchesList: function() {
-                const container = document.getElementById('dynamic-joined-matches-container');
-                container.innerHTML = "";
-
-                if (SystemState.joinedMatches.length === 0) {
-                    container.innerHTML = `
-                        <div class="glass-panel p-8 rounded-3xl text-center border border-slate-800 text-slate-400">
-                            <i class="fas fa-ticket-alt text-4xl text-slate-700 mb-2"></i>
-                            <p class="text-xs">Aapne abhi tak kisi bhi tournament mein slot reserve nahi kiya hai.</p>
-                        </div>
-                    `;
-                    return;
-                }
-
-                SystemState.joinedMatches.forEach(match => {
-                    const card = document.createElement('div');
-                    card.className = "glass-panel p-4 rounded-3xl border border-cyber-cyan/40 shadow-neon-cyan";
-
-                    let roomCredsMarkup = "";
-                    if (match.roomId && match.roomPass) {
-                        roomCredsMarkup = `
-                            <div class="mt-3 bg-black/80 p-3.5 rounded-2xl border border-cyber-emerald/50">
-                                <span class="text-[10px] bg-cyber-emerald/20 text-cyber-emerald font-heading font-extrabold px-2.5 py-0.5 rounded border border-cyber-emerald/30 uppercase tracking-widest inline-block mb-2">
-                                    🟢 ROOM CREDS RELEASED
-                                </span>
-                                <div class="grid grid-cols-2 gap-2 text-xs">
-                                    <div class="bg-slate-900/80 p-2 rounded-xl border border-slate-800">
-                                        <span class="text-slate-400 text-[10px] block">ROOM ID:</span>
-                                        <span class="text-cyber-cyan font-bold font-mono text-sm">${match.roomId}</span>
-                                    </div>
-                                    <div class="bg-slate-900/80 p-2 rounded-xl border border-slate-800">
-                                        <span class="text-slate-400 text-[10px] block">PASSWORD:</span>
-                                        <span class="text-cyber-cyan font-bold font-mono text-sm">${match.roomPass}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        `;
-                    } else {
-                        roomCredsMarkup = `
-                            <div class="mt-3 bg-black/40 p-3 rounded-2xl border border-cyber-gold/30 text-center">
-                                <p class="text-[11px] text-cyber-gold font-heading font-bold flex items-center justify-center gap-1.5">
-                                    <i class="fas fa-clock"></i> Room ID & Password match shuru hone se 15 min pehle yahan dikhega.
-                                </p>
-                            </div>
-                        `;
-                    }
-
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center mb-1">
-                            <span class="text-[10px] text-cyber-cyan font-heading font-bold uppercase">${match.game} • ${match.type}</span>
-                            <span class="text-[10px] bg-cyber-emerald/20 text-cyber-emerald px-2.5 py-0.5 rounded-full font-bold">SLOT CONFIRMED</span>
-                        </div>
-                        <h4 class="font-heading font-bold text-lg text-white leading-tight">${match.title}</h4>
-                        ${roomCredsMarkup}
-                    `;
-                    container.appendChild(card);
-                });
-            },
-
-            renderWinnersList: function() {
-                const container = document.getElementById('dynamic-winners-board-container');
-                
-                SystemState.winners.forEach(winner => {
-                    const card = document.createElement('div');
-                    card.className = "glass-panel p-4 rounded-2xl border border-cyber-gold/30 flex items-center justify-between";
-                    card.innerHTML = `
-                        <div class="flex items-center gap-3">
-                            <div class="w-11 h-11 rounded-xl bg-cyber-gold/20 text-cyber-gold flex items-center justify-center text-xl font-bold border border-cyber-gold/40">
-                                🏆
-                            </div>
-                            <div>
-                                <h4 class="font-heading font-bold text-base text-white leading-none">${winner.playerName}</h4>
-                                <p class="text-[10px] text-slate-400 mt-1">${winner.matchName}</p>
-                            </div>
-                        </div>
-                        <span class="font-gaming text-3xl font-bold text-cyber-gold">₹${winner.prizeWon} WON</span>
-                    `;
-                    container.appendChild(card);
-                });
-            }
-        };
-
-        // =================================================================
-        // APPLICATION BOOTSTRAP INITIALIZER
-        // =================================================================
-        window.addEventListener('DOMContentLoaded', () => {
-            SystemState.initializeState();
-            SystemUIRenderer.updateUserContextUI();
-            SystemUIRenderer.renderTournamentsList();
-            SystemUIRenderer.renderJoinedMatchesList();
-            SystemUIRenderer.renderWinnersList();
-        });
-    </script>
-</body>
-</html>
+          >
+            <Text style={styles.switchAuthText}>
+              {authScreen === 'Login'
+                ? "Don't have an account? Sign Up"
+                : 'Already have an account? Login'}
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </SafeAreaView>
+    );
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0B0E14" />
+
+      {/* Main Content Body */}
+      <View style={styles.body}>
+        {currentTab === 'Home' && (
+          <ScrollView showsVerticalScrollIndicator={false}>
+            {/* Top Hero Banner */}
+            <View style={styles.heroBanner}>
+              <Text style={styles.heroTitle}>
+                Play. Win. <Text style={{ color: '#00FF87' }}>Dominate.</Text>
+              </Text>
+              <Text style={styles.heroSub}>
+                Real BGMI & Free Fire tournaments. Entry from ₹2. Join in seconds.
+              </Text>
+              <TouchableOpacity style={styles.heroBtn}>
+                <Text style={styles.heroBtnText}>⚡ JOIN A MATCH</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Quick Action Dashboard Cards */}
+            <View style={styles.gridContainer}>
+              <View style={styles.gridCard}>
+                <Text style={styles.gridLabel}>BALANCE</Text>
+                <Text style={styles.gridValue}>₹{balance}</Text>
+                <TouchableOpacity onPress={() => setCurrentTab('Wallet')}>
+                  <Text style={styles.gridSub}>Tap to add money</Text>
+                </TouchableOpacity>
+              </View>
+
+              <View style={styles.gridCard}>
+                <Text style={styles.gridLabel}>JOINED</Text>
+                <Text style={styles.gridValue}>{joinedMatches.length}</Text>
+                <Text style={styles.gridSub}>Tournaments</Text>
+              </View>
+
+              <View style={styles.gridCard}>
+                <Text style={styles.gridLabel}>TOURNAMENTS</Text>
+                <Text style={styles.gridValue}>{tournaments.length}</Text>
+                <Text style={styles.gridSub}>6 Live Now</Text>
+              </View>
+
+              <View style={styles.gridCard}>
+                <Text style={styles.gridLabel}>ADMIN</Text>
+                <Text style={styles.gridValue}>Control</Text>
+                <Text style={styles.gridSub}>Manage & Play</Text>
+              </View>
+            </View>
+
+            {/* Filter Tabs */}
+            <View style={styles.filterBar}>
+              {['ALL', 'BGMI', 'FREE FIRE'].map((cat) => (
+                <TouchableOpacity
+                  key={cat}
+                  style={[
+                    styles.filterTab,
+                    activeCategory === cat && styles.activeFilterTab,
+                  ]}
+                  onPress={() => setActiveCategory(cat)}
+                >
+                  <Text
+                    style={[
+                      styles.filterText,
+                      activeCategory === cat && styles.activeFilterText,
+                    ]}
+                  >
+                    {cat}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            {/* Featured Matches List */}
+            <Text style={styles.sectionHeading}>Featured Matches</Text>
+            {filteredTournaments.map((item) => (
+              <View key={item.id} style={styles.matchCard}>
+                <Image source={{ uri: item.image }} style={styles.matchImage} />
+                <View style={styles.matchContent}>
+                  <View style={styles.badgeRow}>
+                    <Text style={styles.gameBadge}>{item.game}</Text>
+                    <Text style={styles.typeBadge}>{item.type}</Text>
+                  </View>
+                  <Text style={styles.matchTitle}>{item.title}</Text>
+                  <Text style={styles.matchRound}>{item.round}</Text>
+
+                  <View style={styles.detailsRow}>
+                    <View>
+                      <Text style={styles.detailLabel}>DATE & TIME</Text>
+                      <Text style={styles.detailVal}>{item.date}</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.detailLabel}>ENTRY FEE</Text>
+                      <Text style={styles.detailValGreen}>₹{item.entryFee}</Text>
+                    </View>
+                  </View>
+
+                  <View style={styles.detailsRow}>
+                    <View>
+                      <Text style={styles.detailLabel}>PRIZE POOL</Text>
+                      <Text style={styles.detailValGreen}>₹{item.prizePool}</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.detailLabel}>SLOTS</Text>
+                      <Text style={styles.detailVal}>
+                        {item.filledSlots}/{item.totalSlots}
+                      </Text>
+                    </View>
+                  </View>
+
+                  {/* Slot Fill Progress Bar */}
+                  <View style={styles.progressBg}>
+                    <View
+                      style={[
+                        styles.progressFill,
+                        {
+                          width: `${(item.filledSlots / item.totalSlots) * 100}%`,
+                        },
+                      ]}
+                    />
+                  </View>
+
+                  <TouchableOpacity
+                    style={styles.joinMatchBtn}
+                    onPress={() => handleJoinTournament(item)}
+                  >
+                    <Text style={styles.joinMatchBtnText}>⚡ JOIN MATCH</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            ))}
+          </ScrollView>
+        )}
+
+        {/* Wallet Screen */}
+        {currentTab === 'Wallet' && (
+          <View style={styles.screenView}>
+            <Text style={styles.screenHeader}>WALLET BALANCE</Text>
+            <Text style={styles.walletBalanceText}>₹{balance}</Text>
+
+            <View style={styles.walletBtnRow}>
+              <TouchableOpacity
+                style={styles.addMoneyBtn}
+                onPress={() => setAddMoneyModal(true)}
+              >
+                <Text style={styles.btnText}>+ ADD MONEY</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.withdrawBtn}
+                onPress={() => Alert.alert('Withdraw', 'Withdrawal request sent.')}
+              >
+                <Text style={styles.btnText}>↓ WITHDRAW</Text>
+              </TouchableOpacity>
+            </View>
+
+            <Text style={styles.sectionHeading}>Pending Wallet Approvals</Text>
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyText}>No pending approvals.</Text>
+            </View>
+
+            <Text style={styles.sectionHeading}>Transactions</Text>
+            <View style={styles.emptyCard}>
+              <Text style={styles.emptyText}>No transactions yet.</Text>
+            </View>
+          </View>
+        )}
+
+        {/* Profile Screen */}
+        {currentTab === 'Profile' && (
+          <ScrollView style={styles.screenView}>
+            <View style={styles.avatarContainer}>
+              <Text style={{ fontSize: 50 }}>{profile.avatar}</Text>
+              <Text style={styles.profileEmail}>{profile.email}</Text>
+            </View>
+
+            <Text style={styles.inputLabel}>IN-GAME NAME (IGN)</Text>
+            <TextInput
+              style={styles.input}
+              value={profile.name}
+              onChangeText={(t) => setProfile({ ...profile, name: t })}
+            />
+
+            <Text style={styles.inputLabel}>BGMI CHARACTER ID</Text>
+            <TextInput
+              style={styles.input}
+              value={profile.bgmiId}
+              onChangeText={(t) => setProfile({ ...profile, bgmiId: t })}
+            />
+
+            <Text style={styles.inputLabel}>FREE FIRE UID</Text>
+            <TextInput
+              style={styles.input}
+              value={profile.freeFireId}
+              onChangeText={(t) => setProfile({ ...profile, freeFireId: t })}
+            />
+
+            <TouchableOpacity style={styles.mainBtn}>
+              <Text style={styles.mainBtnText}>💾 SAVE PROFILE</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.mainBtn, { backgroundColor: '#EF4444', marginTop: 15 }]}
+              onPress={() => setIsLoggedIn(false)}
+            >
+              <Text style={styles.mainBtnText}>LOGOUT</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        )}
+      </View>
+
+      {/* Custom Deposit Modal */}
+      <Modal visible={addMoneyModal} transparent animationType="slide">
+        <View style={styles.modalBg}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Add Money to Wallet</Text>
+            <TextInput
+              placeholder="Enter Amount (e.g. 100)"
+              placeholderTextColor="#6B7280"
+              keyboardType="numeric"
+              style={styles.input}
+              value={depositAmount}
+              onChangeText={setDepositAmount}
+            />
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+              <TouchableOpacity
+                style={[styles.heroBtn, { backgroundColor: '#374151', width: '48%' }]}
+                onPress={() => setAddMoneyModal(false)}
+              >
+                <Text style={styles.heroBtnText}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.heroBtn, { width: '48%' }]}
+                onPress={handleAddMoney}
+              >
+                <Text style={styles.heroBtnText}>Pay Now</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Clean Bottom Navigation Bar */}
+      <View style={styles.bottomNav}>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => setCurrentTab('Home')}
+        >
+          <Text style={[styles.navText, currentTab === 'Home' && styles.activeNavText]}>
+            🏠 Home
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => setCurrentTab('Wallet')}
+        >
+          <Text style={[styles.navText, currentTab === 'Wallet' && styles.activeNavText]}>
+            💳 Wallet
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navItem}
+          onPress={() => setCurrentTab('Profile')}
+        >
+          <Text style={[styles.navText, currentTab === 'Profile' && styles.activeNavText]}>
+            👤 Profile
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: '#0B0E14' },
+  body: { flex: 1, paddingHorizontal: 16, paddingTop: 10 },
+  authContainer: { flex: 1, backgroundColor: '#0B0E14', justifyContent: 'center' },
+  authBox: { padding: 24 },
+  authTitle: { fontSize: 24, fontWeight: 'bold', color: '#FFF', marginBottom: 20 },
+  input: {
+    backgroundColor: '#1F2937',
+    color: '#FFF',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderRadius: 8,
+    marginBottom: 12,
+    fontSize: 14,
+  },
+  inputLabel: { color: '#9CA3AF', fontSize: 12, fontWeight: 'bold', marginBottom: 6 },
+  mainBtn: {
+    backgroundColor: '#00FF87',
+    paddingVertical: 14,
+    borderRadius: 8,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  mainBtnText: { color: '#000', fontWeight: 'bold', fontSize: 16 },
+  switchAuthText: { color: '#00FF87', textAlign: 'center', marginTop: 15 },
+  heroBanner: {
+    backgroundColor: '#111827',
+    padding: 20,
+    borderRadius: 12,
+    marginBottom: 16,
+    borderColor: '#1F2937',
+    borderWidth: 1,
+  },
+  heroTitle: { color: '#FFF', fontSize: 22, fontWeight: 'bold' },
+  heroSub: { color: '#9CA3AF', fontSize: 12, marginVertical: 8 },
+  heroBtn: {
+    backgroundColor: '#00FF87',
+    paddingVertical: 10,
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+  heroBtnText: { color: '#000', fontWeight: 'bold' },
+  gridContainer: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' },
+  gridCard: {
+    backgroundColor: '#111827',
+    width: '48%',
+    padding: 14,
+    borderRadius: 10,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#1F2937',
+  },
+  gridLabel: { color: '#6B7280', fontSize: 10, fontWeight: 'bold' },
+  gridValue: { color: '#FFF', fontSize: 20, fontWeight: 'bold', marginVertical: 4 },
+  gridSub: { color: '#00FF87', fontSize: 11 },
+  filterBar: { flexDirection: 'row', marginVertical: 10 },
+  filterTab: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    backgroundColor: '#111827',
+    borderRadius: 20,
+    marginRight: 8,
+  },
+  activeFilterTab: { backgroundColor: '#00FF87' },
+  filterText: { color: '#9CA3AF', fontSize: 12, fontWeight: 'bold' },
+  activeFilterText: { color: '#000' },
+  sectionHeading: { color: '#FFF', fontSize: 16, fontWeight: 'bold', marginVertical: 12 },
+  matchCard: {
+    backgroundColor: '#111827',
+    borderRadius: 12,
+    overflow: 'hidden',
+    marginBottom: 16,
+    borderWidth: 1,
+    borderColor: '#1F2937',
+  },
+  matchImage: { width: '100%', height: 140 },
+  matchContent: { padding: 14 },
+  badgeRow: { flexDirection: 'row', marginBottom: 6 },
+  gameBadge: { backgroundColor: '#00FF87', color: '#000', fontSize: 10, fontWeight: 'bold', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4, marginRight: 6 },
+  typeBadge: { backgroundColor: '#374151', color: '#FFF', fontSize: 10, fontWeight: 'bold', paddingHorizontal: 6, paddingVertical: 2, borderRadius: 4 },
+  matchTitle: { color: '#FFF', fontSize: 16, fontWeight: 'bold' },
+  matchRound: { color: '#9CA3AF', fontSize: 12, marginBottom: 10 },
+  detailsRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8 },
+  detailLabel: { color: '#6B7280', fontSize: 10, fontWeight: 'bold' },
+  detailVal: { color: '#FFF', fontSize: 12, fontWeight: 'bold' },
+  detailValGreen: { color: '#00FF87', fontSize: 12, fontWeight: 'bold' },
+  progressBg: { height: 6, backgroundColor: '#374151', borderRadius: 3, marginVertical: 10 },
+  progressFill: { height: '100%', backgroundColor: '#00FF87', borderRadius: 3 },
+  joinMatchBtn: { backgroundColor: '#00FF87', paddingVertical: 10, borderRadius: 6, alignItems: 'center', marginTop: 6 },
+  joinMatchBtnText: { color: '#000', fontWeight: 'bold', fontSize: 14 },
+  screenView: { flex: 1 },
+  screenHeader: { color: '#9CA3AF', fontSize: 12, fontWeight: 'bold' },
+  walletBalanceText: { color: '#FFF', fontSize: 36, fontWeight: 'bold', marginVertical: 10 },
+  walletBtnRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 },
+  addMoneyBtn: { backgroundColor: '#00FF87', flex: 0.48, paddingVertical: 12, borderRadius: 8, alignItems: 'center' },
+  withdrawBtn: { backgroundColor: '#8B5CF6', flex: 0.48, paddingVertical: 12, borderRadius: 8, alignItems: 'center' },
+  btnText: { color: '#FFF', fontWeight: 'bold' },
+  emptyCard: { backgroundColor: '#111827', padding: 20, borderRadius: 8, alignItems: 'center', borderStyle: 'dashed', borderWidth: 1, borderColor: '#374151' },
+  emptyText: { color: '#6B7280', fontSize: 12 },
+  avatarContainer: { alignItems: 'center', marginVertical: 20 },
+  profileEmail: { color: '#9CA3AF', fontSize: 14, marginTop: 6 },
+  bottomNav: { flexDirection: 'row', height: 60, backgroundColor: '#111827', borderTopWidth: 1, borderTopColor: '#1F2937', justifyContent: 'space-around', alignItems: 'center' },
+  navItem: { alignItems: 'center' },
+  navText: { color: '#6B7280', fontSize: 12, fontWeight: 'bold' },
+  activeNavText: { color: '#00FF87' },
+  modalBg: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', padding: 20 },
+  modalContent: { backgroundColor: '#111827', padding: 20, borderRadius: 12, borderWidth: 1, borderColor: '#1F2937' },
+  modalTitle: { color: '#FFF', fontSize: 18, fontWeight: 'bold', marginBottom: 14 },
+});
