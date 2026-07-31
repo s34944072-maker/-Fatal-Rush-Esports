@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>FETAL RUSH SPORTS - Ultimate Esports Engine</title>
+    <title>FETAL RUSH SPORTS - Pro Esports Hub</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Pro Icons -->
+    <!-- FontAwesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <!-- Google Gaming Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&family=Rajdhani:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
@@ -27,19 +27,12 @@
                             surface: '#090b14',
                             card: '#0f1322',
                             border: '#1a2238',
-                            hover: '#222d4a',
                             cyan: '#00f2fe',
                             blue: '#4facfe',
                             accent: '#ff0055',
                             gold: '#ffb703',
                             emerald: '#10b981',
-                            purple: '#8b5cf6'
                         }
-                    },
-                    boxShadow: {
-                        'neon-cyan': '0 0 25px rgba(0, 242, 254, 0.3)',
-                        'neon-accent': '0 0 25px rgba(255, 0, 85, 0.3)',
-                        'neon-gold': '0 0 25px rgba(255, 183, 3, 0.3)',
                     }
                 }
             }
@@ -60,13 +53,9 @@
             overflow-x: hidden;
             min-height: 100vh;
         }
-        .font-gaming { font-family: 'Teko', sans-serif; }
-        .font-heading { font-family: 'Rajdhani', sans-serif; }
-
         .glass-panel {
             background: linear-gradient(135deg, rgba(15, 19, 34, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
             backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
             border: 1px solid #1a2238;
         }
         .glass-panel-glow {
@@ -79,21 +68,11 @@
             background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
             color: #030408;
             font-weight: 800;
-            transition: all 0.2s ease;
-        }
-        .btn-gradient-cyan:active {
-            transform: scale(0.97);
-            filter: brightness(0.9);
         }
         .btn-gradient-accent {
             background: linear-gradient(90deg, #ff0055 0%, #ff5500 100%);
             color: #ffffff;
             font-weight: 800;
-            transition: all 0.2s ease;
-        }
-        .btn-gradient-accent:active {
-            transform: scale(0.97);
-            filter: brightness(0.9);
         }
         .active-tab-icon {
             color: #00f2fe !important;
@@ -103,429 +82,472 @@
             color: #00f2fe !important;
             font-weight: 700 !important;
         }
-        ::-webkit-scrollbar { width: 4px; height: 4px; }
-        ::-webkit-scrollbar-track { background: #030408; }
-        ::-webkit-scrollbar-thumb { background: #1a2238; border-radius: 4px; }
+        ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
 <body class="pb-28">
 
-    <!-- SYSTEM NOTIFICATION TOAST -->
-    <div id="toast-dispatcher-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-32 opacity-0 transition-all duration-300 w-[92%] max-w-md pointer-events-none">
-        <div class="glass-panel p-4 rounded-2xl border flex items-center gap-3 shadow-2xl backdrop-blur-2xl">
-            <div id="toast-icon-container" class="w-11 h-11 rounded-xl bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0 border border-cyber-cyan/30">
-                <i id="toast-main-icon" class="fas fa-shield-alt"></i>
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-32 opacity-0 transition-all duration-300 w-[92%] max-w-md pointer-events-none">
+        <div class="glass-panel p-4 rounded-2xl border border-cyber-cyan/40 flex items-center gap-3 shadow-2xl">
+            <div class="w-10 h-10 rounded-xl bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0">
+                <i class="fas fa-bell"></i>
             </div>
             <div class="flex-1 overflow-hidden">
-                <h4 id="toast-heading-text" class="font-heading font-bold text-sm text-white leading-none tracking-wider uppercase">SYSTEM NOTIFICATION</h4>
-                <p id="toast-body-text" class="text-xs text-slate-300 mt-1 leading-tight truncate"></p>
+                <h4 id="toast-title" class="font-heading font-bold text-xs text-cyber-cyan tracking-wider uppercase">NOTIFICATION</h4>
+                <p id="toast-desc" class="text-xs text-slate-200 mt-0.5 truncate"></p>
             </div>
         </div>
     </div>
 
-    <!-- HEADER NAVIGATION -->
+    <!-- TOP HEADER -->
     <header class="sticky top-0 z-40 glass-panel border-b border-cyber-border px-4 py-3 flex items-center justify-between">
         <div class="flex items-center gap-3">
-            <div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-blue to-cyber-purple p-[1.5px] shadow-neon-cyan">
-                <div class="w-full h-full bg-cyber-base rounded-xl flex items-center justify-center font-gaming text-2xl text-cyber-cyan font-bold tracking-widest">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-blue to-cyber-accent p-[1px]">
+                <div class="w-full h-full bg-cyber-base rounded-xl flex items-center justify-center font-gaming text-2xl text-cyber-cyan font-bold">
                     FR
                 </div>
             </div>
-            <div class="flex flex-col">
-                <h1 class="font-gaming text-3xl font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple">
+            <div>
+                <h1 class="font-gaming text-2xl font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-white">
                     FETAL RUSH SPORTS
                 </h1>
-                <p class="text-[9px] font-heading text-cyber-cyan/80 tracking-widest font-extrabold uppercase -mt-1">
+                <p class="text-[9px] font-heading text-cyber-cyan tracking-widest font-extrabold uppercase -mt-0.5">
                     PRO ESPORTS HUB
                 </p>
             </div>
         </div>
         
         <div class="flex items-center gap-2">
-            <button onclick="SystemModalController.openAuthModal()" id="header-auth-trigger" class="bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl text-xs font-heading font-bold hover:bg-cyber-cyan/20 transition-all flex items-center gap-1.5">
+            <button onclick="SystemModalController.openAuthModal()" id="header-auth-btn" class="bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl text-xs font-heading font-bold flex items-center gap-1">
                 <i class="fas fa-sign-in-alt"></i>
-                <span id="header-auth-btn-label">LOGIN</span>
+                <span id="header-auth-label">LOGIN</span>
             </button>
             
-            <button onclick="SystemTabController.switchTab('profile')" class="glass-panel px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-2 border border-cyber-cyan/30">
-                <div class="w-2 h-2 rounded-full bg-cyber-emerald animate-ping"></div>
+            <button onclick="SystemTabController.switchTab('profile')" class="glass-panel px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-cyber-cyan/30">
                 <i class="fas fa-wallet text-cyber-cyan"></i>
-                <span class="font-heading text-sm text-white">₹<span id="header-user-wallet-balance">0.00</span></span>
+                <span class="font-heading text-xs text-white">₹<span id="header-balance">0.00</span></span>
             </button>
         </div>
     </header>
 
-    <!-- MAIN VIEWPORTS -->
-    <main class="p-4 max-w-md mx-auto space-y-6">
+    <!-- MAIN VIEWS -->
+    <main class="p-4 max-w-md mx-auto space-y-5">
 
-        <!-- TAB 1: HOME TOURNAMENTS -->
-        <div id="view-tab-home" class="viewport-tab-content space-y-5">
+        <!-- VIEW 1: HOME (TOURNAMENTS) -->
+        <div id="view-tab-home" class="viewport-tab space-y-4">
+            
+            <!-- Hero Banner -->
             <div class="glass-panel-glow rounded-3xl p-5 relative overflow-hidden">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="bg-cyber-accent/20 text-cyber-accent text-[10px] font-heading font-extrabold px-3 py-0.5 rounded-md border border-cyber-accent/30 uppercase tracking-widest flex items-center gap-1">
+                    <span class="bg-cyber-accent/20 text-cyber-accent text-[10px] font-heading font-extrabold px-2.5 py-0.5 rounded border border-cyber-accent/30 uppercase tracking-wider flex items-center gap-1">
                         <i class="fas fa-fire"></i> DAILY CASH TOURNAMENTS
                     </span>
-                    <span class="text-[10px] font-heading text-slate-400 font-bold tracking-wider">SEASON 1</span>
+                    <span class="text-[10px] font-heading text-slate-400 font-bold">SEASON 1</span>
                 </div>
-                <h2 class="font-gaming text-4xl font-bold text-white leading-none tracking-wide">PLAY BGMI & FREE FIRE</h2>
-                <p class="text-xs text-slate-300 mt-1 mb-4 leading-relaxed">Play tournaments, win prize pool instantly into your wallet.</p>
-                
-                <div class="grid grid-cols-2 gap-2 mb-4">
-                    <div class="bg-black/40 p-2.5 rounded-xl border border-cyber-border text-center">
-                        <p class="text-[10px] font-heading text-slate-400 font-bold uppercase">TOTAL PRIZE DISTRIBUTED</p>
-                        <p class="font-gaming text-2xl text-cyber-gold font-bold leading-none mt-0.5">₹1,50,000+</p>
-                    </div>
-                    <div class="bg-black/40 p-2.5 rounded-xl border border-cyber-border text-center">
-                        <p class="text-[10px] font-heading text-slate-400 font-bold uppercase">TOTAL GAMERS</p>
-                        <p class="font-gaming text-2xl text-cyber-cyan font-bold leading-none mt-0.5">10,000+</p>
-                    </div>
-                </div>
+                <h2 class="font-gaming text-4xl font-bold text-white leading-none">PLAY BGMI & FREE FIRE</h2>
+                <p class="text-xs text-slate-300 mt-1 mb-3">Join tournaments & win direct cash prizes in wallet.</p>
+
+                <!-- WhatsApp Support Channel Direct Button -->
+                <a href="https://whatsapp.com/channel/example" target="_blank" class="w-full flex items-center justify-center gap-2 bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 py-2.5 rounded-xl text-xs font-heading font-bold transition-all hover:bg-emerald-600/30">
+                    <i class="fab fa-whatsapp text-lg"></i> JOIN WHATSAPP OFFICIAL SUPPORT
+                </a>
             </div>
 
-            <!-- Game Category Filter -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-                <button onclick="SystemTournamentEngine.filterGameCategory('ALL')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-cyber-cyan border-cyber-cyan/50 whitespace-nowrap">🎮 ALL GAMES</button>
-                <button onclick="SystemTournamentEngine.filterGameCategory('BGMI')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔫 BGMI</button>
-                <button onclick="SystemTournamentEngine.filterGameCategory('FREE FIRE')" class="category-filter-btn px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔥 FREE FIRE</button>
+            <!-- Game Filters -->
+            <div class="flex items-center gap-2 overflow-x-auto pb-1">
+                <button onclick="SystemTournamentEngine.filterCategory('ALL')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-cyber-cyan border-cyber-cyan/50 whitespace-nowrap">🎮 ALL GAMES</button>
+                <button onclick="SystemTournamentEngine.filterCategory('BGMI')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔫 BGMI</button>
+                <button onclick="SystemTournamentEngine.filterCategory('FREE FIRE')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔥 FREE FIRE</button>
             </div>
 
             <div class="flex items-center justify-between">
                 <h3 class="font-heading font-bold text-xs text-slate-400 tracking-widest uppercase flex items-center gap-2">
                     <i class="fas fa-gamepad text-cyber-cyan"></i> UPCOMING MATCHES
                 </h3>
-                <span id="live-match-counter-badge" class="text-[10px] bg-cyber-cyan/10 text-cyber-cyan px-2.5 py-0.5 rounded-full border border-cyber-cyan/30 font-bold font-heading">0 ACTIVE</span>
+                <span id="active-match-count" class="text-[10px] bg-cyber-cyan/10 text-cyber-cyan px-2.5 py-0.5 rounded-full border border-cyber-cyan/30 font-bold font-heading">0 ACTIVE</span>
             </div>
 
-            <div id="fallback-no-tournaments-view" class="glass-panel p-10 rounded-3xl text-center border border-dashed border-slate-800">
+            <!-- Empty Tournament View (Default state until Admin adds matches) -->
+            <div id="no-tournaments-fallback" class="glass-panel p-8 rounded-3xl text-center border border-dashed border-slate-800">
                 <i class="fas fa-trophy text-4xl text-slate-700 mb-2"></i>
-                <h4 class="font-heading font-bold text-base text-slate-300 uppercase">NO ACTIVE MATCHES</h4>
-                <p class="text-xs text-slate-500 mt-1">Admin ne abhi tak koi new match host nahi kiya hai.</p>
+                <h4 class="font-heading font-bold text-sm text-slate-300 uppercase">NO MATCHES SCHEDULED</h4>
+                <p class="text-xs text-slate-500 mt-1">Admin ne abhi koi match add nahi kiya hai. Naye matches jald hi aayenge!</p>
             </div>
 
-            <div id="dynamic-tournament-cards-container" class="space-y-4"></div>
+            <!-- Container where Admin Matches will load dynamically -->
+            <div id="dynamic-tournament-list" class="space-y-4"></div>
         </div>
 
-        <!-- TAB 2: MY MATCHES -->
-        <div id="view-tab-matches" class="viewport-tab-content hidden space-y-5">
-            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-                <div>
-                    <h2 class="font-gaming text-3xl font-bold text-white tracking-wide leading-none">REGISTERED MATCHES</h2>
-                    <p class="text-[11px] text-slate-400 font-heading">ROOM ID & PASSWORD ACCESS</p>
-                </div>
-            </div>
-            <div id="dynamic-joined-matches-container" class="space-y-4"></div>
+        <!-- VIEW 2: MY MATCHES -->
+        <div id="view-tab-matches" class="viewport-tab hidden space-y-4">
+            <h2 class="font-gaming text-3xl font-bold text-white leading-none">JOINED MATCHES</h2>
+            <div id="dynamic-joined-list" class="space-y-3"></div>
         </div>
 
-        <!-- TAB 3: LEADERBOARD -->
-        <div id="view-tab-ranks" class="viewport-tab-content hidden space-y-5">
-            <div class="flex items-center justify-between border-b border-cyber-border pb-3">
-                <div>
-                    <h2 class="font-gaming text-3xl font-bold text-white tracking-wide leading-none">🏆 HALL OF FAME</h2>
-                    <p class="text-[11px] text-cyber-gold font-heading font-bold">TOP MATCH WINNERS</p>
-                </div>
-            </div>
-            <div id="dynamic-winners-board-container" class="space-y-3"></div>
+        <!-- VIEW 3: RANKS -->
+        <div id="view-tab-ranks" class="viewport-tab hidden space-y-4">
+            <h2 class="font-gaming text-3xl font-bold text-white leading-none">LEADERBOARD</h2>
+            <div class="glass-panel p-6 rounded-3xl text-center text-xs text-slate-400">Leaderboard update hone me time baaki hai.</div>
         </div>
 
-        <!-- TAB 4: PROFILE & MASTER ADMIN -->
-        <div id="view-tab-profile" class="viewport-tab-content hidden space-y-5">
+        <!-- VIEW 4: PROFILE & ADMIN PANEL -->
+        <div id="view-tab-profile" class="viewport-tab hidden space-y-5">
+            <!-- Profile Card -->
             <div class="glass-panel p-4 rounded-3xl flex items-center justify-between border border-cyber-cyan/30">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-2xl flex items-center justify-center text-cyber-cyan text-xl">
+                    <div class="w-11 h-11 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-2xl flex items-center justify-center text-cyber-cyan text-xl">
                         <i class="fas fa-user-shield"></i>
                     </div>
                     <div>
-                        <h3 class="font-heading font-bold text-base text-white leading-none" id="user-profile-display-name">GUEST PLAYER</h3>
-                        <p class="text-[10px] text-slate-400 mt-1" id="user-profile-display-role">Status: Not Authenticated</p>
+                        <h3 class="font-heading font-bold text-sm text-white leading-none" id="profile-name">GUEST PLAYER</h3>
+                        <p class="text-[10px] text-slate-400 mt-1" id="profile-role">Status: Not Logged In</p>
                     </div>
                 </div>
-                <button onclick="SystemModalController.openAuthModal()" id="profile-auth-trigger-btn" class="text-xs text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl font-heading font-bold">Login</button>
+                <button onclick="SystemModalController.openAuthModal()" id="profile-auth-btn" class="text-xs text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl font-heading font-bold">LOGIN</button>
             </div>
 
-            <!-- Wallet Engine -->
+            <!-- Wallet Options -->
             <div class="glass-panel-glow p-5 rounded-3xl border border-cyber-cyan/30">
                 <p class="text-xs font-heading font-bold text-slate-400 uppercase">TOTAL WALLET BALANCE</p>
-                <h2 class="font-gaming text-5xl text-cyber-cyan my-1 font-bold">₹<span id="profile-wallet-balance-display">0.00</span></h2>
+                <h2 class="font-gaming text-5xl text-cyber-cyan my-1 font-bold">₹<span id="profile-balance">0.00</span></h2>
                 <div class="grid grid-cols-2 gap-3 mt-4">
-                    <button onclick="SystemWalletEngine.handleAddMoneyTrigger()" class="btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">ADD MONEY</button>
-                    <button onclick="SystemWalletEngine.handleWithdrawalTrigger()" class="glass-panel py-3 rounded-xl text-xs font-heading font-bold text-white border border-slate-700 uppercase">WITHDRAW</button>
+                    <button onclick="SystemWalletEngine.openDepositModal()" class="btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">ADD MONEY</button>
+                    <button onclick="SystemWalletEngine.openWithdrawModal()" class="glass-panel py-3 rounded-xl text-xs font-heading font-bold text-white border border-slate-700 uppercase">WITHDRAW</button>
                 </div>
             </div>
 
-            <!-- MASTER ADMIN PANEL -->
-            <div id="master-admin-panel-container" class="glass-panel p-5 rounded-3xl border border-cyber-accent/50 shadow-neon-accent space-y-5 hidden">
+            <!-- WhatsApp Channel Link Option -->
+            <a href="https://whatsapp.com/channel/example" target="_blank" class="glass-panel p-4 rounded-2xl flex items-center gap-3 border border-emerald-500/30">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                    <i class="fab fa-whatsapp"></i>
+                </div>
+                <div>
+                    <h4 class="font-heading font-bold text-sm text-white">WHATSAPP SUPPORT CHANNEL</h4>
+                    <p class="text-[10px] text-slate-400">Join for match updates & help</p>
+                </div>
+            </a>
+
+            <!-- ADMIN PANEL (Visible ONLY for admin@fetalrush.com) -->
+            <div id="admin-control-panel" class="glass-panel p-5 rounded-3xl border border-cyber-accent/50 space-y-4 hidden">
                 <div class="flex items-center justify-between border-b border-cyber-accent/30 pb-2">
                     <span class="text-xs text-cyber-accent font-heading font-extrabold uppercase"><i class="fas fa-user-shield"></i> MASTER ADMIN PANEL</span>
                 </div>
                 
-                <!-- Create Tournament -->
+                <!-- Create Tournament Form -->
                 <div class="space-y-2">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">1. CREATE TOURNAMENT</h4>
-                    <input type="text" id="admin-input-match-title" placeholder="Match Title (e.g. BGMI Solo Rush)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">1. CREATE NEW MATCH</h4>
+                    <input type="text" id="adm-title" placeholder="Match Title (e.g. BGMI Erangel Cash Match)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
                     <div class="grid grid-cols-2 gap-2">
-                        <select id="admin-input-game-title" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <select id="adm-game" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
                             <option value="BGMI">BGMI</option>
                             <option value="FREE FIRE">FREE FIRE</option>
                         </select>
-                        <input type="text" id="admin-input-match-type" placeholder="Type (SOLO/DUO/SQUAD)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="text" id="adm-type" placeholder="Type (SOLO/DUO/SQUAD)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
                     <div class="grid grid-cols-2 gap-2">
-                        <input type="number" id="admin-input-entry-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <input type="number" id="admin-input-prize-pool" placeholder="Prize Pool (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="number" id="adm-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="number" id="adm-prize" placeholder="Prize Pool (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
                     </div>
-                    <button onclick="SystemAdminEngine.createNewTournamentMatch()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">HOST MATCH LIVE NOW</button>
+                    <input type="text" id="adm-time" placeholder="Match Timing (e.g. Today 08:00 PM)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <button onclick="SystemAdminEngine.addTournament()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">ADD MATCH NOW</button>
                 </div>
 
-                <!-- Release Room ID/Pass -->
+                <!-- Update Room Credentials -->
                 <div class="border-t border-slate-800 pt-3 space-y-2">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">2. RELEASE ROOM ID & PASS</h4>
-                    <select id="admin-select-target-match" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"><option value="">Select Match</option></select>
-                    <input type="text" id="admin-input-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <input type="text" id="admin-input-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="SystemAdminEngine.releaseRoomCredentials()" class="w-full bg-cyber-cyan text-black font-heading font-extrabold py-2.5 rounded-xl text-xs uppercase">SEND CREDS TO PLAYERS</button>
+                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">2. ENTER ROOM ID & PASS (FOR MATCH TIME)</h4>
+                    <select id="adm-match-select" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"><option value="">Select Created Match</option></select>
+                    <input type="text" id="adm-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="text" id="adm-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <button onclick="SystemAdminEngine.updateRoomCreds()" class="w-full bg-cyber-cyan text-black font-heading font-extrabold py-2.5 rounded-xl text-xs uppercase">SAVE & PUBLISH ROOM ID/PASS</button>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- AUTH MODAL -->
-    <div id="authentication-modal-overlay" class="fixed inset-0 bg-black/85 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-6 relative border border-cyber-cyan/40">
-            <button onclick="SystemModalController.closeAuthModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
-            <div class="text-center mb-5">
-                <h3 class="font-gaming text-3xl font-bold text-white leading-none">PLAYER LOGIN</h3>
-                <p class="text-[11px] text-slate-400">Enter your credentials below</p>
+    <!-- MODAL 1: ADD MONEY (UPI & QR) -->
+    <div id="modal-deposit" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-5 relative border border-cyber-cyan/40 text-center">
+            <button onclick="SystemWalletEngine.closeDepositModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
+            <h3 class="font-gaming text-3xl font-bold text-white leading-none">ADD MONEY (UPI)</h3>
+            <p class="text-[11px] text-slate-400 mb-3">Scan QR or Copy UPI ID & Payment karke UTR daalein</p>
+            
+            <!-- Dynamic QR Image -->
+            <div class="bg-white p-3 rounded-2xl w-44 h-44 mx-auto mb-3 flex items-center justify-center">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=yourupi@upi&pn=FetalRush" alt="UPI QR Code" class="w-full h-full object-contain">
             </div>
-            <div class="space-y-3">
-                <input type="email" id="auth-email-input-field" placeholder="admin@fetalrush.com or player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
-                <input type="password" id="auth-password-input-field" placeholder="Password (admin123 for admin)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
-                <button onclick="SystemAuthEngine.processUserAuthentication()" class="w-full btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">AUTHENTICATE</button>
+
+            <div class="bg-black/60 border border-slate-800 p-2.5 rounded-xl mb-3 flex items-center justify-between text-xs">
+                <span class="text-cyber-cyan font-mono font-bold">yourupi@upi</span>
+                <button onclick="navigator.clipboard.writeText('yourupi@upi'); SystemToast.show('UPI ID Copied!');" class="bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/40 px-2 py-1 rounded text-[10px] font-bold">COPY</button>
+            </div>
+
+            <div class="space-y-2">
+                <input type="number" id="dep-amount" placeholder="Amount Paid (₹)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                <input type="text" id="dep-utr" placeholder="UTR / Ref Number" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                <button onclick="SystemWalletEngine.submitDeposit()" class="w-full btn-gradient-cyan py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">SUBMIT PAYMENT</button>
             </div>
         </div>
     </div>
 
-    <!-- BOTTOM NAVIGATION -->
+    <!-- MODAL 2: WITHDRAW MONEY -->
+    <div id="modal-withdraw" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-5 relative border border-cyber-accent/40 text-center">
+            <button onclick="SystemWalletEngine.closeWithdrawModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
+            <h3 class="font-gaming text-3xl font-bold text-white leading-none">WITHDRAW WINNINGS</h3>
+            <p class="text-[11px] text-slate-400 mb-4">Transfer money instantly to your UPI</p>
+
+            <div class="space-y-2">
+                <input type="text" id="wit-upi" placeholder="Enter UPI ID (e.g. 9876543210@upi)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                <input type="number" id="wit-amount" placeholder="Amount (₹)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                <button onclick="SystemWalletEngine.submitWithdraw()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">REQUEST WITHDRAWAL</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: AUTHENTICATION (LOGIN) -->
+    <div id="modal-auth" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
+        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-6 relative border border-cyber-cyan/40">
+            <button onclick="SystemModalController.closeAuthModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
+            <div class="text-center mb-5">
+                <h3 class="font-gaming text-3xl font-bold text-white leading-none">PLAYER LOGIN</h3>
+                <p class="text-[11px] text-slate-400">Enter your login details</p>
+            </div>
+            <div class="space-y-3">
+                <input type="email" id="auth-email" placeholder="admin@fetalrush.com or player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
+                <input type="password" id="auth-pass" placeholder="Password (admin123 for admin)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
+                <button onclick="SystemAuthEngine.login()" class="w-full btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">LOGIN NOW</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NAVIGATION BAR -->
     <nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-cyber-border py-2 px-6 z-40">
         <div class="max-w-md mx-auto flex justify-between items-center">
-            <button onclick="SystemTabController.switchTab('home')" id="nav-btn-home" class="nav-tab-button flex flex-col items-center gap-1 active-tab-icon text-slate-500">
+            <button onclick="SystemTabController.switchTab('home')" id="nav-home" class="flex flex-col items-center gap-1 active-tab-icon text-slate-500">
                 <i class="fas fa-fire text-lg"></i><span class="text-[9px] font-heading font-bold active-tab-text">HOME</span>
             </button>
-            <button onclick="SystemTabController.switchTab('matches')" id="nav-btn-matches" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500">
+            <button onclick="SystemTabController.switchTab('matches')" id="nav-matches" class="flex flex-col items-center gap-1 text-slate-500">
                 <i class="fas fa-trophy text-lg"></i><span class="text-[9px] font-heading font-bold">MATCHES</span>
             </button>
-            <button onclick="SystemTabController.switchTab('ranks')" id="nav-btn-ranks" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500">
+            <button onclick="SystemTabController.switchTab('ranks')" id="nav-ranks" class="flex flex-col items-center gap-1 text-slate-500">
                 <i class="fas fa-chart-line text-lg"></i><span class="text-[9px] font-heading font-bold">RANKS</span>
             </button>
-            <button onclick="SystemTabController.switchTab('profile')" id="nav-btn-profile" class="nav-tab-button flex flex-col items-center gap-1 text-slate-500">
+            <button onclick="SystemTabController.switchTab('profile')" id="nav-profile" class="flex flex-col items-center gap-1 text-slate-500">
                 <i class="fas fa-user-shield text-lg"></i><span class="text-[9px] font-heading font-bold">PROFILE</span>
             </button>
         </div>
     </nav>
 
-    <!-- CORE JAVASCRIPT ARCHITECTURE -->
+    <!-- CORE SCRIPT ENGINE -->
     <script>
-        const SystemState = {
-            currentUser: null,
-            tournaments: [],
-            joinedMatches: [],
-            winners: [],
-            activeCategoryFilter: 'ALL',
+        // Automatic Reset Key to flush out old hardcoded fake tournaments
+        const SYSTEM_VERSION = "v_clean_1.0";
+        if (localStorage.getItem("fr_sys_ver") !== SYSTEM_VERSION) {
+            localStorage.removeItem("fr_tournaments");
+            localStorage.setItem("fr_sys_ver", SYSTEM_VERSION);
+        }
 
-            initializeState: function() {
-                this.currentUser = JSON.parse(localStorage.getItem('fr_user')) || null;
-                this.tournaments = JSON.parse(localStorage.getItem('fr_tournaments')) || [
-                    { id: 101, title: 'BGMI Erangel Solo Cash', game: 'BGMI', type: 'SOLO', fee: 10, prize: 300, roomId: '', roomPass: '' },
-                    { id: 102, title: 'Free Fire Bermuda Squad', game: 'FREE FIRE', type: 'SQUAD', fee: 20, prize: 800, roomId: '', roomPass: '' }
-                ];
-                this.joinedMatches = JSON.parse(localStorage.getItem('fr_joined')) || [];
-                this.winners = JSON.parse(localStorage.getItem('fr_winners')) || [];
-            },
-            persistState: function(key) {
-                if (key === 'user') localStorage.setItem('fr_user', JSON.stringify(this.currentUser));
-                if (key === 'tournaments') localStorage.setItem('fr_tournaments', JSON.stringify(this.tournaments));
-                if (key === 'joined') localStorage.setItem('fr_joined', JSON.stringify(this.joinedMatches));
-                if (key === 'winners') localStorage.setItem('fr_winners', JSON.stringify(this.winners));
-            }
+        const State = {
+            user: JSON.parse(localStorage.getItem('fr_user')) || null,
+            tournaments: JSON.parse(localStorage.getItem('fr_tournaments')) || [],
+            joinedMatches: JSON.parse(localStorage.getItem('fr_joined')) || [],
+            filter: 'ALL'
         };
 
-        const SystemNotificationEngine = {
-            showToast: function(msg, title = "ALERT", isError = false) {
-                document.getElementById('toast-heading-text').innerText = title;
-                document.getElementById('toast-body-text').innerText = msg;
-                const container = document.getElementById('toast-dispatcher-container');
-                container.classList.remove('-translate-y-32', 'opacity-0');
-                container.classList.add('translate-y-0', 'opacity-100');
+        const SystemToast = {
+            show: function(msg, title = "SYSTEM ALERT") {
+                document.getElementById('toast-title').innerText = title;
+                document.getElementById('toast-desc').innerText = msg;
+                const toast = document.getElementById('toast-container');
+                toast.classList.remove('-translate-y-32', 'opacity-0');
+                toast.classList.add('translate-y-0', 'opacity-100');
                 setTimeout(() => {
-                    container.classList.remove('translate-y-0', 'opacity-100');
-                    container.classList.add('-translate-y-32', 'opacity-0');
+                    toast.classList.remove('translate-y-0', 'opacity-100');
+                    toast.classList.add('-translate-y-32', 'opacity-0');
                 }, 3000);
             }
         };
 
         const SystemTabController = {
             switchTab: function(tab) {
-                document.querySelectorAll('.viewport-tab-content').forEach(v => v.classList.add('hidden'));
-                document.querySelectorAll('.nav-tab-button').forEach(b => {
+                document.querySelectorAll('.viewport-tab').forEach(v => v.classList.add('hidden'));
+                document.querySelectorAll('nav button').forEach(b => {
                     b.classList.remove('active-tab-icon');
                     if (b.querySelector('span')) b.querySelector('span').classList.remove('active-tab-text');
                 });
                 document.getElementById('view-tab-' + tab).classList.remove('hidden');
-                const navBtn = document.getElementById('nav-btn-' + tab);
-                if (navBtn) {
-                    navBtn.classList.add('active-tab-icon');
-                    if (navBtn.querySelector('span')) navBtn.querySelector('span').classList.add('active-tab-text');
+                const btn = document.getElementById('nav-' + tab);
+                if (btn) {
+                    btn.classList.add('active-tab-icon');
+                    if (btn.querySelector('span')) btn.querySelector('span').classList.add('active-tab-text');
                 }
             }
         };
 
         const SystemModalController = {
-            openAuthModal: () => document.getElementById('authentication-modal-overlay').classList.remove('hidden'),
-            closeAuthModal: () => document.getElementById('authentication-modal-overlay').classList.add('hidden')
+            openAuthModal: () => document.getElementById('modal-auth').classList.remove('hidden'),
+            closeAuthModal: () => document.getElementById('modal-auth').classList.add('hidden')
         };
 
         const SystemAuthEngine = {
-            processUserAuthentication: function() {
-                const email = document.getElementById('auth-email-input-field').value.trim();
-                const pass = document.getElementById('auth-password-input-field').value.trim();
+            login: function() {
+                const email = document.getElementById('auth-email').value.trim();
+                const pass = document.getElementById('auth-pass').value.trim();
+                if (!email || !pass) return SystemToast.show("Email & Password bharen!", "ERROR");
 
-                if (!email || !pass) return SystemNotificationEngine.showToast("Email/Password daliye!", "ERROR", true);
+                const isAdmin = (email.toLowerCase() === "admin@fetalrush.com" && pass === "admin123");
+                State.user = { email, isAdmin, balance: State.user ? State.user.balance : 0 };
+                localStorage.setItem('fr_user', JSON.stringify(State.user));
 
-                let isAdmin = (email.toLowerCase() === "admin@fetalrush.com" && pass === "admin123");
-                SystemState.currentUser = { email: email, isAdmin: isAdmin, balance: SystemState.currentUser ? SystemState.currentUser.balance : 50 };
-                SystemState.persistState('user');
-                
-                SystemUIRenderer.updateUserContextUI();
+                SystemUIRenderer.renderUser();
                 SystemModalController.closeAuthModal();
-                SystemNotificationEngine.showToast(isAdmin ? "Welcome Master Admin!" : "Logged in successfully!");
+                SystemToast.show(isAdmin ? "Welcome Admin!" : "Logged in successfully!");
             },
-            logoutUserSession: function() {
-                SystemState.currentUser = null;
+            logout: function() {
+                State.user = null;
                 localStorage.removeItem('fr_user');
-                SystemUIRenderer.updateUserContextUI();
-                SystemNotificationEngine.showToast("Logged out.");
+                SystemUIRenderer.renderUser();
+                SystemToast.show("Logged out.");
             }
         };
 
         const SystemAdminEngine = {
-            createNewTournamentMatch: function() {
-                const title = document.getElementById('admin-input-match-title').value.trim();
-                const game = document.getElementById('admin-input-game-title').value;
-                const type = document.getElementById('admin-input-match-type').value.trim() || 'SOLO';
-                const fee = parseFloat(document.getElementById('admin-input-entry-fee').value);
-                const prize = parseFloat(document.getElementById('admin-input-prize-pool').value);
+            addTournament: function() {
+                const title = document.getElementById('adm-title').value.trim();
+                const game = document.getElementById('adm-game').value;
+                const type = document.getElementById('adm-type').value.trim() || 'SOLO';
+                const fee = parseFloat(document.getElementById('adm-fee').value);
+                const prize = parseFloat(document.getElementById('adm-prize').value);
+                const time = document.getElementById('adm-time').value.trim() || 'TBA';
 
-                if (!title || isNaN(fee) || isNaN(prize)) return SystemNotificationEngine.showToast("Saari details sahi daliye!", "ERROR", true);
+                if (!title || isNaN(fee) || isNaN(prize)) return SystemToast.show("Sabhi details sahi se daalein!", "ERROR");
 
-                SystemState.tournaments.push({ id: Date.now(), title, game, type, fee, prize, roomId: '', roomPass: '' });
-                SystemState.persistState('tournaments');
-                SystemUIRenderer.renderTournamentsList();
-                SystemNotificationEngine.showToast("Match Published Successfully!");
+                const newMatch = { id: Date.now(), title, game, type, fee, prize, time, roomId: '', roomPass: '' };
+                State.tournaments.push(newMatch);
+                localStorage.setItem('fr_tournaments', JSON.stringify(State.tournaments));
+
+                SystemUIRenderer.renderTournaments();
+                SystemToast.show("Naya Match Successfully Add ho gaya!");
             },
-            releaseRoomCredentials: function() {
-                const matchId = document.getElementById('admin-select-target-match').value;
-                const roomId = document.getElementById('admin-input-room-id').value.trim();
-                const roomPass = document.getElementById('admin-input-room-pass').value.trim();
+            updateRoomCreds: function() {
+                const id = document.getElementById('adm-match-select').value;
+                const roomId = document.getElementById('adm-room-id').value.trim();
+                const roomPass = document.getElementById('adm-room-pass').value.trim();
 
-                if (!matchId || !roomId || !roomPass) return SystemNotificationEngine.showToast("Creds inputs missing!", "ERROR", true);
+                if (!id || !roomId || !roomPass) return SystemToast.show("Match Select karke Room ID & Pass bharen!", "ERROR");
 
-                const match = SystemState.tournaments.find(m => m.id == matchId);
+                const match = State.tournaments.find(m => m.id == id);
                 if (match) {
                     match.roomId = roomId;
                     match.roomPass = roomPass;
-                    SystemState.persistState('tournaments');
-                    
-                    SystemState.joinedMatches.forEach(j => { if(j.id == matchId) { j.roomId = roomId; j.roomPass = roomPass; } });
-                    SystemState.persistState('joined');
-                    
-                    SystemUIRenderer.renderJoinedMatchesList();
-                    SystemNotificationEngine.showToast("Room ID/Pass Released!");
+                    localStorage.setItem('fr_tournaments', JSON.stringify(State.tournaments));
+
+                    State.joinedMatches.forEach(j => { if (j.id == id) { j.roomId = roomId; j.roomPass = roomPass; } });
+                    localStorage.setItem('fr_joined', JSON.stringify(State.joinedMatches));
+
+                    SystemUIRenderer.renderJoined();
+                    SystemToast.show("Room ID & Pass Successfully Publish ho gaye!");
                 }
             }
         };
 
         const SystemTournamentEngine = {
-            filterGameCategory: function(cat) {
-                SystemState.activeCategoryFilter = cat;
-                SystemUIRenderer.renderTournamentsList();
+            filterCategory: function(cat) {
+                State.filter = cat;
+                SystemUIRenderer.renderTournaments();
             },
-            registerPlayerSlot: function(id) {
-                if (!SystemState.currentUser) return SystemModalController.openAuthModal();
-                const match = SystemState.tournaments.find(m => m.id == id);
+            joinMatch: function(id) {
+                if (!State.user) return SystemModalController.openAuthModal();
+                const match = State.tournaments.find(m => m.id == id);
                 if (!match) return;
 
-                if (SystemState.currentUser.balance < match.fee) return SystemNotificationEngine.showToast("Wallet balance kam hai!", "LOW BALANCE", true);
-                if (SystemState.joinedMatches.some(j => j.id == id)) return SystemNotificationEngine.showToast("Aap pehle se registered ho!");
+                if (State.user.balance < match.fee) return SystemToast.show("Wallet me balance kam hai! Pehle Add Money karein.", "LOW BALANCE");
+                if (State.joinedMatches.some(j => j.id == id)) return SystemToast.show("Aap pehle se is match me joined hain!");
 
-                SystemState.currentUser.balance -= match.fee;
-                SystemState.persistState('user');
+                State.user.balance -= match.fee;
+                localStorage.setItem('fr_user', JSON.stringify(State.user));
 
-                SystemState.joinedMatches.push(match);
-                SystemState.persistState('joined');
+                State.joinedMatches.push(match);
+                localStorage.setItem('fr_joined', JSON.stringify(State.joinedMatches));
 
-                SystemUIRenderer.updateUserContextUI();
-                SystemUIRenderer.renderJoinedMatchesList();
-                SystemNotificationEngine.showToast("Slot Successfully Registered!");
+                SystemUIRenderer.renderUser();
+                SystemUIRenderer.renderJoined();
+                SystemToast.show("Tournament Slot Successfully Joined!");
             }
         };
 
         const SystemWalletEngine = {
-            handleAddMoneyTrigger: function() {
-                if (!SystemState.currentUser) return SystemModalController.openAuthModal();
-                SystemState.currentUser.balance += 100;
-                SystemState.persistState('user');
-                SystemUIRenderer.updateUserContextUI();
-                SystemNotificationEngine.showToast("₹100 Added to Wallet (Demo Gate)!");
+            openDepositModal: () => State.user ? document.getElementById('modal-deposit').classList.remove('hidden') : SystemModalController.openAuthModal(),
+            closeDepositModal: () => document.getElementById('modal-deposit').classList.add('hidden'),
+            submitDeposit: function() {
+                const amt = parseFloat(document.getElementById('dep-amount').value);
+                const utr = document.getElementById('dep-utr').value.trim();
+                if (isNaN(amt) || !utr) return SystemToast.show("Amount aur UTR Ref Number daalein!", "ERROR");
+
+                State.user.balance += amt;
+                localStorage.setItem('fr_user', JSON.stringify(State.user));
+                SystemUIRenderer.renderUser();
+                this.closeDepositModal();
+                SystemToast.show("Deposit successful! Balance added.");
             },
-            handleWithdrawalTrigger: function() {
-                SystemNotificationEngine.showToast("Withdrawal feature active.");
+            openWithdrawModal: () => State.user ? document.getElementById('modal-withdraw').classList.remove('hidden') : SystemModalController.openAuthModal(),
+            closeWithdrawModal: () => document.getElementById('modal-withdraw').classList.add('hidden'),
+            submitWithdraw: function() {
+                const upi = document.getElementById('wit-upi').value.trim();
+                const amt = parseFloat(document.getElementById('wit-amount').value);
+                if (!upi || isNaN(amt)) return SystemToast.show("UPI ID & Amount enter karein!", "ERROR");
+                if (amt > State.user.balance) return SystemToast.show("Wallet me itna balance nahi hai!", "ERROR");
+
+                State.user.balance -= amt;
+                localStorage.setItem('fr_user', JSON.stringify(State.user));
+                SystemUIRenderer.renderUser();
+                this.closeWithdrawModal();
+                SystemToast.show("Withdrawal request submit ho gayi!");
             }
         };
 
         const SystemUIRenderer = {
-            updateUserContextUI: function() {
-                const headerAuthBtnLabel = document.getElementById('header-auth-btn-label');
-                const headerWallet = document.getElementById('header-user-wallet-balance');
-                const profileWallet = document.getElementById('profile-wallet-balance-display');
-                const nameDisplay = document.getElementById('user-profile-display-name');
-                const roleDisplay = document.getElementById('user-profile-display-role');
-                const adminPanel = document.getElementById('master-admin-panel-container');
+            renderUser: function() {
+                if (State.user) {
+                    document.getElementById('header-auth-label').innerText = "LOGOUT";
+                    document.getElementById('header-auth-btn').onclick = SystemAuthEngine.logout;
+                    document.getElementById('header-balance').innerText = State.user.balance.toFixed(2);
+                    document.getElementById('profile-balance').innerText = State.user.balance.toFixed(2);
 
-                if (SystemState.currentUser) {
-                    headerAuthBtnLabel.innerText = "LOGOUT";
-                    headerWallet.innerText = SystemState.currentUser.balance.toFixed(2);
-                    profileWallet.innerText = SystemState.currentUser.balance.toFixed(2);
-                    if (SystemState.currentUser.isAdmin) {
-                        nameDisplay.innerText = "MASTER ADMIN";
-                        roleDisplay.innerText = "Control Panel Access Granted";
-                        adminPanel.classList.remove('hidden');
+                    if (State.user.isAdmin) {
+                        document.getElementById('profile-name').innerText = "MASTER ADMIN";
+                        document.getElementById('profile-role').innerText = "Full Control Access";
+                        document.getElementById('admin-control-panel').classList.remove('hidden');
                     } else {
-                        nameDisplay.innerText = SystemState.currentUser.email.split('@')[0].toUpperCase();
-                        roleDisplay.innerText = "Verified Gamer";
-                        adminPanel.classList.add('hidden');
+                        document.getElementById('profile-name').innerText = State.user.email.split('@')[0].toUpperCase();
+                        document.getElementById('profile-role').innerText = "Verified Gamer";
+                        document.getElementById('admin-control-panel').classList.add('hidden');
                     }
                 } else {
-                    headerAuthBtnLabel.innerText = "LOGIN";
-                    headerWallet.innerText = "0.00";
-                    profileWallet.innerText = "0.00";
-                    nameDisplay.innerText = "GUEST PLAYER";
-                    roleDisplay.innerText = "Not Authenticated";
-                    adminPanel.classList.add('hidden');
+                    document.getElementById('header-auth-label').innerText = "LOGIN";
+                    document.getElementById('header-auth-btn').onclick = SystemModalController.openAuthModal;
+                    document.getElementById('header-balance').innerText = "0.00";
+                    document.getElementById('profile-balance').innerText = "0.00";
+                    document.getElementById('profile-name').innerText = "GUEST PLAYER";
+                    document.getElementById('profile-role').innerText = "Status: Not Logged In";
+                    document.getElementById('admin-control-panel').classList.add('hidden');
                 }
             },
-            renderTournamentsList: function() {
-                const container = document.getElementById('dynamic-tournament-cards-container');
-                const fallback = document.getElementById('fallback-no-tournaments-view');
-                const adminSelect = document.getElementById('admin-select-target-match');
+            renderTournaments: function() {
+                const container = document.getElementById('dynamic-tournament-list');
+                const fallback = document.getElementById('no-tournaments-fallback');
+                const admSelect = document.getElementById('adm-match-select');
 
                 container.innerHTML = "";
-                adminSelect.innerHTML = '<option value="">Select Match</option>';
+                admSelect.innerHTML = '<option value="">Select Created Match</option>';
 
-                let list = SystemState.tournaments;
-                if (SystemState.activeCategoryFilter !== 'ALL') {
-                    list = list.filter(m => m.game === SystemState.activeCategoryFilter);
+                let list = State.tournaments;
+                if (State.filter !== 'ALL') {
+                    list = list.filter(m => m.game === State.filter);
                 }
 
-                document.getElementById('live-match-counter-badge').innerText = list.length + " ACTIVE";
+                document.getElementById('active-match-count').innerText = list.length + " ACTIVE";
 
                 if (list.length === 0) {
                     fallback.classList.remove('hidden');
@@ -537,7 +559,7 @@
                     const opt = document.createElement('option');
                     opt.value = match.id;
                     opt.innerText = match.title;
-                    adminSelect.appendChild(opt);
+                    admSelect.appendChild(opt);
 
                     const card = document.createElement('div');
                     card.className = "glass-panel rounded-3xl p-4 border border-cyber-border";
@@ -549,30 +571,32 @@
                         <h4 class="font-heading font-bold text-lg text-white mb-1">${match.title}</h4>
                         <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
                             <span>PRIZE: <strong class="text-cyber-emerald font-bold">₹${match.prize}</strong></span>
+                            <span>TIME: <strong class="text-cyber-cyan font-bold">${match.time}</strong></span>
                         </div>
-                        <button onclick="SystemTournamentEngine.registerPlayerSlot(${match.id})" class="w-full btn-gradient-cyan py-2.5 rounded-2xl text-xs font-heading font-extrabold uppercase">JOIN TOURNAMENT</button>
+                        <button onclick="SystemTournamentEngine.joinMatch(${match.id})" class="w-full btn-gradient-cyan py-2.5 rounded-2xl text-xs font-heading font-extrabold uppercase">JOIN TOURNAMENT</button>
                     `;
                     container.appendChild(card);
                 });
             },
-            renderJoinedMatchesList: function() {
-                const container = document.getElementById('dynamic-joined-matches-container');
+            renderJoined: function() {
+                const container = document.getElementById('dynamic-joined-list');
                 container.innerHTML = "";
 
-                if (SystemState.joinedMatches.length === 0) {
-                    container.innerHTML = `<div class="glass-panel p-8 rounded-3xl text-center text-slate-400 text-xs">Aapne abhi tak koi match register nahi kiya hai.</div>`;
+                if (State.joinedMatches.length === 0) {
+                    container.innerHTML = `<div class="glass-panel p-8 rounded-3xl text-center text-slate-400 text-xs">Aapne abhi tak koi match join nahi kiya hai.</div>`;
                     return;
                 }
 
-                SystemState.joinedMatches.forEach(match => {
+                State.joinedMatches.forEach(match => {
                     const card = document.createElement('div');
                     card.className = "glass-panel p-4 rounded-3xl border border-cyber-cyan/40";
                     let creds = match.roomId ? `
                         <div class="mt-2 bg-black/80 p-3 rounded-2xl border border-cyber-emerald/50 text-xs">
-                            <span class="text-[10px] text-cyber-emerald font-bold block mb-1">ROOM CREDS RELEASED</span>
-                            <div>ID: <strong class="text-cyber-cyan">${match.roomId}</strong> | PASS: <strong class="text-cyber-cyan">${match.roomPass}</strong></div>
+                            <span class="text-[10px] text-cyber-emerald font-bold block mb-1">ROOM DETAILS RELEASED</span>
+                            <div>ROOM ID: <strong class="text-cyber-cyan font-mono">${match.roomId}</strong></div>
+                            <div>PASSWORD: <strong class="text-cyber-cyan font-mono">${match.roomPass}</strong></div>
                         </div>
-                    ` : `<div class="mt-2 text-[10px] text-cyber-gold">Room ID/Password match se 15 min pehle aayega.</div>`;
+                    ` : `<div class="mt-2 text-[10px] text-cyber-gold font-heading">Room ID & Password match ke waqt yahin show honge.</div>`;
 
                     card.innerHTML = `<h4 class="font-heading font-bold text-base text-white">${match.title}</h4>${creds}`;
                     container.appendChild(card);
@@ -581,10 +605,9 @@
         };
 
         window.addEventListener('DOMContentLoaded', () => {
-            SystemState.initializeState();
-            SystemUIRenderer.updateUserContextUI();
-            SystemUIRenderer.renderTournamentsList();
-            SystemUIRenderer.renderJoinedMatchesList();
+            SystemUIRenderer.renderUser();
+            SystemUIRenderer.renderTournaments();
+            SystemUIRenderer.renderJoined();
         });
     </script>
 </body>
