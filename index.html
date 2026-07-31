@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FATAL RUSH ESPORTS - Tournament App</title>
+    <title>FATAL RUSH ESPORTS - Arena</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&family=Rajdhani:wght@600;700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        gaming: ['Teko', 'sans-serif'],
+                        heading: ['Rajdhani', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
                     colors: {
-                        brand: {
+                        cyber: {
                             cyan: '#00f2fe',
                             purple: '#7928ca',
                             pink: '#ff0080',
-                            dark: '#0a0a12',
-                            card: '#121225'
+                            bg: '#07070e',
+                            card: '#0f101f',
+                            border: '#1f233f'
                         }
                     }
                 }
@@ -25,271 +32,285 @@
         }
     </script>
     <style>
-        body { background-color: #0a0a12; color: #fff; font-family: sans-serif; }
-        .active-tab { color: #00f2fe !important; }
-        .glass-card { background: rgba(18, 18, 37, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        body { background-color: #07070e; color: #fff; font-family: 'Inter', sans-serif; }
+        .font-gaming { font-family: 'Teko', sans-serif; letter-spacing: 1px; }
+        .font-heading { font-family: 'Rajdhani', sans-serif; }
+        .active-tab { color: #00f2fe !important; text-shadow: 0 0 12px rgba(0,242,254,0.6); }
+        .cyber-card { background: linear-gradient(135deg, rgba(15,16,31,0.95) 0%, rgba(10,11,20,0.98) 100%); border: 1px solid #1f233f; }
+        .cyber-btn { background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%); color: #000; font-weight: 800; }
+        .cyber-btn-danger { background: linear-gradient(90deg, #ff0844 0%, #ffb199 100%); }
+        .glow-cyan { box-shadow: 0 0 15px rgba(0, 242, 254, 0.25); }
+        
+        /* Custom Toast Notification */
+        #toast-container {
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
     </style>
 </head>
-<body class="pb-24">
+<body class="pb-24 font-body select-none">
 
-    <!-- Top Header -->
-    <header class="sticky top-0 z-40 glass-card px-4 py-3 flex items-center justify-between border-b border-gray-800">
-        <div class="flex items-center gap-2">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center font-bold text-xl shadow-lg shadow-cyan-500/20">
-                FR
+    <!-- Custom High-End Gaming Toast Notification -->
+    <div id="toast-container" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 transform -translate-y-24 opacity-0 transition-all duration-300 w-[90%] max-w-xs pointer-events-none">
+        <div id="toast-box" class="cyber-card p-3 rounded-2xl border border-cyan-500/50 shadow-2xl flex items-center gap-3 backdrop-blur-xl">
+            <div id="toast-icon-bg" class="w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg flex-shrink-0">
+                <i id="toast-icon" class="fas fa-bolt"></i>
             </div>
             <div>
-                <h1 class="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500 text-lg tracking-wider">FATAL RUSH</h1>
-                <p class="text-[10px] text-gray-400 tracking-widest -mt-1">ESPORTS ARENA</p>
+                <h4 id="toast-title" class="font-heading font-bold text-sm tracking-wide text-white leading-none">NOTIFICATION</h4>
+                <p id="toast-msg" class="text-[11px] text-gray-300 mt-1 leading-tight">Action completed successfully.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-40 cyber-card px-4 py-3 flex items-center justify-between border-b border-cyber-border/80 backdrop-blur-lg">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-purple-600 to-pink-500 p-[1px] glow-cyan">
+                <div class="w-full h-full bg-cyber-bg rounded-xl flex items-center justify-center font-gaming text-2xl text-cyan-400 font-bold">
+                    FR
+                </div>
+            </div>
+            <div>
+                <h1 class="font-gaming text-2xl font-bold tracking-wider leading-none text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-400">FATAL RUSH</h1>
+                <p class="text-[9px] font-heading text-cyan-400/80 tracking-[2px] font-bold uppercase -mt-1">ESPORTS ARENA</p>
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="openLoginModal()" id="login-btn-top" class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-full text-xs font-bold">
-                Login / Signup
+            <button onclick="openLoginModal()" id="login-btn-top" class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-lg text-xs font-heading font-bold tracking-wider hover:bg-cyan-500/20 transition">
+                LOGIN
             </button>
-            <button onclick="switchTab('profile')" class="bg-gray-800/80 px-3 py-1.5 rounded-full border border-gray-700 text-xs font-semibold flex items-center gap-2">
+            <button onclick="switchTab('profile')" class="cyber-card px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 border border-cyber-border">
                 <i class="fas fa-wallet text-cyan-400"></i>
-                <span>₹<span id="header-balance">0.00</span></span>
+                <span class="font-heading text-sm">₹<span id="header-balance">0.00</span></span>
             </button>
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- App Body Container -->
     <main class="p-4 max-w-md mx-auto">
 
         <!-- TAB 1: HOME -->
         <div id="tab-home" class="tab-content">
             <!-- Hero Banner -->
-            <div class="glass-card rounded-2xl p-5 mb-6 relative overflow-hidden border border-cyan-500/30">
-                <div class="absolute -right-10 -bottom-10 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
-                <span class="bg-red-500/20 text-red-400 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase border border-red-500/30">🔥 Official App</span>
-                <h2 class="text-2xl font-black mt-2 mb-1">WELCOME TO FATAL RUSH</h2>
-                <p class="text-xs text-gray-400 mb-4">Play BGMI, Free Fire & Call of Duty Tournaments, Win Cash Prizes!</p>
+            <div class="cyber-card rounded-2xl p-5 mb-5 relative overflow-hidden border border-cyan-500/30 glow-cyan">
+                <div class="absolute -right-8 -bottom-8 w-28 h-28 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="bg-red-500/20 text-red-400 text-[10px] font-heading font-bold px-2.5 py-0.5 rounded-md uppercase border border-red-500/30 flex items-center gap-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse"></span> Official Esports Platform
+                    </span>
+                </div>
+                <h2 class="font-gaming text-3xl font-bold tracking-wide mt-1 leading-none text-white">PLAY TOURNAMENTS & WIN REAL CASH</h2>
+                <p class="text-[11px] text-gray-400 mt-1 mb-4 leading-relaxed">BGMI, Free Fire & COD Matches hosted daily with instant payouts.</p>
                 
-                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:opacity-90 text-white font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-green-500/20">
-                    <i class="fab fa-whatsapp text-lg"></i> JOIN OFFICIAL WHATSAPP CHANNEL
+                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-heading font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-emerald-900/30 tracking-wider">
+                    <i class="fab fa-whatsapp text-sm"></i> JOIN OFFICIAL WHATSAPP CHANNEL
                 </a>
             </div>
 
-            <!-- Categories -->
-            <div class="flex gap-2 mb-4 overflow-x-auto pb-2">
-                <button onclick="filterGame('all')" class="game-filter-btn bg-cyan-500 text-black font-bold px-4 py-2 rounded-xl text-xs flex-shrink-0">All Games</button>
-                <button onclick="filterGame('bgmi')" class="game-filter-btn bg-gray-800 text-gray-300 font-bold px-4 py-2 rounded-xl text-xs flex-shrink-0 border border-gray-700">BGMI (PUBG)</button>
-                <button onclick="filterGame('ff')" class="game-filter-btn bg-gray-800 text-gray-300 font-bold px-4 py-2 rounded-xl text-xs flex-shrink-0 border border-gray-700">FREE FIRE</button>
-                <button onclick="filterGame('cod')" class="game-filter-btn bg-gray-800 text-gray-300 font-bold px-4 py-2 rounded-xl text-xs flex-shrink-0 border border-gray-700">CALL OF DUTY</button>
+            <!-- Game Filters -->
+            <div class="flex gap-2 mb-4 overflow-x-auto pb-1 no-scrollbar">
+                <button onclick="filterGame('all')" class="game-filter-btn cyber-btn font-heading font-bold px-4 py-1.5 rounded-xl text-xs flex-shrink-0 tracking-wider">ALL MATCHES</button>
+                <button onclick="filterGame('bgmi')" class="game-filter-btn cyber-card text-gray-300 font-heading font-bold px-4 py-1.5 rounded-xl text-xs flex-shrink-0 border border-cyber-border tracking-wider">BGMI</button>
+                <button onclick="filterGame('ff')" class="game-filter-btn cyber-card text-gray-300 font-heading font-bold px-4 py-1.5 rounded-xl text-xs flex-shrink-0 border border-cyber-border tracking-wider">FREE FIRE</button>
+                <button onclick="filterGame('cod')" class="game-filter-btn cyber-card text-gray-300 font-heading font-bold px-4 py-1.5 rounded-xl text-xs flex-shrink-0 border border-cyber-border tracking-wider">COD MOBILE</button>
             </div>
 
             <!-- Active Tournaments List -->
             <div class="space-y-4" id="tournaments-container">
-                <h3 class="text-sm font-bold text-gray-400 uppercase tracking-wider">Upcoming Tournaments</h3>
-                
-                <!-- BGMI Card -->
-                <div class="glass-card rounded-2xl p-4 relative game-card bgmi">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <span class="bg-cyan-500/10 text-cyan-400 text-[10px] font-bold px-2 py-0.5 rounded border border-cyan-500/20">BGMI · SQUAD</span>
-                            <h4 class="font-bold text-base mt-1">Erangel Championship S1</h4>
-                        </div>
-                        <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-1 rounded-full">SOLO / SQUAD</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 bg-black/40 p-3 rounded-xl mb-3 text-xs">
-                        <div><p class="text-gray-400 text-[10px]">PRIZE POOL</p><p class="font-extrabold text-cyan-400 text-sm">₹1,000</p></div>
-                        <div><p class="text-gray-400 text-[10px]">ENTRY FEE</p><p class="font-extrabold text-emerald-400 text-sm">₹20 / Player</p></div>
-                        <div><p class="text-gray-400 text-[10px]">MAP</p><p class="font-semibold">Erangel</p></div>
-                        <div><p class="text-gray-400 text-[10px]">START TIME</p><p class="font-semibold">Today, 9:00 PM</p></div>
-                    </div>
-                    <button onclick="openJoinModal('BGMI Erangel Championship', 20)" class="w-full bg-gradient-to-r from-cyan-500 to-blue-600 text-black font-extrabold py-2.5 rounded-xl text-xs tracking-wider shadow-lg shadow-cyan-500/20">
-                        REGISTER NOW
-                    </button>
+                <div class="flex items-center justify-between">
+                    <h3 class="font-heading font-bold text-xs text-gray-400 tracking-widest uppercase">UPCOMING TOURNAMENTS</h3>
+                    <span class="text-[10px] text-cyan-400 font-bold" id="match-count-badge">0 Live Matches</span>
                 </div>
 
-                <!-- Free Fire Card -->
-                <div class="glass-card rounded-2xl p-4 relative game-card ff">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <span class="bg-orange-500/10 text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded border border-orange-500/20">FREE FIRE · CLASH SQUAD</span>
-                            <h4 class="font-bold text-base mt-1">Bermuda Ultimate Cup</h4>
-                        </div>
-                        <span class="bg-orange-500/20 text-orange-400 text-[10px] font-bold px-2 py-1 rounded-full">4v4 SQUAD</span>
+                <!-- Empty State (Shows when no active match) -->
+                <div id="no-tournaments-msg" class="cyber-card p-8 rounded-2xl text-center border border-dashed border-gray-800">
+                    <div class="w-12 h-12 rounded-full bg-gray-900/80 text-gray-600 flex items-center justify-center mx-auto mb-3 text-xl">
+                        <i class="fas fa-gamepad"></i>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 bg-black/40 p-3 rounded-xl mb-3 text-xs">
-                        <div><p class="text-gray-400 text-[10px]">PRIZE POOL</p><p class="font-extrabold text-orange-400 text-sm">₹500</p></div>
-                        <div><p class="text-gray-400 text-[10px]">ENTRY FEE</p><p class="font-extrabold text-emerald-400 text-sm">₹10 / Player</p></div>
-                        <div><p class="text-gray-400 text-[10px]">MAP</p><p class="font-semibold">Bermuda</p></div>
-                        <div><p class="text-gray-400 text-[10px]">START TIME</p><p class="font-semibold">Today, 8:00 PM</p></div>
-                    </div>
-                    <button onclick="openJoinModal('Free Fire Bermuda Cup', 10)" class="w-full bg-gradient-to-r from-orange-500 to-red-600 text-white font-extrabold py-2.5 rounded-xl text-xs tracking-wider shadow-lg shadow-orange-500/20">
-                        REGISTER NOW
-                    </button>
+                    <h4 class="font-heading font-bold text-sm text-gray-300">NO LIVE MATCHES AVAILABLE</h4>
+                    <p class="text-[11px] text-gray-500 mt-1">Admin will release upcoming match details soon. Stay tuned!</p>
                 </div>
 
-                <!-- Call of Duty Card -->
-                <div class="glass-card rounded-2xl p-4 relative game-card cod">
-                    <div class="flex justify-between items-start mb-3">
-                        <div>
-                            <span class="bg-purple-500/10 text-purple-400 text-[10px] font-bold px-2 py-0.5 rounded border border-purple-500/20">COD MOBILE · BATTLE ROYALE</span>
-                            <h4 class="font-bold text-base mt-1">Isolated Warfare S2</h4>
-                        </div>
-                        <span class="bg-purple-500/20 text-purple-400 text-[10px] font-bold px-2 py-1 rounded-full">SQUAD</span>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 bg-black/40 p-3 rounded-xl mb-3 text-xs">
-                        <div><p class="text-gray-400 text-[10px]">PRIZE POOL</p><p class="font-extrabold text-purple-400 text-sm">₹800</p></div>
-                        <div><p class="text-gray-400 text-[10px]">ENTRY FEE</p><p class="font-extrabold text-emerald-400 text-sm">₹15 / Player</p></div>
-                        <div><p class="text-gray-400 text-[10px]">MAP</p><p class="font-semibold">Isolated</p></div>
-                        <div><p class="text-gray-400 text-[10px]">START TIME</p><p class="font-semibold">Tomorrow, 7:00 PM</p></div>
-                    </div>
-                    <button onclick="openJoinModal('COD Mobile Warfare', 15)" class="w-full bg-gradient-to-r from-purple-500 to-pink-600 text-white font-extrabold py-2.5 rounded-xl text-xs tracking-wider shadow-lg shadow-purple-500/20">
-                        REGISTER NOW
-                    </button>
-                </div>
-
+                <!-- Dynamic Match Cards will render here -->
+                <div id="dynamic-matches-list" class="space-y-3"></div>
             </div>
         </div>
 
         <!-- TAB 2: MATCHES -->
         <div id="tab-matches" class="tab-content hidden">
-            <h2 class="text-lg font-bold mb-4">My Joined Matches & Room Info</h2>
-            <div id="joined-matches-list" class="glass-card p-6 rounded-2xl text-center text-gray-400">
-                <i class="fas fa-gamepad text-4xl mb-2 text-gray-600"></i>
+            <h2 class="font-gaming text-2xl font-bold tracking-wider mb-3">MY JOINED MATCHES</h2>
+            <div id="joined-matches-list" class="cyber-card p-6 rounded-2xl text-center text-gray-400">
+                <i class="fas fa-trophy text-3xl mb-2 text-gray-600"></i>
                 <p class="text-xs">Aapne abhi kisi match mein register nahi kiya hai.</p>
             </div>
         </div>
 
         <!-- TAB 3: RANKS -->
         <div id="tab-ranks" class="tab-content hidden">
-            <h2 class="text-lg font-bold mb-4">Top Players Leaderboard</h2>
+            <h2 class="font-gaming text-2xl font-bold tracking-wider mb-3">LEADERBOARD TOPPERS</h2>
             <div class="space-y-2">
-                <div class="glass-card p-3 rounded-xl flex items-center justify-between">
+                <div class="cyber-card p-3 rounded-xl flex items-center justify-between border-l-2 border-l-yellow-400">
                     <div class="flex items-center gap-3">
-                        <span class="font-bold text-yellow-400 text-sm">#1</span>
-                        <span class="text-xs font-bold">Fatal_ProRider</span>
+                        <span class="font-gaming text-xl font-bold text-yellow-400">#1</span>
+                        <span class="text-xs font-bold text-white">Fatal_ProRider</span>
                     </div>
-                    <span class="text-xs font-bold text-cyan-400">₹4,500 Won</span>
+                    <span class="font-heading font-bold text-xs text-cyan-400">₹4,500 Won</span>
                 </div>
-                <div class="glass-card p-3 rounded-xl flex items-center justify-between">
+                <div class="cyber-card p-3 rounded-xl flex items-center justify-between border-l-2 border-l-gray-400">
                     <div class="flex items-center gap-3">
-                        <span class="font-bold text-gray-300 text-sm">#2</span>
-                        <span class="text-xs font-bold">GamingKing99</span>
+                        <span class="font-gaming text-xl font-bold text-gray-300">#2</span>
+                        <span class="text-xs font-bold text-white">GamingKing99</span>
                     </div>
-                    <span class="text-xs font-bold text-cyan-400">₹3,200 Won</span>
+                    <span class="font-heading font-bold text-xs text-cyan-400">₹3,200 Won</span>
                 </div>
             </div>
         </div>
 
         <!-- TAB 4: PROFILE & ADMIN -->
         <div id="tab-profile" class="tab-content hidden">
-            <!-- User Info -->
-            <div class="glass-card p-4 rounded-2xl mb-4 flex items-center justify-between">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-full flex items-center justify-center font-bold text-xl">
-                        <i class="fas fa-user-ninja"></i>
+            <!-- User Info Card -->
+            <div class="cyber-card p-4 rounded-2xl mb-4 flex items-center justify-between border border-cyan-500/20">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 bg-gradient-to-tr from-purple-600 to-pink-500 rounded-xl flex items-center justify-center font-bold text-xl text-white">
+                        <i class="fas fa-user-shield"></i>
                     </div>
                     <div>
-                        <h3 class="font-bold text-base" id="user-display-name">Guest Player</h3>
-                        <p class="text-xs text-gray-400" id="user-display-role">Status: Logged Out</p>
+                        <h3 class="font-heading font-bold text-base leading-none" id="user-display-name">GUEST PLAYER</h3>
+                        <p class="text-[10px] text-gray-400 mt-1" id="user-display-role">Status: Not Logged In</p>
                     </div>
                 </div>
-                <button onclick="openLoginModal()" class="text-xs text-cyan-400 underline font-bold">Switch Account</button>
+                <button onclick="openLoginModal()" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-2.5 py-1 rounded-lg">
+                    Login
+                </button>
             </div>
 
-            <!-- Admin Control Panel (Visible Only To Admin) -->
-            <div id="admin-panel-box" class="glass-card p-4 rounded-2xl mb-4 border border-red-500/40 bg-red-950/20 hidden">
-                <span class="text-[10px] bg-red-500 text-white font-bold px-2 py-0.5 rounded uppercase">👑 Admin Panel</span>
-                <h3 class="font-bold text-sm mt-2 mb-3">Host & Manage Tournaments</h3>
+            <!-- ADMIN CONTROL PANEL (HOST TOURNAMENTS) -->
+            <div id="admin-panel-box" class="cyber-card p-4 rounded-2xl mb-4 border border-red-500/40 bg-red-950/10 hidden">
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-[10px] bg-red-500/20 text-red-400 font-heading font-bold px-2 py-0.5 rounded border border-red-500/30 uppercase">👑 Admin Host Panel</span>
+                </div>
                 
+                <h4 class="font-heading font-bold text-xs text-gray-300 mb-2 uppercase">1. Create & Post Tournament</h4>
+                <div class="space-y-2 mb-4">
+                    <input type="text" id="host-title" placeholder="Match Title (e.g. Erangel Solo S1)" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="host-game" class="bg-black/60 border border-gray-800 rounded-xl px-2 py-2 text-xs text-white">
+                            <option value="bgmi">BGMI</option>
+                            <option value="ff">FREE FIRE</option>
+                            <option value="cod">COD MOBILE</option>
+                        </select>
+                        <input type="text" id="host-type" placeholder="Type (SOLO/SQUAD)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="number" id="host-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="number" id="host-prize" placeholder="Prize Pool (₹)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <div class="grid grid-cols-2 gap-2">
+                        <input type="text" id="host-map" placeholder="Map Name" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                        <input type="text" id="host-time" placeholder="Start Time (e.g. 9:00 PM)" class="bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    </div>
+                    <button onclick="adminCreateTournament()" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-heading font-extrabold py-2 rounded-xl text-xs tracking-wider">
+                        🚀 POST MATCH TO LIVE LIST
+                    </button>
+                </div>
+
+                <h4 class="font-heading font-bold text-xs text-gray-300 mb-2 uppercase border-t border-gray-800 pt-3">2. Room Credentials Release</h4>
                 <div class="space-y-2">
-                    <input type="text" id="admin-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs">
-                    <input type="text" id="admin-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs">
-                    <button onclick="publishRoomDetails()" class="w-full bg-red-600 text-white font-bold py-2 rounded-xl text-xs">
-                        RELEASE ROOM ID & PASS TO PLAYERS
+                    <input type="text" id="admin-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <input type="text" id="admin-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <button onclick="publishRoomDetails()" class="w-full bg-red-600 hover:bg-red-500 text-white font-heading font-bold py-2 rounded-xl text-xs tracking-wider">
+                        RELEASE ROOM CREDS TO PLAYERS
                     </button>
                 </div>
             </div>
 
             <!-- Wallet Box -->
-            <div class="glass-card p-5 rounded-2xl mb-4 border border-cyan-500/20">
-                <p class="text-xs text-gray-400">TOTAL WALLET BALANCE</p>
-                <h2 class="text-3xl font-black text-cyan-400 my-1">₹<span id="wallet-balance">0.00</span></h2>
+            <div class="cyber-card p-5 rounded-2xl mb-4 border border-cyan-500/20">
+                <p class="text-[10px] font-heading text-gray-400 tracking-wider">TOTAL WALLET BALANCE</p>
+                <h2 class="font-gaming text-4xl text-cyan-400 leading-none my-1">₹<span id="wallet-balance">0.00</span></h2>
                 <div class="flex gap-2 mt-4">
-                    <button onclick="openDepositModal()" class="flex-1 bg-cyan-500 text-black font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20">
-                        <i class="fas fa-plus-circle"></i> Add Deposit
+                    <button onclick="openDepositModal()" class="flex-1 cyber-btn py-2.5 rounded-xl text-xs font-heading font-bold flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20">
+                        <i class="fas fa-plus-circle"></i> ADD MONEY
                     </button>
-                    <button onclick="withdrawMoney()" class="flex-1 bg-gray-800 text-white font-bold py-2.5 rounded-xl text-xs border border-gray-700 flex items-center justify-center gap-2">
-                        <i class="fas fa-arrow-up-from-bracket"></i> Withdraw
+                    <button onclick="withdrawMoney()" class="flex-1 cyber-card text-white py-2.5 rounded-xl text-xs font-heading font-bold border border-gray-700 flex items-center justify-center gap-2">
+                        <i class="fas fa-arrow-up-from-bracket"></i> WITHDRAW
                     </button>
                 </div>
             </div>
 
-            <!-- Support & Socials -->
-            <div class="glass-card p-4 rounded-2xl space-y-3">
-                <h4 class="text-xs font-bold text-gray-400 uppercase">Support & Community</h4>
-                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="flex items-center justify-between p-2.5 bg-gray-800/50 rounded-xl text-xs">
-                    <div class="flex items-center gap-3">
-                        <i class="fab fa-whatsapp text-green-400 text-lg"></i>
-                        <span>WhatsApp Official Channel</span>
+            <!-- Support Links -->
+            <div class="cyber-card p-4 rounded-2xl space-y-2">
+                <h4 class="text-[10px] font-heading font-bold text-gray-400 tracking-widest uppercase">HELP & SUPPORT</h4>
+                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="flex items-center justify-between p-2.5 bg-black/40 rounded-xl text-xs">
+                    <div class="flex items-center gap-2.5">
+                        <i class="fab fa-whatsapp text-emerald-400 text-base"></i>
+                        <span class="font-medium text-gray-200">WhatsApp Support Channel</span>
                     </div>
-                    <i class="fas fa-chevron-right text-gray-500"></i>
+                    <i class="fas fa-chevron-right text-gray-600 text-xs"></i>
                 </a>
             </div>
         </div>
 
     </main>
 
-    <!-- Clean Login Modal -->
-    <div id="login-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/30">
-            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 text-lg">✕</button>
-            <h3 class="font-bold text-lg text-center mb-1">Login to Account</h3>
-            <p class="text-[11px] text-gray-400 text-center mb-4">Enter your credentials to continue</p>
+    <!-- Clean Gaming Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/40 glow-cyan">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-lg">✕</button>
+            
+            <div class="text-center mb-5">
+                <h3 class="font-gaming text-3xl font-bold text-white tracking-wider leading-none">PLAYER LOGIN</h3>
+                <p class="text-[11px] text-gray-400 mt-1">Enter details to access wallet & tournaments</p>
+            </div>
 
             <div class="space-y-3">
                 <div>
-                    <label class="text-[11px] text-gray-400 mb-1 block">Email Address</label>
-                    <input type="email" id="login-email" placeholder="Enter Email" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                    <label class="text-[10px] font-heading text-gray-400 uppercase tracking-wider block mb-1">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter your email" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500">
                 </div>
                 <div>
-                    <label class="text-[11px] text-gray-400 mb-1 block">Password</label>
-                    <input type="password" id="login-pass" placeholder="Enter Password" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                    <label class="text-[10px] font-heading text-gray-400 uppercase tracking-wider block mb-1">Password</label>
+                    <input type="password" id="login-pass" placeholder="Enter password" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2.5 text-xs text-white focus:outline-none focus:border-cyan-500">
                 </div>
                 
-                <button onclick="processLogin()" class="w-full bg-cyan-500 text-black font-extrabold py-2.5 rounded-xl text-xs shadow-lg shadow-cyan-500/20 mt-2">
-                    LOGIN NOW
+                <button onclick="processLogin()" class="w-full cyber-btn py-3 rounded-xl text-xs font-heading font-extrabold tracking-widest mt-2 shadow-lg shadow-cyan-500/20">
+                    LOGIN TO ACCOUNT
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Deposit Modal -->
-    <div id="deposit-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/30">
-            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-400 text-lg">✕</button>
-            <h3 class="font-bold text-lg text-center mb-1">Add Money to Wallet</h3>
-            <p class="text-[11px] text-gray-400 text-center mb-4">Pay using UPI & submit Transaction ID</p>
+    <div id="deposit-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
+        <div class="cyber-card w-full max-w-sm rounded-2xl p-6 relative border border-cyan-500/40 glow-cyan">
+            <button onclick="closeDepositModal()" class="absolute top-4 right-4 text-gray-500 hover:text-white text-lg">✕</button>
+            <h3 class="font-gaming text-3xl font-bold text-center leading-none">DEPOSIT MONEY</h3>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Pay using UPI & submit 12-digit UTR No.</p>
 
-            <div class="bg-gray-900/80 p-3 rounded-xl mb-4 border border-gray-800 text-center">
-                <p class="text-[10px] text-gray-400">OFFICIAL UPI ID</p>
+            <div class="bg-black/60 p-3 rounded-xl mb-4 border border-gray-800 text-center">
+                <p class="text-[9px] font-heading text-gray-400 uppercase">OFFICIAL UPI ID</p>
                 <div class="flex items-center justify-center gap-2 mt-1">
-                    <span id="upi-id-text" class="font-bold text-cyan-400 text-sm">9910483218@fam</span>
-                    <button onclick="copyUpi()" class="bg-gray-800 text-xs px-2 py-1 rounded text-gray-300">Copy</button>
+                    <span id="upi-id-text" class="font-heading font-bold text-cyan-400 text-sm">9910483218@fam</span>
+                    <button onclick="copyUpi()" class="bg-gray-800 text-[10px] px-2 py-0.5 rounded text-gray-300 font-bold">Copy</button>
                 </div>
             </div>
 
             <div class="space-y-3">
                 <div>
-                    <label class="text-[11px] text-gray-400 mb-1 block">Deposit Amount (₹)</label>
-                    <input type="number" id="deposit-amount" placeholder="Enter Amount (e.g. 100)" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                    <label class="text-[10px] font-heading text-gray-400 uppercase block mb-1">Deposit Amount (₹)</label>
+                    <input type="number" id="deposit-amount" placeholder="e.g. 50" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
                 </div>
 
-                <a id="pay-upi-btn" href="upi://pay?pa=9910483218@fam&pn=naitik%20singh&cu=INR" class="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-bold py-2 rounded-xl text-center text-xs">
-                    Pay via Any UPI App
+                <a id="pay-upi-btn" href="upi://pay?pa=9910483218@fam&pn=naitik%20singh&cu=INR" class="block w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-heading font-bold py-2.5 rounded-xl text-center text-xs tracking-wider">
+                    PAY VIA ANY UPI APP
                 </a>
 
                 <div>
-                    <label class="text-[11px] text-gray-400 mb-1 block">Transaction / UTR ID</label>
-                    <input type="text" id="deposit-utr" placeholder="Paste 12-digit UTR No." class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                    <label class="text-[10px] font-heading text-gray-400 uppercase block mb-1">Transaction / UTR ID</label>
+                    <input type="text" id="deposit-utr" placeholder="Paste 12-digit UTR Number" class="w-full bg-black/60 border border-gray-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-cyan-500">
                 </div>
 
-                <button onclick="submitDeposit()" class="w-full bg-cyan-500 text-black font-extrabold py-2.5 rounded-xl text-xs mt-2">
+                <button onclick="submitDeposit()" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-wider mt-1">
                     SUBMIT PAYMENT PROOF
                 </button>
             </div>
@@ -297,23 +318,23 @@
     </div>
 
     <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 glass-card border-t border-gray-800 py-2.5 px-6 z-40">
+    <nav class="fixed bottom-0 left-0 right-0 cyber-card border-t border-cyber-border py-2 px-6 z-40 backdrop-blur-lg">
         <div class="max-w-md mx-auto flex justify-between items-center">
-            <button onclick="switchTab('home')" id="btn-home" class="nav-btn flex flex-col items-center gap-1 active-tab text-gray-400">
-                <i class="fas fa-home text-lg"></i>
-                <span class="text-[10px] font-bold">HOME</span>
+            <button onclick="switchTab('home')" id="btn-home" class="nav-btn flex flex-col items-center gap-1 active-tab text-gray-500">
+                <i class="fas fa-fire text-base"></i>
+                <span class="text-[9px] font-heading font-bold tracking-widest">HOME</span>
             </button>
-            <button onclick="switchTab('matches')" id="btn-matches" class="nav-btn flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-trophy text-lg"></i>
-                <span class="text-[10px] font-bold">MATCHES</span>
+            <button onclick="switchTab('matches')" id="btn-matches" class="nav-btn flex flex-col items-center gap-1 text-gray-500">
+                <i class="fas fa-trophy text-base"></i>
+                <span class="text-[9px] font-heading font-bold tracking-widest">MATCHES</span>
             </button>
-            <button onclick="switchTab('ranks')" id="btn-ranks" class="nav-btn flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-chart-line text-lg"></i>
-                <span class="text-[10px] font-bold">RANKS</span>
+            <button onclick="switchTab('ranks')" id="btn-ranks" class="nav-btn flex flex-col items-center gap-1 text-gray-500">
+                <i class="fas fa-chart-line text-base"></i>
+                <span class="text-[9px] font-heading font-bold tracking-widest">RANKS</span>
             </button>
-            <button onclick="switchTab('profile')" id="btn-profile" class="nav-btn flex flex-col items-center gap-1 text-gray-400">
-                <i class="fas fa-user text-lg"></i>
-                <span class="text-[10px] font-bold">PROFILE</span>
+            <button onclick="switchTab('profile')" id="btn-profile" class="nav-btn flex flex-col items-center gap-1 text-gray-500">
+                <i class="fas fa-user-shield text-base"></i>
+                <span class="text-[9px] font-heading font-bold tracking-widest">PROFILE</span>
             </button>
         </div>
     </nav>
@@ -324,6 +345,38 @@
         let isAdmin = false;
         let currentRoomId = "WAITING...";
         let currentRoomPass = "WAITING...";
+        let activeTournaments = [];
+
+        // Professional Custom Gaming Toast Message (Replaces Browser Alert)
+        function showToast(msg, title = "SYSTEM MESSAGE", type = "cyan") {
+            const container = document.getElementById('toast-container');
+            const titleEl = document.getElementById('toast-title');
+            const msgEl = document.getElementById('toast-msg');
+            const iconBg = document.getElementById('toast-icon-bg');
+            const icon = document.getElementById('toast-icon');
+
+            titleEl.innerText = title;
+            msgEl.innerText = msg;
+
+            if (type === 'error') {
+                iconBg.className = "w-10 h-10 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center text-lg flex-shrink-0";
+                icon.className = "fas fa-exclamation-triangle";
+            } else if (type === 'success') {
+                iconBg.className = "w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg flex-shrink-0";
+                icon.className = "fas fa-check-circle";
+            } else {
+                iconBg.className = "w-10 h-10 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-lg flex-shrink-0";
+                icon.className = "fas fa-bolt";
+            }
+
+            container.classList.remove('-translate-y-24', 'opacity-0');
+            container.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                container.classList.remove('translate-y-0', 'opacity-100');
+                container.classList.add('-translate-y-24', 'opacity-0');
+            }, 3000);
+        }
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
@@ -351,23 +404,99 @@
             let email = document.getElementById('login-email').value;
             let pass = document.getElementById('login-pass').value;
 
-            // Secret Admin Login Check
+            // Secret Admin Credentials Check
             if (email === "admin@fatalrush.com" && pass === "admin123") {
                 isAdmin = true;
-                document.getElementById('user-display-name').innerText = "Fatal Rush Admin";
+                document.getElementById('user-display-name').innerText = "FATAL RUSH ADMIN";
                 document.getElementById('user-display-role').innerText = "Role: Master Admin";
                 document.getElementById('admin-panel-box').classList.remove('hidden');
-                document.getElementById('login-btn-top').innerText = "👑 Admin";
-                alert("Welcome Admin! Control Panel unlocked in Profile tab.");
+                document.getElementById('login-btn-top').innerText = "👑 ADMIN";
+                showToast("Admin Panel Unlocked in Profile tab!", "ADMIN ACCESS", "success");
             } else if(email && pass) {
-                document.getElementById('user-display-name').innerText = email.split('@')[0];
-                document.getElementById('user-display-role').innerText = "Status: Player Logged In";
-                document.getElementById('login-btn-top').innerText = "Player";
-                alert("Login Successful!");
+                document.getElementById('user-display-name').innerText = email.split('@')[0].toUpperCase();
+                document.getElementById('user-display-role').innerText = "Status: Player Verified";
+                document.getElementById('login-btn-top').innerText = "PLAYER";
+                showToast("Successfully logged in as " + email.split('@')[0], "LOGIN SUCCESS", "success");
             } else {
-                alert("Please enter valid Email and Password!");
+                showToast("Please enter valid Email and Password!", "AUTHENTICATION FAILED", "error");
+                return;
             }
             closeLoginModal();
+        }
+
+        // Admin Create Tournament Function
+        function adminCreateTournament() {
+            let title = document.getElementById('host-title').value;
+            let game = document.getElementById('host-game').value;
+            let type = document.getElementById('host-type').value || "SOLO";
+            let fee = document.getElementById('host-fee').value || "10";
+            let prize = document.getElementById('host-prize').value || "500";
+            let map = document.getElementById('host-map').value || "Erangel";
+            let time = document.getElementById('host-time').value || "Today, 9:00 PM";
+
+            if (!title) {
+                showToast("Match Title is required!", "HOST ERROR", "error");
+                return;
+            }
+
+            let newTournament = {
+                id: Date.now(),
+                title: title,
+                game: game,
+                type: type,
+                fee: parseFloat(fee),
+                prize: prize,
+                map: map,
+                time: time
+            };
+
+            activeTournaments.push(newTournament);
+            renderTournaments();
+            showToast("New Tournament Published Live!", "MATCH CREATED", "success");
+
+            // Reset Form Inputs
+            document.getElementById('host-title').value = '';
+        }
+
+        function renderTournaments() {
+            const list = document.getElementById('dynamic-matches-list');
+            const emptyMsg = document.getElementById('no-tournaments-msg');
+            const countBadge = document.getElementById('match-count-badge');
+
+            countBadge.innerText = activeTournaments.length + " Live Matches";
+
+            if (activeTournaments.length === 0) {
+                emptyMsg.classList.remove('hidden');
+                list.innerHTML = '';
+                return;
+            }
+
+            emptyMsg.classList.add('hidden');
+            list.innerHTML = '';
+
+            activeTournaments.forEach(t => {
+                let cardHTML = `
+                    <div class="cyber-card rounded-2xl p-4 relative game-card ${t.game} border border-cyber-border">
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <span class="bg-cyan-500/10 text-cyan-400 text-[10px] font-heading font-bold px-2 py-0.5 rounded border border-cyan-500/20">${t.game.toUpperCase()} · ${t.type.toUpperCase()}</span>
+                                <h4 class="font-heading font-bold text-base mt-1 text-white">${t.title}</h4>
+                            </div>
+                            <span class="bg-emerald-500/20 text-emerald-400 text-[10px] font-heading font-bold px-2 py-0.5 rounded-full">LIVE REGISTRATION</span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2 bg-black/50 p-3 rounded-xl mb-3 text-xs border border-gray-900">
+                            <div><p class="text-gray-500 text-[9px] font-heading">PRIZE POOL</p><p class="font-heading font-extrabold text-cyan-400 text-sm">₹${t.prize}</p></div>
+                            <div><p class="text-gray-500 text-[9px] font-heading">ENTRY FEE</p><p class="font-heading font-extrabold text-emerald-400 text-sm">₹${t.fee} / Player</p></div>
+                            <div><p class="text-gray-500 text-[9px] font-heading">MAP</p><p class="font-semibold text-gray-300 text-xs">${t.map}</p></div>
+                            <div><p class="text-gray-500 text-[9px] font-heading">START TIME</p><p class="font-semibold text-gray-300 text-xs">${t.time}</p></div>
+                        </div>
+                        <button onclick="openJoinModal('${t.title}', ${t.fee})" class="w-full cyber-btn py-2.5 rounded-xl text-xs font-heading font-extrabold tracking-widest shadow-lg shadow-cyan-500/20">
+                            REGISTER NOW
+                        </button>
+                    </div>
+                `;
+                list.innerHTML += cardHTML;
+            });
         }
 
         function publishRoomDetails() {
@@ -375,13 +504,13 @@
             let rpass = document.getElementById('admin-room-pass').value;
 
             if(!rid || !rpass) {
-                alert("Enter Room ID and Password both!");
+                showToast("Enter Room ID and Password both!", "ROOM CREDS ERROR", "error");
                 return;
             }
 
             currentRoomId = rid;
             currentRoomPass = rpass;
-            alert("Room ID and Password Published to All Registered Players!");
+            showToast("Room ID & Password Published to Players!", "ROOM CREDS RELEASED", "success");
         }
 
         function openDepositModal() { document.getElementById('deposit-modal').classList.remove('hidden'); }
@@ -389,7 +518,7 @@
 
         function copyUpi() {
             navigator.clipboard.writeText("9910483218@fam");
-            alert("UPI ID Copied: 9910483218@fam");
+            showToast("UPI ID Copied: 9910483218@fam", "COPIED", "success");
         }
 
         function submitDeposit() {
@@ -397,35 +526,35 @@
             let utr = document.getElementById('deposit-utr').value;
 
             if(!amount || !utr) {
-                alert("Please fill both Amount and UTR Number!");
+                showToast("Please fill both Amount and UTR Number!", "PAYMENT ERROR", "error");
                 return;
             }
 
-            alert("Payment Proof Received! Balance will be added after admin verification.");
+            showToast("Payment Proof Submitted! Verification in progress.", "DEPOSIT RECEIVED", "success");
             closeDepositModal();
         }
 
         function openJoinModal(matchName, fee) {
             if (wallet < fee) {
-                alert("Insufficient Balance! Please deposit money first.");
+                showToast("Insufficient Balance! Please deposit money first.", "INSUFFICIENT FUNDS", "error");
                 switchTab('profile');
                 openDepositModal();
             } else {
                 wallet -= fee;
                 updateBalance();
                 document.getElementById('joined-matches-list').innerHTML = `
-                    <div class="glass-card p-4 rounded-xl text-left border border-cyan-500/40">
-                        <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-bold px-2 py-0.5 rounded">REGISTERED</span>
-                        <h4 class="font-bold text-sm mt-1">${matchName}</h4>
+                    <div class="cyber-card p-4 rounded-xl text-left border border-cyan-500/40">
+                        <span class="text-[10px] bg-cyan-500/20 text-cyan-400 font-heading font-bold px-2 py-0.5 rounded">REGISTERED</span>
+                        <h4 class="font-heading font-bold text-sm mt-1 text-white">${matchName}</h4>
                         
-                        <div class="bg-black/60 p-3 rounded-xl mt-3 space-y-1 text-xs">
-                            <p class="text-cyan-400 font-bold">ROOM DETAILS (LIVE):</p>
+                        <div class="bg-black/60 p-3 rounded-xl mt-3 space-y-1 text-xs border border-gray-800">
+                            <p class="text-cyan-400 font-heading font-bold text-xs">ROOM DETAILS (LIVE):</p>
                             <p class="text-gray-300">Room ID: <b class="text-white">${currentRoomId}</b></p>
                             <p class="text-gray-300">Password: <b class="text-white">${currentRoomPass}</b></p>
                         </div>
                     </div>
                 `;
-                alert("Successfully Joined " + matchName + "! Check 'Matches' tab for Room ID.");
+                showToast("Registered for " + matchName + "!", "SUCCESS", "success");
             }
         }
 
@@ -433,13 +562,13 @@
             let amount = prompt("Withdrawal Amount (₹):", "100");
             if (amount && !isNaN(amount)) {
                 if (parseFloat(amount) > wallet) {
-                    alert("Insufficient Balance!");
+                    showToast("Insufficient Balance in Wallet!", "WITHDRAWAL FAILED", "error");
                 } else {
                     let upi = prompt("Enter your UPI ID to receive funds:");
                     if(upi) {
                         wallet -= parseFloat(amount);
                         updateBalance();
-                        alert("Withdrawal Request Submitted for ₹" + amount);
+                        showToast("Withdrawal Request Submitted for ₹" + amount, "REQUEST SENT", "success");
                     }
                 }
             }
