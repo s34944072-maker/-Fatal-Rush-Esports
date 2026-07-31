@@ -69,7 +69,7 @@
             </div>
         </div>
         <div class="flex items-center gap-2">
-            <button onclick="openLoginModal()" id="login-btn-top" class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-lg text-xs font-heading font-bold tracking-wider">LOGIN</button>
+            <button onclick="handleHeaderAuthClick()" id="login-btn-top" class="bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-lg text-xs font-heading font-bold tracking-wider">LOGIN</button>
             <button onclick="switchTab('profile')" class="cyber-card px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 border border-cyber-border">
                 <i class="fas fa-wallet text-cyan-400"></i>
                 <span class="font-heading text-sm">₹<span id="header-balance">0.00</span></span>
@@ -166,7 +166,8 @@
                         <p class="text-[10px] text-gray-400 mt-1" id="user-display-role">Status: Not Logged In</p>
                     </div>
                 </div>
-                <button onclick="openLoginModal()" id="profile-login-btn" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-2.5 py-1 rounded-lg">Login</button>
+                <!-- Login/Logout Button in Profile -->
+                <button onclick="handleProfileAuthClick()" id="profile-login-btn" class="text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-3 py-1.5 rounded-lg hover:bg-cyan-500/10 transition-all">Login</button>
             </div>
 
             <!-- 👑 FULL MASTER ADMIN PANEL -->
@@ -321,6 +322,7 @@
     <!-- JavaScript Logic -->
     <script>
         let wallet = 0;
+        let isLoggedIn = false;
         let isAdmin = false;
         let currentRoomId = "WAITING...";
         let currentRoomPass = "WAITING...";
@@ -363,6 +365,22 @@
         }
         function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
 
+        function handleHeaderAuthClick() {
+            if(isLoggedIn) {
+                processLogout();
+            } else {
+                openLoginModal();
+            }
+        }
+
+        function handleProfileAuthClick() {
+            if(isLoggedIn) {
+                processLogout();
+            } else {
+                openLoginModal();
+            }
+        }
+
         function sendOTP() {
             let phone = document.getElementById('login-phone').value;
             if(phone.length !== 10) {
@@ -382,24 +400,67 @@
             // Admin Number Secret Pass
             if(tempPhone === "9999999999" || otp === "9999") {
                 isAdmin = true;
+                isLoggedIn = true;
                 document.getElementById('user-display-name').innerText = "FATAL RUSH ADMIN";
                 document.getElementById('user-display-role').innerText = "Role: Master Admin";
                 document.getElementById('admin-panel-box').classList.remove('hidden');
-                document.getElementById('login-btn-top').innerText = "👑 ADMIN";
+                
+                // Set Header & Profile Logout Button
+                updateUIForLoggedInState("👑 LOGOUT");
                 showToast("Admin Panel Unlocked!", "ADMIN LOGIN", "success");
                 closeLoginModal();
                 return;
             }
 
             if(otp === "123456" || otp.length === 6) {
+                isLoggedIn = true;
+                isAdmin = false;
                 document.getElementById('user-display-name').innerText = "PLAYER (+91 " + tempPhone.slice(0,4) + "****)";
                 document.getElementById('user-display-role').innerText = "Status: Phone Verified";
-                document.getElementById('login-btn-top').innerText = "VERIFIED";
+                
+                // Set Header & Profile Logout Button
+                updateUIForLoggedInState("LOGOUT");
                 showToast("Phone Verified Successfully!", "LOGIN SUCCESS", "success");
                 closeLoginModal();
             } else {
                 showToast("Incorrect OTP! Try 123456", "OTP ERROR", "error");
             }
+        }
+
+        function updateUIForLoggedInState(headerBtnText) {
+            let topBtn = document.getElementById('login-btn-top');
+            let profileBtn = document.getElementById('profile-login-btn');
+            
+            topBtn.innerText = headerBtnText;
+            topBtn.className = "bg-red-500/10 text-red-400 border border-red-500/30 px-3 py-1 rounded-lg text-xs font-heading font-bold tracking-wider hover:bg-red-500/20";
+            
+            profileBtn.innerText = "Logout";
+            profileBtn.className = "text-xs text-red-400 font-heading font-bold border border-red-500/30 px-3 py-1.5 rounded-lg hover:bg-red-500/10 transition-all";
+        }
+
+        function processLogout() {
+            isLoggedIn = false;
+            isAdmin = false;
+            wallet = 0;
+            updateWalletDisplay();
+
+            document.getElementById('user-display-name').innerText = "GUEST PLAYER";
+            document.getElementById('user-display-role').innerText = "Status: Not Logged In";
+            document.getElementById('admin-panel-box').classList.add('hidden');
+
+            let topBtn = document.getElementById('login-btn-top');
+            let profileBtn = document.getElementById('profile-login-btn');
+
+            topBtn.innerText = "LOGIN";
+            topBtn.className = "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3 py-1 rounded-lg text-xs font-heading font-bold tracking-wider";
+
+            profileBtn.innerText = "Login";
+            profileBtn.className = "text-xs text-cyan-400 font-heading font-bold border border-cyan-500/30 px-3 py-1.5 rounded-lg hover:bg-cyan-500/10 transition-all";
+
+            document.getElementById('login-phone').value = '';
+            document.getElementById('login-otp').value = '';
+
+            showToast("Logged Out Successfully!", "LOGOUT", "cyan");
         }
 
         function adminCreateTournament() {
@@ -496,6 +557,11 @@
         }
 
         function registerMatch(fee, title) {
+            if(!isLoggedIn) {
+                showToast("Please Login to register!", "LOGIN REQUIRED", "error");
+                openLoginModal();
+                return;
+            }
             if (wallet < fee) {
                 showToast("Low Balance! Please add money.", "WALLET", "error");
                 switchTab('profile');
@@ -528,7 +594,10 @@
             });
         }
 
-        function openDepositModal() { document.getElementById('deposit-modal').classList.remove('hidden'); }
+        function openDepositModal() { 
+            if(!isLoggedIn) { showToast("Please Login First!", "LOGIN REQUIRED", "error"); openLoginModal(); return; }
+            document.getElementById('deposit-modal').classList.remove('hidden'); 
+        }
         function closeDepositModal() { document.getElementById('deposit-modal').classList.add('hidden'); }
         function copyUpi() { navigator.clipboard.writeText("9910483218@fam"); showToast("UPI Copied!", "COPIED", "success"); }
         function submitDeposit() {
@@ -539,7 +608,10 @@
             closeDepositModal();
         }
 
-        function openWithdrawModal() { document.getElementById('withdraw-modal').classList.remove('hidden'); }
+        function openWithdrawModal() { 
+            if(!isLoggedIn) { showToast("Please Login First!", "LOGIN REQUIRED", "error"); openLoginModal(); return; }
+            document.getElementById('withdraw-modal').classList.remove('hidden'); 
+        }
         function closeWithdrawModal() { document.getElementById('withdraw-modal').classList.add('hidden'); }
 
         function processWithdrawal() {
