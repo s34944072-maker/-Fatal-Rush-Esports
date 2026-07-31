@@ -240,20 +240,19 @@
         <div class="glass-card w-full max-w-sm rounded-2xl p-5 relative border border-cyan-500/30">
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 text-lg">✕</button>
             <h3 class="font-bold text-lg text-center mb-1">Login to Account</h3>
-            <p class="text-[11px] text-gray-400 text-center mb-4">Enter your login details to continue</p>
-
-            <!-- Google Login Button -->
-            <button onclick="googleLogin()" class="w-full bg-white text-black font-bold py-2.5 rounded-xl text-xs flex items-center justify-center gap-2 mb-4 shadow">
-                <img src="https://www.svgrepo.com/show/475656/google-color.svg" class="w-4 h-4"> Continue with Google
-            </button>
-
-            <div class="text-center text-[10px] text-gray-500 mb-4">— OR LOGIN WITH EMAIL —</div>
+            <p class="text-[11px] text-gray-400 text-center mb-4">Enter your credentials to continue</p>
 
             <div class="space-y-3">
-                <input type="email" id="login-email" placeholder="Email Address" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
-                <input type="password" id="login-pass" placeholder="Password" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                <div>
+                    <label class="text-[11px] text-gray-400 mb-1 block">Email Address</label>
+                    <input type="email" id="login-email" placeholder="Enter Email" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                </div>
+                <div>
+                    <label class="text-[11px] text-gray-400 mb-1 block">Password</label>
+                    <input type="password" id="login-pass" placeholder="Enter Password" class="w-full bg-black/60 border border-gray-700 rounded-xl px-3 py-2 text-xs focus:outline-none focus:border-cyan-400">
+                </div>
                 
-                <button onclick="processLogin()" class="w-full bg-cyan-500 text-black font-extrabold py-2.5 rounded-xl text-xs shadow-lg shadow-cyan-500/20">
+                <button onclick="processLogin()" class="w-full bg-cyan-500 text-black font-extrabold py-2.5 rounded-xl text-xs shadow-lg shadow-cyan-500/20 mt-2">
                     LOGIN NOW
                 </button>
             </div>
@@ -347,14 +346,6 @@
 
         function openLoginModal() { document.getElementById('login-modal').classList.remove('hidden'); }
         function closeLoginModal() { document.getElementById('login-modal').classList.add('hidden'); }
-
-        function googleLogin() {
-            document.getElementById('user-display-name').innerText = "Player User";
-            document.getElementById('user-display-role').innerText = "Status: Player Logged In";
-            document.getElementById('login-btn-top').innerText = "Logged In";
-            alert("Signed in via Google Successfully!");
-            closeLoginModal();
-        }
 
         function processLogin() {
             let email = document.getElementById('login-email').value;
