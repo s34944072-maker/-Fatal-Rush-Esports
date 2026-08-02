@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // ============================================================================
-// 1. DATA MODELS (Dynamic Backend Ready - Pure Functional Logic)
+// 1. DATA MODELS (Dynamic Data - Zero Fake Hardcoded Values)
 // ============================================================================
 
 class MatchModel {
@@ -50,8 +50,8 @@ class MatchModel {
         this.winPrize = winPrize;
         this.matchType = matchType;
         this.status = status; // Upcoming, Ongoing, Completed
-        this.roomId = "WILL BE DISPLAYED BEFORE MATCH";
-        this.roomPass = "WILL BE DISPLAYED BEFORE MATCH";
+        this.roomId = "TO BE ANNOUNCED";
+        this.roomPass = "TO BE ANNOUNCED";
     }
 }
 
@@ -75,21 +75,19 @@ class UserModel {
 }
 
 // ============================================================================
-// 2. MAIN ACTIVITY - Fatal Rush Esports App Engine
+// 2. MAIN ACTIVITY - Navigation & Core Controller
 // ============================================================================
 
 public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView bottomNav;
-    // Main User State
-    public static UserModel currentUser = new UserModel("USR_101", "User", "user@fatalrush.com", "9910483218", false);
+    public static UserModel currentUser = new UserModel("USR_101", "Player", "user@fatalrush.com", "9910483218", false);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Load Home Fragment By Default
         loadFragment(new HomeFragment());
 
         bottomNav = findViewById(R.id.bottom_navigation);
@@ -116,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 }
 
 // ============================================================================
-// 3. HOME FRAGMENT - Fatal Rush Esports Contests & Banners
+// 3. HOME FRAGMENT - Match Listing & Admin Switch
 // ============================================================================
 
 class HomeFragment extends Fragment {
@@ -136,7 +134,7 @@ class HomeFragment extends Fragment {
         adapter = new MatchAdapter(matchList, getContext());
         rvMatches.setAdapter(adapter);
 
-        // Admin Access Toggle (Aap ya aapke dost admin control open kar sakte hain)
+        // Admin Access Toggle Button (Admin Login Screen / Dashboard Open Karta Hai)
         View btnAdminPanel = view.findViewById(R.id.btnAdminPanel);
         if (btnAdminPanel != null) {
             btnAdminPanel.setOnClickListener(v -> {
@@ -150,7 +148,7 @@ class HomeFragment extends Fragment {
 }
 
 // ============================================================================
-// 4. WALLET FRAGMENT (Buy Coins, Withdraw, Emergency Withdraw)
+// 4. WALLET FRAGMENT (Deposit, Winning, Withdrawals)
 // ============================================================================
 
 class WalletFragment extends Fragment {
@@ -164,43 +162,37 @@ class WalletFragment extends Fragment {
         TextView tvDeposited = view.findViewById(R.id.tvDeposited);
         TextView tvWinning = view.findViewById(R.id.tvWinning);
 
-        tvTotalCoins.setText(String.valueOf(MainActivity.currentUser.walletDeposit + MainActivity.currentUser.walletWinning));
-        tvDeposited.setText(String.valueOf(MainActivity.currentUser.walletDeposit));
-        tvWinning.setText(String.valueOf(MainActivity.currentUser.walletWinning));
+        if (tvTotalCoins != null) tvTotalCoins.setText(String.valueOf(MainActivity.currentUser.walletDeposit + MainActivity.currentUser.walletWinning));
+        if (tvDeposited != null) tvDeposited.setText(String.valueOf(MainActivity.currentUser.walletDeposit));
+        if (tvWinning != null) tvWinning.setText(String.valueOf(MainActivity.currentUser.walletWinning));
 
-        view.findViewById(R.id.btnAddCoins).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), BuyCoinsActivity.class));
-        });
+        View btnAdd = view.findViewById(R.id.btnAddCoins);
+        if (btnAdd != null) btnAdd.setOnClickListener(v -> startActivity(new Intent(getActivity(), BuyCoinsActivity.class)));
 
-        view.findViewById(R.id.btnWithdrawCoins).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), WithdrawActivity.class));
-        });
+        View btnWithdraw = view.findViewById(R.id.btnWithdrawCoins);
+        if (btnWithdraw != null) btnWithdraw.setOnClickListener(v -> startActivity(new Intent(getActivity(), WithdrawActivity.class)));
 
-        view.findViewById(R.id.btnEmergencyWithdraw).setOnClickListener(v -> {
-            startActivity(new Intent(getActivity(), EmergencyWithdrawActivity.class));
-        });
+        View btnEmergency = view.findViewById(R.id.btnEmergencyWithdraw);
+        if (btnEmergency != null) btnEmergency.setOnClickListener(v -> startActivity(new Intent(getActivity(), EmergencyWithdrawActivity.class)));
 
         return view;
     }
 }
 
 // ============================================================================
-// 5. PROFILE FRAGMENT (KYC, Terms, Referral, Contact Us)
+// 5. PROFILE & MENU FRAGMENTS
 // ============================================================================
 
 class ProfileFragment extends Fragment {
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-
         TextView tvName = view.findViewById(R.id.tvUserName);
         TextView tvKyc = view.findViewById(R.id.tvKycVerified);
 
-        tvName.setText("Fatal Rush Player: " + MainActivity.currentUser.name);
-        tvKyc.setText("Status: " + MainActivity.currentUser.kycStatus);
-
+        if (tvName != null) tvName.setText("Fatal Rush Player: " + MainActivity.currentUser.name);
+        if (tvKyc != null) tvKyc.setText("KYC Status: " + MainActivity.currentUser.kycStatus);
         return view;
     }
 }
@@ -218,7 +210,7 @@ class RankingFragment extends Fragment {
 }
 
 // ============================================================================
-// 6. ADMIN DASHBOARD - Fully Powered Control Panel
+// 6. ADMIN DASHBOARD - Live Tournament Creation & Admin Powers
 // ============================================================================
 
 class AdminDashboardActivity extends AppCompatActivity {
@@ -238,36 +230,37 @@ class AdminDashboardActivity extends AppCompatActivity {
         etWinPrize = findViewById(R.id.etWinPrize);
         etType = findViewById(R.id.etMatchType);
 
-        // Tournament Create Karne Ka Button
-        findViewById(R.id.btnPublishMatch).setOnClickListener(v -> {
-            String title = etMatchTitle.getText().toString().trim();
-            String time = etTime.getText().toString().trim();
-            String map = etMap.getText().toString().trim();
-            String entry = etEntryFee.getText().toString().trim();
-            String kill = etPerKill.getText().toString().trim();
-            String win = etWinPrize.getText().toString().trim();
-            String type = etType.getText().toString().trim();
+        View btnPublish = findViewById(R.id.btnPublishMatch);
+        if (btnPublish != null) {
+            btnPublish.setOnClickListener(v -> {
+                String title = etMatchTitle != null ? etMatchTitle.getText().toString().trim() : "";
+                String time = etTime != null ? etTime.getText().toString().trim() : "";
+                String map = etMap != null ? etMap.getText().toString().trim() : "";
+                String entry = etEntryFee != null ? etEntryFee.getText().toString().trim() : "";
+                String kill = etPerKill != null ? etPerKill.getText().toString().trim() : "";
+                String win = etWinPrize != null ? etWinPrize.getText().toString().trim() : "";
+                String type = etType != null ? etType.getText().toString().trim() : "";
 
-            if (TextUtils.isEmpty(title) || TextUtils.isEmpty(entry)) {
-                Toast.makeText(this, "Fields are required!", Toast.LENGTH_SHORT).show();
-                return;
-            }
+                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(entry)) {
+                    Toast.makeText(this, "Please enter match title & entry fee!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            MatchModel newMatch = new MatchModel(
-                    "MATCH_" + System.currentTimeMillis(),
-                    title, time, map, entry, kill, win, type, "Upcoming"
-            );
+                MatchModel newMatch = new MatchModel(
+                        "MATCH_" + System.currentTimeMillis(),
+                        title, time, map, entry, kill, win, type, "Upcoming"
+                );
 
-            // Directly Adds match to Home Tournament Feed
-            HomeFragment.matchList.add(newMatch);
-            Toast.makeText(this, "Match Published in Fatal Rush Esports!", Toast.LENGTH_LONG).show();
-            finish();
-        });
+                HomeFragment.matchList.add(newMatch);
+                Toast.makeText(this, "Match Published Live in Fatal Rush Esports!", Toast.LENGTH_LONG).show();
+                finish();
+            });
+        }
     }
 }
 
 // ============================================================================
-// 7. OTHER SCREENS (Buy Coins, Withdrawals & Transactions)
+// 7. SUBSIDIARY ACTIVITIES
 // ============================================================================
 
 class BuyCoinsActivity extends AppCompatActivity {
@@ -292,7 +285,7 @@ class EmergencyWithdrawActivity extends AppCompatActivity {
 }
 
 // ============================================================================
-// 8. RECYCLERVIEW ADAPTER - Matches Display
+// 8. ADAPTER - Match Cards Renderer
 // ============================================================================
 
 class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
@@ -315,11 +308,11 @@ class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         MatchModel model = list.get(position);
-        holder.tvTitle.setText(model.title);
-        holder.tvTime.setText(model.timeStamp);
-        holder.tvEntry.setText("Entry: " + model.entryFee + " Coins");
-        holder.tvKill.setText("Per Kill: " + model.perKill);
-        holder.tvWin.setText("Win Prize: " + model.winPrize);
+        if (holder.tvTitle != null) holder.tvTitle.setText(model.title);
+        if (holder.tvTime != null) holder.tvTime.setText(model.timeStamp);
+        if (holder.tvEntry != null) holder.tvEntry.setText("Entry: " + model.entryFee + " Coins");
+        if (holder.tvKill != null) holder.tvKill.setText("Per Kill: " + model.perKill);
+        if (holder.tvWin != null) holder.tvWin.setText("Win: " + model.winPrize);
     }
 
     @Override
