@@ -152,22 +152,22 @@
         .badge-item i { font-size: 1rem; color: #ff2a5f; }
         .badge-item span { font-size: 0.55rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; line-height: 1.1; }
 
-        .btn-welcome {
+        .splash-welcome-banner {
             position: relative;
             z-index: 2;
             width: 100%;
             max-width: 380px;
-            background: linear-gradient(90deg, #ff2a5f, #b91c1c);
-            border: 2px solid #ff4d7d;
+            background: rgba(255, 42, 95, 0.15);
+            border: 2px solid #ff2a5f;
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 900;
-            padding: 14px;
+            padding: 12px;
             border-radius: 12px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            box-shadow: 0 0 25px rgba(255, 42, 95, 0.8);
-            cursor: pointer;
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.5);
+            text-align: center;
         }
 
         /* App Main Container */
@@ -202,6 +202,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
+            user-select: none;
         }
 
         .coin-badge {
@@ -243,7 +244,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Profile Page Header & Card - Ref Image 1000076599 */
+        /* Profile Page Header & Card */
         .profile-hero {
             display: flex;
             flex-direction: column;
@@ -263,12 +264,6 @@
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
             margin-bottom: 10px;
-        }
-
-        .profile-avatar-circle img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
         }
 
         .user-name-text {
@@ -355,49 +350,6 @@
             margin-bottom: 14px;
         }
 
-        .match-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .match-title { font-size: 0.95rem; font-weight: 700; color: #fff; }
-        .match-badge {
-            background: var(--primary-red);
-            color: #fff;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        .match-info-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            background: rgba(0,0,0,0.25);
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-        }
-
-        .info-box span { display: block; font-size: 0.65rem; color: var(--text-sub); }
-        .info-box strong { font-size: 0.85rem; color: #e2e8f0; }
-
-        .btn-action {
-            width: 100%;
-            background: var(--accent-green);
-            color: #000;
-            font-weight: 800;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            cursor: pointer;
-            text-transform: uppercase;
-        }
-
         .menu-list { display: flex; flex-direction: column; gap: 10px; }
         .menu-item {
             background: #111322;
@@ -415,7 +367,7 @@
         .menu-item-left { display: flex; align-items: center; gap: 12px; }
         .menu-item-left i { font-size: 1.1rem; color: #ff2a5f; width: 22px; text-align: center; }
 
-        /* Wallet Screen Custom Grid - Ref Image 1000076591 */
+        /* Wallet Screen Custom Grid */
         .wallet-stat-cards {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -461,7 +413,7 @@
         .wallet-action-btn i { font-size: 1.5rem; color: #ff2a5f; }
         .wallet-action-btn span { font-size: 0.7rem; font-weight: 700; line-height: 1.1; }
 
-        /* Bottom Nav - Matches Ref Image 1000076599 */
+        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -559,7 +511,7 @@
 </head>
 <body>
 
-    <!-- Gaming Poster Splash Screen -->
+    <!-- Gaming Poster Splash Screen (AUTO-CLOSE IN 2 SECONDS) -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -583,7 +535,9 @@
             <div class="badge-item"><i class="fa-solid fa-shield-halved"></i><span>SAFE & TRUSTED</span></div>
         </div>
 
-        <button class="btn-welcome" onclick="enterApp()">WELCOME!</button>
+        <div class="splash-welcome-banner">
+            WELCOME TO FATAL RUSH
+        </div>
     </div>
 
     <!-- Toast Notification -->
@@ -591,7 +545,7 @@
         <span id="toast-msg">Notification</span>
     </div>
 
-    <!-- Floating Support Button (Ref Image 1000076599) -->
+    <!-- Floating Support Button -->
     <div class="floating-support-btn" onclick="openWhatsApp()">
         <i class="fa-solid fa-headset"></i>
     </div>
@@ -634,33 +588,31 @@
             <div id="tournament-list"></div>
         </div>
 
-        <!-- OFFER / REFER TAB -->
+        <!-- OFFER / REFER TAB (UPDATED TO COMING SOON) -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
                 <i class="fa-solid fa-users" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;"></i>
                 <h3 style="margin-bottom: 6px;">Invite Friends & Get Bonus</h3>
-                <span style="background: var(--primary-red); color: #fff; font-size: 0.7rem; padding: 2px 10px; border-radius: 12px; font-weight: bold;">REFERRAL ACTIVE</span>
-                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 12px; margin-bottom: 15px;">Share your referral link and earn 10 Bonus Coins for every friend who joins.</p>
-                <button class="btn-action" onclick="shareApp()">SHARE REFERRAL LINK</button>
+                <span style="background: #eab308; color: #000; font-size: 0.7rem; padding: 3px 12px; border-radius: 12px; font-weight: bold;">COMING SOON</span>
+                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 12px; margin-bottom: 15px;">Referral program is currently coming soon. Stay tuned!</p>
+                <button class="btn-action" style="background: #374151; color: #9ca3af; cursor: not-allowed;" disabled>COMING SOON</button>
             </div>
         </div>
 
-        <!-- RANKING TAB (Ref Image 1000076589) -->
+        <!-- RANKING TAB (UPDATED: CLEAN EMPTY LEADERBOARD) -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
-            <div class="wallet-card">
-                <div class="menu-list">
-                    <div class="menu-item"><span>🥇 #1 Player_Alpha</span><strong style="color: var(--gold)">1,250 Coins</strong></div>
-                    <div class="menu-item"><span>🥈 #2 Killer_Pro</span><strong style="color: var(--gold)">980 Coins</strong></div>
-                    <div class="menu-item"><span>🥉 #3 Rush_King</span><strong style="color: var(--gold)">850 Coins</strong></div>
-                </div>
+            <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
+                <i class="fa-solid fa-trophy" style="font-size: 2.5rem; color: #4b5563; margin-bottom: 10px;"></i>
+                <p style="font-size: 0.9rem; font-weight: 700; color: #9ca3af;">No rankings available yet</p>
+                <span style="font-size: 0.75rem; color: #6b7280;">Leaderboard will update once official matches begin!</span>
             </div>
         </div>
 
-        <!-- WALLET TAB (Ref Image 1000076591) -->
+        <!-- WALLET TAB (UPDATED: DEFAULT 0 COINS) -->
         <div id="tab-wallet" class="tab-content">
-            <div style="background: #8b8e99; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
+            <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
                     <i class="fa-solid fa-coins" style="font-size: 2rem; color: var(--gold);"></i>
                     <span style="font-size: 2.2rem; font-weight: 900;" id="wallet-coins">0</span>
@@ -705,17 +657,16 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB (Ref Image 1000076599) -->
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
                     <i class="fa-solid fa-user-astronaut" style="font-size: 3rem; color: #fff;"></i>
                 </div>
-                <div class="user-name-text" id="display-username">Name : naitikrajput</div>
+                <div class="user-name-text" id="display-username">Name : Player</div>
                 <div class="kyc-verified-badge"><i class="fa-solid fa-circle-check"></i> Kyc Verified</div>
             </div>
 
-            <!-- Stats Bar matching Ref Image 1000076599 -->
             <div class="stats-summary-card">
                 <div class="stat-item">
                     <div class="stat-num" id="stat-matches">0</div>
@@ -731,7 +682,6 @@
                 </div>
             </div>
 
-            <!-- Exact Menu Items matching Ref Image 1000076599 -->
             <div class="menu-list">
                 <div class="menu-item" onclick="openMyProfileModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-user"></i><span>My Profile</span></div>
@@ -776,7 +726,7 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation (Ref Image 1000076599) -->
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
             <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
@@ -787,7 +737,7 @@
 
     </div>
 
-    <!-- MODAL: MY PROFILE (Ref Image 1000076590) -->
+    <!-- MODAL: MY PROFILE (CLEANED INPUTS WITHOUT HARDCODED TEXT) -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -795,12 +745,12 @@
                 <i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i>
             </div>
             <div class="form-group">
-                <label>Users Name</label>
-                <input type="text" id="edit-username" class="form-input" value="naitikrajput">
+                <label>User's Name</label>
+                <input type="text" id="edit-username" class="form-input" placeholder="Enter User's Name">
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" id="edit-email" class="form-input" value="naitik@fatalrush.com">
+                <input type="email" id="edit-email" class="form-input" placeholder="Enter Email Address">
             </div>
             <div class="form-group">
                 <label>Mobile Number</label>
@@ -822,7 +772,7 @@
         </div>
     </div>
 
-    <!-- MODAL: MY STATICS (Ref Image 1000076592) -->
+    <!-- MODAL: MY STATICS -->
     <div id="modal-my-statics" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -854,7 +804,7 @@
         </div>
     </div>
 
-    <!-- MODAL: FAQ (Ref Image 1000076595) -->
+    <!-- MODAL: FAQ -->
     <div id="modal-faq" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -864,12 +814,11 @@
             <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
                 <p style="margin-bottom:10px;"><strong>Q. What is Fatal Rush Esports?</strong><br>It is a dedicated app for organizing and participating in Free Fire and BGMI tournaments.</p>
                 <p style="margin-bottom:10px;"><strong>Q. How to register?</strong><br>Simply download the app, create an account, and join upcoming tournaments.</p>
-                <p style="margin-bottom:10px;"><strong>Q. Is there any entry fee?</strong><br>Some tournaments are free while others have a small entry fee in coins.</p>
             </div>
         </div>
     </div>
 
-    <!-- MODAL: ABOUT US (Ref Image 1000076596) -->
+    <!-- MODAL: ABOUT US -->
     <div id="modal-about" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -877,12 +826,12 @@
                 <i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i>
             </div>
             <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
-                Welcome To Fatal Rush Esports, the premier tournament platform designed for gamers. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.
+                Welcome To Fatal Rush Esports, the premier tournament platform designed for gamers.
             </div>
         </div>
     </div>
 
-    <!-- MODAL: TERMS & CONDITIONS (Ref Image 1000076598) -->
+    <!-- MODAL: TERMS & CONDITIONS -->
     <div id="modal-terms" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -892,7 +841,6 @@
             <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
                 <p style="margin-bottom:8px;">1. Participants must follow Fair Play & Sportsmanship.</p>
                 <p style="margin-bottom:8px;">2. No cheating, hacking or emulator use allowed.</p>
-                <p style="margin-bottom:8px;">3. Entry fees are non-refundable once joined.</p>
             </div>
         </div>
     </div>
@@ -938,14 +886,14 @@
         </div>
     </div>
 
-    <!-- MODAL: SECRET ADMIN AUTH -->
+    <!-- MODAL: SECRET ADMIN AUTH (HIDDEN) -->
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-title">Secret Admin Verification</div>
+            <div class="modal-title">Security Verification</div>
             <div class="form-group">
                 <input type="password" id="admin-pass-input" class="form-input" placeholder="Enter Security Key">
             </div>
-            <button class="btn-submit" onclick="verifyAdminPass()">LOGIN ADMIN</button>
+            <button class="btn-submit" onclick="verifyAdminPass()">VERIFY</button>
             <button class="btn-close" onclick="closeModal('modal-secret-admin')">Cancel</button>
         </div>
     </div>
@@ -967,10 +915,10 @@
     </div>
 
     <script>
-        // STRICT USER DATA DEFAULT 0 FOR NEW USERS
+        // STRICT USER DATA DEFAULT 0
         let userData = JSON.parse(localStorage.getItem('fatal_user')) || { 
-            name: "naitikrajput", 
-            email: "naitik@fatalrush.com", 
+            name: "", 
+            email: "", 
             mobile: "",
             coins: 0,
             deposited: 0,
@@ -987,13 +935,16 @@
         window.onload = function() {
             updateUserUI();
             renderTournaments();
-        };
 
-        function enterApp() {
-            const splash = document.getElementById('splash-screen');
-            splash.style.opacity = '0';
-            setTimeout(() => { splash.style.visibility = 'hidden'; }, 600);
-        }
+            // AUTO HIDE POSTER AFTER 2 SECONDS (2000 ms)
+            setTimeout(() => {
+                const splash = document.getElementById('splash-screen');
+                if(splash) {
+                    splash.style.opacity = '0';
+                    setTimeout(() => { splash.style.visibility = 'hidden'; }, 600);
+                }
+            }, 2000);
+        };
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -1010,9 +961,9 @@
         }
 
         function updateUserUI() {
-            document.getElementById('display-username').innerText = "Name : " + userData.name;
-            document.getElementById('header-coins').innerText = userData.coins;
-            document.getElementById('wallet-coins').innerText = userData.coins;
+            document.getElementById('display-username').innerText = "Name : " + (userData.name ? userData.name : "Player");
+            document.getElementById('header-coins').innerText = userData.coins || 0;
+            document.getElementById('wallet-coins').innerText = userData.coins || 0;
             
             document.getElementById('deposit-coins').innerText = userData.deposited || 0;
             document.getElementById('winning-coins').innerText = userData.winning || 0;
@@ -1042,15 +993,15 @@
             tournaments.forEach(m => {
                 list.innerHTML += `
                     <div class="match-card">
-                        <div class="match-header">
-                            <div class="match-title">${m.title}</div>
-                            <span class="match-badge">${m.mode}</span>
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                            <div style="font-size:0.95rem; font-weight:700; color:#fff;">${m.title}</div>
+                            <span style="background:var(--primary-red); color:#fff; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:4px;">${m.mode}</span>
                         </div>
-                        <div class="match-info-grid">
-                            <div class="info-box"><span>Time</span><strong>${m.time}</strong></div>
-                            <div class="info-box"><span>Map</span><strong>${m.map}</strong></div>
-                            <div class="info-box"><span>Win Prize</span><strong>${m.prize} Coins</strong></div>
-                            <div class="info-box"><span>Per Kill</span><strong>${m.perkill} Coins</strong></div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:rgba(0,0,0,0.25); padding:10px; border-radius:8px; margin-bottom:12px;">
+                            <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Time</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.time}</strong></div>
+                            <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Map</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.map}</strong></div>
+                            <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Win Prize</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
+                            <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                         </div>
                         <button class="btn-action" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
                     </div>
@@ -1071,7 +1022,7 @@
         }
 
         function openMyProfileModal() {
-            document.getElementById('edit-username').value = userData.name;
+            document.getElementById('edit-username').value = userData.name || "";
             document.getElementById('edit-email').value = userData.email || "";
             document.getElementById('edit-mobile').value = userData.mobile || "";
             document.getElementById('modal-my-profile').style.display = 'flex';
@@ -1136,18 +1087,6 @@
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-upi').value = '';
             showToast(`Withdrawal request for ${amt} Coins submitted!`);
-        }
-
-        function shareApp() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'Fatal Rush Esports',
-                    text: 'Join Fatal Rush Esports and win daily rewards!',
-                    url: window.location.href,
-                }).catch(() => {});
-            } else {
-                showToast("App Link Copied!");
-            }
         }
 
         function handleSecretTap() {
