@@ -1,573 +1,955 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-dark: #0a0b10;
+            --card-bg: #131520;
+            --card-border: #232738;
+            --primary-red: #ff2a5f;
+            --primary-red-hover: #e01f50;
+            --accent-green: #00d26a;
+            --text-main: #ffffff;
+            --text-sub: #9ca3af;
+            --gold: #ffb703;
+            --whatsapp-green: #25D366;
+            --insta-pink: #E1306C;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: #0c0a1d;
-            color: #ffffff;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
             display: flex;
             justify-content: center;
-            align-items: center;
             min-height: 100vh;
         }
 
-        /* Mobile App Simulation Frame on Desktop, Full screen on Mobile */
+        /* Mobile App Frame Container */
         .app-container {
             width: 100%;
-            max-width: 450px;
-            height: 100vh;
-            max-height: 900px;
-            background: #120f29;
-            display: flex;
-            flex-direction: column;
+            max-width: 480px;
+            background: var(--bg-dark);
             position: relative;
+            padding-bottom: 75px;
+            min-height: 100vh;
             box-shadow: 0 0 20px rgba(0,0,0,0.8);
-            border-radius: 0px;
-            overflow: hidden;
-        }
-
-        @media (min-width: 500px) {
-            .app-container {
-                border-radius: 20px;
-                height: 90vh;
-            }
         }
 
         /* Top Header */
-        .header {
-            background: #1a1638;
-            padding: 15px;
+        .app-header {
+            background: rgba(19, 21, 32, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid #2a2456;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--card-border);
         }
 
-        .header h1 {
-            font-size: 18px;
-            color: #ff3366;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .app-title {
+            font-size: 1.1rem;
             font-weight: 800;
+            color: var(--primary-red);
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
-        .admin-btn {
-            background: #ff3366;
-            color: #fff;
-            border: none;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: bold;
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .coin-badge {
+            background: rgba(255, 183, 3, 0.15);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
         }
 
-        /* Main Content View Container */
-        .content {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            padding-bottom: 70px;
+        /* Announcement Marquee */
+        .announcement {
+            background: #181c2b;
+            color: #38ef7d;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--card-border);
         }
 
+        /* Main View Screen Sections */
         .tab-content {
             display: none;
+            padding: 16px;
+            animation: fadeIn 0.2s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        /* Cards & Components */
-        .banner {
-            width: 100%;
-            height: 140px;
-            background: linear-gradient(135deg, #e50914, #580827);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(4px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Gaming Banners & Cards */
+        .hero-banner {
+            background: linear-gradient(135deg, #b91c1c, #450a0a);
             border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
+            padding: 20px;
             text-align: center;
-            padding: 10px;
+            margin-bottom: 16px;
+            border: 1px solid rgba(255,42,95,0.3);
+            box-shadow: 0 4px 15px rgba(255,42,95,0.2);
         }
 
-        .banner h2 { font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
-        .banner p { font-size: 12px; opacity: 0.8; margin-top: 5px; }
+        .hero-banner h2 {
+            font-size: 1.3rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 4px;
+        }
 
-        .card {
-            background: #1c173b;
+        .hero-banner p {
+            font-size: 0.85rem;
+            color: #fca5a5;
+        }
+
+        /* Quick Grid Shortcuts */
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quick-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            padding: 12px 6px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .quick-item i {
+            font-size: 1.2rem;
+            color: var(--primary-red);
+            margin-bottom: 6px;
+        }
+
+        .quick-item span {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        /* Section Headings */
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        /* Esports Match Card (Dabba Design) */
+        .match-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
-            padding: 15px;
-            margin-bottom: 15px;
-            border: 1px solid #2e285a;
+            padding: 14px;
+            margin-bottom: 14px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .card-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 10px;
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .match-title {
+            font-size: 1rem;
+            font-weight: 700;
             color: #fff;
         }
 
-        .match-details {
+        .match-badge {
+            background: var(--primary-red);
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .match-info-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 10px 0;
-            font-size: 13px;
+            gap: 8px;
+            background: rgba(0,0,0,0.25);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 12px;
         }
 
-        .match-detail-item {
-            background: #14102e;
-            padding: 8px;
-            border-radius: 6px;
-        }
-
-        .match-detail-item span {
+        .info-box span {
             display: block;
-            color: #8f8ab2;
-            font-size: 10px;
+            font-size: 0.65rem;
+            color: var(--text-sub);
+            text-transform: uppercase;
+        }
+
+        .info-box strong {
+            font-size: 0.85rem;
+            color: #e2e8f0;
         }
 
         .btn-join {
             width: 100%;
-            background: #00c853;
-            color: white;
-            border: none;
+            background: var(--accent-green);
+            color: #000;
+            font-weight: 800;
             padding: 10px;
+            border: none;
             border-radius: 8px;
-            font-weight: bold;
+            font-size: 0.85rem;
             cursor: pointer;
-            margin-top: 5px;
-        }
-
-        /* Wallet Section */
-        .wallet-box {
-            background: linear-gradient(135deg, #2b1f5d, #140d33);
-            border-radius: 12px;
-            padding: 20px;
+            transition: 0.2s;
             text-align: center;
-            margin-bottom: 15px;
+            text-transform: uppercase;
         }
 
-        .wallet-balance {
-            font-size: 28px;
-            font-weight: bold;
-            color: #ffd700;
-            margin: 10px 0;
+        .btn-join:hover {
+            opacity: 0.9;
         }
 
-        .btn-group {
+        /* Profile & Wallet Card Styles */
+        .profile-card, .wallet-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .profile-header {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
         }
 
-        .btn-action {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            color: white;
             font-weight: bold;
-            cursor: pointer;
-            color: white;
         }
 
-        .btn-add { background: #00c853; }
-        .btn-withdraw { background: #ff9100; }
-        .btn-emergency { background: #d50000; }
-
-        /* Form Inputs */
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 12px;
-            background: #14102e;
-            border: 1px solid #2e285a;
-            color: white;
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
             border-radius: 8px;
-            outline: none;
         }
 
-        /* Bottom Navigation Bar */
+        .stat-item h3 {
+            font-size: 1rem;
+            color: var(--gold);
+        }
+
+        .stat-item p {
+            font-size: 0.65rem;
+            color: var(--text-sub);
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 12px 14px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        /* Social Support Buttons */
+        .social-btn-whatsapp {
+            background: #128C7E;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-decoration: none;
+            margin-bottom: 8px;
+        }
+
+        .social-btn-insta {
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+
+        /* Bottom Nav Bar */
         .bottom-nav {
-            position: absolute;
+            position: fixed;
             bottom: 0;
             width: 100%;
-            height: 60px;
-            background: #161233;
+            max-width: 480px;
+            background: #0d0f17;
+            border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
-            align-items: center;
-            border-top: 1px solid #251f4d;
+            padding: 8px 0;
+            z-index: 100;
         }
 
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            color: #7b75a6;
-            text-decoration: none;
-            font-size: 11px;
+            gap: 3px;
+            color: var(--text-sub);
+            font-size: 0.7rem;
             cursor: pointer;
+            text-decoration: none;
+            width: 20%;
+        }
+
+        .nav-item i {
+            font-size: 1.1rem;
         }
 
         .nav-item.active {
-            color: #ff3366;
+            color: var(--primary-red);
         }
 
-        .nav-item svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            margin-bottom: 3px;
-        }
-
-        /* Modal Popup */
-        .modal {
-            display: none;
+        /* Custom In-App Gaming Toast Notification */
+        .custom-toast {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #2b1055;
+            border: 1px solid #8b5cf6;
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            z-index: 1000;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .custom-toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Modals & Secret Admin View */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0,0,0,0.8);
+            display: none;
             justify-content: center;
             align-items: center;
-            z-index: 999;
+            z-index: 500;
+            padding: 20px;
         }
 
-        .modal-body {
-            background: #1c173b;
-            padding: 20px;
+        .modal-box {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
             border-radius: 12px;
-            width: 90%;
-            max-width: 400px;
+            padding: 20px;
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .modal-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--primary-red);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-sub);
+            margin-bottom: 4px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #0a0b10;
+            border: 1px solid var(--card-border);
+            padding: 10px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 0.85rem;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--primary-red);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+
+        .btn-close {
+            background: transparent;
+            color: var(--text-sub);
+            border: none;
+            margin-top: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 0.8rem;
+        }
+
+        .secret-trigger {
+            user-select: none;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
 
+    <div id="toast" class="custom-toast">
+        <i class="fa-solid fa-circle-check" style="color: #a78bfa;"></i>
+        <span id="toast-msg">Action Completed!</span>
+    </div>
+
     <div class="app-container">
-        <div class="header">
-            <h1>Fatal Rush Esports</h1>
-            <button class="admin-btn" onclick="openAdminPanel()">Admin Panel</button>
+
+        <header class="app-header">
+            <div class="app-title secret-trigger" onclick="handleSecretTap()">FATAL RUSH</div>
+            <div class="header-actions">
+                <div class="coin-badge" onclick="switchTab('wallet')">
+                    <i class="fa-solid fa-coins"></i>
+                    <span id="header-coins">0</span> Coins
+                </div>
+            </div>
+        </header>
+
+        <div class="announcement">
+            <i class="fa-solid fa-bullhorn"></i>
+            <marquee behavior="scroll" direction="left" scrollamount="4">
+                Welcome to Fatal Rush Esports! Play BGMI & Free Fire Matches Daily and Earn Rewards!
+            </marquee>
         </div>
 
-        <div class="content">
-
-            <div id="tab-home" class="tab-content active">
-                <div class="banner">
-                    <h2>FATAL RUSH TOURNAMENTS</h2>
-                    <p>Play Free Fire & BGMI Matches and Earn Daily!</p>
-                </div>
-
-                <h3 style="margin-bottom: 10px; font-size: 14px; color: #a5a0cc;">UPCOMING MATCHES</h3>
-                <div id="match-list">
-                    </div>
+        <div id="tab-home" class="tab-content active">
+            <div class="hero-banner">
+                <h2>FATAL RUSH TOURNAMENTS</h2>
+                <p>Play Free Fire & BGMI Matches and Earn Daily!</p>
             </div>
 
-            <div id="tab-offer" class="tab-content">
-                <div class="card">
-                    <div class="card-title">🎁 Daily Airdrop / Redeem Code</div>
-                    <p style="font-size: 12px; color: #bbb; margin-bottom: 10px;">Enter your code below to claim free coins daily!</p>
-                    <input type="text" id="redeem-input" placeholder="Enter Redeem Code">
-                    <button class="btn-action btn-add" style="width:100%;" onclick="claimRedeemCode()">Redeem Code</button>
+            <div class="quick-grid">
+                <div class="quick-item" onclick="switchTab('profile')">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Profile</span>
                 </div>
-            </div>
-
-            <div id="tab-ranking" class="tab-content">
-                <div class="card">
-                    <div class="card-title">🏆 Top Players Leaderboard</div>
-                    <div style="font-size: 13px;">
-                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2e285a;">
-                            <span>#1 Player_Alpha</span>
-                            <span style="color:#ffd700;">1,250 Coins</span>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2e285a;">
-                            <span>#2 Killer_Pro</span>
-                            <span style="color:#ffd700;">980 Coins</span>
-                        </div>
-                        <div style="display:flex; justify-content:space-between; padding:8px 0;">
-                            <span>#3 Rush_King</span>
-                            <span style="color:#ffd700;">850 Coins</span>
-                        </div>
-                    </div>
+                <div class="quick-item" onclick="switchTab('wallet')">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Wallet</span>
+                </div>
+                <div class="quick-item" onclick="switchTab('ranking')">
+                    <i class="fa-solid fa-trophy"></i>
+                    <span>Top Player</span>
+                </div>
+                <div class="quick-item" onclick="openWhatsAppSupport()">
+                    <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+                    <span>WhatsApp</span>
                 </div>
             </div>
 
-            <div id="tab-wallet" class="tab-content">
-                <div class="wallet-box">
-                    <div style="font-size: 12px; color: #a5a0cc;">TOTAL WALLET COINS</div>
-                    <div class="wallet-balance"><span id="user-total-coins">0</span> Coins</div>
-                    <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8;">
-                        <span>Deposited: <b id="user-deposit">0</b></span>
-                        <span>Winning: <b id="user-winning">0</b></span>
-                    </div>
+            <div class="section-title">Upcoming Matches</div>
+            <div id="tournament-list">
                 </div>
-
-                <div class="btn-group">
-                    <button class="btn-action btn-add" onclick="showBuyCoins()">Buy Coins</button>
-                    <button class="btn-action btn-withdraw" onclick="showWithdraw()">Withdraw</button>
-                </div>
-                <button class="btn-action btn-emergency" style="width: 100%; margin-top: 10px;" onclick="showEmergencyWithdraw()">Emergency Withdraw</button>
-            </div>
-
-            <div id="tab-profile" class="tab-content">
-                <div class="card">
-                    <div class="card-title">👤 User Profile</div>
-                    <p style="font-size: 13px; margin-bottom: 5px;"><b>Name:</b> Player</p>
-                    <p style="font-size: 13px; margin-bottom: 5px;"><b>Email:</b> user@fatalrush.com</p>
-                    <p style="font-size: 13px;"><b>KYC Status:</b> <span style="color: #00c853;">Verified</span></p>
-                </div>
-                <div class="card">
-                    <div class="card-title">📢 Refer & Earn</div>
-                    <p style="font-size: 12px; color: #bbb;">Share your referral code with friends and get 10 coins per signup!</p>
-                    <input type="text" value="FATALRUSH100" readonly style="margin-top: 10px; text-align: center; font-weight: bold;">
-                </div>
-            </div>
-
-            <div id="tab-admin" class="tab-content">
-                <div class="card">
-                    <div class="card-title">⚙️ Admin - Create New Tournament</div>
-                    <input type="text" id="adm-title" placeholder="Match Title (e.g., Free Fire Solo #101)">
-                    <input type="text" id="adm-time" placeholder="Match Date & Time">
-                    <input type="text" id="adm-map" placeholder="Map (Bermuda / Kalahari / Erangel)">
-                    <input type="number" id="adm-entry" placeholder="Entry Fee (Coins)">
-                    <input type="number" id="adm-kill" placeholder="Per Kill Prize (Coins)">
-                    <input type="number" id="adm-win" placeholder="Winning Prize (Coins)">
-                    <select id="adm-type">
-                        <option value="SOLO">SOLO</option>
-                        <option value="DUO">DUO</option>
-                        <option value="SQUAD">SQUAD</option>
-                    </select>
-                    <button class="btn-action btn-add" style="width: 100%; margin-top: 5px;" onclick="adminCreateMatch()">Publish Match Live</button>
-                </div>
-            </div>
-
         </div>
 
-        <div class="bottom-nav">
-            <div class="nav-item" onclick="switchTab('offer', this)">
-                <svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
-                Offer
+        <div id="tab-offer" class="tab-content">
+            <div class="section-title">Special Offers</div>
+            <div class="profile-card" style="text-align: center; padding: 30px 15px;">
+                <i class="fa-solid fa-gift" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;"></i>
+                <h3 style="margin-bottom: 6px;">Refer & Earn</h3>
+                <span style="background: var(--primary-red); color: #fff; font-size: 0.7rem; padding: 2px 10px; border-radius: 12px; font-weight: bold;">COMING SOON! 🚀</span>
+                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 12px;">
+                    Referral rewards system is launching soon in the next update. Stay tuned!
+                </p>
             </div>
-            <div class="nav-item" onclick="switchTab('ranking', this)">
-                <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V18H8v2h8v-2h-3v-2.1c1.73-.37 3.09-1.75 3.61-3.46C19.08 11.63 21 9.55 21 7V5c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
-                Ranking
+        </div>
+
+        <div id="tab-ranking" class="tab-content">
+            <div class="section-title">Top Players Leaderboard</div>
+            <div class="profile-card">
+                <div class="menu-list">
+                    <div class="menu-item">
+                        <span>🥇 #1 Player_Alpha</span>
+                        <strong style="color: var(--gold)">1,250 Coins</strong>
+                    </div>
+                    <div class="menu-item">
+                        <span>🥈 #2 Killer_Pro</span>
+                        <strong style="color: var(--gold)">980 Coins</strong>
+                    </div>
+                    <div class="menu-item">
+                        <span>🥉 #3 Rush_King</span>
+                        <strong style="color: var(--gold)">850 Coins</strong>
+                    </div>
+                </div>
             </div>
-            <div class="nav-item active" onclick="switchTab('home', this)">
-                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-                Home
+        </div>
+
+        <div id="tab-wallet" class="tab-content">
+            <div class="section-title">My Wallet</div>
+            <div class="wallet-card" style="text-align: center;">
+                <span style="font-size: 0.75rem; color: var(--text-sub);">TOTAL BALANCE</span>
+                <h2 style="font-size: 1.8rem; color: var(--gold); margin: 6px 0;"><span id="wallet-coins">0</span> Coins</h2>
+                <div style="display: flex; gap: 10px; margin-top: 14px;">
+                    <button class="btn-join" onclick="openAddCoinsModal()">+ Add Coins</button>
+                    <button class="btn-join" style="background: var(--card-border); color: #fff;" onclick="openWithdrawModal()">Withdraw</button>
+                </div>
             </div>
-            <div class="nav-item" onclick="switchTab('wallet', this)">
-                <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
-                Wallet
+
+            <div class="section-title">Fast Recharge Packages</div>
+            <div class="menu-list">
+                <div class="menu-item" onclick="simulateAddCoins(10)">
+                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 10 Coins</span>
+                    <strong>₹10</strong>
+                </div>
+                <div class="menu-item" onclick="simulateAddCoins(50)">
+                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 50 Coins</span>
+                    <strong>₹50</strong>
+                </div>
+                <div class="menu-item" onclick="simulateAddCoins(100)">
+                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 100 Coins</span>
+                    <strong>₹100</strong>
+                </div>
             </div>
-            <div class="nav-item" onclick="switchTab('profile', this)">
-                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
-                Profile
+        </div>
+
+        <div id="tab-profile" class="tab-content">
+            <div class="section-title">User Profile</div>
+            <div class="profile-card">
+                <div class="profile-header">
+                    <div class="avatar" id="user-avatar-icon"><i class="fa-solid fa-user"></i></div>
+                    <div>
+                        <h3 id="display-name">Guest Player</h3>
+                        <p id="display-email" style="font-size: 0.75rem; color: var(--text-sub);">user@fatalrush.com</p>
+                        <span style="color: var(--accent-green); font-size: 0.7rem; font-weight: bold;">✔ KYC Verified</span>
+                    </div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <h3 id="stat-matches">0</h3>
+                        <p>Matches</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="stat-kills">0</h3>
+                        <p>Total Kills</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 id="stat-won">0</h3>
+                        <p>Coins Won</p>
+                    </div>
+                </div>
             </div>
+
+            <div class="menu-list" style="margin-bottom: 12px;">
+                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="social-btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.2rem;"></i> Join WhatsApp Channel
+                </a>
+                <a href="https://www.instagram.com/fatal_rush_esports?igsh=MW45ejJvcHh4MWx6Zw==" target="_blank" class="social-btn-insta">
+                    <i class="fa-brands fa-instagram" style="font-size: 1.2rem;"></i> Follow on Instagram
+                </a>
+            </div>
+
+            <div class="menu-list">
+                <div class="menu-item" onclick="openEditProfileModal()">
+                    <span><i class="fa-solid fa-user-pen"></i> Edit Profile Details</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="switchTab('offer')">
+                    <span><i class="fa-solid fa-share-nodes"></i> Refer & Earn (Coming Soon)</span>
+                    <i class="fa-solid fa-chevron-right" style="font-size: 0.7rem;"></i>
+                </div>
+                <div class="menu-item secret-trigger" onclick="handleSecretTap()">
+                    <span><i class="fa-solid fa-shield-halved"></i> App Version v1.0.4</span>
+                    <i class="fa-solid fa-lock" style="font-size: 0.7rem; color: var(--text-sub);"></i>
+                </div>
+            </div>
+        </div>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="switchTab('home')" id="nav-home">
+                <i class="fa-solid fa-house"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('offer')" id="nav-offer">
+                <i class="fa-solid fa-tag"></i>
+                <span>Offer</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking">
+                <i class="fa-solid fa-trophy"></i>
+                <span>Ranking</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('wallet')" id="nav-wallet">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Wallet</span>
+            </div>
+            <div class="nav-item" onclick="switchTab('profile')" id="nav-profile">
+                <i class="fa-solid fa-user"></i>
+                <span>Profile</span>
+            </div>
+        </nav>
+
+    </div>
+
+    <div id="modal-join" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">Join Match</div>
+            <p id="join-match-info" style="font-size: 0.8rem; color: var(--text-sub); margin-bottom: 12px;"></p>
+            <div class="form-group">
+                <label>In-Game Name (IGN) / Game Username</label>
+                <input type="text" id="input-ign" class="form-input" placeholder="Enter your exact Game ID Name">
+            </div>
+            <button class="btn-submit" onclick="confirmJoinMatch()">CONFIRM & JOIN</button>
+            <button class="btn-close" onclick="closeModal('modal-join')">Cancel</button>
         </div>
     </div>
 
-    <div id="app-modal" class="modal">
-        <div class="modal-body" id="modal-content"></div>
+    <div id="modal-profile" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">Update Your Profile</div>
+            <div class="form-group">
+                <label>Your Name</label>
+                <input type="text" id="edit-name" class="form-input" placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+                <label>Your Email Address</label>
+                <input type="email" id="edit-email" class="form-input" placeholder="Enter email address">
+            </div>
+            <button class="btn-submit" onclick="saveProfileDetails()">SAVE PROFILE</button>
+            <button class="btn-close" onclick="closeModal('modal-profile')">Cancel</button>
+        </div>
+    </div>
+
+    <div id="modal-secret-admin" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">Secret Admin Password</div>
+            <div class="form-group">
+                <label>Security Key</label>
+                <input type="password" id="admin-pass-input" class="form-input" placeholder="Enter Admin Password">
+            </div>
+            <button class="btn-submit" onclick="verifyAdminPass()">ACCESS ADMIN PANEL</button>
+            <button class="btn-close" onclick="closeModal('modal-secret-admin')">Cancel</button>
+        </div>
+    </div>
+
+    <div id="modal-admin-panel" class="modal-overlay">
+        <div class="modal-box" style="max-width: 420px; max-height: 80vh; overflow-y: auto;">
+            <div class="modal-title">🛠️ Admin Tournament Creator</div>
+            <div class="form-group">
+                <label>Match Title</label>
+                <input type="text" id="adm-title" class="form-input" placeholder="e.g. Free Fire Duo #102">
+            </div>
+            <div class="form-group">
+                <label>Mode Badge (SOLO/DUO/SQUAD)</label>
+                <input type="text" id="adm-mode" class="form-input" placeholder="DUO">
+            </div>
+            <div class="form-group">
+                <label>Time & Date</label>
+                <input type="text" id="adm-time" class="form-input" placeholder="Today - 08:00 PM">
+            </div>
+            <div class="form-group">
+                <label>Map</label>
+                <input type="text" id="adm-map" class="form-input" placeholder="Bermuda / Erangel">
+            </div>
+            <div class="form-group">
+                <label>Win Prize (Coins)</label>
+                <input type="number" id="adm-prize" class="form-input" placeholder="100">
+            </div>
+            <div class="form-group">
+                <label>Per Kill (Coins)</label>
+                <input type="number" id="adm-perkill" class="form-input" placeholder="5">
+            </div>
+            <div class="form-group">
+                <label>Entry Fee (Coins)</label>
+                <input type="number" id="adm-fee" class="form-input" placeholder="10">
+            </div>
+            <button class="btn-submit" onclick="adminCreateTournament()">ADD TOURNAMENT LIVE</button>
+            <button class="btn-close" onclick="closeModal('modal-admin-panel')">Close Admin Panel</button>
+        </div>
     </div>
 
     <script>
-        // Data State
-        let userData = {
-            deposit: 50,
-            winning: 20
+        // Links Config
+        const WHATSAPP_CHANNEL_LINK = "https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z";
+        const INSTAGRAM_LINK = "https://www.instagram.com/fatal_rush_esports?igsh=MW45ejJvcHh4MWx6Zw==";
+
+        // Default Dynamic User Data
+        let userData = JSON.parse(localStorage.getItem('fatal_user')) || {
+            name: "Player",
+            email: "user@fatalrush.com",
+            coins: 50,
+            matches: 0,
+            kills: 0,
+            won: 0
         };
 
-        let matches = [
-            {
-                id: 1,
-                title: "Free Fire Duo #101",
-                time: "Today - 08:00 PM",
-                map: "Bermuda",
-                entry: 10,
-                perKill: 5,
-                winPrize: 100,
-                type: "DUO"
-            },
-            {
-                id: 2,
-                title: "BGMI Squad Special",
-                time: "Tomorrow - 06:00 PM",
-                map: "Erangel",
-                entry: 20,
-                perKill: 12,
-                winPrize: 250,
-                type: "SQUAD"
-            }
+        let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [
+            { id: 1, title: "Free Fire Duo #101", mode: "DUO", time: "Today - 08:00 PM", map: "Bermuda", prize: 100, perkill: 5, fee: 10 },
+            { id: 2, title: "BGMI Squad Special", mode: "SQUAD", time: "Tomorrow - 06:00 PM", map: "Erangel", prize: 250, perkill: 12, fee: 20 }
         ];
 
-        // Functions
-        function renderMatches() {
-            const container = document.getElementById('match-list');
-            container.innerHTML = '';
-            
-            if (matches.length === 0) {
-                container.innerHTML = '<div style="text-align:center; padding:20px; color:#8f8ab2;">No upcoming matches. Check back soon!</div>';
-                return;
-            }
+        let secretTapCount = 0;
+        let selectedMatchToJoin = null;
 
-            matches.forEach(m => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `
-                    <div class="card-title" style="display:flex; justify-size:space-between; justify-content:space-between;">
-                        <span>${m.title}</span>
-                        <span style="font-size:11px; background:#e50914; padding:2px 6px; border-radius:4px;">${m.type}</span>
+        // Initialize App
+        window.onload = function() {
+            updateUserUI();
+            renderTournaments();
+        };
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-msg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+            document.getElementById(`nav-${tabName}`).classList.add('active');
+        }
+
+        function updateUserUI() {
+            document.getElementById('display-name').innerText = userData.name;
+            document.getElementById('display-email').innerText = userData.email;
+            document.getElementById('header-coins').innerText = userData.coins;
+            document.getElementById('wallet-coins').innerText = userData.coins;
+            document.getElementById('stat-matches').innerText = userData.matches;
+            document.getElementById('stat-kills').innerText = userData.kills;
+            document.getElementById('stat-won').innerText = userData.won;
+            
+            localStorage.setItem('fatal_user', JSON.stringify(userData));
+        }
+
+        function renderTournaments() {
+            const list = document.getElementById('tournament-list');
+            list.innerHTML = '';
+
+            tournaments.forEach(m => {
+                list.innerHTML += `
+                    <div class="match-card">
+                        <div class="match-header">
+                            <div class="match-title">${m.title}</div>
+                            <span class="match-badge">${m.mode}</span>
+                        </div>
+                        <div class="match-info-grid">
+                            <div class="info-box"><span>Time</span><strong>${m.time}</strong></div>
+                            <div class="info-box"><span>Map</span><strong>${m.map}</strong></div>
+                            <div class="info-box"><span>Win Prize</span><strong>${m.prize} Coins</strong></div>
+                            <div class="info-box"><span>Per Kill</span><strong>${m.perkill} Coins</strong></div>
+                        </div>
+                        <button class="btn-join" onclick="openJoinModal(${m.id})">JOIN MATCH (${m.fee} COINS)</button>
                     </div>
-                    <div class="match-details">
-                        <div class="match-detail-item"><span>TIME</span>${m.time}</div>
-                        <div class="match-detail-item"><span>MAP</span>${m.map}</div>
-                        <div class="match-detail-item"><span>WIN PRIZE</span>${m.winPrize} Coins</div>
-                        <div class="match-detail-item"><span>PER KILL</span>${m.perKill} Coins</div>
-                    </div>
-                    <button class="btn-join" onclick="joinMatch(${m.entry})">JOIN MATCH (${m.entry} COINS)</button>
                 `;
-                container.appendChild(card);
             });
         }
 
-        function updateWalletUI() {
-            document.getElementById('user-total-coins').innerText = userData.deposit + userData.winning;
-            document.getElementById('user-deposit').innerText = userData.deposit;
-            document.getElementById('user-winning').innerText = userData.winning;
-        }
+        function openJoinModal(matchId) {
+            selectedMatchToJoin = tournaments.find(t => t.id === matchId);
+            if (!selectedMatchToJoin) return;
 
-        function switchTab(tabName, el) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            
-            document.getElementById('tab-' + tabName).classList.add('active');
-            if (el) el.classList.add('active');
-        }
-
-        function openAdminPanel() {
-            const pass = prompt("Enter Admin Security Password:");
-            if (pass === "1234") {
-                switchTab('admin', null);
-            } else {
-                alert("Incorrect Password!");
-            }
-        }
-
-        function adminCreateMatch() {
-            const title = document.getElementById('adm-title').value;
-            const time = document.getElementById('adm-time').value;
-            const map = document.getElementById('adm-map').value;
-            const entry = parseInt(document.getElementById('adm-entry').value);
-            const kill = parseInt(document.getElementById('adm-kill').value);
-            const win = parseInt(document.getElementById('adm-win').value);
-            const type = document.getElementById('adm-type').value;
-
-            if (!title || !entry) {
-                alert("Please enter title and entry fee!");
+            if (userData.coins < selectedMatchToJoin.fee) {
+                showToast("Insufficient Coins! Recharge your wallet.");
+                switchTab('wallet');
                 return;
             }
 
-            matches.unshift({
-                id: Date.now(),
-                title: title,
-                time: time || "Scheduled Soon",
-                map: map || "Bermuda",
-                entry: entry,
-                perKill: kill || 0,
-                winPrize: win || 0,
-                type: type
-            });
-
-            renderMatches();
-            alert("Match Created & Published Live!");
-            switchTab('home', document.querySelectorAll('.nav-item')[2]);
+            document.getElementById('join-match-info').innerText = `Entry Fee: ${selectedMatchToJoin.fee} Coins`;
+            document.getElementById('modal-join').style.display = 'flex';
         }
 
-        function joinMatch(entryFee) {
-            const total = userData.deposit + userData.winning;
-            if (total >= entryFee) {
-                userData.deposit -= entryFee;
-                updateWalletUI();
-                alert("Match Joined Successfully!");
-            } else {
-                alert("Insufficient Coins in Wallet! Please Buy Coins.");
+        function confirmJoinMatch() {
+            const ign = document.getElementById('input-ign').value.trim();
+            if (!ign) {
+                showToast("Please enter your Game IGN Name!");
+                return;
+            }
+
+            userData.coins -= selectedMatchToJoin.fee;
+            userData.matches += 1;
+            updateUserUI();
+            closeModal('modal-join');
+            document.getElementById('input-ign').value = '';
+            showToast("Match Joined Successfully!");
+        }
+
+        function simulateAddCoins(amount) {
+            userData.coins += amount;
+            updateUserUI();
+            showToast(`${amount} Coins Added to Wallet!`);
+        }
+
+        function openAddCoinsModal() {
+            showToast("Select any coin package below to add coins!");
+        }
+
+        function openWithdrawModal() {
+            showToast("Emergency withdrawal request initiated!");
+        }
+
+        function openEditProfileModal() {
+            document.getElementById('edit-name').value = userData.name;
+            document.getElementById('edit-email').value = userData.email;
+            document.getElementById('modal-profile').style.display = 'flex';
+        }
+
+        function saveProfileDetails() {
+            const newName = document.getElementById('edit-name').value.trim();
+            const newEmail = document.getElementById('edit-email').value.trim();
+
+            if (newName) userData.name = newName;
+            if (newEmail) userData.email = newEmail;
+
+            updateUserUI();
+            closeModal('modal-profile');
+            showToast("Profile Updated Successfully!");
+        }
+
+        function handleSecretTap() {
+            secretTapCount++;
+            if (secretTapCount >= 5) {
+                secretTapCount = 0;
+                document.getElementById('modal-secret-admin').style.display = 'flex';
             }
         }
 
-        function showBuyCoins() {
-            openModal(`
-                <h3>Buy Coins</h3>
-                <p style="font-size:12px; margin:10px 0;">Select package to add coins via UPI:</p>
-                <button class="btn-action btn-add" style="width:100%; margin-bottom:8px;" onclick="addCoins(50)">50 Coins = ₹50</button>
-                <button class="btn-action btn-add" style="width:100%; margin-bottom:8px;" onclick="addCoins(100)">100 Coins = ₹100</button>
-                <button class="btn-action btn-add" style="width:100%;" onclick="addCoins(200)">200 Coins = ₹200</button>
-                <button class="btn-action" style="width:100%; margin-top:10px; background:#444;" onclick="closeModal()">Cancel</button>
-            `);
-        }
-
-        function addCoins(amount) {
-            userData.deposit += amount;
-            updateWalletUI();
-            alert(amount + " Coins Added to Wallet!");
-            closeModal();
-        }
-
-        function showWithdraw() {
-            openModal(`
-                <h3>Withdraw Coins</h3>
-                <input type="text" placeholder="Enter UPI ID (e.g. 9910483218@fam)" style="margin-top:10px;">
-                <input type="number" placeholder="Enter Coins to Withdraw">
-                <button class="btn-action btn-withdraw" style="width:100%;" onclick="closeModal(); alert('Withdrawal Request Submitted!');">Submit Request</button>
-                <button class="btn-action" style="width:100%; margin-top:8px; background:#444;" onclick="closeModal()">Cancel</button>
-            `);
-        }
-
-        function showEmergencyWithdraw() {
-            openModal(`
-                <h3>Emergency Withdraw</h3>
-                <p style="font-size:11px; color:#ff9100; margin:8px 0;">Instantly withdraw remaining deposit balance to linked UPI.</p>
-                <button class="btn-action btn-emergency" style="width:100%;" onclick="closeModal(); alert('Emergency withdrawal initiated.');">Instant Transfer</button>
-                <button class="btn-action" style="width:100%; margin-top:8px; background:#444;" onclick="closeModal()">Cancel</button>
-            `);
-        }
-
-        function claimRedeemCode() {
-            const code = document.getElementById('redeem-input').value;
-            if (code.toUpperCase() === "FATAL10") {
-                userData.winning += 10;
-                updateWalletUI();
-                alert("Congratulations! 10 Coins claimed successfully.");
+        function verifyAdminPass() {
+            const pass = document.getElementById('admin-pass-input').value;
+            if (pass === "admin123") {
+                closeModal('modal-secret-admin');
+                document.getElementById('admin-pass-input').value = '';
+                document.getElementById('modal-admin-panel').style.display = 'flex';
             } else {
-                alert("Invalid or Expired Code!");
+                showToast("Incorrect Security Password!");
             }
         }
 
-        function openModal(content) {
-            document.getElementById('modal-content').innerHTML = content;
-            document.getElementById('app-modal').style.display = 'flex';
+        function adminCreateTournament() {
+            const title = document.getElementById('adm-title').value.trim();
+            const mode = document.getElementById('adm-mode').value.trim() || 'DUO';
+            const time = document.getElementById('adm-time').value.trim() || 'Today - 09:00 PM';
+            const map = document.getElementById('adm-map').value.trim() || 'Bermuda';
+            const prize = parseInt(document.getElementById('adm-prize').value) || 100;
+            const perkill = parseInt(document.getElementById('adm-perkill').value) || 5;
+            const fee = parseInt(document.getElementById('adm-fee').value) || 10;
+
+            if (!title) {
+                showToast("Please enter Match Title!");
+                return;
+            }
+
+            const newMatch = { id: Date.now(), title, mode, time, map, prize, perkill, fee };
+            tournaments.unshift(newMatch);
+            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+
+            renderTournaments();
+            closeModal('modal-admin-panel');
+            showToast("New Tournament Created Live!");
         }
 
-        function closeModal() {
-            document.getElementById('app-modal').style.display = 'none';
+        function openWhatsAppSupport() {
+            window.open(WHATSAPP_CHANNEL_LINK, '_blank');
         }
 
-        // Init App
-        renderMatches();
-        updateWalletUI();
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
     </script>
 </body>
 </html>
