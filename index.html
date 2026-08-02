@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -35,85 +36,154 @@
             overflow-x: hidden;
         }
 
-        /* Fullscreen TournaFest Style Splash Screen */
+        /* Full Gaming Poster Splash Screen */
         #splash-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, #120320 0%, #06010a 100%);
+            background: radial-gradient(circle at center, #0a192f 0%, #020617 70%, #000000 100%);
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             z-index: 9999;
             text-align: center;
-            padding: 20px;
+            padding: 24px 16px;
+            overflow: hidden;
             transition: opacity 0.6s ease-out, visibility 0.6s;
         }
 
-        .splash-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #ff2a5f, #7928ca);
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #fff;
-            box-shadow: 0 0 35px rgba(255, 42, 95, 0.5);
-            margin-bottom: 24px;
-            animation: bounce 2s infinite alternate;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-
-        .splash-welcome {
-            font-size: 1.1rem;
-            color: #b3b0c8;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-
-        .splash-title {
-            font-size: 2.2rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, #ff2a5f, #a855f7);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 8px;
-        }
-
-        .splash-subtitle {
-            font-size: 0.95rem;
-            color: #8b85a6;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        .splash-loader {
-            margin-top: 40px;
-            width: 40px;
-            height: 40px;
-            border: 4px solid rgba(255, 42, 95, 0.2);
-            border-top: 4px solid var(--primary-red);
+        /* Electric Aura Background Effect */
+        #splash-screen::before {
+            content: '';
+            position: absolute;
+            top: 25%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 320px;
+            height: 320px;
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            box-shadow: 0 0 80px #00d2ff, 0 0 120px rgba(0, 210, 255, 0.4);
+            border: 2px dashed rgba(0, 212, 255, 0.5);
+            animation: rotateAura 12s linear infinite;
+            z-index: 1;
         }
 
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        @keyframes rotateAura {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
-        /* App Container */
+        .splash-header-logo {
+            position: relative;
+            z-index: 2;
+            margin-top: 10px;
+            background: rgba(15, 23, 42, 0.8);
+            border: 2px solid #ff2a5f;
+            padding: 8px 18px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(255, 42, 95, 0.6);
+        }
+
+        .splash-header-logo h1 {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .splash-center-content {
+            position: relative;
+            z-index: 2;
+            margin: auto 0;
+        }
+
+        .hero-avatar-icon {
+            font-size: 5rem;
+            color: #00f0ff;
+            text-shadow: 0 0 30px #00f0ff;
+            margin-bottom: 20px;
+            animation: pulseGlow 2s infinite alternate;
+        }
+
+        @keyframes pulseGlow {
+            0% { transform: scale(0.98); opacity: 0.9; }
+            100% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .splash-tagline {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        .splash-tagline span {
+            color: var(--gold);
+            text-shadow: 0 0 15px rgba(255, 183, 3, 0.8);
+        }
+
+        /* Features Badge Grid */
+        .badge-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+            width: 100%;
+            max-width: 440px;
+            margin-bottom: 20px;
+        }
+
+        .badge-item {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid rgba(255, 42, 95, 0.3);
+            border-radius: 8px;
+            padding: 8px 2px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .badge-item i {
+            font-size: 1rem;
+            color: #ff2a5f;
+        }
+
+        .badge-item span {
+            font-size: 0.52rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        /* Glowing Welcome Button */
+        .btn-welcome {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 380px;
+            background: linear-gradient(90deg, #ff2a5f, #b91c1c);
+            border: 2px solid #ff4d7d;
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 900;
+            padding: 14px;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 25px rgba(255, 42, 95, 0.8);
+            cursor: pointer;
+        }
+
+        /* App Main Frame */
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -179,16 +249,14 @@
             animation: fadeIn 0.25s ease-in-out;
         }
 
-        .tab-content.active {
-            display: block;
-        }
+        .tab-content.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(5px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero Banner */
+        /* Hero Banner & Cards */
         .hero-banner {
             background: linear-gradient(135deg, #b91c1c, #450a0a);
             border-radius: 12px;
@@ -230,7 +298,6 @@
             text-transform: uppercase;
         }
 
-        /* Cards */
         .match-card, .wallet-card, .profile-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -308,7 +375,7 @@
             font-weight: bold; font-size: 0.85rem; text-decoration: none;
         }
 
-        /* Navigation */
+        /* Bottom Nav */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -336,7 +403,7 @@
         .nav-item i { font-size: 1.1rem; }
         .nav-item.active { color: var(--primary-red); }
 
-        /* Toast */
+        /* Toast & Modals */
         .custom-toast {
             position: fixed;
             top: 20px;
@@ -355,7 +422,6 @@
 
         .custom-toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* Modals */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -386,22 +452,60 @@
 </head>
 <body>
 
+    <!-- Full Poster Splash Screen (Exact replica of your screenshot with FATAL RUSH branding) -->
     <div id="splash-screen">
-        <div class="splash-icon">
-            <i class="fa-solid fa-gamepad"></i>
+        <div class="splash-header-logo">
+            <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
         </div>
-        <div class="splash-welcome">Welcome to</div>
-        <div class="splash-title">FATAL RUSH</div>
-        <div class="splash-subtitle">Ultimate Esports Arena</div>
-        <div class="splash-loader"></div>
+
+        <div class="splash-center-content">
+            <div class="hero-avatar-icon">
+                <i class="fa-solid fa-user-ninja"></i>
+            </div>
+            <div class="splash-tagline">
+                PLAY SMALL <span>WIN BIG</span>
+            </div>
+        </div>
+
+        <div class="badge-grid">
+            <div class="badge-item">
+                <i class="fa-solid fa-award"></i>
+                <span>INDIA'S NO.1 PLATFORM</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-star"></i>
+                <span>PLAYERS BEST RATINGS</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-wallet"></i>
+                <span>INSTANT WITHDRAWAL</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-headset"></i>
+                <span>24/7 CUSTOMER SUPPORT</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-scale-balanced"></i>
+                <span>FAIR PLAY ALWAYS</span>
+            </div>
+            <div class="badge-item">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>SAFE & TRUSTED</span>
+            </div>
+        </div>
+
+        <button class="btn-welcome" onclick="enterApp()">WELCOME!</button>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
 
+    <!-- Main Container -->
     <div class="app-container">
 
+        <!-- Header -->
         <header class="app-header">
             <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
             <div class="coin-badge" onclick="switchTab('wallet')">
@@ -410,6 +514,7 @@
             </div>
         </header>
 
+        <!-- Marquee -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -417,6 +522,7 @@
             </marquee>
         </div>
 
+        <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <h2>FATAL RUSH TOURNAMENTS</h2>
@@ -431,10 +537,10 @@
             </div>
 
             <div class="section-title">Live & Upcoming Matches</div>
-            <div id="tournament-list">
-                </div>
+            <div id="tournament-list"></div>
         </div>
 
+        <!-- OFFER TAB -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Special Offers</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
@@ -445,6 +551,7 @@
             </div>
         </div>
 
+        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card">
@@ -456,6 +563,7 @@
             </div>
         </div>
 
+        <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div class="section-title">My Wallet</div>
             <div class="wallet-card" style="text-align: center;">
@@ -484,6 +592,7 @@
             </div>
         </div>
 
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="section-title">User Profile</div>
             <div class="profile-card">
@@ -520,6 +629,7 @@
             </div>
         </div>
 
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item active" onclick="switchTab('home')" id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-tag"></i><span>Offer</span></div>
@@ -530,6 +640,7 @@
 
     </div>
 
+    <!-- MODAL: ADD COINS -->
     <div id="modal-deposit" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Add Coins to Wallet</div>
@@ -550,6 +661,7 @@
         </div>
     </div>
 
+    <!-- MODAL: WITHDRAW -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Withdraw Coins</div>
@@ -566,6 +678,7 @@
         </div>
     </div>
 
+    <!-- MODAL: SECRET ADMIN AUTH -->
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Secret Admin Verification</div>
@@ -577,6 +690,7 @@
         </div>
     </div>
 
+    <!-- MODAL: ADMIN CREATOR -->
     <div id="modal-admin-panel" class="modal-overlay">
         <div class="modal-box" style="max-height: 80vh; overflow-y: auto;">
             <div class="modal-title">🛠️ Create Tournament</div>
@@ -598,16 +712,15 @@
         let secretTapCount = 0;
 
         window.onload = function() {
-            // Smoothly hide splash screen after 2.5 seconds
-            setTimeout(() => {
-                const splash = document.getElementById('splash-screen');
-                splash.style.opacity = '0';
-                setTimeout(() => { splash.style.visibility = 'hidden'; }, 600);
-            }, 2500);
-
             updateUserUI();
             renderTournaments();
         };
+
+        function enterApp() {
+            const splash = document.getElementById('splash-screen');
+            splash.style.opacity = '0';
+            setTimeout(() => { splash.style.visibility = 'hidden'; }, 600);
+        }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
@@ -742,3 +855,41 @@
             const pass = document.getElementById('admin-pass-input').value;
             if(pass === "admin123") {
                 closeModal('modal-secret-admin');
+                document.getElementById('admin-pass-input').value = '';
+                document.getElementById('modal-admin-panel').style.display = 'flex';
+            } else {
+                showToast("Incorrect Password!");
+            }
+        }
+
+        function adminCreateMatch() {
+            const title = document.getElementById('adm-title').value.trim();
+            const mode = document.getElementById('adm-mode').value.trim() || 'SOLO';
+            const time = document.getElementById('adm-time').value.trim() || 'Today - 08:00 PM';
+            const map = document.getElementById('adm-map').value.trim() || 'Bermuda';
+            const prize = parseInt(document.getElementById('adm-prize').value) || 100;
+            const perkill = parseInt(document.getElementById('adm-perkill').value) || 10;
+            const fee = parseInt(document.getElementById('adm-fee').value) || 15;
+
+            if(!title) {
+                showToast("Enter Match Title!");
+                return;
+            }
+
+            tournaments.unshift({ id: Date.now(), title, mode, time, map, prize, perkill, fee });
+            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+            renderTournaments();
+            closeModal('modal-admin-panel');
+            showToast("Tournament Created Live!");
+        }
+
+        function openWhatsApp() {
+            window.open("https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z", '_blank');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
+</body>
+</html>
