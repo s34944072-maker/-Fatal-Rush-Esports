@@ -36,7 +36,7 @@
             overflow-x: hidden;
         }
 
-        /* Full Gaming Poster Splash Screen */
+        /* Gaming Poster Splash Screen */
         #splash-screen {
             position: fixed;
             top: 0;
@@ -55,7 +55,6 @@
             transition: opacity 0.6s ease-out, visibility 0.6s;
         }
 
-        /* Electric Aura Background Effect */
         #splash-screen::before {
             content: '';
             position: absolute;
@@ -128,7 +127,6 @@
             text-shadow: 0 0 15px rgba(255, 183, 3, 0.8);
         }
 
-        /* Features Badge Grid */
         .badge-grid {
             position: relative;
             z-index: 2;
@@ -151,20 +149,9 @@
             gap: 4px;
         }
 
-        .badge-item i {
-            font-size: 1rem;
-            color: #ff2a5f;
-        }
+        .badge-item i { font-size: 1rem; color: #ff2a5f; }
+        .badge-item span { font-size: 0.52rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; line-height: 1.1; }
 
-        .badge-item span {
-            font-size: 0.52rem;
-            font-weight: 700;
-            color: #cbd5e1;
-            text-transform: uppercase;
-            line-height: 1.1;
-        }
-
-        /* Glowing Welcome Button */
         .btn-welcome {
             position: relative;
             z-index: 2;
@@ -183,7 +170,7 @@
             cursor: pointer;
         }
 
-        /* App Main Frame */
+        /* App Main Container */
         .app-container {
             width: 100%;
             max-width: 480px;
@@ -256,7 +243,85 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Hero Banner & Cards */
+        /* Profile Special Cards (Matching Screenshot 1000076528_2.png) */
+        .profile-user-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+
+        .avatar-box {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #10b981, #06b6d4);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .user-details h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+        .user-details p { font-size: 0.8rem; color: var(--text-sub); }
+
+        .stats-summary-card {
+            background: #13172b;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 14px 10px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .stat-item {
+            border-right: 1px solid var(--card-border);
+            padding: 0 4px;
+        }
+        .stat-item:last-child { border-right: none; }
+
+        .stat-num { font-size: 1.1rem; font-weight: 800; color: #fff; }
+        .stat-label { font-size: 0.65rem; color: var(--text-sub); font-weight: 600; margin-top: 4px; }
+
+        .toggle-switch-item {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 12px 14px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+        }
+
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #334155; transition: .4s; border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+            background-color: white; transition: .4s; border-radius: 50%;
+        }
+        input:checked + .slider { background-color: var(--primary-red); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        /* General UI Elements */
         .hero-banner {
             background: linear-gradient(135deg, #b91c1c, #450a0a);
             border-radius: 12px;
@@ -298,7 +363,7 @@
             text-transform: uppercase;
         }
 
-        .match-card, .wallet-card, .profile-card {
+        .match-card, .wallet-card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 12px;
@@ -361,6 +426,9 @@
             cursor: pointer;
             font-size: 0.85rem;
         }
+
+        .menu-item-left { display: flex; align-items: center; gap: 12px; }
+        .menu-item-left i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
 
         .social-btn-whatsapp {
             background: #128C7E; color: #fff; padding: 12px; border-radius: 8px;
@@ -452,7 +520,7 @@
 </head>
 <body>
 
-    <!-- Full Poster Splash Screen (Exact replica of your screenshot with FATAL RUSH branding) -->
+    <!-- Gaming Poster Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -468,36 +536,18 @@
         </div>
 
         <div class="badge-grid">
-            <div class="badge-item">
-                <i class="fa-solid fa-award"></i>
-                <span>INDIA'S NO.1 PLATFORM</span>
-            </div>
-            <div class="badge-item">
-                <i class="fa-solid fa-star"></i>
-                <span>PLAYERS BEST RATINGS</span>
-            </div>
-            <div class="badge-item">
-                <i class="fa-solid fa-wallet"></i>
-                <span>INSTANT WITHDRAWAL</span>
-            </div>
-            <div class="badge-item">
-                <i class="fa-solid fa-headset"></i>
-                <span>24/7 CUSTOMER SUPPORT</span>
-            </div>
-            <div class="badge-item">
-                <i class="fa-solid fa-scale-balanced"></i>
-                <span>FAIR PLAY ALWAYS</span>
-            </div>
-            <div class="badge-item">
-                <i class="fa-solid fa-shield-halved"></i>
-                <span>SAFE & TRUSTED</span>
-            </div>
+            <div class="badge-item"><i class="fa-solid fa-award"></i><span>INDIA'S NO.1 PLATFORM</span></div>
+            <div class="badge-item"><i class="fa-solid fa-star"></i><span>PLAYERS BEST RATINGS</span></div>
+            <div class="badge-item"><i class="fa-solid fa-wallet"></i><span>INSTANT WITHDRAWAL</span></div>
+            <div class="badge-item"><i class="fa-solid fa-headset"></i><span>24/7 CUSTOMER SUPPORT</span></div>
+            <div class="badge-item"><i class="fa-solid fa-scale-balanced"></i><span>FAIR PLAY ALWAYS</span></div>
+            <div class="badge-item"><i class="fa-solid fa-shield-halved"></i><span>SAFE & TRUSTED</span></div>
         </div>
 
         <button class="btn-welcome" onclick="enterApp()">WELCOME!</button>
     </div>
 
-    <!-- Notification Toast -->
+    <!-- Toast Notification -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
@@ -592,23 +642,37 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB -->
+        <!-- PROFILE TAB (EXACT REPLICA OF SCREENSHOT 1000076528_2.png) -->
         <div id="tab-profile" class="tab-content">
-            <div class="section-title">User Profile</div>
-            <div class="profile-card">
-                <div style="display:flex; align-items:center; gap:12px; margin-bottom:14px;">
-                    <div style="width:50px; height:50px; border-radius:50%; background:var(--primary-red); display:flex; align-items:center; justify-content:center; font-size:1.2rem;">
-                        <i class="fa-solid fa-user"></i>
-                    </div>
-                    <div>
-                        <h3 id="display-name">Player</h3>
-                        <p id="display-email" style="font-size:0.75rem; color:var(--text-sub);">user@fatalrush.com</p>
-                        <span style="color:var(--accent-green); font-size:0.7rem; font-weight:bold;">✔ KYC Verified</span>
-                    </div>
+            <!-- User Profile Header Box -->
+            <div class="profile-user-card">
+                <div class="avatar-box">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div class="user-details">
+                    <h3 id="display-username">Username : naitikrajput</h3>
+                    <p>Balance : <span style="color: var(--gold); font-weight: bold;">🪙 <span id="display-balance">0.0</span></span></p>
                 </div>
             </div>
 
-            <div class="menu-list" style="margin-bottom: 12px;">
+            <!-- Stats Summary Grid -->
+            <div class="stats-summary-card">
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-matches">0</div>
+                    <div class="stat-label">Matches Played</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" id="stat-kills">0</div>
+                    <div class="stat-label">Total Killed</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num" style="color: var(--gold);">🪙 <span id="stat-won">0</span></div>
+                    <div class="stat-label">Amount Won</div>
+                </div>
+            </div>
+
+            <!-- Social Links -->
+            <div style="margin-bottom: 12px;">
                 <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="social-btn-whatsapp">
                     <i class="fa-brands fa-whatsapp"></i> Join WhatsApp Channel
                 </a>
@@ -617,15 +681,93 @@
                 </a>
             </div>
 
+            <!-- Push Notification Toggle Switch -->
+            <div class="toggle-switch-item">
+                <div class="menu-item-left">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Push Notification</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked id="push-toggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- Complete List Items as in Screenshot -->
             <div class="menu-list">
                 <div class="menu-item" onclick="openEditProfileModal()">
-                    <span><i class="fa-solid fa-user-pen"></i> Edit Profile Details</span>
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="switchTab('wallet')">
+                    <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('My Matches section loading...')">
+                    <div class="menu-item-left"><i class="fa-solid fa-gamepad"></i><span>My Matches</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('No orders placed yet.')">
+                    <div class="menu-item-left"><i class="fa-solid fa-cart-shopping"></i><span>My Order</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('My Statistics coming soon.')">
+                    <div class="menu-item-left"><i class="fa-solid fa-chart-simple"></i><span>My Statistics</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('No active rewards right now.')">
+                    <div class="menu-item-left"><i class="fa-solid fa-gift"></i><span>My Rewards</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="switchTab('offer')">
+                    <div class="menu-item-left"><i class="fa-solid fa-users"></i><span>My Referrals</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('No new announcements.')">
+                    <div class="menu-item-left"><i class="fa-solid fa-flag"></i><span>Announcement</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="switchTab('ranking')">
+                    <div class="menu-item-left"><i class="fa-solid fa-star"></i><span>Top Players</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="switchTab('ranking')">
+                    <div class="menu-item-left"><i class="fa-solid fa-bars-staggered"></i><span>Leaderboard</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('App Tutorial: Select a match, join using coins & play!')">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>App Tutorial</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Fatal Rush Esports v1.0.5')">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About us</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="openWhatsApp()">
+                    <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Customer Support</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="shareApp()">
+                    <div class="menu-item-left"><i class="fa-solid fa-share-nodes"></i><span>Share App</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Terms & Conditions: Fair Play Mandatory')">
+                    <div class="menu-item-left"><i class="fa-solid fa-file-contract"></i><span>Terms & Conditions</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                </div>
+                <div class="menu-item" onclick="showToast('Language: English (Default)')">
+                    <div class="menu-item-left"><i class="fa-solid fa-globe"></i><span>Change Language</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
                 </div>
                 <div class="menu-item" onclick="handleSecretTap()">
-                    <span><i class="fa-solid fa-shield-halved"></i> App Version v1.0.5</span>
-                    <i class="fa-solid fa-lock" style="font-size:0.7rem;"></i>
+                    <div class="menu-item-left"><i class="fa-solid fa-power-off" style="color:var(--primary-red);"></i><span style="color:var(--primary-red);">Logout</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
                 </div>
+            </div>
+
+            <!-- Version Footer -->
+            <div style="text-align: center; color: var(--text-sub); font-size: 0.75rem; margin-top: 16px; font-weight: 600;">
+                Version : 3
             </div>
         </div>
 
@@ -707,7 +849,14 @@
     </div>
 
     <script>
-        let userData = JSON.parse(localStorage.getItem('fatal_user')) || { name: "Player", email: "user@fatalrush.com", coins: 0 };
+        let userData = JSON.parse(localStorage.getItem('fatal_user')) || { 
+            name: "naitikrajput", 
+            email: "naitik@fatalrush.com", 
+            coins: 0,
+            matches: 0,
+            kills: 0,
+            won: 0
+        };
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let secretTapCount = 0;
 
@@ -737,10 +886,15 @@
         }
 
         function updateUserUI() {
-            document.getElementById('display-name').innerText = userData.name;
-            document.getElementById('display-email').innerText = userData.email;
+            document.getElementById('display-username').innerText = "Username : " + userData.name;
+            document.getElementById('display-balance').innerText = userData.coins.toFixed(1);
             document.getElementById('header-coins').innerText = userData.coins;
             document.getElementById('wallet-coins').innerText = userData.coins;
+            
+            document.getElementById('stat-matches').innerText = userData.matches;
+            document.getElementById('stat-kills').innerText = userData.kills;
+            document.getElementById('stat-won').innerText = userData.won;
+
             localStorage.setItem('fatal_user', JSON.stringify(userData));
         }
 
@@ -783,6 +937,7 @@
                 switchTab('wallet');
             } else {
                 userData.coins -= fee;
+                userData.matches += 1;
                 updateUserUI();
                 showToast("Joined Match Successfully!");
             }
@@ -835,11 +990,23 @@
         }
 
         function openEditProfileModal() {
-            const newName = prompt("Enter Name:", userData.name);
+            const newName = prompt("Enter Username:", userData.name);
             if(newName) {
                 userData.name = newName;
                 updateUserUI();
-                showToast("Profile Updated!");
+                showToast("Profile Username Updated!");
+            }
+        }
+
+        function shareApp() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Fatal Rush Esports',
+                    text: 'Join Fatal Rush Esports and win daily rewards!',
+                    url: window.location.href,
+                }).catch(() => {});
+            } else {
+                showToast("App Link Copied!");
             }
         }
 
