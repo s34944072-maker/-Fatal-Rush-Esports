@@ -1,687 +1,423 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Fatal Rush Esports</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- FontAwesome Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        heading: ['Rajdhani', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        arena: {
-                            bg: '#0c0b10',
-                            card: '#16151f',
-                            purple: '#6c5ce7',
-                            purpleDark: '#4834d4',
-                            red: '#ff4757',
-                            gold: '#ffa502',
-                            green: '#2ed573',
-                            gray: '#2f3542'
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <style>
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #0c0b10; color: #ffffff; font-family: 'Inter', sans-serif; }
-        ::-webkit-scrollbar { width: 0px; }
-    </style>
-</head>
-<body class="pb-20">
-
-    <!-- SCREEN 1: WELCOME / SPLASH SCREEN (Screenshot 1000076501_2) -->
-    <div id="splash-screen" class="fixed inset-0 z-50 bg-black flex flex-col justify-between items-center p-6 text-center bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80');">
-        
-        <!-- Logo Header -->
-        <div class="mt-8 flex flex-col items-center">
-            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-red-500 font-extrabold text-2xl shadow-[0_0_20px_rgba(239,68,68,0.5)]">
-                FRE
-            </div>
-            <h1 class="font-heading font-black text-2xl text-white tracking-wider mt-2 uppercase">Fatal Rush Esports</h1>
-        </div>
-
-        <!-- Main Heading -->
-        <div class="my-auto">
-            <h2 class="font-heading text-4xl font-extrabold tracking-wide uppercase italic text-white drop-shadow-md">
-                PLAY SMALL <span class="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">WIN BIG</span>
-            </h2>
-        </div>
-
-        <!-- Features Icons Row -->
-        <div class="w-full space-y-6 mb-4">
-            <div class="grid grid-cols-3 gap-3 text-center">
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-award text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">India's No.1<br>Platform</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-users text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Players Best<br>Ratings</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-wallet text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Instant<br>Withdrawal</span>
-                </div>
-            </div>
-            <div class="grid grid-cols-3 gap-3 text-center">
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-headset text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">24/7 Customer<br>Support</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-balance-scale text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Fair Play<br>Always</span>
-                </div>
-                <div class="flex flex-col items-center">
-                    <i class="fas fa-shield-alt text-red-500 text-xl mb-1"></i>
-                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Safe &<br>Trusted</span>
-                </div>
-            </div>
-
-            <!-- Welcome Enter Button -->
-            <button onclick="document.getElementById('splash-screen').classList.add('hidden')" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-orange-500 rounded-xl font-heading font-black text-lg text-white uppercase tracking-widest border border-red-400 shadow-[0_0_25px_rgba(239,68,68,0.7)] active:scale-95 transition-all">
-                WELCOME!
-            </button>
-        </div>
-    </div>
-
-
-    <!-- APP HEADER -->
-    <header class="sticky top-0 z-40 bg-arena-card border-b border-gray-800 px-4 py-3 flex items-center justify-between shadow-lg">
-        <div class="flex items-center gap-2">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-red-600 to-purple-600 flex items-center justify-center font-bold text-sm shadow">
-                FRE
-            </div>
-            <div>
-                <p class="text-[10px] text-gray-400 font-medium leading-none">Welcome Back,</p>
-                <h1 class="font-heading text-sm font-bold text-arena-green leading-tight">Fatal Rush Esports</h1>
-            </div>
-        </div>
-        
-        <div class="flex items-center gap-2">
-            <button onclick="SystemTabController.switchTab('contact')" class="text-gray-300 hover:text-white text-lg p-1">
-                <i class="fas fa-headset"></i>
-            </button>
-            <div onclick="SystemTabController.switchTab('wallet')" class="bg-arena-red/90 text-white font-bold text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5 cursor-pointer">
-                <i class="fas fa-coins text-arena-gold"></i>
-                <span id="hdr-coins">1.00</span>
-                <span class="bg-white text-arena-red font-black text-xs px-1 rounded ml-1">+</span>
-            </div>
-        </div>
-    </header>
-
-
-    <!-- MAIN CONTENT VIEWPORTS -->
-    <main class="max-w-md mx-auto p-3 space-y-4">
-
-        <!-- VIEW 1: HOME TAB (Screenshot 1000076487_2 & 1000076497_2) -->
-        <div id="view-tab-home" class="viewport-tab space-y-4">
-            
-            <!-- Announcement Marquee -->
-            <div class="bg-arena-purple/20 border border-arena-purple/40 rounded-lg p-2.5 flex items-center gap-2 text-xs">
-                <i class="fas fa-bullhorn text-arena-red text-sm animate-pulse"></i>
-                <marquee class="text-gray-200 font-medium">FROM 15.09.2025 EVERY PLAYER WILL GET DAILY REWARDS & BIG WINNINGS!</marquee>
-            </div>
-
-            <!-- Quick Action 4-Grid Buttons -->
-            <div class="grid grid-cols-4 gap-2 text-center">
-                <button onclick="SystemTabController.switchTab('profile')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
-                    <i class="fas fa-user-circle text-arena-red text-xl mb-1"></i>
-                    <span class="text-[10px] font-bold text-gray-300">MY PROFILE</span>
-                </button>
-                <button onclick="SystemTabController.switchTab('wallet')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
-                    <i class="fas fa-wallet text-arena-red text-xl mb-1"></i>
-                    <span class="text-[10px] font-bold text-gray-300">MY WALLET</span>
-                </button>
-                <button onclick="SystemToast.show('Top Leaderboard Updated!')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
-                    <i class="fas fa-trophy text-arena-red text-xl mb-1"></i>
-                    <span class="text-[10px] font-bold text-gray-300">TOP PLAYER</span>
-                </button>
-                <button onclick="SystemTabController.switchTab('contact')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
-                    <i class="fas fa-headset text-arena-red text-xl mb-1"></i>
-                    <span class="text-[10px] font-bold text-gray-300">CONTACT US</span>
-                </button>
-            </div>
-
-            <!-- Contests Title -->
-            <div class="flex items-center justify-between pt-2">
-                <h3 class="font-heading font-bold text-sm text-arena-red flex items-center gap-1.5 uppercase">
-                    <i class="fas fa-check-circle"></i> MY CONTESTS
-                </h3>
-                <span class="text-[10px] text-gray-400">Your Tournaments Journey</span>
-            </div>
-
-            <!-- Matches Status Filter -->
-            <div class="grid grid-cols-3 gap-2">
-                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
-                    <i class="fas fa-sync-alt text-arena-gold text-lg mb-1"></i>
-                    <p class="text-xs font-bold text-gray-200">Ongoing</p>
-                </div>
-                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
-                    <i class="fas fa-calendar-alt text-arena-red text-lg mb-1"></i>
-                    <p class="text-xs font-bold text-gray-200">Upcoming</p>
-                </div>
-                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
-                    <i class="fas fa-award text-arena-green text-lg mb-1"></i>
-                    <p class="text-xs font-bold text-gray-200">Completed</p>
-                </div>
-            </div>
-
-            <!-- Telegram Free Redeem Code Banner Card -->
-            <div class="bg-gradient-to-r from-red-600 via-purple-900 to-blue-900 rounded-2xl p-4 text-center shadow-lg border border-red-500/30 relative overflow-hidden">
-                <div class="flex items-center justify-center gap-2 mb-1">
-                    <i class="fab fa-google-play text-yellow-400 text-xl"></i>
-                    <i class="fab fa-telegram text-sky-400 text-xl"></i>
-                </div>
-                <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white">DAILY DROP FREE REDEEM CODE</h3>
-                <a href="https://t.me/fatalrushesports" target="_blank" class="inline-block mt-3 bg-red-600 text-white font-extrabold text-xs px-6 py-2 rounded-full uppercase shadow-lg border border-red-400 active:scale-95 transition-all">
-                    CLICK HERE
-                </a>
-            </div>
-        </div>
-
-
-        <!-- VIEW 2: WALLET TAB (Screenshot 1000076479_2) -->
-        <div id="view-tab-wallet" class="viewport-tab hidden space-y-4">
-            <div class="bg-gray-400/20 backdrop-blur p-4 rounded-2xl text-center border border-gray-700">
-                <div class="flex items-center justify-center gap-2">
-                    <div class="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-black font-extrabold text-lg shadow">C</div>
-                    <span class="font-heading text-4xl font-bold text-white" id="wlt-total">1.00</span>
-                </div>
-                
-                <div class="grid grid-cols-3 gap-2 mt-4 text-center">
-                    <div class="bg-white p-2 rounded-xl text-black shadow">
-                        <span class="text-xs font-extrabold block text-black" id="wlt-dep">0</span>
-                        <span class="text-[10px] text-gray-600 font-bold">Deposited</span>
-                    </div>
-                    <div class="bg-white p-2 rounded-xl text-black shadow">
-                        <span class="text-xs font-extrabold block text-black" id="wlt-win">0</span>
-                        <span class="text-[10px] text-gray-600 font-bold">Winning</span>
-                    </div>
-                    <div class="bg-white p-2 rounded-xl text-black shadow">
-                        <span class="text-xs font-extrabold block text-black" id="wlt-bon">1.00</span>
-                        <span class="text-[10px] text-gray-600 font-bold">Bonus</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 3 Square Action Boxes -->
-            <div class="grid grid-cols-3 gap-2">
-                <button onclick="SystemTabController.switchTab('buy-coins')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
-                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Add Coins</p>
-                </button>
-                <button onclick="SystemTabController.switchTab('withdraw')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
-                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Withdraw Coins</p>
-                </button>
-                <button onclick="SystemToast.show('No recent transactions.')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
-                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
-                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Transactions</p>
-                </button>
-            </div>
-
-            <!-- Emergency Withdraw Card -->
-            <button onclick="SystemTabController.switchTab('emergency-withdraw')" class="w-full bg-white p-3.5 rounded-2xl shadow border border-gray-200 flex flex-col items-center justify-center text-black">
-                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
-                <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">Emergency<br>Withdraw Coins</p>
-            </button>
-        </div>
-
-
-        <!-- VIEW 3: BUY COINS / TRANZUPI TIER LIST (Screenshot 1000076481_2) -->
-        <div id="view-tab-buy-coins" class="viewport-tab hidden space-y-3">
-            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
-                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="font-heading font-bold text-lg text-white">Buy Coins</h2>
-            </div>
-            
-            <div class="space-y-2" id="buy-coins-tier-list"></div>
-        </div>
-
-
-        <!-- VIEW 4: WITHDRAWAL OPTIONS (Screenshot 1000076482_2) -->
-        <div id="view-tab-withdraw" class="viewport-tab hidden space-y-3">
-            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
-                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="font-heading font-bold text-lg text-white">Withdrawal</h2>
-            </div>
-            
-            <div class="space-y-2">
-                <!-- UPI Tiers -->
-                <div onclick="SystemWalletEngine.processWithdraw(50, 48, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
-                        <div>
-                            <span class="text-xs font-black block">UPI</span>
-                            <span class="text-[10px] text-gray-500">50 COINS = 48 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">48 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(100, 95, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
-                        <div>
-                            <span class="text-xs font-black block">UPI</span>
-                            <span class="text-[10px] text-gray-500">100 COINS = 95 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">95 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(200, 190, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
-                        <div>
-                            <span class="text-xs font-black block">UPI</span>
-                            <span class="text-[10px] text-gray-500">200 COINS = 190 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">190 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(300, 285, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
-                        <div>
-                            <span class="text-xs font-black block">UPI</span>
-                            <span class="text-[10px] text-gray-500">300 COINS = 285 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">285 INR</span>
-                </div>
-
-                <!-- Redeem Code Tiers -->
-                <div onclick="SystemWalletEngine.processWithdraw(50, 48, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow border-t-2 border-red-500">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
-                        <div>
-                            <span class="text-xs font-black block">REDEEM CODE</span>
-                            <span class="text-[10px] text-gray-500">50 COINS = 48 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">50 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(100, 97, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
-                        <div>
-                            <span class="text-xs font-black block">REDEEM CODE</span>
-                            <span class="text-[10px] text-gray-500">100 COINS = 97 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">100 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(150, 146, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
-                        <div>
-                            <span class="text-xs font-black block">REDEEM CODE</span>
-                            <span class="text-[10px] text-gray-500">150 COINS = 146 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">150 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(200, 195, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
-                        <div>
-                            <span class="text-xs font-black block">REDEEM CODE</span>
-                            <span class="text-[10px] text-gray-500">200 COINS = 195 INR</span>
-                        </div>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">200 INR</span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- VIEW 5: EMERGENCY WITHDRAWAL (Screenshot 1000076485_2) -->
-        <div id="view-tab-emergency-withdraw" class="viewport-tab hidden space-y-3">
-            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
-                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="font-heading font-bold text-lg text-white">Emergency Withdrawal</h2>
-            </div>
-            
-            <div class="space-y-2">
-                <div onclick="SystemWalletEngine.processWithdraw(50, 35, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">50 COINS = 35 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">35 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(100, 70, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">100 COINS = 70 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">70 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(200, 140, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">200 COINS = 140 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">140 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(300, 210, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">300 COINS = 210 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">210 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(400, 280, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">400 COINS = 280 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">280 INR</span>
-                </div>
-
-                <div onclick="SystemWalletEngine.processWithdraw(500, 350, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
-                    <div>
-                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
-                        <span class="text-[10px] text-gray-500">500 COINS = 350 INR</span>
-                    </div>
-                    <span class="text-red-600 font-black text-xs">350 INR</span>
-                </div>
-            </div>
-        </div>
-
-
-        <!-- VIEW 6: CONTACT US (Screenshot 1000076500_2) -->
-        <div id="view-tab-contact" class="viewport-tab hidden space-y-4">
-            <!-- Our Mission Card -->
-            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-2 shadow">
-                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Our Mission</span>
-                <p class="text-xs font-bold text-gray-800 leading-relaxed pt-1">
-                    🎮 Welcome to Fatal Rush Esports 🔥<br>
-                    💪 Play with skill | 💰 Earn real money<br>
-                    🏆 Fair & competitive matches — Only skill matters!
-                </p>
-            </div>
-
-            <!-- Contact Support Card -->
-            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-3 shadow">
-                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Contact Us</span>
-                
-                <div>
-                    <p class="text-xs font-bold text-gray-700">Email Id</p>
-                    <p class="text-xs font-extrabold text-indigo-600 uppercase mt-0.5">20 MINUTES - 3 HOUR PAYMENT TIME</p>
-                </div>
-
-                <div>
-                    <p class="text-xs font-bold text-gray-700">Phone No</p>
-                    <a href="https://t.me/fatalrushesports" target="_blank" class="text-xs font-bold text-indigo-600 underline">https://t.me/fatalrushesports</a>
-                </div>
-
-                <div class="grid grid-cols-2 gap-2 pt-1">
-                    <a href="https://t.me/fatalrushesports" target="_blank" class="bg-lime-500 text-black py-2 rounded-lg text-xs font-black block">TELEGRAM</a>
-                    <a href="https://whatsapp.com" target="_blank" class="bg-indigo-800 text-white py-2 rounded-lg text-xs font-black block">WHATSAPP</a>
-                </div>
-
-                <a href="https://discord.gg" target="_blank" class="w-full bg-sky-300 text-black py-2 rounded-lg text-xs font-black block">JOIN DISCORD CHANNEL</a>
-
-                <div class="grid grid-cols-2 gap-2">
-                    <a href="https://instagram.com" target="_blank" class="bg-red-500 text-white py-2 rounded-lg text-xs font-black block">INSTAGRAM</a>
-                    <a href="https://facebook.com" target="_blank" class="bg-sky-400 text-white py-2 rounded-lg text-xs font-black block">FACEBOOK</a>
-                </div>
-            </div>
-
-            <!-- Our Address Card -->
-            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-2 shadow">
-                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Our Address</span>
-                <p class="text-xs font-extrabold text-gray-800">India</p>
-            </div>
-        </div>
-
-
-        <!-- VIEW 7: PROFILE LIST (Screenshot 1000076478_2) -->
-        <div id="view-tab-profile" class="viewport-tab hidden space-y-3">
-            <div class="bg-arena-card p-4 rounded-2xl text-center border border-gray-800 relative">
-                <div class="w-16 h-16 rounded-full bg-pink-300 border-2 border-pink-400 mx-auto flex items-center justify-center overflow-hidden mb-2">
-                    <i class="fas fa-user-circle text-4xl text-purple-900"></i>
-                </div>
-                <h3 class="font-heading font-bold text-base text-white">Name : <span class="text-gray-300">Loading</span></h3>
-                <p class="text-xs text-arena-green font-bold flex items-center justify-center gap-1 mt-0.5">
-                    <i class="fas fa-check-circle"></i> Kyc Verified
-                </p>
-
-                <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-gray-800/60 text-center">
-                    <div>
-                        <span class="text-base font-bold text-sky-400 block">0</span>
-                        <span class="text-[9px] text-gray-400 font-medium">Matches Played</span>
-                    </div>
-                    <div class="border-x border-gray-800">
-                        <span class="text-base font-bold text-sky-400 block">0</span>
-                        <span class="text-[9px] text-gray-400 font-medium">Total Kills</span>
-                    </div>
-                    <div>
-                        <span class="text-base font-bold text-arena-gold flex items-center justify-center gap-1">
-                            <i class="fas fa-coins text-xs"></i>0
-                        </span>
-                        <span class="text-[9px] text-gray-400 font-medium">PlayCoin Won</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="space-y-1.5">
-                <div onclick="SystemTabController.switchTab('edit-profile')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-user-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Profile</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemTabController.switchTab('wallet')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-wallet text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Wallet</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Statistics')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-chart-bar text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Statics</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Top Players')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-trophy text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Top Players</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Refer & Earn')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-user-plus text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Refer & Earn</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Notifications')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-bell text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Notifications</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemTabController.switchTab('contact')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-headset text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Contact Us</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between">
-                    <div class="flex items-center gap-3"><i class="fas fa-bell-slash text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Importance Notice</span></div>
-                    <input type="checkbox" checked class="w-4 h-4 accent-arena-purple rounded cursor-pointer">
-                </div>
-
-                <div onclick="SystemToast.show('FAQ')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-question-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">FAQ</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Fatal Rush Esports v1.7')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-info-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">About Us</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Privacy Policy')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-lock text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Privacy Policy</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Terms & Conditions')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Terms & Conditions</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-
-                <div onclick="SystemToast.show('Logout')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
-                    <div class="flex items-center gap-3"><i class="fas fa-power-off text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Logout</span></div>
-                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
-                </div>
-            </div>
-
-            <p class="text-center text-[10px] text-gray-500 pt-2 font-medium">App Version: v1.7</p>
-        </div>
-
-
-        <!-- VIEW 8: MY PROFILE EDIT FORM (Screenshot 1000076496_2) -->
-        <div id="view-tab-edit-profile" class="viewport-tab hidden space-y-4">
-            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
-                <button onclick="SystemTabController.switchTab('profile')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
-                <h2 class="font-heading font-bold text-lg text-white">My Profile</h2>
-            </div>
-
-            <div class="space-y-3">
-                <input type="text" placeholder="Users Name" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-                <input type="email" placeholder="Email Address" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-                <input type="tel" placeholder="Mobile Number" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-
-                <h3 class="text-xs font-bold text-white pt-2">Change Password</h3>
-                <input type="password" placeholder="Old Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-                <input type="password" placeholder="New Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-                <input type="password" placeholder="Confirm Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
-
-                <button onclick="SystemToast.show('Profile Updated Successfully!')" class="w-full bg-black border border-gray-700 text-white font-black text-xs py-3 rounded-lg uppercase mt-4">
-                    CHANGE
-                </button>
-            </div>
-        </div>
-
-    </main>
-
-
-    <!-- BOTTOM NAVIGATION (Screenshots Match) -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-arena-card border-t border-gray-800 py-2 px-4 z-40">
-        <div class="max-w-md mx-auto flex justify-between items-center text-gray-400">
-            <button onclick="SystemToast.show('Offers')" id="nav-offer" class="flex flex-col items-center gap-0.5">
-                <i class="fas fa-percent text-sm"></i><span class="text-[9px] font-bold">Offer</span>
-            </button>
-            <button onclick="SystemToast.show('Ranking')" id="nav-ranking" class="flex flex-col items-center gap-0.5">
-                <i class="fas fa-star text-sm"></i><span class="text-[9px] font-bold">Ranking</span>
-            </button>
-            <button onclick="SystemTabController.switchTab('home')" id="nav-home" class="flex flex-col items-center gap-0.5 text-arena-red">
-                <i class="fas fa-home text-sm"></i><span class="text-[9px] font-bold">Home</span>
-            </button>
-            <button onclick="SystemTabController.switchTab('wallet')" id="nav-wallet" class="flex flex-col items-center gap-0.5">
-                <i class="fas fa-wallet text-sm"></i><span class="text-[9px] font-bold">Wallet</span>
-            </button>
-            <button onclick="SystemTabController.switchTab('profile')" id="nav-profile" class="flex flex-col items-center gap-0.5">
-                <i class="fas fa-user text-sm"></i><span class="text-[9px] font-bold">Profile</span>
-            </button>
-        </div>
-    </nav>
-
-
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 bg-arena-purple text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
-
-
-    <!-- JAVASCRIPT ENGINE -->
-    <script>
-        const State = { coins: 1.00, deposit: 0, winning: 0, bonus: 1.00 };
-
-        const SystemToast = {
-            show: function(msg) {
-                const toast = document.getElementById('toast');
-                toast.innerText = msg;
-                toast.classList.remove('opacity-0');
-                setTimeout(() => toast.classList.add('opacity-0'), 2500);
-            }
-        };
-
-        const SystemTabController = {
-            switchTab: function(tab) {
-                document.querySelectorAll('.viewport-tab').forEach(v => v.classList.add('hidden'));
-                const target = document.getElementById('view-tab-' + tab);
-                if(target) target.classList.remove('hidden');
-                
-                // Navigation Active Highlight Toggle
-                document.querySelectorAll('nav button').forEach(b => b.classList.remove('text-arena-red'));
-                const activeNav = document.getElementById('nav-' + tab);
-                if(activeNav) activeNav.classList.add('text-arena-red');
-            }
-        };
-
-        const SystemWalletEngine = {
-            buyCoins: function(amount) {
-                State.coins += amount;
-                State.deposit += amount;
-                this.updateUI();
-                SystemToast.show(`Added ${amount} Coins to Fatal Rush Wallet!`);
-            },
-            processWithdraw: function(coinsReq, inrVal, method) {
-                if(State.coins < coinsReq) {
-                    return SystemToast.show("Paryapt coins nahi hain!");
-                }
-                State.coins -= coinsReq;
-                this.updateUI();
-                SystemToast.show(`Withdraw Request: ${inrVal} INR via ${method} submitted!`);
-            },
-            updateUI: function() {
-                document.getElementById('hdr-coins').innerText = State.coins.toFixed(2);
-                document.getElementById('wlt-total').innerText = State.coins.toFixed(2);
-                document.getElementById('wlt-dep').innerText = State.deposit;
-                document.getElementById('wlt-win').innerText = State.winning;
-                document.getElementById('wlt-bon').innerText = State.bonus.toFixed(2);
-            }
-        };
-
-        // Render TranzUPI Tier List Dynamically (Screenshot 1000076481_2)
-        const tiers = [10, 15, 20, 25, 30, 35, 40, 45, 50, 80, 100, 200, 500];
-        const tierContainer = document.getElementById('buy-coins-tier-list');
-        tiers.forEach(amt => {
-            const card = document.createElement('div');
-            card.className = "bg-white p-3 rounded-xl flex items-center justify-between text-black shadow border border-gray-200";
-            card.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
-                    <div>
-                        <span class="text-xs font-black block">TranzUPI</span>
-                        <span class="text-[9px] text-gray-500 font-bold">${amt} INR = ${amt} COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</span>
-                    </div>
-                </div>
-                <button onclick="SystemWalletEngine.buyCoins(${amt})" class="text-red-600 font-black text-xs uppercase">${amt} COINS</button>
-            `;
-            tierContainer.appendChild(card);
-        });
-    </script>
-</body>
-</html>
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+void main() {
+  runApp(const FatalRushApp());
+}
+
+class FatalRushApp extends StatelessWidget {
+  const FatalRushApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext meContext) {
+    return MaterialApp(
+      title: 'Fatal Rush Esports',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: const Color(0xFF0F0E17),
+        primaryColor: const Color(0xFF6C5CE7),
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Color(0xFF1A1A2E),
+          elevation: 0,
+        ),
+      ),
+      home: const MainNavigationScreen(),
+    );
+  }
+}
+
+// Global Launcher for WhatsApp
+Future<void> launchWhatsApp(String phone, String message) async {
+  final Uri url = Uri.parse("https://wa.me/$phone?text=${Uri.encodeComponent(message)}");
+  if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+    throw Exception('Could not launch $url');
+  }
+}
+
+// ---------------- Navigation Screen ----------------
+class MainNavigationScreen extends StatefulWidget {
+  const MainNavigationScreen({Key? key}) : super(key: key);
+
+  @override
+  _MainNavigationScreenState createState() => _MainNavigationScreenState();
+}
+
+class _MainNavigationScreenState extends State<MainNavigationScreen> {
+  int _currentIndex = 3; // Account Tab selected
+
+  final List<Widget> _pages = [
+    const Center(child: Text("More")),
+    const TournamentsScreen(),
+    const WalletScreen(),
+    const AccountMenuScreen(),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _pages[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        selectedItemColor: Colors.purpleAccent,
+        unselectedItemColor: Colors.grey,
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: const Color(0xFF1A1A2E),
+        onTap: (index) => setState(() => _currentIndex = index),
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.percent), label: 'More'),
+          BottomNavigationBarItem(icon: Icon(Icons.sports_esports), label: 'Play'),
+          BottomNavigationBarItem(icon: Icon(Icons.account_balance_wallet), label: 'Wallet'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Account'),
+        ],
+      ),
+    );
+  }
+}
+
+// ---------------- Tournaments Screen ----------------
+class TournamentsScreen extends StatelessWidget {
+  const TournamentsScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Tournaments - Fatal Rush Esports")),
+      body: ListView.builder(
+        padding: const EdgeInsets.all(12),
+        itemCount: 3,
+        itemBuilder: (ctx, idx) => Card(
+          color: const Color(0xFF161626),
+          margin: const EdgeInsets.only(bottom: 12),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text("Full Fun With GT Battle Tournament 😎", 
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: const [
+                    Text("Prize Pool: 100", style: TextStyle(color: Colors.greenAccent)),
+                    Text("Per Kill: 0.00", style: TextStyle(color: Colors.amber)),
+                  ],
+                ),
+                const SizedBox(height: 12),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+                  onPressed: () {},
+                  child: const Center(child: Text("Free Join")),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------- Account Menu Screen ----------------
+class AccountMenuScreen extends StatelessWidget {
+  const AccountMenuScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Me - Fatal Rush Esports")),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            const CircleAvatar(radius: 35, backgroundColor: Colors.purpleAccent, child: Icon(Icons.sports_esports, size: 40)),
+            const SizedBox(height: 8),
+            const Text("Username: naitikrajput", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            const Text("Balance: 0.0 Coins", style: TextStyle(color: Colors.amber)),
+            const Divider(height: 30, color: Colors.white24),
+            _menuTile(context, Icons.person, "My Profile", const ProfileScreen()),
+            _menuTile(context, Icons.account_balance_wallet, "My Wallet", const WalletScreen()),
+            _menuTile(context, Icons.emoji_events, "My Rewards", const RewardsScreen()),
+            _menuTile(context, Icons.people, "My Referrals", const ReferralsScreen()),
+            _menuTile(context, Icons.campaign, "Announcement", const AnnouncementScreen()),
+            _menuTile(context, Icons.star, "Top Players", const TopPlayersScreen()),
+            _menuTile(context, Icons.leaderboard, "Leaderboard", const LeaderboardScreen()),
+            _menuTile(context, Icons.play_circle_fill, "App Tutorial", const AppTutorialScreen()),
+            _menuTile(context, Icons.info, "About us", const AboutUsScreen()),
+            _menuTile(context, Icons.headset_mic, "Customer Support", const CustomerSupportScreen()),
+            _menuTile(context, Icons.description, "Terms & Conditions", const TermsScreen()),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _menuTile(BuildContext context, IconData icon, String title, Widget targetScreen) {
+    return ListTile(
+      leading: Icon(icon, color: Colors.purpleAccent),
+      title: Text(title),
+      trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.grey),
+      onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => targetScreen)),
+    );
+  }
+}
+
+// ---------------- Wallet & Real Payment Flow ----------------
+class WalletScreen extends StatelessWidget {
+  const WalletScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("My Wallet")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(color: const Color(0xFF1F1B3A), borderRadius: BorderRadius.circular(12)),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text("Total Balance: 0.0"),
+                  ElevatedButton(
+                    onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const AddCoinsScreen())),
+                    style: ElevatedButton.styleFrom(backgroundColor: Colors.redAccent),
+                    child: const Text("ADD MONEY"),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class AddCoinsScreen extends StatefulWidget {
+  const AddCoinsScreen({Key? key}) : super(key: key);
+
+  @override
+  _AddCoinsScreenState createState() => _AddCoinsScreenState();
+}
+
+class _AddCoinsScreenState extends State<AddCoinsScreen> {
+  final TextEditingController _amountController = TextEditingController(text: "10");
+
+  void _processRealPayment() async {
+    final amount = _amountController.text;
+    // Real UPI Intent Link for Fatal Rush Esports
+    final String upiUrl = "upi://pay?pa=7976974603@upi&pn=Fatal%20Rush%20Esports&am=$amount&cu=INR";
+    final Uri uri = Uri.parse(upiUrl);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Opening UPI Payment Gateway...")),
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Add Coins")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
+              controller: _amountController,
+              keyboardType: TextInputType.number,
+              decoration: const InputDecoration(labelText: "Enter Amount", border: OutlineInputBorder()),
+            ),
+            const SizedBox(height: 20),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.black,
+                minimumSize: const Size.fromHeight(50),
+              ),
+              onPressed: _processRealPayment,
+              child: const Text("PAY NOW", style: TextStyle(color: Colors.white, fontSize: 18)),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ---------------- Other Sections Integrated ----------------
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("My Profile")),
+      body: const Center(child: Text("Profile details for Naitik Singh")),
+    );
+  }
+}
+
+class RewardsScreen extends StatelessWidget {
+  const RewardsScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("My Rewards")),
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            Card(
+              color: const Color(0xFF1F1B3A),
+              child: const ListTile(title: Text("MY REWARDS SUMMARY"), subtitle: Text("Rewards: 0 | Earnings: 0")),
+            ),
+            const SizedBox(height: 20),
+            const Text("No Rewards Yet.", style: TextStyle(color: Colors.grey)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ReferralsScreen extends StatelessWidget {
+  const ReferralsScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("My Referrals")),
+      body: const Center(child: Text("No Referrals Found.")),
+    );
+  }
+}
+
+class AnnouncementScreen extends StatelessWidget {
+  const AnnouncementScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Announcement")),
+      body: ListView(
+        padding: const EdgeInsets.all(12),
+        children: const [
+          Card(
+            color: Color(0xFF1F1B3A),
+            child: Padding(
+              padding: EdgeInsets.all(12),
+              child: Text("⚠️ IMPORTANT: Match joining Time Gap Policy for all Fatal Rush Esports tournaments. Contact WhatsApp Support +91 7976974603 for details."),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class TopPlayersScreen extends StatelessWidget {
+  const TopPlayersScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Top Players")),
+      body: ListView(
+        children: const [
+          ListTile(title: Text("Dex123"), trailing: Text("10892 Coins", style: TextStyle(color: Colors.amber))),
+          ListTile(title: Text("aritra"), trailing: Text("10596 Coins", style: TextStyle(color: Colors.amber))),
+        ],
+      ),
+    );
+  }
+}
+
+class LeaderboardScreen extends StatelessWidget {
+  const LeaderboardScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Leaderboard")),
+      body: ListView(
+        children: const [
+          ListTile(title: Text("gw_manish88"), trailing: Text("6037 Referrals")),
+        ],
+      ),
+    );
+  }
+}
+
+class AppTutorialScreen extends StatelessWidget {
+  const AppTutorialScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("App Tutorial")),
+      body: Center(
+        child: ElevatedButton(
+          onPressed: () => launchWhatsApp("917976974603", "Hi, I need help with App Tutorial"),
+          child: const Text("Contact WhatsApp Support Video Guide"),
+        ),
+      ),
+    );
+  }
+}
+
+class AboutUsScreen extends StatelessWidget {
+  const AboutUsScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("About Us")),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text("Fatal Rush Esports is a skill-based e-sports tournament app built especially for Free Fire MAX players."),
+      ),
+    );
+  }
+}
+
+class CustomerSupportScreen extends StatelessWidget {
+  const CustomerSupportScreen({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Customer Support")),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            ListTile(
+              leading: const Icon(Icons.chat, color: Colors.green),
+              title: const Text("WhatsApp Support"),
+              subtitle: const Text("+91 7976974603"),
+              onTap: () => launchWhatsApp("917976974603", "Hello Fatal Rush Esports Support"),
+            ),
+            const ListTile(
+              leading: Icon(Icons.email, color: Colors.purpleAccent),
+              title: Text("Email Support"),
+              subtitle: Text("support@fatalrushesports.com"),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class TermsScreen extends StatelessWidget {
+  const TermsScreen({Key? key}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("Terms & Conditions")),
+      body: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text("Detailed Terms & Conditions for Fatal Rush Esports."),
+      ),
+    );
+  }
+}
