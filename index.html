@@ -1,334 +1,573 @@
-// ============================================================================
-// APP NAME: Fatal Rush Esports
-// COMPLETE SINGLE-FILE ANDROID CODE FOR GITHUB REPOSITORY
-// ALL SCREENS & FULL ADMIN PANEL POWER INCLUDED
-// ============================================================================
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fatal Rush Esports</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-package com.fatalrush.esports;
+        body {
+            background-color: #0c0a1d;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
+        /* Mobile App Simulation Frame on Desktop, Full screen on Mobile */
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            height: 100vh;
+            max-height: 900px;
+            background: #120f29;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+            border-radius: 0px;
+            overflow: hidden;
+        }
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+        @media (min-width: 500px) {
+            .app-container {
+                border-radius: 20px;
+                height: 90vh;
+            }
+        }
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+        /* Top Header */
+        .header {
+            background: #1a1638;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #2a2456;
+        }
 
-import java.util.ArrayList;
-import java.util.List;
+        .header h1 {
+            font-size: 18px;
+            color: #ff3366;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
 
-// ============================================================================
-// 1. DATA MODELS (Dynamic Data - Zero Fake Hardcoded Values)
-// ============================================================================
+        .admin-btn {
+            background: #ff3366;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+        }
 
-class MatchModel {
-    public String matchId, title, timeStamp, mapType, entryFee, perKill, winPrize, matchType, status, roomId, roomPass;
+        /* Main Content View Container */
+        .content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+            padding-bottom: 70px;
+        }
 
-    public MatchModel() {}
+        .tab-content {
+            display: none;
+        }
 
-    public MatchModel(String matchId, String title, String timeStamp, String mapType, String entryFee, String perKill, String winPrize, String matchType, String status) {
-        this.matchId = matchId;
-        this.title = title;
-        this.timeStamp = timeStamp;
-        this.mapType = mapType;
-        this.entryFee = entryFee;
-        this.perKill = perKill;
-        this.winPrize = winPrize;
-        this.matchType = matchType;
-        this.status = status; // Upcoming, Ongoing, Completed
-        this.roomId = "TO BE ANNOUNCED";
-        this.roomPass = "TO BE ANNOUNCED";
-    }
-}
+        .tab-content.active {
+            display: block;
+        }
 
-class UserModel {
-    public String uid, name, email, phone, kycStatus;
-    public double walletDeposit, walletWinning;
-    public boolean isAdmin;
+        /* Cards & Components */
+        .banner {
+            width: 100%;
+            height: 140px;
+            background: linear-gradient(135deg, #e50914, #580827);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+            text-align: center;
+            padding: 10px;
+        }
 
-    public UserModel() {}
+        .banner h2 { font-size: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .banner p { font-size: 12px; opacity: 0.8; margin-top: 5px; }
 
-    public UserModel(String uid, String name, String email, String phone, boolean isAdmin) {
-        this.uid = uid;
-        this.name = name;
-        this.email = email;
-        this.phone = phone;
-        this.kycStatus = "Verified";
-        this.walletDeposit = 0.0;
-        this.walletWinning = 0.0;
-        this.isAdmin = isAdmin;
-    }
-}
+        .card {
+            background: #1c173b;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border: 1px solid #2e285a;
+        }
 
-// ============================================================================
-// 2. MAIN ACTIVITY - Navigation & Core Controller
-// ============================================================================
+        .card-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
 
-public class MainActivity extends AppCompatActivity {
+        .match-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 10px 0;
+            font-size: 13px;
+        }
 
-    private BottomNavigationView bottomNav;
-    public static UserModel currentUser = new UserModel("USR_101", "Player", "user@fatalrush.com", "9910483218", false);
+        .match-detail-item {
+            background: #14102e;
+            padding: 8px;
+            border-radius: 6px;
+        }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        .match-detail-item span {
+            display: block;
+            color: #8f8ab2;
+            font-size: 10px;
+        }
 
-        loadFragment(new HomeFragment());
+        .btn-join {
+            width: 100%;
+            background: #00c853;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 5px;
+        }
 
-        bottomNav = findViewById(R.id.bottom_navigation);
-        bottomNav.setOnNavigationItemSelectedListener(item -> {
-            Fragment selected = null;
-            int id = item.getItemId();
+        /* Wallet Section */
+        .wallet-box {
+            background: linear-gradient(135deg, #2b1f5d, #140d33);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .wallet-balance {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffd700;
+            margin: 10px 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            color: white;
+        }
+
+        .btn-add { background: #00c853; }
+        .btn-withdraw { background: #ff9100; }
+        .btn-emergency { background: #d50000; }
+
+        /* Form Inputs */
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 12px;
+            background: #14102e;
+            border: 1px solid #2e285a;
+            color: white;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: #161233;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #251f4d;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #7b75a6;
+            text-decoration: none;
+            font-size: 11px;
+            cursor: pointer;
+        }
+
+        .nav-item.active {
+            color: #ff3366;
+        }
+
+        .nav-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            margin-bottom: 3px;
+        }
+
+        /* Modal Popup */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        .modal-body {
+            background: #1c173b;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        <div class="header">
+            <h1>Fatal Rush Esports</h1>
+            <button class="admin-btn" onclick="openAdminPanel()">Admin Panel</button>
+        </div>
+
+        <div class="content">
+
+            <div id="tab-home" class="tab-content active">
+                <div class="banner">
+                    <h2>FATAL RUSH TOURNAMENTS</h2>
+                    <p>Play Free Fire & BGMI Matches and Earn Daily!</p>
+                </div>
+
+                <h3 style="margin-bottom: 10px; font-size: 14px; color: #a5a0cc;">UPCOMING MATCHES</h3>
+                <div id="match-list">
+                    </div>
+            </div>
+
+            <div id="tab-offer" class="tab-content">
+                <div class="card">
+                    <div class="card-title">🎁 Daily Airdrop / Redeem Code</div>
+                    <p style="font-size: 12px; color: #bbb; margin-bottom: 10px;">Enter your code below to claim free coins daily!</p>
+                    <input type="text" id="redeem-input" placeholder="Enter Redeem Code">
+                    <button class="btn-action btn-add" style="width:100%;" onclick="claimRedeemCode()">Redeem Code</button>
+                </div>
+            </div>
+
+            <div id="tab-ranking" class="tab-content">
+                <div class="card">
+                    <div class="card-title">🏆 Top Players Leaderboard</div>
+                    <div style="font-size: 13px;">
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2e285a;">
+                            <span>#1 Player_Alpha</span>
+                            <span style="color:#ffd700;">1,250 Coins</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px solid #2e285a;">
+                            <span>#2 Killer_Pro</span>
+                            <span style="color:#ffd700;">980 Coins</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; padding:8px 0;">
+                            <span>#3 Rush_King</span>
+                            <span style="color:#ffd700;">850 Coins</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="tab-wallet" class="tab-content">
+                <div class="wallet-box">
+                    <div style="font-size: 12px; color: #a5a0cc;">TOTAL WALLET COINS</div>
+                    <div class="wallet-balance"><span id="user-total-coins">0</span> Coins</div>
+                    <div style="display: flex; justify-content: space-between; font-size: 11px; opacity: 0.8;">
+                        <span>Deposited: <b id="user-deposit">0</b></span>
+                        <span>Winning: <b id="user-winning">0</b></span>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-action btn-add" onclick="showBuyCoins()">Buy Coins</button>
+                    <button class="btn-action btn-withdraw" onclick="showWithdraw()">Withdraw</button>
+                </div>
+                <button class="btn-action btn-emergency" style="width: 100%; margin-top: 10px;" onclick="showEmergencyWithdraw()">Emergency Withdraw</button>
+            </div>
+
+            <div id="tab-profile" class="tab-content">
+                <div class="card">
+                    <div class="card-title">👤 User Profile</div>
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>Name:</b> Player</p>
+                    <p style="font-size: 13px; margin-bottom: 5px;"><b>Email:</b> user@fatalrush.com</p>
+                    <p style="font-size: 13px;"><b>KYC Status:</b> <span style="color: #00c853;">Verified</span></p>
+                </div>
+                <div class="card">
+                    <div class="card-title">📢 Refer & Earn</div>
+                    <p style="font-size: 12px; color: #bbb;">Share your referral code with friends and get 10 coins per signup!</p>
+                    <input type="text" value="FATALRUSH100" readonly style="margin-top: 10px; text-align: center; font-weight: bold;">
+                </div>
+            </div>
+
+            <div id="tab-admin" class="tab-content">
+                <div class="card">
+                    <div class="card-title">⚙️ Admin - Create New Tournament</div>
+                    <input type="text" id="adm-title" placeholder="Match Title (e.g., Free Fire Solo #101)">
+                    <input type="text" id="adm-time" placeholder="Match Date & Time">
+                    <input type="text" id="adm-map" placeholder="Map (Bermuda / Kalahari / Erangel)">
+                    <input type="number" id="adm-entry" placeholder="Entry Fee (Coins)">
+                    <input type="number" id="adm-kill" placeholder="Per Kill Prize (Coins)">
+                    <input type="number" id="adm-win" placeholder="Winning Prize (Coins)">
+                    <select id="adm-type">
+                        <option value="SOLO">SOLO</option>
+                        <option value="DUO">DUO</option>
+                        <option value="SQUAD">SQUAD</option>
+                    </select>
+                    <button class="btn-action btn-add" style="width: 100%; margin-top: 5px;" onclick="adminCreateMatch()">Publish Match Live</button>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item" onclick="switchTab('offer', this)">
+                <svg viewBox="0 0 24 24"><path d="M21.41 11.58l-9-9C12.05 2.22 11.55 2 11 2H4c-1.1 0-2 .9-2 2v7c0 .55.22 1.05.59 1.42l9 9c.36.36.86.58 1.41.58.55 0 1.05-.22 1.41-.59l7-7c.37-.36.59-.86.59-1.41 0-.55-.23-1.06-.59-1.42zM5.5 7C4.67 7 4 6.33 4 5.5S4.67 4 5.5 4 7 4.67 7 5.5 6.33 7 5.5 7z"/></svg>
+                Offer
+            </div>
+            <div class="nav-item" onclick="switchTab('ranking', this)">
+                <svg viewBox="0 0 24 24"><path d="M19 5h-2V3H7v2H5c-1.1 0-2 .9-2 2v1c0 2.55 1.92 4.63 4.39 4.94A5.01 5.01 0 0011 15.9V18H8v2h8v-2h-3v-2.1c1.73-.37 3.09-1.75 3.61-3.46C19.08 11.63 21 9.55 21 7V5c0-1.1-.9-2-2-2zM5 8V7h2v3.82C5.84 10.4 5 9.3 5 8zm14 0c0 1.3-.84 2.4-2 2.82V7h2v1z"/></svg>
+                Ranking
+            </div>
+            <div class="nav-item active" onclick="switchTab('home', this)">
+                <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                Home
+            </div>
+            <div class="nav-item" onclick="switchTab('wallet', this)">
+                <svg viewBox="0 0 24 24"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                Wallet
+            </div>
+            <div class="nav-item" onclick="switchTab('profile', this)">
+                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                Profile
+            </div>
+        </div>
+    </div>
+
+    <div id="app-modal" class="modal">
+        <div class="modal-body" id="modal-content"></div>
+    </div>
+
+    <script>
+        // Data State
+        let userData = {
+            deposit: 50,
+            winning: 20
+        };
+
+        let matches = [
+            {
+                id: 1,
+                title: "Free Fire Duo #101",
+                time: "Today - 08:00 PM",
+                map: "Bermuda",
+                entry: 10,
+                perKill: 5,
+                winPrize: 100,
+                type: "DUO"
+            },
+            {
+                id: 2,
+                title: "BGMI Squad Special",
+                time: "Tomorrow - 06:00 PM",
+                map: "Erangel",
+                entry: 20,
+                perKill: 12,
+                winPrize: 250,
+                type: "SQUAD"
+            }
+        ];
+
+        // Functions
+        function renderMatches() {
+            const container = document.getElementById('match-list');
+            container.innerHTML = '';
             
-            if (id == R.id.nav_offer) selected = new OfferFragment();
-            else if (id == R.id.nav_ranking) selected = new RankingFragment();
-            else if (id == R.id.nav_home) selected = new HomeFragment();
-            else if (id == R.id.nav_wallet) selected = new WalletFragment();
-            else if (id == R.id.nav_profile) selected = new ProfileFragment();
+            if (matches.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:20px; color:#8f8ab2;">No upcoming matches. Check back soon!</div>';
+                return;
+            }
 
-            if (selected != null) loadFragment(selected);
-            return true;
-        });
-    }
-
-    private void loadFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .commit();
-    }
-}
-
-// ============================================================================
-// 3. HOME FRAGMENT - Match Listing & Admin Switch
-// ============================================================================
-
-class HomeFragment extends Fragment {
-
-    private RecyclerView rvMatches;
-    private MatchAdapter adapter;
-    public static List<MatchModel> matchList = new ArrayList<>();
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        rvMatches = view.findViewById(R.id.rvMatches);
-        rvMatches.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        adapter = new MatchAdapter(matchList, getContext());
-        rvMatches.setAdapter(adapter);
-
-        // Admin Access Toggle Button (Admin Login Screen / Dashboard Open Karta Hai)
-        View btnAdminPanel = view.findViewById(R.id.btnAdminPanel);
-        if (btnAdminPanel != null) {
-            btnAdminPanel.setOnClickListener(v -> {
-                Intent intent = new Intent(getActivity(), AdminDashboardActivity.class);
-                startActivity(intent);
+            matches.forEach(m => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="card-title" style="display:flex; justify-size:space-between; justify-content:space-between;">
+                        <span>${m.title}</span>
+                        <span style="font-size:11px; background:#e50914; padding:2px 6px; border-radius:4px;">${m.type}</span>
+                    </div>
+                    <div class="match-details">
+                        <div class="match-detail-item"><span>TIME</span>${m.time}</div>
+                        <div class="match-detail-item"><span>MAP</span>${m.map}</div>
+                        <div class="match-detail-item"><span>WIN PRIZE</span>${m.winPrize} Coins</div>
+                        <div class="match-detail-item"><span>PER KILL</span>${m.perKill} Coins</div>
+                    </div>
+                    <button class="btn-join" onclick="joinMatch(${m.entry})">JOIN MATCH (${m.entry} COINS)</button>
+                `;
+                container.appendChild(card);
             });
         }
 
-        return view;
-    }
-}
+        function updateWalletUI() {
+            document.getElementById('user-total-coins').innerText = userData.deposit + userData.winning;
+            document.getElementById('user-deposit').innerText = userData.deposit;
+            document.getElementById('user-winning').innerText = userData.winning;
+        }
 
-// ============================================================================
-// 4. WALLET FRAGMENT (Deposit, Winning, Withdrawals)
-// ============================================================================
+        function switchTab(tabName, el) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            
+            document.getElementById('tab-' + tabName).classList.add('active');
+            if (el) el.classList.add('active');
+        }
 
-class WalletFragment extends Fragment {
+        function openAdminPanel() {
+            const pass = prompt("Enter Admin Security Password:");
+            if (pass === "1234") {
+                switchTab('admin', null);
+            } else {
+                alert("Incorrect Password!");
+            }
+        }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_wallet, container, false);
+        function adminCreateMatch() {
+            const title = document.getElementById('adm-title').value;
+            const time = document.getElementById('adm-time').value;
+            const map = document.getElementById('adm-map').value;
+            const entry = parseInt(document.getElementById('adm-entry').value);
+            const kill = parseInt(document.getElementById('adm-kill').value);
+            const win = parseInt(document.getElementById('adm-win').value);
+            const type = document.getElementById('adm-type').value;
 
-        TextView tvTotalCoins = view.findViewById(R.id.tvTotalCoins);
-        TextView tvDeposited = view.findViewById(R.id.tvDeposited);
-        TextView tvWinning = view.findViewById(R.id.tvWinning);
+            if (!title || !entry) {
+                alert("Please enter title and entry fee!");
+                return;
+            }
 
-        if (tvTotalCoins != null) tvTotalCoins.setText(String.valueOf(MainActivity.currentUser.walletDeposit + MainActivity.currentUser.walletWinning));
-        if (tvDeposited != null) tvDeposited.setText(String.valueOf(MainActivity.currentUser.walletDeposit));
-        if (tvWinning != null) tvWinning.setText(String.valueOf(MainActivity.currentUser.walletWinning));
-
-        View btnAdd = view.findViewById(R.id.btnAddCoins);
-        if (btnAdd != null) btnAdd.setOnClickListener(v -> startActivity(new Intent(getActivity(), BuyCoinsActivity.class)));
-
-        View btnWithdraw = view.findViewById(R.id.btnWithdrawCoins);
-        if (btnWithdraw != null) btnWithdraw.setOnClickListener(v -> startActivity(new Intent(getActivity(), WithdrawActivity.class)));
-
-        View btnEmergency = view.findViewById(R.id.btnEmergencyWithdraw);
-        if (btnEmergency != null) btnEmergency.setOnClickListener(v -> startActivity(new Intent(getActivity(), EmergencyWithdrawActivity.class)));
-
-        return view;
-    }
-}
-
-// ============================================================================
-// 5. PROFILE & MENU FRAGMENTS
-// ============================================================================
-
-class ProfileFragment extends Fragment {
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        TextView tvName = view.findViewById(R.id.tvUserName);
-        TextView tvKyc = view.findViewById(R.id.tvKycVerified);
-
-        if (tvName != null) tvName.setText("Fatal Rush Player: " + MainActivity.currentUser.name);
-        if (tvKyc != null) tvKyc.setText("KYC Status: " + MainActivity.currentUser.kycStatus);
-        return view;
-    }
-}
-
-class OfferFragment extends Fragment {
-    @Nullable @Override public View onCreateView(@NonNull LayoutInflater i, @Nullable ViewGroup c, @Nullable Bundle s) {
-        return i.inflate(R.layout.fragment_offer, c, false);
-    }
-}
-
-class RankingFragment extends Fragment {
-    @Nullable @Override public View onCreateView(@NonNull LayoutInflater i, @Nullable ViewGroup c, @Nullable Bundle s) {
-        return i.inflate(R.layout.fragment_ranking, c, false);
-    }
-}
-
-// ============================================================================
-// 6. ADMIN DASHBOARD - Live Tournament Creation & Admin Powers
-// ============================================================================
-
-class AdminDashboardActivity extends AppCompatActivity {
-
-    private EditText etMatchTitle, etTime, etMap, etEntryFee, etPerKill, etWinPrize, etType;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_dashboard);
-
-        etMatchTitle = findViewById(R.id.etMatchTitle);
-        etTime = findViewById(R.id.etMatchTime);
-        etMap = findViewById(R.id.etMapType);
-        etEntryFee = findViewById(R.id.etEntryFee);
-        etPerKill = findViewById(R.id.etPerKill);
-        etWinPrize = findViewById(R.id.etWinPrize);
-        etType = findViewById(R.id.etMatchType);
-
-        View btnPublish = findViewById(R.id.btnPublishMatch);
-        if (btnPublish != null) {
-            btnPublish.setOnClickListener(v -> {
-                String title = etMatchTitle != null ? etMatchTitle.getText().toString().trim() : "";
-                String time = etTime != null ? etTime.getText().toString().trim() : "";
-                String map = etMap != null ? etMap.getText().toString().trim() : "";
-                String entry = etEntryFee != null ? etEntryFee.getText().toString().trim() : "";
-                String kill = etPerKill != null ? etPerKill.getText().toString().trim() : "";
-                String win = etWinPrize != null ? etWinPrize.getText().toString().trim() : "";
-                String type = etType != null ? etType.getText().toString().trim() : "";
-
-                if (TextUtils.isEmpty(title) || TextUtils.isEmpty(entry)) {
-                    Toast.makeText(this, "Please enter match title & entry fee!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                MatchModel newMatch = new MatchModel(
-                        "MATCH_" + System.currentTimeMillis(),
-                        title, time, map, entry, kill, win, type, "Upcoming"
-                );
-
-                HomeFragment.matchList.add(newMatch);
-                Toast.makeText(this, "Match Published Live in Fatal Rush Esports!", Toast.LENGTH_LONG).show();
-                finish();
+            matches.unshift({
+                id: Date.now(),
+                title: title,
+                time: time || "Scheduled Soon",
+                map: map || "Bermuda",
+                entry: entry,
+                perKill: kill || 0,
+                winPrize: win || 0,
+                type: type
             });
+
+            renderMatches();
+            alert("Match Created & Published Live!");
+            switchTab('home', document.querySelectorAll('.nav-item')[2]);
         }
-    }
-}
 
-// ============================================================================
-// 7. SUBSIDIARY ACTIVITIES
-// ============================================================================
-
-class BuyCoinsActivity extends AppCompatActivity {
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_buy_coins);
-    }
-}
-
-class WithdrawActivity extends AppCompatActivity {
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_withdraw);
-    }
-}
-
-class EmergencyWithdrawActivity extends AppCompatActivity {
-    @Override protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_emergency_withdraw);
-    }
-}
-
-// ============================================================================
-// 8. ADAPTER - Match Cards Renderer
-// ============================================================================
-
-class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.ViewHolder> {
-
-    private List<MatchModel> list;
-    private Context context;
-
-    public MatchAdapter(List<MatchModel> list, Context context) {
-        this.list = list;
-        this.context = context;
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(context).inflate(R.layout.item_match_card, parent, false);
-        return new ViewHolder(v);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        MatchModel model = list.get(position);
-        if (holder.tvTitle != null) holder.tvTitle.setText(model.title);
-        if (holder.tvTime != null) holder.tvTime.setText(model.timeStamp);
-        if (holder.tvEntry != null) holder.tvEntry.setText("Entry: " + model.entryFee + " Coins");
-        if (holder.tvKill != null) holder.tvKill.setText("Per Kill: " + model.perKill);
-        if (holder.tvWin != null) holder.tvWin.setText("Win: " + model.winPrize);
-    }
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvTime, tvEntry, tvKill, tvWin;
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvMatchTitle);
-            tvTime = itemView.findViewById(R.id.tvMatchTime);
-            tvEntry = itemView.findViewById(R.id.tvEntryFee);
-            tvKill = itemView.findViewById(R.id.tvPerKill);
-            tvWin = itemView.findViewById(R.id.tvWinPrize);
+        function joinMatch(entryFee) {
+            const total = userData.deposit + userData.winning;
+            if (total >= entryFee) {
+                userData.deposit -= entryFee;
+                updateWalletUI();
+                alert("Match Joined Successfully!");
+            } else {
+                alert("Insufficient Coins in Wallet! Please Buy Coins.");
+            }
         }
-    }
-}
+
+        function showBuyCoins() {
+            openModal(`
+                <h3>Buy Coins</h3>
+                <p style="font-size:12px; margin:10px 0;">Select package to add coins via UPI:</p>
+                <button class="btn-action btn-add" style="width:100%; margin-bottom:8px;" onclick="addCoins(50)">50 Coins = ₹50</button>
+                <button class="btn-action btn-add" style="width:100%; margin-bottom:8px;" onclick="addCoins(100)">100 Coins = ₹100</button>
+                <button class="btn-action btn-add" style="width:100%;" onclick="addCoins(200)">200 Coins = ₹200</button>
+                <button class="btn-action" style="width:100%; margin-top:10px; background:#444;" onclick="closeModal()">Cancel</button>
+            `);
+        }
+
+        function addCoins(amount) {
+            userData.deposit += amount;
+            updateWalletUI();
+            alert(amount + " Coins Added to Wallet!");
+            closeModal();
+        }
+
+        function showWithdraw() {
+            openModal(`
+                <h3>Withdraw Coins</h3>
+                <input type="text" placeholder="Enter UPI ID (e.g. 9910483218@fam)" style="margin-top:10px;">
+                <input type="number" placeholder="Enter Coins to Withdraw">
+                <button class="btn-action btn-withdraw" style="width:100%;" onclick="closeModal(); alert('Withdrawal Request Submitted!');">Submit Request</button>
+                <button class="btn-action" style="width:100%; margin-top:8px; background:#444;" onclick="closeModal()">Cancel</button>
+            `);
+        }
+
+        function showEmergencyWithdraw() {
+            openModal(`
+                <h3>Emergency Withdraw</h3>
+                <p style="font-size:11px; color:#ff9100; margin:8px 0;">Instantly withdraw remaining deposit balance to linked UPI.</p>
+                <button class="btn-action btn-emergency" style="width:100%;" onclick="closeModal(); alert('Emergency withdrawal initiated.');">Instant Transfer</button>
+                <button class="btn-action" style="width:100%; margin-top:8px; background:#444;" onclick="closeModal()">Cancel</button>
+            `);
+        }
+
+        function claimRedeemCode() {
+            const code = document.getElementById('redeem-input').value;
+            if (code.toUpperCase() === "FATAL10") {
+                userData.winning += 10;
+                updateWalletUI();
+                alert("Congratulations! 10 Coins claimed successfully.");
+            } else {
+                alert("Invalid or Expired Code!");
+            }
+        }
+
+        function openModal(content) {
+            document.getElementById('modal-content').innerHTML = content;
+            document.getElementById('app-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('app-modal').style.display = 'none';
+        }
+
+        // Init App
+        renderMatches();
+        updateWalletUI();
+    </script>
+</body>
+</html>
