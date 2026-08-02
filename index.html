@@ -1,37 +1,34 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>FETAL RUSH SPORTS - Pro Esports Hub</title>
+    <title>Fatal Rush Esports</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- FontAwesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <!-- Google Gaming Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;600;700&family=Rajdhani:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
-                        gaming: ['Teko', 'sans-serif'],
                         heading: ['Rajdhani', 'sans-serif'],
                         body: ['Inter', 'sans-serif'],
                     },
                     colors: {
-                        cyber: {
-                            base: '#030408',
-                            surface: '#090b14',
-                            card: '#0f1322',
-                            border: '#1a2238',
-                            cyan: '#00f2fe',
-                            blue: '#4facfe',
-                            accent: '#ff0055',
-                            gold: '#ffb703',
-                            emerald: '#10b981',
+                        arena: {
+                            bg: '#0c0b10',
+                            card: '#16151f',
+                            purple: '#6c5ce7',
+                            purpleDark: '#4834d4',
+                            red: '#ff4757',
+                            gold: '#ffa502',
+                            green: '#2ed573',
+                            gray: '#2f3542'
                         }
                     }
                 }
@@ -40,574 +37,650 @@
     </script>
     
     <style>
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-        body {
-            background-color: #030408;
-            color: #f8fafc;
-            font-family: 'Inter', sans-serif;
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
-        .glass-panel {
-            background: linear-gradient(135deg, rgba(15, 19, 34, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
-            backdrop-filter: blur(16px);
-            border: 1px solid #1a2238;
-        }
-        .glass-panel-glow {
-            background: linear-gradient(135deg, rgba(15, 19, 34, 0.95) 0%, rgba(9, 11, 20, 0.98) 100%);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(0, 242, 254, 0.3);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
-        }
-        .btn-gradient-cyan {
-            background: linear-gradient(90deg, #00f2fe 0%, #4facfe 100%);
-            color: #030408;
-            font-weight: 800;
-        }
-        .btn-gradient-accent {
-            background: linear-gradient(90deg, #ff0055 0%, #ff5500 100%);
-            color: #ffffff;
-            font-weight: 800;
-        }
-        .active-tab-icon {
-            color: #00f2fe !important;
-            filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.8));
-        }
-        .active-tab-text {
-            color: #00f2fe !important;
-            font-weight: 700 !important;
-        }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #0c0b10; color: #ffffff; font-family: 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
-<body class="pb-28">
+<body class="pb-20">
 
-    <!-- TOAST NOTIFICATION -->
-    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-50 transform -translate-y-32 opacity-0 transition-all duration-300 w-[92%] max-w-md pointer-events-none">
-        <div class="glass-panel p-4 rounded-2xl border border-cyber-cyan/40 flex items-center gap-3 shadow-2xl">
-            <div class="w-10 h-10 rounded-xl bg-cyber-cyan/10 text-cyber-cyan flex items-center justify-center text-xl flex-shrink-0">
-                <i class="fas fa-bell"></i>
+    <!-- SCREEN 1: WELCOME / SPLASH SCREEN (Screenshot 1000076501_2) -->
+    <div id="splash-screen" class="fixed inset-0 z-50 bg-black flex flex-col justify-between items-center p-6 text-center bg-cover bg-center" style="background-image: linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=800&q=80');">
+        
+        <!-- Logo Header -->
+        <div class="mt-8 flex flex-col items-center">
+            <div class="w-16 h-16 rounded-2xl bg-red-600/20 border-2 border-red-500 flex items-center justify-center text-red-500 font-extrabold text-2xl shadow-[0_0_20px_rgba(239,68,68,0.5)]">
+                FRE
             </div>
-            <div class="flex-1 overflow-hidden">
-                <h4 id="toast-title" class="font-heading font-bold text-xs text-cyber-cyan tracking-wider uppercase">NOTIFICATION</h4>
-                <p id="toast-desc" class="text-xs text-slate-200 mt-0.5 truncate"></p>
+            <h1 class="font-heading font-black text-2xl text-white tracking-wider mt-2 uppercase">Fatal Rush Esports</h1>
+        </div>
+
+        <!-- Main Heading -->
+        <div class="my-auto">
+            <h2 class="font-heading text-4xl font-extrabold tracking-wide uppercase italic text-white drop-shadow-md">
+                PLAY SMALL <span class="text-orange-500 drop-shadow-[0_0_10px_rgba(249,115,22,0.8)]">WIN BIG</span>
+            </h2>
+        </div>
+
+        <!-- Features Icons Row -->
+        <div class="w-full space-y-6 mb-4">
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-award text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">India's No.1<br>Platform</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-users text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Players Best<br>Ratings</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-wallet text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Instant<br>Withdrawal</span>
+                </div>
             </div>
+            <div class="grid grid-cols-3 gap-3 text-center">
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-headset text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">24/7 Customer<br>Support</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-balance-scale text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Fair Play<br>Always</span>
+                </div>
+                <div class="flex flex-col items-center">
+                    <i class="fas fa-shield-alt text-red-500 text-xl mb-1"></i>
+                    <span class="text-[9px] font-bold text-gray-300 uppercase leading-tight">Safe &<br>Trusted</span>
+                </div>
+            </div>
+
+            <!-- Welcome Enter Button -->
+            <button onclick="document.getElementById('splash-screen').classList.add('hidden')" class="w-full py-3.5 bg-gradient-to-r from-red-600 to-orange-500 rounded-xl font-heading font-black text-lg text-white uppercase tracking-widest border border-red-400 shadow-[0_0_25px_rgba(239,68,68,0.7)] active:scale-95 transition-all">
+                WELCOME!
+            </button>
         </div>
     </div>
 
-    <!-- TOP HEADER -->
-    <header class="sticky top-0 z-40 glass-panel border-b border-cyber-border px-4 py-3 flex items-center justify-between">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyber-cyan via-cyber-blue to-cyber-accent p-[1px]">
-                <div class="w-full h-full bg-cyber-base rounded-xl flex items-center justify-center font-gaming text-2xl text-cyber-cyan font-bold">
-                    FR
-                </div>
+
+    <!-- APP HEADER -->
+    <header class="sticky top-0 z-40 bg-arena-card border-b border-gray-800 px-4 py-3 flex items-center justify-between shadow-lg">
+        <div class="flex items-center gap-2">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-red-600 to-purple-600 flex items-center justify-center font-bold text-sm shadow">
+                FRE
             </div>
             <div>
-                <h1 class="font-gaming text-2xl font-bold leading-none tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-cyber-cyan via-cyber-blue to-white">
-                    FETAL RUSH SPORTS
-                </h1>
-                <p class="text-[9px] font-heading text-cyber-cyan tracking-widest font-extrabold uppercase -mt-0.5">
-                    PRO ESPORTS HUB
-                </p>
+                <p class="text-[10px] text-gray-400 font-medium leading-none">Welcome Back,</p>
+                <h1 class="font-heading text-sm font-bold text-arena-green leading-tight">Fatal Rush Esports</h1>
             </div>
         </div>
         
         <div class="flex items-center gap-2">
-            <button onclick="SystemModalController.openAuthModal()" id="header-auth-btn" class="bg-cyber-cyan/10 text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl text-xs font-heading font-bold flex items-center gap-1">
-                <i class="fas fa-sign-in-alt"></i>
-                <span id="header-auth-label">LOGIN</span>
+            <button onclick="SystemTabController.switchTab('contact')" class="text-gray-300 hover:text-white text-lg p-1">
+                <i class="fas fa-headset"></i>
             </button>
-            
-            <button onclick="SystemTabController.switchTab('profile')" class="glass-panel px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 border border-cyber-cyan/30">
-                <i class="fas fa-wallet text-cyber-cyan"></i>
-                <span class="font-heading text-xs text-white">₹<span id="header-balance">0.00</span></span>
-            </button>
+            <div onclick="SystemTabController.switchTab('wallet')" class="bg-arena-red/90 text-white font-bold text-xs px-3 py-1.5 rounded-md flex items-center gap-1.5 cursor-pointer">
+                <i class="fas fa-coins text-arena-gold"></i>
+                <span id="hdr-coins">1.00</span>
+                <span class="bg-white text-arena-red font-black text-xs px-1 rounded ml-1">+</span>
+            </div>
         </div>
     </header>
 
-    <!-- MAIN VIEWS -->
-    <main class="p-4 max-w-md mx-auto space-y-5">
 
-        <!-- VIEW 1: HOME (TOURNAMENTS) -->
+    <!-- MAIN CONTENT VIEWPORTS -->
+    <main class="max-w-md mx-auto p-3 space-y-4">
+
+        <!-- VIEW 1: HOME TAB (Screenshot 1000076487_2 & 1000076497_2) -->
         <div id="view-tab-home" class="viewport-tab space-y-4">
             
-            <!-- Hero Banner -->
-            <div class="glass-panel-glow rounded-3xl p-5 relative overflow-hidden">
-                <div class="flex items-center justify-between mb-2">
-                    <span class="bg-cyber-accent/20 text-cyber-accent text-[10px] font-heading font-extrabold px-2.5 py-0.5 rounded border border-cyber-accent/30 uppercase tracking-wider flex items-center gap-1">
-                        <i class="fas fa-fire"></i> DAILY CASH TOURNAMENTS
-                    </span>
-                    <span class="text-[10px] font-heading text-slate-400 font-bold">SEASON 1</span>
-                </div>
-                <h2 class="font-gaming text-4xl font-bold text-white leading-none">PLAY BGMI & FREE FIRE</h2>
-                <p class="text-xs text-slate-300 mt-1 mb-3">Join tournaments & win direct cash prizes in wallet.</p>
+            <!-- Announcement Marquee -->
+            <div class="bg-arena-purple/20 border border-arena-purple/40 rounded-lg p-2.5 flex items-center gap-2 text-xs">
+                <i class="fas fa-bullhorn text-arena-red text-sm animate-pulse"></i>
+                <marquee class="text-gray-200 font-medium">FROM 15.09.2025 EVERY PLAYER WILL GET DAILY REWARDS & BIG WINNINGS!</marquee>
+            </div>
 
-                <!-- WhatsApp Support Channel Direct Button -->
-                <a href="https://whatsapp.com/channel/example" target="_blank" class="w-full flex items-center justify-center gap-2 bg-emerald-600/20 border border-emerald-500/40 text-emerald-400 py-2.5 rounded-xl text-xs font-heading font-bold transition-all hover:bg-emerald-600/30">
-                    <i class="fab fa-whatsapp text-lg"></i> JOIN WHATSAPP OFFICIAL SUPPORT
+            <!-- Quick Action 4-Grid Buttons -->
+            <div class="grid grid-cols-4 gap-2 text-center">
+                <button onclick="SystemTabController.switchTab('profile')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
+                    <i class="fas fa-user-circle text-arena-red text-xl mb-1"></i>
+                    <span class="text-[10px] font-bold text-gray-300">MY PROFILE</span>
+                </button>
+                <button onclick="SystemTabController.switchTab('wallet')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
+                    <i class="fas fa-wallet text-arena-red text-xl mb-1"></i>
+                    <span class="text-[10px] font-bold text-gray-300">MY WALLET</span>
+                </button>
+                <button onclick="SystemToast.show('Top Leaderboard Updated!')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
+                    <i class="fas fa-trophy text-arena-red text-xl mb-1"></i>
+                    <span class="text-[10px] font-bold text-gray-300">TOP PLAYER</span>
+                </button>
+                <button onclick="SystemTabController.switchTab('contact')" class="bg-arena-card p-3 rounded-xl flex flex-col items-center border border-gray-800 active:scale-95 transition-all">
+                    <i class="fas fa-headset text-arena-red text-xl mb-1"></i>
+                    <span class="text-[10px] font-bold text-gray-300">CONTACT US</span>
+                </button>
+            </div>
+
+            <!-- Contests Title -->
+            <div class="flex items-center justify-between pt-2">
+                <h3 class="font-heading font-bold text-sm text-arena-red flex items-center gap-1.5 uppercase">
+                    <i class="fas fa-check-circle"></i> MY CONTESTS
+                </h3>
+                <span class="text-[10px] text-gray-400">Your Tournaments Journey</span>
+            </div>
+
+            <!-- Matches Status Filter -->
+            <div class="grid grid-cols-3 gap-2">
+                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
+                    <i class="fas fa-sync-alt text-arena-gold text-lg mb-1"></i>
+                    <p class="text-xs font-bold text-gray-200">Ongoing</p>
+                </div>
+                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
+                    <i class="fas fa-calendar-alt text-arena-red text-lg mb-1"></i>
+                    <p class="text-xs font-bold text-gray-200">Upcoming</p>
+                </div>
+                <div class="bg-arena-card p-3 rounded-xl text-center border border-gray-800 cursor-pointer">
+                    <i class="fas fa-award text-arena-green text-lg mb-1"></i>
+                    <p class="text-xs font-bold text-gray-200">Completed</p>
+                </div>
+            </div>
+
+            <!-- Telegram Free Redeem Code Banner Card -->
+            <div class="bg-gradient-to-r from-red-600 via-purple-900 to-blue-900 rounded-2xl p-4 text-center shadow-lg border border-red-500/30 relative overflow-hidden">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                    <i class="fab fa-google-play text-yellow-400 text-xl"></i>
+                    <i class="fab fa-telegram text-sky-400 text-xl"></i>
+                </div>
+                <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white">DAILY DROP FREE REDEEM CODE</h3>
+                <a href="https://t.me/fatalrushesports" target="_blank" class="inline-block mt-3 bg-red-600 text-white font-extrabold text-xs px-6 py-2 rounded-full uppercase shadow-lg border border-red-400 active:scale-95 transition-all">
+                    CLICK HERE
                 </a>
             </div>
-
-            <!-- Game Filters -->
-            <div class="flex items-center gap-2 overflow-x-auto pb-1">
-                <button onclick="SystemTournamentEngine.filterCategory('ALL')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-cyber-cyan border-cyber-cyan/50 whitespace-nowrap">🎮 ALL GAMES</button>
-                <button onclick="SystemTournamentEngine.filterCategory('BGMI')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔫 BGMI</button>
-                <button onclick="SystemTournamentEngine.filterCategory('FREE FIRE')" class="px-4 py-2 rounded-xl glass-panel text-xs font-heading font-bold text-slate-400 whitespace-nowrap">🔥 FREE FIRE</button>
-            </div>
-
-            <div class="flex items-center justify-between">
-                <h3 class="font-heading font-bold text-xs text-slate-400 tracking-widest uppercase flex items-center gap-2">
-                    <i class="fas fa-gamepad text-cyber-cyan"></i> UPCOMING MATCHES
-                </h3>
-                <span id="active-match-count" class="text-[10px] bg-cyber-cyan/10 text-cyber-cyan px-2.5 py-0.5 rounded-full border border-cyber-cyan/30 font-bold font-heading">0 ACTIVE</span>
-            </div>
-
-            <!-- Empty Tournament View (Default state until Admin adds matches) -->
-            <div id="no-tournaments-fallback" class="glass-panel p-8 rounded-3xl text-center border border-dashed border-slate-800">
-                <i class="fas fa-trophy text-4xl text-slate-700 mb-2"></i>
-                <h4 class="font-heading font-bold text-sm text-slate-300 uppercase">NO MATCHES SCHEDULED</h4>
-                <p class="text-xs text-slate-500 mt-1">Admin ne abhi koi match add nahi kiya hai. Naye matches jald hi aayenge!</p>
-            </div>
-
-            <!-- Container where Admin Matches will load dynamically -->
-            <div id="dynamic-tournament-list" class="space-y-4"></div>
         </div>
 
-        <!-- VIEW 2: MY MATCHES -->
-        <div id="view-tab-matches" class="viewport-tab hidden space-y-4">
-            <h2 class="font-gaming text-3xl font-bold text-white leading-none">JOINED MATCHES</h2>
-            <div id="dynamic-joined-list" class="space-y-3"></div>
-        </div>
 
-        <!-- VIEW 3: RANKS -->
-        <div id="view-tab-ranks" class="viewport-tab hidden space-y-4">
-            <h2 class="font-gaming text-3xl font-bold text-white leading-none">LEADERBOARD</h2>
-            <div class="glass-panel p-6 rounded-3xl text-center text-xs text-slate-400">Leaderboard update hone me time baaki hai.</div>
-        </div>
-
-        <!-- VIEW 4: PROFILE & ADMIN PANEL -->
-        <div id="view-tab-profile" class="viewport-tab hidden space-y-5">
-            <!-- Profile Card -->
-            <div class="glass-panel p-4 rounded-3xl flex items-center justify-between border border-cyber-cyan/30">
-                <div class="flex items-center gap-3">
-                    <div class="w-11 h-11 bg-cyber-cyan/10 border border-cyber-cyan/30 rounded-2xl flex items-center justify-center text-cyber-cyan text-xl">
-                        <i class="fas fa-user-shield"></i>
-                    </div>
-                    <div>
-                        <h3 class="font-heading font-bold text-sm text-white leading-none" id="profile-name">GUEST PLAYER</h3>
-                        <p class="text-[10px] text-slate-400 mt-1" id="profile-role">Status: Not Logged In</p>
-                    </div>
-                </div>
-                <button onclick="SystemModalController.openAuthModal()" id="profile-auth-btn" class="text-xs text-cyber-cyan border border-cyber-cyan/30 px-3 py-1.5 rounded-xl font-heading font-bold">LOGIN</button>
-            </div>
-
-            <!-- Wallet Options -->
-            <div class="glass-panel-glow p-5 rounded-3xl border border-cyber-cyan/30">
-                <p class="text-xs font-heading font-bold text-slate-400 uppercase">TOTAL WALLET BALANCE</p>
-                <h2 class="font-gaming text-5xl text-cyber-cyan my-1 font-bold">₹<span id="profile-balance">0.00</span></h2>
-                <div class="grid grid-cols-2 gap-3 mt-4">
-                    <button onclick="SystemWalletEngine.openDepositModal()" class="btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">ADD MONEY</button>
-                    <button onclick="SystemWalletEngine.openWithdrawModal()" class="glass-panel py-3 rounded-xl text-xs font-heading font-bold text-white border border-slate-700 uppercase">WITHDRAW</button>
-                </div>
-            </div>
-
-            <!-- WhatsApp Channel Link Option -->
-            <a href="https://whatsapp.com/channel/example" target="_blank" class="glass-panel p-4 rounded-2xl flex items-center gap-3 border border-emerald-500/30">
-                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                <div>
-                    <h4 class="font-heading font-bold text-sm text-white">WHATSAPP SUPPORT CHANNEL</h4>
-                    <p class="text-[10px] text-slate-400">Join for match updates & help</p>
-                </div>
-            </a>
-
-            <!-- ADMIN PANEL (Visible ONLY for admin@fetalrush.com) -->
-            <div id="admin-control-panel" class="glass-panel p-5 rounded-3xl border border-cyber-accent/50 space-y-4 hidden">
-                <div class="flex items-center justify-between border-b border-cyber-accent/30 pb-2">
-                    <span class="text-xs text-cyber-accent font-heading font-extrabold uppercase"><i class="fas fa-user-shield"></i> MASTER ADMIN PANEL</span>
+        <!-- VIEW 2: WALLET TAB (Screenshot 1000076479_2) -->
+        <div id="view-tab-wallet" class="viewport-tab hidden space-y-4">
+            <div class="bg-gray-400/20 backdrop-blur p-4 rounded-2xl text-center border border-gray-700">
+                <div class="flex items-center justify-center gap-2">
+                    <div class="w-8 h-8 rounded-full bg-amber-400 flex items-center justify-center text-black font-extrabold text-lg shadow">C</div>
+                    <span class="font-heading text-4xl font-bold text-white" id="wlt-total">1.00</span>
                 </div>
                 
-                <!-- Create Tournament Form -->
-                <div class="space-y-2">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">1. CREATE NEW MATCH</h4>
-                    <input type="text" id="adm-title" placeholder="Match Title (e.g. BGMI Erangel Cash Match)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <div class="grid grid-cols-2 gap-2">
-                        <select id="adm-game" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                            <option value="BGMI">BGMI</option>
-                            <option value="FREE FIRE">FREE FIRE</option>
-                        </select>
-                        <input type="text" id="adm-type" placeholder="Type (SOLO/DUO/SQUAD)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                <div class="grid grid-cols-3 gap-2 mt-4 text-center">
+                    <div class="bg-white p-2 rounded-xl text-black shadow">
+                        <span class="text-xs font-extrabold block text-black" id="wlt-dep">0</span>
+                        <span class="text-[10px] text-gray-600 font-bold">Deposited</span>
                     </div>
-                    <div class="grid grid-cols-2 gap-2">
-                        <input type="number" id="adm-fee" placeholder="Entry Fee (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                        <input type="number" id="adm-prize" placeholder="Prize Pool (₹)" class="bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
+                    <div class="bg-white p-2 rounded-xl text-black shadow">
+                        <span class="text-xs font-extrabold block text-black" id="wlt-win">0</span>
+                        <span class="text-[10px] text-gray-600 font-bold">Winning</span>
                     </div>
-                    <input type="text" id="adm-time" placeholder="Match Timing (e.g. Today 08:00 PM)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="SystemAdminEngine.addTournament()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">ADD MATCH NOW</button>
+                    <div class="bg-white p-2 rounded-xl text-black shadow">
+                        <span class="text-xs font-extrabold block text-black" id="wlt-bon">1.00</span>
+                        <span class="text-[10px] text-gray-600 font-bold">Bonus</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Square Action Boxes -->
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="SystemTabController.switchTab('buy-coins')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
+                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Add Coins</p>
+                </button>
+                <button onclick="SystemTabController.switchTab('withdraw')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
+                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Withdraw Coins</p>
+                </button>
+                <button onclick="SystemToast.show('No recent transactions.')" class="bg-white p-3 rounded-2xl text-center shadow border border-gray-200 text-black flex flex-col items-center">
+                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
+                    <p class="text-[11px] font-bold text-gray-800 leading-tight">Transactions</p>
+                </button>
+            </div>
+
+            <!-- Emergency Withdraw Card -->
+            <button onclick="SystemTabController.switchTab('emergency-withdraw')" class="w-full bg-white p-3.5 rounded-2xl shadow border border-gray-200 flex flex-col items-center justify-center text-black">
+                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center text-red-500 mb-1"><i class="fas fa-wallet text-lg"></i></div>
+                <p class="text-[11px] font-bold text-gray-800 text-center leading-tight">Emergency<br>Withdraw Coins</p>
+            </button>
+        </div>
+
+
+        <!-- VIEW 3: BUY COINS / TRANZUPI TIER LIST (Screenshot 1000076481_2) -->
+        <div id="view-tab-buy-coins" class="viewport-tab hidden space-y-3">
+            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
+                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
+                <h2 class="font-heading font-bold text-lg text-white">Buy Coins</h2>
+            </div>
+            
+            <div class="space-y-2" id="buy-coins-tier-list"></div>
+        </div>
+
+
+        <!-- VIEW 4: WITHDRAWAL OPTIONS (Screenshot 1000076482_2) -->
+        <div id="view-tab-withdraw" class="viewport-tab hidden space-y-3">
+            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
+                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
+                <h2 class="font-heading font-bold text-lg text-white">Withdrawal</h2>
+            </div>
+            
+            <div class="space-y-2">
+                <!-- UPI Tiers -->
+                <div onclick="SystemWalletEngine.processWithdraw(50, 48, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
+                        <div>
+                            <span class="text-xs font-black block">UPI</span>
+                            <span class="text-[10px] text-gray-500">50 COINS = 48 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">48 INR</span>
                 </div>
 
-                <!-- Update Room Credentials -->
-                <div class="border-t border-slate-800 pt-3 space-y-2">
-                    <h4 class="font-heading font-bold text-xs text-slate-200 uppercase">2. ENTER ROOM ID & PASS (FOR MATCH TIME)</h4>
-                    <select id="adm-match-select" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white"><option value="">Select Created Match</option></select>
-                    <input type="text" id="adm-room-id" placeholder="Room ID" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <input type="text" id="adm-room-pass" placeholder="Room Password" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                    <button onclick="SystemAdminEngine.updateRoomCreds()" class="w-full bg-cyber-cyan text-black font-heading font-extrabold py-2.5 rounded-xl text-xs uppercase">SAVE & PUBLISH ROOM ID/PASS</button>
+                <div onclick="SystemWalletEngine.processWithdraw(100, 95, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
+                        <div>
+                            <span class="text-xs font-black block">UPI</span>
+                            <span class="text-[10px] text-gray-500">100 COINS = 95 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">95 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(200, 190, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
+                        <div>
+                            <span class="text-xs font-black block">UPI</span>
+                            <span class="text-[10px] text-gray-500">200 COINS = 190 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">190 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(300, 285, 'UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
+                        <div>
+                            <span class="text-xs font-black block">UPI</span>
+                            <span class="text-[10px] text-gray-500">300 COINS = 285 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">285 INR</span>
+                </div>
+
+                <!-- Redeem Code Tiers -->
+                <div onclick="SystemWalletEngine.processWithdraw(50, 48, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow border-t-2 border-red-500">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
+                        <div>
+                            <span class="text-xs font-black block">REDEEM CODE</span>
+                            <span class="text-[10px] text-gray-500">50 COINS = 48 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">50 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(100, 97, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
+                        <div>
+                            <span class="text-xs font-black block">REDEEM CODE</span>
+                            <span class="text-[10px] text-gray-500">100 COINS = 97 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">100 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(150, 146, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
+                        <div>
+                            <span class="text-xs font-black block">REDEEM CODE</span>
+                            <span class="text-[10px] text-gray-500">150 COINS = 146 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">150 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(200, 195, 'Redeem Code')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 rounded-full bg-red-100 flex items-center justify-center text-red-500"><i class="fas fa-wallet text-xs"></i></div>
+                        <div>
+                            <span class="text-xs font-black block">REDEEM CODE</span>
+                            <span class="text-[10px] text-gray-500">200 COINS = 195 INR</span>
+                        </div>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">200 INR</span>
                 </div>
             </div>
         </div>
+
+
+        <!-- VIEW 5: EMERGENCY WITHDRAWAL (Screenshot 1000076485_2) -->
+        <div id="view-tab-emergency-withdraw" class="viewport-tab hidden space-y-3">
+            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
+                <button onclick="SystemTabController.switchTab('wallet')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
+                <h2 class="font-heading font-bold text-lg text-white">Emergency Withdrawal</h2>
+            </div>
+            
+            <div class="space-y-2">
+                <div onclick="SystemWalletEngine.processWithdraw(50, 35, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">50 COINS = 35 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">35 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(100, 70, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">100 COINS = 70 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">70 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(200, 140, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">200 COINS = 140 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">140 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(300, 210, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">300 COINS = 210 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">210 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(400, 280, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">400 COINS = 280 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">280 INR</span>
+                </div>
+
+                <div onclick="SystemWalletEngine.processWithdraw(500, 350, 'Emergency UPI')" class="bg-white p-3 rounded-xl flex items-center justify-between text-black cursor-pointer shadow">
+                    <div>
+                        <span class="text-xs font-black block">EMERGENCY WITHDRAWAL UPI</span>
+                        <span class="text-[10px] text-gray-500">500 COINS = 350 INR</span>
+                    </div>
+                    <span class="text-red-600 font-black text-xs">350 INR</span>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- VIEW 6: CONTACT US (Screenshot 1000076500_2) -->
+        <div id="view-tab-contact" class="viewport-tab hidden space-y-4">
+            <!-- Our Mission Card -->
+            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-2 shadow">
+                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Our Mission</span>
+                <p class="text-xs font-bold text-gray-800 leading-relaxed pt-1">
+                    🎮 Welcome to Fatal Rush Esports 🔥<br>
+                    💪 Play with skill | 💰 Earn real money<br>
+                    🏆 Fair & competitive matches — Only skill matters!
+                </p>
+            </div>
+
+            <!-- Contact Support Card -->
+            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-3 shadow">
+                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Contact Us</span>
+                
+                <div>
+                    <p class="text-xs font-bold text-gray-700">Email Id</p>
+                    <p class="text-xs font-extrabold text-indigo-600 uppercase mt-0.5">20 MINUTES - 3 HOUR PAYMENT TIME</p>
+                </div>
+
+                <div>
+                    <p class="text-xs font-bold text-gray-700">Phone No</p>
+                    <a href="https://t.me/fatalrushesports" target="_blank" class="text-xs font-bold text-indigo-600 underline">https://t.me/fatalrushesports</a>
+                </div>
+
+                <div class="grid grid-cols-2 gap-2 pt-1">
+                    <a href="https://t.me/fatalrushesports" target="_blank" class="bg-lime-500 text-black py-2 rounded-lg text-xs font-black block">TELEGRAM</a>
+                    <a href="https://whatsapp.com" target="_blank" class="bg-indigo-800 text-white py-2 rounded-lg text-xs font-black block">WHATSAPP</a>
+                </div>
+
+                <a href="https://discord.gg" target="_blank" class="w-full bg-sky-300 text-black py-2 rounded-lg text-xs font-black block">JOIN DISCORD CHANNEL</a>
+
+                <div class="grid grid-cols-2 gap-2">
+                    <a href="https://instagram.com" target="_blank" class="bg-red-500 text-white py-2 rounded-lg text-xs font-black block">INSTAGRAM</a>
+                    <a href="https://facebook.com" target="_blank" class="bg-sky-400 text-white py-2 rounded-lg text-xs font-black block">FACEBOOK</a>
+                </div>
+            </div>
+
+            <!-- Our Address Card -->
+            <div class="bg-white p-4 rounded-2xl text-center text-black space-y-2 shadow">
+                <span class="bg-indigo-600 text-white font-bold text-xs px-4 py-1 rounded-lg inline-block">Our Address</span>
+                <p class="text-xs font-extrabold text-gray-800">India</p>
+            </div>
+        </div>
+
+
+        <!-- VIEW 7: PROFILE LIST (Screenshot 1000076478_2) -->
+        <div id="view-tab-profile" class="viewport-tab hidden space-y-3">
+            <div class="bg-arena-card p-4 rounded-2xl text-center border border-gray-800 relative">
+                <div class="w-16 h-16 rounded-full bg-pink-300 border-2 border-pink-400 mx-auto flex items-center justify-center overflow-hidden mb-2">
+                    <i class="fas fa-user-circle text-4xl text-purple-900"></i>
+                </div>
+                <h3 class="font-heading font-bold text-base text-white">Name : <span class="text-gray-300">Loading</span></h3>
+                <p class="text-xs text-arena-green font-bold flex items-center justify-center gap-1 mt-0.5">
+                    <i class="fas fa-check-circle"></i> Kyc Verified
+                </p>
+
+                <div class="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-gray-800/60 text-center">
+                    <div>
+                        <span class="text-base font-bold text-sky-400 block">0</span>
+                        <span class="text-[9px] text-gray-400 font-medium">Matches Played</span>
+                    </div>
+                    <div class="border-x border-gray-800">
+                        <span class="text-base font-bold text-sky-400 block">0</span>
+                        <span class="text-[9px] text-gray-400 font-medium">Total Kills</span>
+                    </div>
+                    <div>
+                        <span class="text-base font-bold text-arena-gold flex items-center justify-center gap-1">
+                            <i class="fas fa-coins text-xs"></i>0
+                        </span>
+                        <span class="text-[9px] text-gray-400 font-medium">PlayCoin Won</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="space-y-1.5">
+                <div onclick="SystemTabController.switchTab('edit-profile')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-user-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Profile</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemTabController.switchTab('wallet')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-wallet text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Wallet</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Statistics')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-chart-bar text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">My Statics</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Top Players')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-trophy text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Top Players</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Refer & Earn')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-user-plus text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Refer & Earn</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Notifications')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-bell text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Notifications</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemTabController.switchTab('contact')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-headset text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Contact Us</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between">
+                    <div class="flex items-center gap-3"><i class="fas fa-bell-slash text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Importance Notice</span></div>
+                    <input type="checkbox" checked class="w-4 h-4 accent-arena-purple rounded cursor-pointer">
+                </div>
+
+                <div onclick="SystemToast.show('FAQ')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-question-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">FAQ</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Fatal Rush Esports v1.7')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-info-circle text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">About Us</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Privacy Policy')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-lock text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Privacy Policy</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Terms & Conditions')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-shield-alt text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Terms & Conditions</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+
+                <div onclick="SystemToast.show('Logout')" class="bg-arena-card px-4 py-3 rounded-xl border border-gray-800 flex items-center justify-between cursor-pointer">
+                    <div class="flex items-center gap-3"><i class="fas fa-power-off text-sky-400 text-lg"></i><span class="text-xs font-bold text-gray-200">Logout</span></div>
+                    <i class="fas fa-chevron-right text-xs text-gray-500"></i>
+                </div>
+            </div>
+
+            <p class="text-center text-[10px] text-gray-500 pt-2 font-medium">App Version: v1.7</p>
+        </div>
+
+
+        <!-- VIEW 8: MY PROFILE EDIT FORM (Screenshot 1000076496_2) -->
+        <div id="view-tab-edit-profile" class="viewport-tab hidden space-y-4">
+            <div class="flex items-center gap-3 border-b border-gray-800 pb-2">
+                <button onclick="SystemTabController.switchTab('profile')" class="text-gray-400 text-lg"><i class="fas fa-arrow-left"></i></button>
+                <h2 class="font-heading font-bold text-lg text-white">My Profile</h2>
+            </div>
+
+            <div class="space-y-3">
+                <input type="text" placeholder="Users Name" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+                <input type="email" placeholder="Email Address" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+                <input type="tel" placeholder="Mobile Number" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+
+                <h3 class="text-xs font-bold text-white pt-2">Change Password</h3>
+                <input type="password" placeholder="Old Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+                <input type="password" placeholder="New Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+                <input type="password" placeholder="Confirm Password" class="w-full bg-gray-300 text-black p-3 rounded-lg text-xs font-bold placeholder-gray-600 outline-none">
+
+                <button onclick="SystemToast.show('Profile Updated Successfully!')" class="w-full bg-black border border-gray-700 text-white font-black text-xs py-3 rounded-lg uppercase mt-4">
+                    CHANGE
+                </button>
+            </div>
+        </div>
+
     </main>
 
-    <!-- MODAL 1: ADD MONEY (UPI & QR) -->
-    <div id="modal-deposit" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-5 relative border border-cyber-cyan/40 text-center">
-            <button onclick="SystemWalletEngine.closeDepositModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
-            <h3 class="font-gaming text-3xl font-bold text-white leading-none">ADD MONEY (UPI)</h3>
-            <p class="text-[11px] text-slate-400 mb-3">Scan QR or Copy UPI ID & Payment karke UTR daalein</p>
-            
-            <!-- Dynamic QR Image -->
-            <div class="bg-white p-3 rounded-2xl w-44 h-44 mx-auto mb-3 flex items-center justify-center">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=yourupi@upi&pn=FetalRush" alt="UPI QR Code" class="w-full h-full object-contain">
-            </div>
 
-            <div class="bg-black/60 border border-slate-800 p-2.5 rounded-xl mb-3 flex items-center justify-between text-xs">
-                <span class="text-cyber-cyan font-mono font-bold">yourupi@upi</span>
-                <button onclick="navigator.clipboard.writeText('yourupi@upi'); SystemToast.show('UPI ID Copied!');" class="bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/40 px-2 py-1 rounded text-[10px] font-bold">COPY</button>
-            </div>
-
-            <div class="space-y-2">
-                <input type="number" id="dep-amount" placeholder="Amount Paid (₹)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                <input type="text" id="dep-utr" placeholder="UTR / Ref Number" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                <button onclick="SystemWalletEngine.submitDeposit()" class="w-full btn-gradient-cyan py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">SUBMIT PAYMENT</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 2: WITHDRAW MONEY -->
-    <div id="modal-withdraw" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-5 relative border border-cyber-accent/40 text-center">
-            <button onclick="SystemWalletEngine.closeWithdrawModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
-            <h3 class="font-gaming text-3xl font-bold text-white leading-none">WITHDRAW WINNINGS</h3>
-            <p class="text-[11px] text-slate-400 mb-4">Transfer money instantly to your UPI</p>
-
-            <div class="space-y-2">
-                <input type="text" id="wit-upi" placeholder="Enter UPI ID (e.g. 9876543210@upi)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                <input type="number" id="wit-amount" placeholder="Amount (₹)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white">
-                <button onclick="SystemWalletEngine.submitWithdraw()" class="w-full btn-gradient-accent py-2.5 rounded-xl text-xs font-heading font-extrabold uppercase">REQUEST WITHDRAWAL</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 3: AUTHENTICATION (LOGIN) -->
-    <div id="modal-auth" class="fixed inset-0 bg-black/90 backdrop-blur-2xl z-50 flex items-center justify-center p-4 hidden">
-        <div class="glass-panel-glow w-full max-w-sm rounded-3xl p-6 relative border border-cyber-cyan/40">
-            <button onclick="SystemModalController.closeAuthModal()" class="absolute top-4 right-4 text-slate-500 hover:text-white text-sm"><i class="fas fa-times"></i></button>
-            <div class="text-center mb-5">
-                <h3 class="font-gaming text-3xl font-bold text-white leading-none">PLAYER LOGIN</h3>
-                <p class="text-[11px] text-slate-400">Enter your login details</p>
-            </div>
-            <div class="space-y-3">
-                <input type="email" id="auth-email" placeholder="admin@fetalrush.com or player@gmail.com" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
-                <input type="password" id="auth-pass" placeholder="Password (admin123 for admin)" class="w-full bg-black/60 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-white">
-                <button onclick="SystemAuthEngine.login()" class="w-full btn-gradient-cyan py-3 rounded-xl text-xs font-heading font-extrabold uppercase">LOGIN NOW</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- NAVIGATION BAR -->
-    <nav class="fixed bottom-0 left-0 right-0 glass-panel border-t border-cyber-border py-2 px-6 z-40">
-        <div class="max-w-md mx-auto flex justify-between items-center">
-            <button onclick="SystemTabController.switchTab('home')" id="nav-home" class="flex flex-col items-center gap-1 active-tab-icon text-slate-500">
-                <i class="fas fa-fire text-lg"></i><span class="text-[9px] font-heading font-bold active-tab-text">HOME</span>
+    <!-- BOTTOM NAVIGATION (Screenshots Match) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-arena-card border-t border-gray-800 py-2 px-4 z-40">
+        <div class="max-w-md mx-auto flex justify-between items-center text-gray-400">
+            <button onclick="SystemToast.show('Offers')" id="nav-offer" class="flex flex-col items-center gap-0.5">
+                <i class="fas fa-percent text-sm"></i><span class="text-[9px] font-bold">Offer</span>
             </button>
-            <button onclick="SystemTabController.switchTab('matches')" id="nav-matches" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fas fa-trophy text-lg"></i><span class="text-[9px] font-heading font-bold">MATCHES</span>
+            <button onclick="SystemToast.show('Ranking')" id="nav-ranking" class="flex flex-col items-center gap-0.5">
+                <i class="fas fa-star text-sm"></i><span class="text-[9px] font-bold">Ranking</span>
             </button>
-            <button onclick="SystemTabController.switchTab('ranks')" id="nav-ranks" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fas fa-chart-line text-lg"></i><span class="text-[9px] font-heading font-bold">RANKS</span>
+            <button onclick="SystemTabController.switchTab('home')" id="nav-home" class="flex flex-col items-center gap-0.5 text-arena-red">
+                <i class="fas fa-home text-sm"></i><span class="text-[9px] font-bold">Home</span>
             </button>
-            <button onclick="SystemTabController.switchTab('profile')" id="nav-profile" class="flex flex-col items-center gap-1 text-slate-500">
-                <i class="fas fa-user-shield text-lg"></i><span class="text-[9px] font-heading font-bold">PROFILE</span>
+            <button onclick="SystemTabController.switchTab('wallet')" id="nav-wallet" class="flex flex-col items-center gap-0.5">
+                <i class="fas fa-wallet text-sm"></i><span class="text-[9px] font-bold">Wallet</span>
+            </button>
+            <button onclick="SystemTabController.switchTab('profile')" id="nav-profile" class="flex flex-col items-center gap-0.5">
+                <i class="fas fa-user text-sm"></i><span class="text-[9px] font-bold">Profile</span>
             </button>
         </div>
     </nav>
 
-    <!-- CORE SCRIPT ENGINE -->
-    <script>
-        // Automatic Reset Key to flush out old hardcoded fake tournaments
-        const SYSTEM_VERSION = "v_clean_1.0";
-        if (localStorage.getItem("fr_sys_ver") !== SYSTEM_VERSION) {
-            localStorage.removeItem("fr_tournaments");
-            localStorage.setItem("fr_sys_ver", SYSTEM_VERSION);
-        }
 
-        const State = {
-            user: JSON.parse(localStorage.getItem('fr_user')) || null,
-            tournaments: JSON.parse(localStorage.getItem('fr_tournaments')) || [],
-            joinedMatches: JSON.parse(localStorage.getItem('fr_joined')) || [],
-            filter: 'ALL'
-        };
+    <!-- TOAST NOTIFICATION -->
+    <div id="toast" class="fixed top-4 left-1/2 -translate-x-1/2 bg-arena-purple text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50"></div>
+
+
+    <!-- JAVASCRIPT ENGINE -->
+    <script>
+        const State = { coins: 1.00, deposit: 0, winning: 0, bonus: 1.00 };
 
         const SystemToast = {
-            show: function(msg, title = "SYSTEM ALERT") {
-                document.getElementById('toast-title').innerText = title;
-                document.getElementById('toast-desc').innerText = msg;
-                const toast = document.getElementById('toast-container');
-                toast.classList.remove('-translate-y-32', 'opacity-0');
-                toast.classList.add('translate-y-0', 'opacity-100');
-                setTimeout(() => {
-                    toast.classList.remove('translate-y-0', 'opacity-100');
-                    toast.classList.add('-translate-y-32', 'opacity-0');
-                }, 3000);
+            show: function(msg) {
+                const toast = document.getElementById('toast');
+                toast.innerText = msg;
+                toast.classList.remove('opacity-0');
+                setTimeout(() => toast.classList.add('opacity-0'), 2500);
             }
         };
 
         const SystemTabController = {
             switchTab: function(tab) {
                 document.querySelectorAll('.viewport-tab').forEach(v => v.classList.add('hidden'));
-                document.querySelectorAll('nav button').forEach(b => {
-                    b.classList.remove('active-tab-icon');
-                    if (b.querySelector('span')) b.querySelector('span').classList.remove('active-tab-text');
-                });
-                document.getElementById('view-tab-' + tab).classList.remove('hidden');
-                const btn = document.getElementById('nav-' + tab);
-                if (btn) {
-                    btn.classList.add('active-tab-icon');
-                    if (btn.querySelector('span')) btn.querySelector('span').classList.add('active-tab-text');
-                }
-            }
-        };
-
-        const SystemModalController = {
-            openAuthModal: () => document.getElementById('modal-auth').classList.remove('hidden'),
-            closeAuthModal: () => document.getElementById('modal-auth').classList.add('hidden')
-        };
-
-        const SystemAuthEngine = {
-            login: function() {
-                const email = document.getElementById('auth-email').value.trim();
-                const pass = document.getElementById('auth-pass').value.trim();
-                if (!email || !pass) return SystemToast.show("Email & Password bharen!", "ERROR");
-
-                const isAdmin = (email.toLowerCase() === "admin@fetalrush.com" && pass === "admin123");
-                State.user = { email, isAdmin, balance: State.user ? State.user.balance : 0 };
-                localStorage.setItem('fr_user', JSON.stringify(State.user));
-
-                SystemUIRenderer.renderUser();
-                SystemModalController.closeAuthModal();
-                SystemToast.show(isAdmin ? "Welcome Admin!" : "Logged in successfully!");
-            },
-            logout: function() {
-                State.user = null;
-                localStorage.removeItem('fr_user');
-                SystemUIRenderer.renderUser();
-                SystemToast.show("Logged out.");
-            }
-        };
-
-        const SystemAdminEngine = {
-            addTournament: function() {
-                const title = document.getElementById('adm-title').value.trim();
-                const game = document.getElementById('adm-game').value;
-                const type = document.getElementById('adm-type').value.trim() || 'SOLO';
-                const fee = parseFloat(document.getElementById('adm-fee').value);
-                const prize = parseFloat(document.getElementById('adm-prize').value);
-                const time = document.getElementById('adm-time').value.trim() || 'TBA';
-
-                if (!title || isNaN(fee) || isNaN(prize)) return SystemToast.show("Sabhi details sahi se daalein!", "ERROR");
-
-                const newMatch = { id: Date.now(), title, game, type, fee, prize, time, roomId: '', roomPass: '' };
-                State.tournaments.push(newMatch);
-                localStorage.setItem('fr_tournaments', JSON.stringify(State.tournaments));
-
-                SystemUIRenderer.renderTournaments();
-                SystemToast.show("Naya Match Successfully Add ho gaya!");
-            },
-            updateRoomCreds: function() {
-                const id = document.getElementById('adm-match-select').value;
-                const roomId = document.getElementById('adm-room-id').value.trim();
-                const roomPass = document.getElementById('adm-room-pass').value.trim();
-
-                if (!id || !roomId || !roomPass) return SystemToast.show("Match Select karke Room ID & Pass bharen!", "ERROR");
-
-                const match = State.tournaments.find(m => m.id == id);
-                if (match) {
-                    match.roomId = roomId;
-                    match.roomPass = roomPass;
-                    localStorage.setItem('fr_tournaments', JSON.stringify(State.tournaments));
-
-                    State.joinedMatches.forEach(j => { if (j.id == id) { j.roomId = roomId; j.roomPass = roomPass; } });
-                    localStorage.setItem('fr_joined', JSON.stringify(State.joinedMatches));
-
-                    SystemUIRenderer.renderJoined();
-                    SystemToast.show("Room ID & Pass Successfully Publish ho gaye!");
-                }
-            }
-        };
-
-        const SystemTournamentEngine = {
-            filterCategory: function(cat) {
-                State.filter = cat;
-                SystemUIRenderer.renderTournaments();
-            },
-            joinMatch: function(id) {
-                if (!State.user) return SystemModalController.openAuthModal();
-                const match = State.tournaments.find(m => m.id == id);
-                if (!match) return;
-
-                if (State.user.balance < match.fee) return SystemToast.show("Wallet me balance kam hai! Pehle Add Money karein.", "LOW BALANCE");
-                if (State.joinedMatches.some(j => j.id == id)) return SystemToast.show("Aap pehle se is match me joined hain!");
-
-                State.user.balance -= match.fee;
-                localStorage.setItem('fr_user', JSON.stringify(State.user));
-
-                State.joinedMatches.push(match);
-                localStorage.setItem('fr_joined', JSON.stringify(State.joinedMatches));
-
-                SystemUIRenderer.renderUser();
-                SystemUIRenderer.renderJoined();
-                SystemToast.show("Tournament Slot Successfully Joined!");
+                const target = document.getElementById('view-tab-' + tab);
+                if(target) target.classList.remove('hidden');
+                
+                // Navigation Active Highlight Toggle
+                document.querySelectorAll('nav button').forEach(b => b.classList.remove('text-arena-red'));
+                const activeNav = document.getElementById('nav-' + tab);
+                if(activeNav) activeNav.classList.add('text-arena-red');
             }
         };
 
         const SystemWalletEngine = {
-            openDepositModal: () => State.user ? document.getElementById('modal-deposit').classList.remove('hidden') : SystemModalController.openAuthModal(),
-            closeDepositModal: () => document.getElementById('modal-deposit').classList.add('hidden'),
-            submitDeposit: function() {
-                const amt = parseFloat(document.getElementById('dep-amount').value);
-                const utr = document.getElementById('dep-utr').value.trim();
-                if (isNaN(amt) || !utr) return SystemToast.show("Amount aur UTR Ref Number daalein!", "ERROR");
-
-                State.user.balance += amt;
-                localStorage.setItem('fr_user', JSON.stringify(State.user));
-                SystemUIRenderer.renderUser();
-                this.closeDepositModal();
-                SystemToast.show("Deposit successful! Balance added.");
+            buyCoins: function(amount) {
+                State.coins += amount;
+                State.deposit += amount;
+                this.updateUI();
+                SystemToast.show(`Added ${amount} Coins to Fatal Rush Wallet!`);
             },
-            openWithdrawModal: () => State.user ? document.getElementById('modal-withdraw').classList.remove('hidden') : SystemModalController.openAuthModal(),
-            closeWithdrawModal: () => document.getElementById('modal-withdraw').classList.add('hidden'),
-            submitWithdraw: function() {
-                const upi = document.getElementById('wit-upi').value.trim();
-                const amt = parseFloat(document.getElementById('wit-amount').value);
-                if (!upi || isNaN(amt)) return SystemToast.show("UPI ID & Amount enter karein!", "ERROR");
-                if (amt > State.user.balance) return SystemToast.show("Wallet me itna balance nahi hai!", "ERROR");
-
-                State.user.balance -= amt;
-                localStorage.setItem('fr_user', JSON.stringify(State.user));
-                SystemUIRenderer.renderUser();
-                this.closeWithdrawModal();
-                SystemToast.show("Withdrawal request submit ho gayi!");
+            processWithdraw: function(coinsReq, inrVal, method) {
+                if(State.coins < coinsReq) {
+                    return SystemToast.show("Paryapt coins nahi hain!");
+                }
+                State.coins -= coinsReq;
+                this.updateUI();
+                SystemToast.show(`Withdraw Request: ${inrVal} INR via ${method} submitted!`);
+            },
+            updateUI: function() {
+                document.getElementById('hdr-coins').innerText = State.coins.toFixed(2);
+                document.getElementById('wlt-total').innerText = State.coins.toFixed(2);
+                document.getElementById('wlt-dep').innerText = State.deposit;
+                document.getElementById('wlt-win').innerText = State.winning;
+                document.getElementById('wlt-bon').innerText = State.bonus.toFixed(2);
             }
         };
 
-        const SystemUIRenderer = {
-            renderUser: function() {
-                if (State.user) {
-                    document.getElementById('header-auth-label').innerText = "LOGOUT";
-                    document.getElementById('header-auth-btn').onclick = SystemAuthEngine.logout;
-                    document.getElementById('header-balance').innerText = State.user.balance.toFixed(2);
-                    document.getElementById('profile-balance').innerText = State.user.balance.toFixed(2);
-
-                    if (State.user.isAdmin) {
-                        document.getElementById('profile-name').innerText = "MASTER ADMIN";
-                        document.getElementById('profile-role').innerText = "Full Control Access";
-                        document.getElementById('admin-control-panel').classList.remove('hidden');
-                    } else {
-                        document.getElementById('profile-name').innerText = State.user.email.split('@')[0].toUpperCase();
-                        document.getElementById('profile-role').innerText = "Verified Gamer";
-                        document.getElementById('admin-control-panel').classList.add('hidden');
-                    }
-                } else {
-                    document.getElementById('header-auth-label').innerText = "LOGIN";
-                    document.getElementById('header-auth-btn').onclick = SystemModalController.openAuthModal;
-                    document.getElementById('header-balance').innerText = "0.00";
-                    document.getElementById('profile-balance').innerText = "0.00";
-                    document.getElementById('profile-name').innerText = "GUEST PLAYER";
-                    document.getElementById('profile-role').innerText = "Status: Not Logged In";
-                    document.getElementById('admin-control-panel').classList.add('hidden');
-                }
-            },
-            renderTournaments: function() {
-                const container = document.getElementById('dynamic-tournament-list');
-                const fallback = document.getElementById('no-tournaments-fallback');
-                const admSelect = document.getElementById('adm-match-select');
-
-                container.innerHTML = "";
-                admSelect.innerHTML = '<option value="">Select Created Match</option>';
-
-                let list = State.tournaments;
-                if (State.filter !== 'ALL') {
-                    list = list.filter(m => m.game === State.filter);
-                }
-
-                document.getElementById('active-match-count').innerText = list.length + " ACTIVE";
-
-                if (list.length === 0) {
-                    fallback.classList.remove('hidden');
-                    return;
-                }
-                fallback.classList.add('hidden');
-
-                list.forEach(match => {
-                    const opt = document.createElement('option');
-                    opt.value = match.id;
-                    opt.innerText = match.title;
-                    admSelect.appendChild(opt);
-
-                    const card = document.createElement('div');
-                    card.className = "glass-panel rounded-3xl p-4 border border-cyber-border";
-                    card.innerHTML = `
-                        <div class="flex justify-between items-center mb-2">
-                            <span class="bg-cyber-cyan/20 text-cyber-cyan border border-cyber-cyan/30 text-[10px] font-heading font-extrabold px-2 py-0.5 rounded uppercase">${match.game} • ${match.type}</span>
-                            <span class="text-xs text-cyber-gold font-heading font-bold">ENTRY: ₹${match.fee}</span>
-                        </div>
-                        <h4 class="font-heading font-bold text-lg text-white mb-1">${match.title}</h4>
-                        <div class="flex items-center justify-between text-xs text-slate-400 mb-3">
-                            <span>PRIZE: <strong class="text-cyber-emerald font-bold">₹${match.prize}</strong></span>
-                            <span>TIME: <strong class="text-cyber-cyan font-bold">${match.time}</strong></span>
-                        </div>
-                        <button onclick="SystemTournamentEngine.joinMatch(${match.id})" class="w-full btn-gradient-cyan py-2.5 rounded-2xl text-xs font-heading font-extrabold uppercase">JOIN TOURNAMENT</button>
-                    `;
-                    container.appendChild(card);
-                });
-            },
-            renderJoined: function() {
-                const container = document.getElementById('dynamic-joined-list');
-                container.innerHTML = "";
-
-                if (State.joinedMatches.length === 0) {
-                    container.innerHTML = `<div class="glass-panel p-8 rounded-3xl text-center text-slate-400 text-xs">Aapne abhi tak koi match join nahi kiya hai.</div>`;
-                    return;
-                }
-
-                State.joinedMatches.forEach(match => {
-                    const card = document.createElement('div');
-                    card.className = "glass-panel p-4 rounded-3xl border border-cyber-cyan/40";
-                    let creds = match.roomId ? `
-                        <div class="mt-2 bg-black/80 p-3 rounded-2xl border border-cyber-emerald/50 text-xs">
-                            <span class="text-[10px] text-cyber-emerald font-bold block mb-1">ROOM DETAILS RELEASED</span>
-                            <div>ROOM ID: <strong class="text-cyber-cyan font-mono">${match.roomId}</strong></div>
-                            <div>PASSWORD: <strong class="text-cyber-cyan font-mono">${match.roomPass}</strong></div>
-                        </div>
-                    ` : `<div class="mt-2 text-[10px] text-cyber-gold font-heading">Room ID & Password match ke waqt yahin show honge.</div>`;
-
-                    card.innerHTML = `<h4 class="font-heading font-bold text-base text-white">${match.title}</h4>${creds}`;
-                    container.appendChild(card);
-                });
-            }
-        };
-
-        window.addEventListener('DOMContentLoaded', () => {
-            SystemUIRenderer.renderUser();
-            SystemUIRenderer.renderTournaments();
-            SystemUIRenderer.renderJoined();
+        // Render TranzUPI Tier List Dynamically (Screenshot 1000076481_2)
+        const tiers = [10, 15, 20, 25, 30, 35, 40, 45, 50, 80, 100, 200, 500];
+        const tierContainer = document.getElementById('buy-coins-tier-list');
+        tiers.forEach(amt => {
+            const card = document.createElement('div');
+            card.className = "bg-white p-3 rounded-xl flex items-center justify-between text-black shadow border border-gray-200";
+            card.innerHTML = `
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-black flex items-center justify-center text-green-400 font-bold text-xs">UPI</div>
+                    <div>
+                        <span class="text-xs font-black block">TranzUPI</span>
+                        <span class="text-[9px] text-gray-500 font-bold">${amt} INR = ${amt} COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</span>
+                    </div>
+                </div>
+                <button onclick="SystemWalletEngine.buyCoins(${amt})" class="text-red-600 font-black text-xs uppercase">${amt} COINS</button>
+            `;
+            tierContainer.appendChild(card);
         });
     </script>
 </body>
