@@ -131,7 +131,7 @@
             position: relative;
             z-index: 2;
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
+            grid-template-columns: repeat(3, 1fr);
             gap: 6px;
             width: 100%;
             max-width: 440px;
@@ -150,7 +150,7 @@
         }
 
         .badge-item i { font-size: 1rem; color: #ff2a5f; }
-        .badge-item span { font-size: 0.52rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; line-height: 1.1; }
+        .badge-item span { font-size: 0.55rem; font-weight: 700; color: #cbd5e1; text-transform: uppercase; line-height: 1.1; }
 
         .btn-welcome {
             position: relative;
@@ -243,83 +243,67 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Profile Special Cards (Matching Screenshot 1000076528_2.png) */
-        .profile-user-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 16px;
+        /* Profile Page Header & Card - Ref Image 1000076599 */
+        .profile-hero {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 14px;
+            padding: 10px 0 16px;
         }
 
-        .avatar-box {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #10b981, #06b6d4);
-            border-radius: 12px;
+        .profile-avatar-circle {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: #ff758c;
+            border: 4px solid #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.8rem;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
+            margin-bottom: 10px;
         }
 
-        .user-details h3 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
-        .user-details p { font-size: 0.8rem; color: var(--text-sub); }
+        .profile-avatar-circle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-        .stats-summary-card {
-            background: #13172b;
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 14px 10px;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            text-align: center;
+        .user-name-text {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+
+        .kyc-verified-badge {
+            color: var(--accent-green);
+            font-weight: 700;
+            font-size: 0.85rem;
             margin-bottom: 16px;
         }
 
+        .stats-summary-card {
+            background: #111322;
+            border: 1px solid #1f2438;
+            border-radius: 12px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            text-align: center;
+            margin-bottom: 18px;
+        }
+
         .stat-item {
-            border-right: 1px solid var(--card-border);
+            border-right: 1px solid #23283d;
             padding: 0 4px;
         }
         .stat-item:last-child { border-right: none; }
 
-        .stat-num { font-size: 1.1rem; font-weight: 800; color: #fff; }
-        .stat-label { font-size: 0.65rem; color: var(--text-sub); font-weight: 600; margin-top: 4px; }
-
-        .toggle-switch-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 12px 14px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .toggle-switch {
-            position: relative;
-            display: inline-block;
-            width: 42px;
-            height: 22px;
-        }
-
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .slider {
-            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: #334155; transition: .4s; border-radius: 34px;
-        }
-        .slider:before {
-            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
-            background-color: white; transition: .4s; border-radius: 50%;
-        }
-        input:checked + .slider { background-color: var(--primary-red); }
-        input:checked + .slider:before { transform: translateX(20px); }
+        .stat-num { font-size: 1.3rem; font-weight: 800; color: #fff; }
+        .stat-label { font-size: 0.7rem; color: var(--text-sub); font-weight: 600; margin-top: 4px; }
 
         /* General UI Elements */
         .hero-banner {
@@ -414,42 +398,76 @@
             text-transform: uppercase;
         }
 
-        .menu-list { display: flex; flex-direction: column; gap: 8px; }
+        .menu-list { display: flex; flex-direction: column; gap: 10px; }
         .menu-item {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            padding: 12px 14px;
-            border-radius: 8px;
+            background: #111322;
+            border: 1px solid #1f2438;
+            padding: 14px 16px;
+            border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
         .menu-item-left { display: flex; align-items: center; gap: 12px; }
-        .menu-item-left i { font-size: 1rem; color: #94a3b8; width: 20px; text-align: center; }
+        .menu-item-left i { font-size: 1.1rem; color: #ff2a5f; width: 22px; text-align: center; }
 
-        .social-btn-whatsapp {
-            background: #128C7E; color: #fff; padding: 12px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: bold; font-size: 0.85rem; text-decoration: none; margin-bottom: 8px;
+        /* Wallet Screen Custom Grid - Ref Image 1000076591 */
+        .wallet-stat-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 20px;
         }
 
-        .social-btn-insta {
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: #fff; padding: 12px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center; gap: 10px;
-            font-weight: bold; font-size: 0.85rem; text-decoration: none;
+        .wallet-box-small {
+            background: #fff;
+            color: #000;
+            border-radius: 10px;
+            padding: 12px 4px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
 
-        /* Bottom Nav */
+        .wallet-box-small .val { font-size: 1.2rem; font-weight: 800; color: #000; display: flex; align-items: center; justify-content: center; gap: 4px; }
+        .wallet-box-small .label { font-size: 0.7rem; font-weight: 700; color: #444; margin-top: 2px; }
+
+        .wallet-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .wallet-action-btn {
+            background: #fff;
+            color: #333;
+            border-radius: 12px;
+            padding: 16px 6px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .wallet-action-btn i { font-size: 1.5rem; color: #ff2a5f; }
+        .wallet-action-btn span { font-size: 0.7rem; font-weight: 700; line-height: 1.1; }
+
+        /* Bottom Nav - Matches Ref Image 1000076599 */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
             max-width: 480px;
-            background: #0d0f17;
+            background: #090a12;
             border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
@@ -507,15 +525,36 @@
             border-radius: 12px;
             padding: 20px;
             width: 100%;
-            max-width: 360px;
+            max-width: 380px;
+            max-height: 85vh;
+            overflow-y: auto;
         }
 
-        .modal-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--primary-red); }
+        .modal-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--primary-red); display: flex; align-items: center; justify-content: space-between; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 4px; }
         .form-input { width: 100%; background: #0a0b10; border: 1px solid var(--card-border); padding: 10px; border-radius: 6px; color: #fff; font-size: 0.85rem; }
         .btn-submit { width: 100%; background: var(--primary-red); color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn-close { background: transparent; color: var(--text-sub); border: none; margin-top: 8px; cursor: pointer; width: 100%; font-size: 0.8rem; }
+        
+        /* Floating Support Dial Button */
+        .floating-support-btn {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-red);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 4px 15px rgba(255,42,95,0.6);
+            cursor: pointer;
+            z-index: 90;
+        }
     </style>
 </head>
 <body>
@@ -539,8 +578,8 @@
             <div class="badge-item"><i class="fa-solid fa-award"></i><span>INDIA'S NO.1 PLATFORM</span></div>
             <div class="badge-item"><i class="fa-solid fa-star"></i><span>PLAYERS BEST RATINGS</span></div>
             <div class="badge-item"><i class="fa-solid fa-wallet"></i><span>INSTANT WITHDRAWAL</span></div>
-            <div class="badge-item"><i class="fa-solid fa-headset"></i><span>24/7 CUSTOMER SUPPORT</span></div>
-            <div class="badge-item"><i class="fa-solid fa-scale-balanced"></i><span>FAIR PLAY ALWAYS</span></div>
+            <div class="badge-item"><i class="fa-solid fa-headset"></i><span>24/7 SUPPORT</span></div>
+            <div class="badge-item"><i class="fa-solid fa-scale-balanced"></i><span>FAIR PLAY</span></div>
             <div class="badge-item"><i class="fa-solid fa-shield-halved"></i><span>SAFE & TRUSTED</span></div>
         </div>
 
@@ -550,6 +589,11 @@
     <!-- Toast Notification -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
+    </div>
+
+    <!-- Floating Support Button (Ref Image 1000076599) -->
+    <div class="floating-support-btn" onclick="openWhatsApp()">
+        <i class="fa-solid fa-headset"></i>
     </div>
 
     <!-- Main Container -->
@@ -564,7 +608,7 @@
             </div>
         </header>
 
-        <!-- Marquee -->
+        <!-- Marquee Announcement -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -590,18 +634,19 @@
             <div id="tournament-list"></div>
         </div>
 
-        <!-- OFFER TAB -->
+        <!-- OFFER / REFER TAB -->
         <div id="tab-offer" class="tab-content">
-            <div class="section-title">Special Offers</div>
+            <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
-                <i class="fa-solid fa-gift" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;"></i>
-                <h3 style="margin-bottom: 6px;">Refer & Earn</h3>
-                <span style="background: var(--primary-red); color: #fff; font-size: 0.7rem; padding: 2px 10px; border-radius: 12px; font-weight: bold;">COMING SOON! 🚀</span>
-                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 12px;">Referral rewards system is launching soon in the next update.</p>
+                <i class="fa-solid fa-users" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;"></i>
+                <h3 style="margin-bottom: 6px;">Invite Friends & Get Bonus</h3>
+                <span style="background: var(--primary-red); color: #fff; font-size: 0.7rem; padding: 2px 10px; border-radius: 12px; font-weight: bold;">REFERRAL ACTIVE</span>
+                <p style="font-size: 0.8rem; color: var(--text-sub); margin-top: 12px; margin-bottom: 15px;">Share your referral link and earn 10 Bonus Coins for every friend who joins.</p>
+                <button class="btn-action" onclick="shareApp()">SHARE REFERRAL LINK</button>
             </div>
         </div>
 
-        <!-- RANKING TAB -->
+        <!-- RANKING TAB (Ref Image 1000076589) -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card">
@@ -613,49 +658,64 @@
             </div>
         </div>
 
-        <!-- WALLET TAB -->
+        <!-- WALLET TAB (Ref Image 1000076591) -->
         <div id="tab-wallet" class="tab-content">
-            <div class="section-title">My Wallet</div>
-            <div class="wallet-card" style="text-align: center;">
-                <span style="font-size: 0.75rem; color: var(--text-sub);">TOTAL BALANCE</span>
-                <h2 style="font-size: 1.8rem; color: var(--gold); margin: 6px 0;"><span id="wallet-coins">0</span> Coins</h2>
-                <div style="display: flex; gap: 10px; margin-top: 14px;">
-                    <button class="btn-action" onclick="openAddCoinsModal(0)">+ Add Money</button>
-                    <button class="btn-action" style="background: var(--card-border); color: #fff;" onclick="openWithdrawModal()">Withdraw</button>
+            <div style="background: #8b8e99; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <i class="fa-solid fa-coins" style="font-size: 2rem; color: var(--gold);"></i>
+                    <span style="font-size: 2.2rem; font-weight: 900;" id="wallet-coins">0</span>
+                </div>
+
+                <div class="wallet-stat-cards">
+                    <div class="wallet-box-small">
+                        <div class="val"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.9rem;"></i> <span id="deposit-coins">0</span></div>
+                        <div class="label">Deposited</div>
+                    </div>
+                    <div class="wallet-box-small">
+                        <div class="val"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.9rem;"></i> <span id="winning-coins">0</span></div>
+                        <div class="label">Winning</div>
+                    </div>
+                    <div class="wallet-box-small">
+                        <div class="val"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.9rem;"></i> <span id="bonus-coins">0</span></div>
+                        <div class="label">Bonus</div>
+                    </div>
                 </div>
             </div>
 
-            <div class="section-title">Fast Recharge Packages</div>
-            <div class="menu-list">
-                <div class="menu-item" onclick="openAddCoinsModal(10)">
-                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 10 Coins</span>
-                    <strong>₹10</strong>
+            <div class="wallet-actions-grid">
+                <div class="wallet-action-btn" onclick="openAddCoinsModal(0)">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Add Coins</span>
                 </div>
-                <div class="menu-item" onclick="openAddCoinsModal(50)">
-                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 50 Coins</span>
-                    <strong>₹50</strong>
+                <div class="wallet-action-btn" onclick="openWithdrawModal()">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Withdraw Coins</span>
                 </div>
-                <div class="menu-item" onclick="openAddCoinsModal(100)">
-                    <span><i class="fa-solid fa-coins" style="color: var(--gold);"></i> 100 Coins</span>
-                    <strong>₹100</strong>
+                <div class="wallet-action-btn" onclick="openTransactionsModal()">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Transactions</span>
+                </div>
+            </div>
+
+            <div style="display: flex; justify-content: center; margin-top: 10px;">
+                <div class="wallet-action-btn" style="width: 48%;" onclick="openWithdrawModal()">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span>Emergency Withdraw Coins</span>
                 </div>
             </div>
         </div>
 
-        <!-- PROFILE TAB (EXACT REPLICA OF SCREENSHOT 1000076528_2.png) -->
+        <!-- PROFILE TAB (Ref Image 1000076599) -->
         <div id="tab-profile" class="tab-content">
-            <!-- User Profile Header Box -->
-            <div class="profile-user-card">
-                <div class="avatar-box">
-                    <i class="fa-solid fa-bolt"></i>
+            <div class="profile-hero">
+                <div class="profile-avatar-circle">
+                    <i class="fa-solid fa-user-astronaut" style="font-size: 3rem; color: #fff;"></i>
                 </div>
-                <div class="user-details">
-                    <h3 id="display-username">Username : naitikrajput</h3>
-                    <p>Balance : <span style="color: var(--gold); font-weight: bold;">🪙 <span id="display-balance">0.0</span></span></p>
-                </div>
+                <div class="user-name-text" id="display-username">Name : naitikrajput</div>
+                <div class="kyc-verified-badge"><i class="fa-solid fa-circle-check"></i> Kyc Verified</div>
             </div>
 
-            <!-- Stats Summary Grid -->
+            <!-- Stats Bar matching Ref Image 1000076599 -->
             <div class="stats-summary-card">
                 <div class="stat-item">
                     <div class="stat-num" id="stat-matches">0</div>
@@ -663,130 +723,187 @@
                 </div>
                 <div class="stat-item">
                     <div class="stat-num" id="stat-kills">0</div>
-                    <div class="stat-label">Total Killed</div>
+                    <div class="stat-label">Total Kills</div>
                 </div>
                 <div class="stat-item">
-                    <div class="stat-num" style="color: var(--gold);">🪙 <span id="stat-won">0</span></div>
-                    <div class="stat-label">Amount Won</div>
+                    <div class="stat-num" style="color: #00d2ff;"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.9rem;"></i> <span id="stat-won">0</span></div>
+                    <div class="stat-label">PlayCoin Won</div>
                 </div>
             </div>
 
-            <!-- Social Links -->
-            <div style="margin-bottom: 12px;">
-                <a href="https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z" target="_blank" class="social-btn-whatsapp">
-                    <i class="fa-brands fa-whatsapp"></i> Join WhatsApp Channel
-                </a>
-                <a href="https://www.instagram.com/fatal_rush_esports?igsh=MW45ejJvcHh4MWx6Zw==" target="_blank" class="social-btn-insta">
-                    <i class="fa-brands fa-instagram"></i> Follow on Instagram
-                </a>
-            </div>
-
-            <!-- Push Notification Toggle Switch -->
-            <div class="toggle-switch-item">
-                <div class="menu-item-left">
-                    <i class="fa-solid fa-bell"></i>
-                    <span>Push Notification</span>
-                </div>
-                <label class="toggle-switch">
-                    <input type="checkbox" checked id="push-toggle">
-                    <span class="slider"></span>
-                </label>
-            </div>
-
-            <!-- Complete List Items as in Screenshot -->
+            <!-- Exact Menu Items matching Ref Image 1000076599 -->
             <div class="menu-list">
-                <div class="menu-item" onclick="openEditProfileModal()">
-                    <div class="menu-item-left"><i class="fa-solid fa-circle-user"></i><span>My Profile</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                <div class="menu-item" onclick="openMyProfileModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-user"></i><span>My Profile</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
                 <div class="menu-item" onclick="switchTab('wallet')">
                     <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="showToast('My Matches section loading...')">
-                    <div class="menu-item-left"><i class="fa-solid fa-gamepad"></i><span>My Matches</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                <div class="menu-item" onclick="openMyStaticsModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-chart-column"></i><span>My Statics</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="showToast('No orders placed yet.')">
-                    <div class="menu-item-left"><i class="fa-solid fa-cart-shopping"></i><span>My Order</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="showToast('My Statistics coming soon.')">
-                    <div class="menu-item-left"><i class="fa-solid fa-chart-simple"></i><span>My Statistics</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="showToast('No active rewards right now.')">
-                    <div class="menu-item-left"><i class="fa-solid fa-gift"></i><span>My Rewards</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                <div class="menu-item" onclick="switchTab('ranking')">
+                    <div class="menu-item-left"><i class="fa-solid fa-trophy"></i><span>Top Players</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
                 <div class="menu-item" onclick="switchTab('offer')">
-                    <div class="menu-item-left"><i class="fa-solid fa-users"></i><span>My Referrals</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                    <div class="menu-item-left"><i class="fa-solid fa-user-plus"></i><span>Refer & Earn</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="showToast('No new announcements.')">
-                    <div class="menu-item-left"><i class="fa-solid fa-flag"></i><span>Announcement</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="switchTab('ranking')">
-                    <div class="menu-item-left"><i class="fa-solid fa-star"></i><span>Top Players</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="switchTab('ranking')">
-                    <div class="menu-item-left"><i class="fa-solid fa-bars-staggered"></i><span>Leaderboard</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="showToast('App Tutorial: Select a match, join using coins & play!')">
-                    <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>App Tutorial</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="showToast('Fatal Rush Esports v1.0.5')">
-                    <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About us</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                <div class="menu-item" onclick="showToast('No new notifications.')">
+                    <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Notifications</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
                 <div class="menu-item" onclick="openWhatsApp()">
-                    <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Customer Support</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                    <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Contact Us</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="shareApp()">
-                    <div class="menu-item-left"><i class="fa-solid fa-share-nodes"></i><span>Share App</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                <div class="menu-item" onclick="openFAQModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="showToast('Terms & Conditions: Fair Play Mandatory')">
+                <div class="menu-item" onclick="openAboutModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About Us</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+                <div class="menu-item" onclick="openTermsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-file-contract"></i><span>Terms & Conditions</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="showToast('Language: English (Default)')">
-                    <div class="menu-item-left"><i class="fa-solid fa-globe"></i><span>Change Language</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-                <div class="menu-item" onclick="handleSecretTap()">
-                    <div class="menu-item-left"><i class="fa-solid fa-power-off" style="color:var(--primary-red);"></i><span style="color:var(--primary-red);">Logout</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.7rem;"></i>
-                </div>
-            </div>
-
-            <!-- Version Footer -->
-            <div style="text-align: center; color: var(--text-sub); font-size: 0.75rem; margin-top: 16px; font-weight: 600;">
-                Version : 3
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
+        <!-- Bottom Navigation (Ref Image 1000076599) -->
         <nav class="bottom-nav">
+            <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
+            <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
             <div class="nav-item active" onclick="switchTab('home')" id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></div>
-            <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-tag"></i><span>Offer</span></div>
-            <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-trophy"></i><span>Ranking</span></div>
             <div class="nav-item" onclick="switchTab('wallet')" id="nav-wallet"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
-            <div class="nav-item" onclick="switchTab('profile')" id="nav-profile"><i class="fa-solid fa-user"></i><span>Profile</span></div>
+            <div class="nav-item" onclick="switchTab('profile')" id="nav-profile"><i class="fa-solid fa-user-gear"></i><span>Profile</span></div>
         </nav>
 
+    </div>
+
+    <!-- MODAL: MY PROFILE (Ref Image 1000076590) -->
+    <div id="modal-my-profile" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>My Profile</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i>
+            </div>
+            <div class="form-group">
+                <label>Users Name</label>
+                <input type="text" id="edit-username" class="form-input" value="naitikrajput">
+            </div>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="edit-email" class="form-input" value="naitik@fatalrush.com">
+            </div>
+            <div class="form-group">
+                <label>Mobile Number</label>
+                <input type="text" id="edit-mobile" class="form-input" placeholder="Enter Mobile Number">
+            </div>
+
+            <div style="font-weight: 700; font-size: 0.9rem; margin: 15px 0 10px; color: #fff;">Change Password</div>
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Old Password">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="New Password">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-input" placeholder="Confirm Password">
+            </div>
+
+            <button class="btn-submit" style="background:#000; border:1px solid var(--card-border);" onclick="saveProfileDetails()">CHANGE</button>
+        </div>
+    </div>
+
+    <!-- MODAL: MY STATICS (Ref Image 1000076592) -->
+    <div id="modal-my-statics" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>My Statistics</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-my-statics')" style="cursor:pointer;"></i>
+            </div>
+            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-sub); border-bottom:1px solid var(--card-border); padding-bottom:8px; margin-bottom:12px;">
+                <span>#</span>
+                <span>Match Info</span>
+                <span>Paid</span>
+                <span>Won</span>
+            </div>
+            <div id="statics-list-content" style="text-align:center; padding:20px; font-size:0.8rem; color:var(--text-sub);">
+                No statistics records found.
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TRANSACTIONS -->
+    <div id="modal-transactions" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>Transactions History</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-transactions')" style="cursor:pointer;"></i>
+            </div>
+            <div id="transactions-list-content" style="text-align:center; padding:20px; font-size:0.8rem; color:var(--text-sub);">
+                No transactions recorded yet.
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: FAQ (Ref Image 1000076595) -->
+    <div id="modal-faq" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>FAQ</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i>
+            </div>
+            <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
+                <p style="margin-bottom:10px;"><strong>Q. What is Fatal Rush Esports?</strong><br>It is a dedicated app for organizing and participating in Free Fire and BGMI tournaments.</p>
+                <p style="margin-bottom:10px;"><strong>Q. How to register?</strong><br>Simply download the app, create an account, and join upcoming tournaments.</p>
+                <p style="margin-bottom:10px;"><strong>Q. Is there any entry fee?</strong><br>Some tournaments are free while others have a small entry fee in coins.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ABOUT US (Ref Image 1000076596) -->
+    <div id="modal-about" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>About Us</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i>
+            </div>
+            <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
+                Welcome To Fatal Rush Esports, the premier tournament platform designed for gamers. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TERMS & CONDITIONS (Ref Image 1000076598) -->
+    <div id="modal-terms" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title">
+                <span>Terms and Conditions</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-terms')" style="cursor:pointer;"></i>
+            </div>
+            <div style="font-size:0.8rem; color:#ccc; line-height:1.5;">
+                <p style="margin-bottom:8px;">1. Participants must follow Fair Play & Sportsmanship.</p>
+                <p style="margin-bottom:8px;">2. No cheating, hacking or emulator use allowed.</p>
+                <p style="margin-bottom:8px;">3. Entry fees are non-refundable once joined.</p>
+            </div>
+        </div>
     </div>
 
     <!-- MODAL: ADD COINS -->
     <div id="modal-deposit" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-title">Add Coins to Wallet</div>
-            <p style="font-size: 0.8rem; color: var(--text-sub); margin-bottom: 10px;">Pay via UPI & enter UTR Ref Number:</p>
+            <div class="modal-title">
+                <span>Add Coins to Wallet</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-deposit')" style="cursor:pointer;"></i>
+            </div>
             <div style="background:#0a0b10; padding:10px; border-radius:6px; font-weight:bold; color:var(--gold); font-size:0.85rem; margin-bottom:12px; text-align:center;">
                 UPI ID: fatalrush@upi
             </div>
@@ -799,14 +916,16 @@
                 <input type="text" id="deposit-utr" class="form-input" placeholder="Enter Ref / UTR No">
             </div>
             <button class="btn-submit" onclick="submitDeposit()">SUBMIT PAYMENT</button>
-            <button class="btn-close" onclick="closeModal('modal-deposit')">Cancel</button>
         </div>
     </div>
 
     <!-- MODAL: WITHDRAW -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-box">
-            <div class="modal-title">Withdraw Coins</div>
+            <div class="modal-title">
+                <span>Withdraw Coins</span>
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-withdraw')" style="cursor:pointer;"></i>
+            </div>
             <div class="form-group">
                 <label>Amount (Coins)</label>
                 <input type="number" id="withdraw-amount" class="form-input" placeholder="Minimum 50 Coins">
@@ -816,7 +935,6 @@
                 <input type="text" id="withdraw-upi" class="form-input" placeholder="user@upi">
             </div>
             <button class="btn-submit" onclick="submitWithdrawal()">REQUEST WITHDRAWAL</button>
-            <button class="btn-close" onclick="closeModal('modal-withdraw')">Cancel</button>
         </div>
     </div>
 
@@ -834,7 +952,7 @@
 
     <!-- MODAL: ADMIN CREATOR -->
     <div id="modal-admin-panel" class="modal-overlay">
-        <div class="modal-box" style="max-height: 80vh; overflow-y: auto;">
+        <div class="modal-box">
             <div class="modal-title">🛠️ Create Tournament</div>
             <div class="form-group"><label>Title</label><input type="text" id="adm-title" class="form-input" placeholder="Free Fire Solo #101"></div>
             <div class="form-group"><label>Mode</label><input type="text" id="adm-mode" class="form-input" placeholder="SOLO"></div>
@@ -849,14 +967,20 @@
     </div>
 
     <script>
+        // STRICT USER DATA DEFAULT 0 FOR NEW USERS
         let userData = JSON.parse(localStorage.getItem('fatal_user')) || { 
             name: "naitikrajput", 
             email: "naitik@fatalrush.com", 
+            mobile: "",
             coins: 0,
+            deposited: 0,
+            winning: 0,
+            bonus: 0,
             matches: 0,
             kills: 0,
             won: 0
         };
+
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let secretTapCount = 0;
 
@@ -886,14 +1010,17 @@
         }
 
         function updateUserUI() {
-            document.getElementById('display-username').innerText = "Username : " + userData.name;
-            document.getElementById('display-balance').innerText = userData.coins.toFixed(1);
+            document.getElementById('display-username').innerText = "Name : " + userData.name;
             document.getElementById('header-coins').innerText = userData.coins;
             document.getElementById('wallet-coins').innerText = userData.coins;
             
-            document.getElementById('stat-matches').innerText = userData.matches;
-            document.getElementById('stat-kills').innerText = userData.kills;
-            document.getElementById('stat-won').innerText = userData.won;
+            document.getElementById('deposit-coins').innerText = userData.deposited || 0;
+            document.getElementById('winning-coins').innerText = userData.winning || 0;
+            document.getElementById('bonus-coins').innerText = userData.bonus || 0;
+
+            document.getElementById('stat-matches').innerText = userData.matches || 0;
+            document.getElementById('stat-kills').innerText = userData.kills || 0;
+            document.getElementById('stat-won').innerText = userData.won || 0;
 
             localStorage.setItem('fatal_user', JSON.stringify(userData));
         }
@@ -943,6 +1070,28 @@
             }
         }
 
+        function openMyProfileModal() {
+            document.getElementById('edit-username').value = userData.name;
+            document.getElementById('edit-email').value = userData.email || "";
+            document.getElementById('edit-mobile').value = userData.mobile || "";
+            document.getElementById('modal-my-profile').style.display = 'flex';
+        }
+
+        function saveProfileDetails() {
+            userData.name = document.getElementById('edit-username').value;
+            userData.email = document.getElementById('edit-email').value;
+            userData.mobile = document.getElementById('edit-mobile').value;
+            updateUserUI();
+            closeModal('modal-my-profile');
+            showToast("Profile details updated!");
+        }
+
+        function openMyStaticsModal() { document.getElementById('modal-my-statics').style.display = 'flex'; }
+        function openTransactionsModal() { document.getElementById('modal-transactions').style.display = 'flex'; }
+        function openFAQModal() { document.getElementById('modal-faq').style.display = 'flex'; }
+        function openAboutModal() { document.getElementById('modal-about').style.display = 'flex'; }
+        function openTermsModal() { document.getElementById('modal-terms').style.display = 'flex'; }
+
         function openAddCoinsModal(pkgAmount) {
             if(pkgAmount > 0) document.getElementById('deposit-amount').value = pkgAmount;
             document.getElementById('modal-deposit').style.display = 'flex';
@@ -960,7 +1109,7 @@
             closeModal('modal-deposit');
             document.getElementById('deposit-amount').value = '';
             document.getElementById('deposit-utr').value = '';
-            showToast("Deposit submitted! Verification pending by Admin.");
+            showToast("Deposit submitted! Pending Admin Approval.");
         }
 
         function openWithdrawModal() {
@@ -987,15 +1136,6 @@
             document.getElementById('withdraw-amount').value = '';
             document.getElementById('withdraw-upi').value = '';
             showToast(`Withdrawal request for ${amt} Coins submitted!`);
-        }
-
-        function openEditProfileModal() {
-            const newName = prompt("Enter Username:", userData.name);
-            if(newName) {
-                userData.name = newName;
-                updateUserUI();
-                showToast("Profile Username Updated!");
-            }
         }
 
         function shareApp() {
