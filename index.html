@@ -431,14 +431,14 @@
             gap: 16px;
         }
 
-        /* Alert/Dialog Dialog matching Screenshot 1000076733 */
+        /* Alert/Dialog Dialog matching Screenshots 1000076733 & 1000076742 */
         .alert-modal-box {
             background: #232936;
             color: #fff;
             border-radius: 12px;
             padding: 20px;
-            width: 88%;
-            max-width: 320px;
+            width: 90%;
+            max-width: 330px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
@@ -462,16 +462,17 @@
             border: none;
             border-bottom: 2px solid #3b82f6;
             color: #fff;
-            padding: 8px 0;
-            font-size: 0.95rem;
+            padding: 6px 0;
+            font-size: 0.9rem;
             outline: none;
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         .alert-buttons {
             display: flex;
             justify-content: flex-end;
             gap: 24px;
+            margin-top: 10px;
         }
 
         .alert-btn {
@@ -482,6 +483,30 @@
             font-size: 0.9rem;
             cursor: pointer;
             text-transform: uppercase;
+        }
+
+        /* Transactions Slider Tabs (Screenshot 1000076735) */
+        .tx-tabs-container {
+            display: flex;
+            background: #111322;
+            border-bottom: 1px solid var(--card-border);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+        .tx-tab {
+            padding: 12px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tx-tab.active {
+            color: var(--primary-red);
+            border-bottom-color: var(--primary-red);
         }
 
         /* Payment QR Screen Layout */
@@ -913,13 +938,34 @@
 
     <div id="modal-withdraw-alert" class="modal-overlay">
         <div class="alert-modal-box">
-            <h3 id="alert-title">Enter UPI ID</h3>
+            <h3 id="alert-title">Enter Details</h3>
             <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
-            <input type="text" id="alert-input-box" class="alert-input" placeholder="Enter UPI ID">
+            
+            <div id="alert-inputs-container">
+                </div>
+
             <div class="alert-buttons">
                 <button class="alert-btn" style="color: #9ca3af;" onclick="closeModal('modal-withdraw-alert')">CANCEL</button>
                 <button class="alert-btn" onclick="submitFinalWithdrawal()">WITHDRAWAL</button>
             </div>
+        </div>
+    </div>
+
+    <div id="modal-transactions" class="modal-overlay">
+        <div class="modal-box" style="padding:0; overflow:hidden;">
+            <div class="modal-top-bar">
+                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-transactions')" style="cursor:pointer;"></i>
+                <span>Transactions</span>
+            </div>
+
+            <div class="tx-tabs-container">
+                <div class="tx-tab active" onclick="switchTxTab('all', this)"><i class="fa-solid fa-list"></i> All</div>
+                <div class="tx-tab" onclick="switchTxTab('deposit', this)"><i class="fa-solid fa-arrow-down-left"></i> Deposit</div>
+                <div class="tx-tab" onclick="switchTxTab('withdraw', this)"><i class="fa-solid fa-arrow-up-right"></i> Withdraw</div>
+            </div>
+
+            <div id="tx-history-list" style="padding:20px; max-height:60vh; overflow-y:auto;">
+                </div>
         </div>
     </div>
 
@@ -981,13 +1027,6 @@
         </div>
     </div>
 
-    <div id="modal-transactions" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title"><span>Transactions History</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-transactions')" style="cursor:pointer;"></i></div>
-            <div style="text-align:center; padding:20px; font-size:0.8rem; color:var(--text-sub);">No transactions recorded yet.</div>
-        </div>
-    </div>
-
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Admin Verification</div>
@@ -1016,6 +1055,7 @@
     <script>
         let userData = { name: "", email: "", mobile: "", coins: 0, deposited: 0, winning: 0, bonus: 0, matches: 0, kills: 0, won: 0 };
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
+        let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
         let secretTapCount = 0;
         let selectedAmount = 10;
         let selectedWithdrawCoins = 0;
@@ -1097,17 +1137,9 @@
             }
         }
 
-        function openBuyCoinsModal() {
-            document.getElementById('modal-buy-coins').style.display = 'flex';
-        }
-
-        function openWithdrawModal() {
-            document.getElementById('modal-withdraw').style.display = 'flex';
-        }
-
-        function openEmergencyWithdrawModal() {
-            document.getElementById('modal-emergency-withdraw').style.display = 'flex';
-        }
+        function openBuyCoinsModal() { document.getElementById('modal-buy-coins').style.display = 'flex'; }
+        function openWithdrawModal() { document.getElementById('modal-withdraw').style.display = 'flex'; }
+        function openEmergencyWithdrawModal() { document.getElementById('modal-emergency-withdraw').style.display = 'flex'; }
 
         function selectCoinPackage(amount) {
             selectedAmount = amount;
@@ -1119,7 +1151,7 @@
             startCountdownTimer();
         }
 
-        // TRIGGER DIALOG DIALOG EXACTLY LIKE SCREENSHOT 1000076733
+        /* TRIGGER ALERT DIALOG (Screenshot 1000076733 & 1000076742) */
         function triggerWithdrawAlert(coins, inr, type) {
             if(userData.coins < coins) {
                 showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
@@ -1129,30 +1161,59 @@
             selectedWithdrawInr = inr;
             selectedWithdrawType = type;
 
-            const inputField = document.getElementById('alert-input-box');
-            inputField.value = '';
+            const container = document.getElementById('alert-inputs-container');
+            container.innerHTML = '';
 
             if(type === 'REDEEM') {
                 document.getElementById('alert-title').innerText = "Enter Number";
                 document.getElementById('alert-message').innerText = "Fill details carefully. Code will be sent on your given phone number/email.";
-                inputField.placeholder = "Enter Number / Email";
+                
+                container.innerHTML = `
+                    <input type="text" id="alert-input-whatsapp" class="alert-input" placeholder="Enter WhatsApp Number">
+                    <input type="email" id="alert-input-email" class="alert-input" placeholder="Enter Your Email Address">
+                `;
             } else {
                 document.getElementById('alert-title').innerText = "Enter UPI ID";
                 document.getElementById('alert-message').innerText = "Fill details carefully. Wrong details will lead to payment failure.";
-                inputField.placeholder = "Enter UPI ID";
+                
+                container.innerHTML = `
+                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="Enter UPI ID">
+                `;
             }
 
             document.getElementById('modal-withdraw-alert').style.display = 'flex';
         }
 
         function submitFinalWithdrawal() {
-            const inputVal = document.getElementById('alert-input-box').value.trim();
-            if(!inputVal) {
-                showToast("Please enter details!");
-                return;
+            if(selectedWithdrawType === 'REDEEM') {
+                const whatsapp = document.getElementById('alert-input-whatsapp').value.trim();
+                const email = document.getElementById('alert-input-email').value.trim();
+                if(!whatsapp || !email) {
+                    showToast("Please enter both WhatsApp number & Email!");
+                    return;
+                }
+            } else {
+                const upi = document.getElementById('alert-input-upi').value.trim();
+                if(!upi) {
+                    showToast("Please enter valid UPI ID!");
+                    return;
+                }
             }
+
             userData.coins -= selectedWithdrawCoins;
             updateUserUI();
+
+            // Record transaction
+            txHistory.unshift({
+                id: Date.now(),
+                type: 'withdraw',
+                title: selectedWithdrawType + ' Withdrawal',
+                coins: selectedWithdrawCoins,
+                inr: selectedWithdrawInr,
+                date: new Date().toLocaleDateString(),
+                status: 'Pending'
+            });
+            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
 
             closeModal('modal-withdraw-alert');
             closeModal('modal-withdraw');
@@ -1190,11 +1251,65 @@
             }
             closeModal('modal-payment-qr');
             document.getElementById('pay-utr-input').value = '';
+
+            txHistory.unshift({
+                id: Date.now(),
+                type: 'deposit',
+                title: 'Coin Purchase',
+                coins: selectedAmount,
+                inr: selectedAmount,
+                date: new Date().toLocaleDateString(),
+                status: 'Pending'
+            });
+            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
+
             showToast(`Payment of ₹${selectedAmount} Submitted for Verification!`);
         }
 
+        function openTransactionsModal() {
+            document.getElementById('modal-transactions').style.display = 'flex';
+            renderTransactions('all');
+        }
+
+        function switchTxTab(filter, element) {
+            document.querySelectorAll('.tx-tab').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+            renderTransactions(filter);
+        }
+
+        function renderTransactions(filter) {
+            const container = document.getElementById('tx-history-list');
+            let list = txHistory;
+            if(filter !== 'all') {
+                list = txHistory.filter(t => t.type === filter);
+            }
+
+            if(list.length === 0) {
+                container.innerHTML = `<div style="text-align:center; padding:30px; font-size:0.85rem; color:var(--text-sub);">No transactions found in this section.</div>`;
+                return;
+            }
+
+            container.innerHTML = '';
+            list.forEach(item => {
+                const isDeposit = item.type === 'deposit';
+                container.innerHTML += `
+                    <div style="background:#111322; border:1px solid #1f2438; border-radius:10px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+                        <div>
+                            <div style="font-size:0.9rem; font-weight:700; color:#fff;">${item.title}</div>
+                            <div style="font-size:0.7rem; color:var(--text-sub); margin-top:2px;">${item.date} · <span style="color:#eab308;">${item.status}</span></div>
+                        </div>
+                        <div style="text-align:right;">
+                            <div style="font-size:0.95rem; font-weight:800; color:${isDeposit ? '#10b981' : '#f43f5e'};">
+                                ${isDeposit ? '+' : '-'}${item.coins} Coins
+                            </div>
+                            <div style="font-size:0.75rem; color:var(--text-sub);">₹${item.inr}</div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
         function openMyProfileModal() { document.getElementById('modal-my-profile').style.display = 'flex'; }
-        function openTransactionsModal() { document.getElementById('modal-transactions').style.display = 'flex'; }
 
         function saveProfileDetails() {
             const emailInput = document.getElementById('edit-email').value.trim();
