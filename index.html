@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -396,29 +397,42 @@
             z-index: 90;
         }
 
-        /* Buy Coins Packages List UI */
-        .buy-coin-item {
+        /* Package Items UI (Buy/Withdrawal Lists matching Screenshot 2 & 3) */
+        .pkg-item {
             background: #fff;
             border-bottom: 1px solid #e5e7eb;
-            padding: 12px 14px;
+            padding: 14px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
         }
-        .buy-coin-left { display: flex; align-items: center; gap: 12px; }
-        .buy-coin-icon {
-            width: 36px; height: 36px;
+        .pkg-left { display: flex; align-items: center; gap: 14px; }
+        .pkg-icon {
+            width: 42px; height: 42px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #10b981, #059669);
             display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1.1rem;
+            color: #fff; font-size: 1.2rem; flex-shrink: 0;
         }
-        .buy-coin-info h4 { font-size: 0.85rem; color: #111; font-weight: 800; }
-        .buy-coin-info p { font-size: 0.68rem; color: #666; font-weight: 600; line-height: 1.2; }
-        .buy-coin-btn-text { color: #dc2626; font-weight: 900; font-size: 0.85rem; }
+        .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
+        .pkg-icon.redeem { background: #f43f5e; color: #fff; }
+        .pkg-info h4 { font-size: 0.95rem; color: #000; font-weight: 900; letter-spacing: 0.3px; }
+        .pkg-info p { font-size: 0.72rem; color: #666; font-weight: 700; margin-top: 2px; }
+        .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 0.95rem; }
 
-        /* Payment QR Screen (Native Built-in QR Layout) */
+        /* Modal Header (Exact Top Bar) */
+        .modal-top-bar {
+            background: #232936;
+            color: #fff;
+            padding: 14px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        /* Payment QR Screen Layout */
         .fatal-pay-screen {
             background: #0f1329;
             border-radius: 20px;
@@ -506,6 +520,7 @@
 </head>
 <body>
 
+    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -525,16 +540,20 @@
         </div>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
 
+    <!-- Floating Support Button -->
     <div class="floating-support-btn" onclick="openWhatsApp()">
         <i class="fa-solid fa-headset"></i>
     </div>
 
+    <!-- App Container -->
     <div class="app-container">
 
+        <!-- Header -->
         <header class="app-header">
             <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
             <div class="coin-badge" onclick="switchTab('wallet')">
@@ -543,6 +562,7 @@
             </div>
         </header>
 
+        <!-- Marquee -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -550,6 +570,7 @@
             </marquee>
         </div>
 
+        <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <h2 style="font-size:1.1rem; font-weight:900;">FATAL RUSH TOURNAMENTS</h2>
@@ -567,6 +588,7 @@
             <div id="tournament-list"></div>
         </div>
 
+        <!-- OFFER TAB -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
@@ -576,6 +598,7 @@
             </div>
         </div>
 
+        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
@@ -584,6 +607,7 @@
             </div>
         </div>
 
+        <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -616,6 +640,12 @@
                     <i class="fa-solid fa-wallet"></i>
                     <span>Withdraw Coins</span>
                 </div>
+                <div class="wallet-action-btn" onclick="openEmergencyWithdrawModal()">
+                    <i class="fa-solid fa-bolt" style="color:#eab308;"></i>
+                    <span>Emergency Withdraw</span>
+                </div>
+            </div>
+            <div class="wallet-actions-grid" style="grid-template-columns: 1fr; margin-top:-2px;">
                 <div class="wallet-action-btn" onclick="openTransactionsModal()">
                     <i class="fa-solid fa-receipt"></i>
                     <span>Transactions</span>
@@ -623,6 +653,7 @@
             </div>
         </div>
 
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -654,6 +685,7 @@
             </div>
         </div>
 
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
             <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
@@ -664,51 +696,200 @@
 
     </div>
 
+    <!-- MODAL 1: BUY COINS PACKAGES -->
     <div id="modal-buy-coins" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
-            <div style="background:#6366f1; color:#fff; padding:14px; font-weight:800; font-size:1rem; display:flex; justify-content:space-between; align-items:center;">
-                <div style="display:flex; align-items:center; gap:10px;">
-                    <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')" style="cursor:pointer;"></i>
-                    <span>Buy Coins</span>
-                </div>
+            <div class="modal-top-bar">
+                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')" style="cursor:pointer;"></i>
+                <span>Buy Coins</span>
             </div>
             <div style="max-height: 70vh; overflow-y: auto;">
-                <div class="buy-coin-item" onclick="selectCoinPackage(10)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">10 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(10)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">10 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(15)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">15 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(15)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">15 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(20)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">20 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(20)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">20 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(25)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">25 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(25)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">25 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(30)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">30 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(30)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">30 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(50)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">50 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(50)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">50 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(100)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">100 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(100)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">100 COINS</div>
                 </div>
-                <div class="buy-coin-item" onclick="selectCoinPackage(500)">
-                    <div class="buy-coin-left"><div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div><div class="buy-coin-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="buy-coin-btn-text">500 COINS</div>
+                <div class="pkg-item" onclick="selectCoinPackage(500)">
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
+                    <div class="pkg-btn-text">500 COINS</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- MODAL 2: WITHDRAWAL PACKAGES (EXACT SCREENSHOT 2) -->
+    <div id="modal-withdraw" class="modal-overlay">
+        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
+            <div class="modal-top-bar">
+                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-withdraw')" style="cursor:pointer;"></i>
+                <span>Withdrawal</span>
+            </div>
+            <div style="max-height: 75vh; overflow-y: auto;">
+                <!-- UPI LIST -->
+                <div class="pkg-item" onclick="selectWithdrawPackage(50, 48, 'UPI')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">48 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(100, 95, 'UPI')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">95 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(200, 190, 'UPI')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>UPI</h4><p>200 COINS = 190 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">190 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(300, 285, 'UPI')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>UPI</h4><p>300 COINS = 285 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">285 INR</div>
+                </div>
+
+                <!-- REDEEM CODE LIST -->
+                <div class="pkg-item" onclick="selectWithdrawPackage(50, 48, 'REDEEM')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">50 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(100, 97, 'REDEEM')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>100 COINS = 97 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">100 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(150, 146, 'REDEEM')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>150 COINS = 146 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">150 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(200, 195, 'REDEEM')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>200 COINS = 195 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">200 INR</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 3: EMERGENCY WITHDRAWAL PACKAGES (EXACT SCREENSHOT 3) -->
+    <div id="modal-emergency-withdraw" class="modal-overlay">
+        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
+            <div class="modal-top-bar">
+                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-emergency-withdraw')" style="cursor:pointer;"></i>
+                <span>Emergency Withdrawal</span>
+            </div>
+            <div style="max-height: 75vh; overflow-y: auto;">
+                <div class="pkg-item" onclick="selectWithdrawPackage(50, 35, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">35 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(100, 70, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>100 COINS = 70 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">70 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(200, 140, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>200 COINS = 140 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">140 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(300, 210, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>300 COINS = 210 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">210 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(400, 280, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>400 COINS = 280 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">280 INR</div>
+                </div>
+
+                <div class="pkg-item" onclick="selectWithdrawPackage(500, 350, 'EMERGENCY')">
+                    <div class="pkg-left">
+                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
+                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>500 COINS = 350 INR</p></div>
+                    </div>
+                    <div class="pkg-btn-text">350 INR</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 4: WITHDRAW INPUT CONFIRMATION -->
+    <div id="modal-withdraw-confirm" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-title"><span id="wd-confirm-title">Request Withdrawal</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-withdraw-confirm')" style="cursor:pointer;"></i></div>
+            <p style="font-size:0.8rem; color:#d1d5db; margin-bottom:12px;" id="wd-confirm-subtitle">Amount: 50 Coins = 48 INR</p>
+            <div class="form-group">
+                <label id="wd-field-label">Enter UPI ID / Mobile Number:</label>
+                <input type="text" id="wd-target-input" class="form-input" placeholder="e.g. 9876543210@upi">
+            </div>
+            <button class="btn-submit" onclick="submitFinalWithdrawal()">CONFIRM WITHDRAWAL</button>
+        </div>
+    </div>
+
+    <!-- MODAL: QR PAYMENT DISPLAY -->
     <div id="modal-payment-qr" class="modal-overlay">
         <div class="modal-box" style="background:transparent; border:none; padding:0;">
             <div class="fatal-pay-screen">
@@ -756,6 +937,7 @@
         </div>
     </div>
 
+    <!-- OTHER MODALS -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
@@ -764,15 +946,6 @@
             <div class="form-group"><label>Mobile Number</label><input type="text" id="edit-mobile" class="form-input" placeholder="Enter Mobile Number"></div>
             <div class="form-group"><label>Password</label><input type="password" id="edit-newpass" class="form-input" placeholder="Enter Password"></div>
             <button class="btn-submit" onclick="saveProfileDetails()">SAVE / LOGIN</button>
-        </div>
-    </div>
-
-    <div id="modal-withdraw" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title"><span>Withdraw Coins</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-withdraw')" style="cursor:pointer;"></i></div>
-            <div class="form-group"><label>Amount (Coins)</label><input type="number" id="withdraw-amount" class="form-input" placeholder="Min 50 Coins"></div>
-            <div class="form-group"><label>Your UPI ID / PhonePe</label><input type="text" id="withdraw-upi" class="form-input" placeholder="user@upi"></div>
-            <button class="btn-submit" onclick="submitWithdrawal()">REQUEST WITHDRAWAL</button>
         </div>
     </div>
 
@@ -813,6 +986,9 @@
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let secretTapCount = 0;
         let selectedAmount = 10;
+        let selectedWithdrawCoins = 0;
+        let selectedWithdrawInr = 0;
+        let selectedWithdrawType = '';
         let timerInterval = null;
 
         window.onload = function() {
@@ -893,23 +1069,57 @@
             document.getElementById('modal-buy-coins').style.display = 'flex';
         }
 
+        function openWithdrawModal() {
+            document.getElementById('modal-withdraw').style.display = 'flex';
+        }
+
+        function openEmergencyWithdrawModal() {
+            document.getElementById('modal-emergency-withdraw').style.display = 'flex';
+        }
+
         function selectCoinPackage(amount) {
             selectedAmount = amount;
             closeModal('modal-buy-coins');
-            
             document.getElementById('pay-dynamic-amount').innerText = amount.toFixed(2);
-            
-            // Dynamic UPI QR API call ensuring QR displays 100% correctly
             const upiString = `upi://pay?pa=fatalrush@upi&pn=FatalRush&am=${amount}&cu=INR`;
-            const qrApiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
-            document.getElementById('dynamic-qr-img').src = qrApiUrl;
-
+            document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
             document.getElementById('modal-payment-qr').style.display = 'flex';
             startCountdownTimer();
         }
 
+        function selectWithdrawPackage(coins, inr, type) {
+            if(userData.coins < coins) {
+                showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
+                return;
+            }
+            selectedWithdrawCoins = coins;
+            selectedWithdrawInr = inr;
+            selectedWithdrawType = type;
+
+            closeModal('modal-withdraw');
+            closeModal('modal-emergency-withdraw');
+
+            document.getElementById('wd-confirm-title').innerText = `${type} Withdrawal`;
+            document.getElementById('wd-confirm-subtitle').innerText = `${coins} COINS = ${inr} INR`;
+            document.getElementById('wd-field-label').innerText = type === 'REDEEM' ? 'Enter Email or Mobile for Redeem Code:' : 'Enter UPI ID / PhonePe Number:';
+            document.getElementById('modal-withdraw-confirm').style.display = 'flex';
+        }
+
+        function submitFinalWithdrawal() {
+            const inputVal = document.getElementById('wd-target-input').value.trim();
+            if(!inputVal) {
+                showToast("Please enter details!");
+                return;
+            }
+            userData.coins -= selectedWithdrawCoins;
+            updateUserUI();
+            closeModal('modal-withdraw-confirm');
+            document.getElementById('wd-target-input').value = '';
+            showToast(`Withdrawal of ${selectedWithdrawCoins} Coins (${selectedWithdrawInr} INR) Requested!`);
+        }
+
         function startCountdownTimer() {
-            let duration = 170; // 2:50
+            let duration = 170;
             const timerDisplay = document.getElementById('pay-timer');
             if(timerInterval) clearInterval(timerInterval);
 
@@ -941,7 +1151,6 @@
         }
 
         function openMyProfileModal() { document.getElementById('modal-my-profile').style.display = 'flex'; }
-        function openWithdrawModal() { document.getElementById('modal-withdraw').style.display = 'flex'; }
         function openTransactionsModal() { document.getElementById('modal-transactions').style.display = 'flex'; }
 
         function saveProfileDetails() {
@@ -961,20 +1170,6 @@
             updateUserUI();
             closeModal('modal-my-profile');
             showToast("Profile Saved!");
-        }
-
-        function submitWithdrawal() {
-            const amt = parseInt(document.getElementById('withdraw-amount').value);
-            const upi = document.getElementById('withdraw-upi').value.trim();
-            if(!amt || amt < 50 || !upi) {
-                showToast("Min withdrawal: 50 Coins with valid UPI ID!");
-                return;
-            }
-            if(userData.coins < amt) { showToast("Insufficient Balance!"); return; }
-            userData.coins -= amt;
-            updateUserUI();
-            closeModal('modal-withdraw');
-            showToast(`Withdrawal request for ${amt} Coins submitted!`);
         }
 
         function handleSecretTap() {
