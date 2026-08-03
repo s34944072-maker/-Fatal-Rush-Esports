@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -597,6 +598,7 @@
 </head>
 <body>
 
+    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -616,16 +618,20 @@
         </div>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
 
+    <!-- Floating Support Button -->
     <div class="floating-support-btn" onclick="openWhatsApp()">
         <i class="fa-solid fa-headset"></i>
     </div>
 
+    <!-- App Container -->
     <div class="app-container">
 
+        <!-- Header -->
         <header class="app-header">
             <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
             <div class="coin-badge" onclick="switchTab('wallet')">
@@ -634,6 +640,7 @@
             </div>
         </header>
 
+        <!-- Marquee -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -641,6 +648,7 @@
             </marquee>
         </div>
 
+        <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <h2 style="font-size:1.1rem; font-weight:900;">FATAL RUSH TOURNAMENTS</h2>
@@ -658,6 +666,7 @@
             <div id="tournament-list"></div>
         </div>
 
+        <!-- OFFER TAB -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
@@ -667,6 +676,7 @@
             </div>
         </div>
 
+        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
@@ -675,6 +685,7 @@
             </div>
         </div>
 
+        <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -720,6 +731,7 @@
             </div>
         </div>
 
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -751,6 +763,7 @@
             </div>
         </div>
 
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
             <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
@@ -761,6 +774,7 @@
 
     </div>
 
+    <!-- MODAL 1: BUY COINS PACKAGES -->
     <div id="modal-buy-coins" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -804,6 +818,7 @@
         </div>
     </div>
 
+    <!-- MODAL 2: WITHDRAWAL PACKAGES -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -811,6 +826,7 @@
                 <span>Withdrawal</span>
             </div>
             <div style="max-height: 75vh; overflow-y: auto;">
+                <!-- UPI LIST -->
                 <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
@@ -843,6 +859,7 @@
                     <div class="pkg-btn-text">285 INR</div>
                 </div>
 
+                <!-- REDEEM CODE LIST -->
                 <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
                     <div class="pkg-left">
                         <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
@@ -878,6 +895,7 @@
         </div>
     </div>
 
+    <!-- MODAL 3: EMERGENCY WITHDRAWAL PACKAGES -->
     <div id="modal-emergency-withdraw" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -936,13 +954,15 @@
         </div>
     </div>
 
+    <!-- ALERT/DIALOG POPUP WITH DYNAMIC INPUTS (Screenshot 1000076733 & 1000076742) -->
     <div id="modal-withdraw-alert" class="modal-overlay">
         <div class="alert-modal-box">
             <h3 id="alert-title">Enter Details</h3>
             <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
             
             <div id="alert-inputs-container">
-                </div>
+                <!-- Inputs generated dynamically -->
+            </div>
 
             <div class="alert-buttons">
                 <button class="alert-btn" style="color: #9ca3af;" onclick="closeModal('modal-withdraw-alert')">CANCEL</button>
@@ -951,6 +971,7 @@
         </div>
     </div>
 
+    <!-- MODAL 4: TRANSACTIONS WITH SLIDE TABS (Screenshot 1000076735) -->
     <div id="modal-transactions" class="modal-overlay">
         <div class="modal-box" style="padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -965,10 +986,12 @@
             </div>
 
             <div id="tx-history-list" style="padding:20px; max-height:60vh; overflow-y:auto;">
-                </div>
+                <!-- History items loaded here -->
+            </div>
         </div>
     </div>
 
+    <!-- MODAL: QR PAYMENT DISPLAY -->
     <div id="modal-payment-qr" class="modal-overlay">
         <div class="modal-box" style="background:transparent; border:none; padding:0;">
             <div class="fatal-pay-screen">
@@ -1016,22 +1039,34 @@
         </div>
     </div>
 
+    <!-- OTHER MODALS -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
             <div class="form-group"><label>User's Name</label><input type="text" id="edit-username" class="form-input" placeholder="Enter Name"></div>
-            <div class="form-group"><label>Email Address / Admin ID</label><input type="email" id="edit-email" class="form-input" placeholder="Enter Email / Admin ID"></div>
+            <div class="form-group"><label>Email Address</label><input type="email" id="edit-email" class="form-input" placeholder="Enter Email"></div>
             <div class="form-group"><label>Mobile Number</label><input type="text" id="edit-mobile" class="form-input" placeholder="Enter Mobile Number"></div>
             <div class="form-group"><label>Password</label><input type="password" id="edit-newpass" class="form-input" placeholder="Enter Password"></div>
             <button class="btn-submit" onclick="saveProfileDetails()">SAVE / LOGIN</button>
         </div>
     </div>
 
+    <!-- ADMIN LOGIN POPUP (EXACT layout - matching Screenshot 1000076732) -->
     <div id="modal-secret-admin" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title">Admin Verification</div>
-            <div class="form-group"><label>Admin ID</label><input type="text" id="admin-id-input" class="form-input" placeholder="admin@fatalrush.com"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="admin-pass-input" class="form-input" placeholder="admin123"></div>
+        <div class="alert-modal-box">
+            <h3>Admin Verification</h3>
+            
+            <div class="form-group" style="margin-top:16px;">
+                <label style="font-size:0.75rem; color:#a0aec0;">Admin ID</label>
+                <!-- Inputs are blank for security - matching Screenshot 1000076732 input style -->
+                <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. admin@fatalrush.com">
+            </div>
+            
+            <div class="form-group">
+                <label style="font-size:0.75rem; color:#a0aec0;">Password</label>
+                <input type="password" id="admin-pass-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="Enter Password">
+            </div>
+
             <button class="btn-submit" onclick="verifyAdminPass()">LOGIN ADMIN</button>
             <button class="btn-close" onclick="closeModal('modal-secret-admin')">Cancel</button>
         </div>
@@ -1151,7 +1186,7 @@
             startCountdownTimer();
         }
 
-        /* TRIGGER ALERT DIALOG (Screenshot 1000076733 & 1000076742) */
+        /* TRIGGER DYNAMIC ALERT DIALOG (Screenshot 1000076733 & 1000076742) */
         function triggerWithdrawAlert(coins, inr, type) {
             if(userData.coins < coins) {
                 showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
@@ -1312,18 +1347,8 @@
         function openMyProfileModal() { document.getElementById('modal-my-profile').style.display = 'flex'; }
 
         function saveProfileDetails() {
-            const emailInput = document.getElementById('edit-email').value.trim();
-            const passInput = document.getElementById('edit-newpass').value.trim();
-
-            if(emailInput === "admin@fatalrush.com" && passInput === "admin123") {
-                closeModal('modal-my-profile');
-                document.getElementById('modal-admin-panel').style.display = 'flex';
-                showToast("Admin Panel Unlocked!");
-                return;
-            }
-
             userData.name = document.getElementById('edit-username').value;
-            userData.email = emailInput;
+            userData.email = document.getElementById('edit-email').value;
             userData.mobile = document.getElementById('edit-mobile').value;
             updateUserUI();
             closeModal('modal-my-profile');
@@ -1334,6 +1359,9 @@
             secretTapCount++;
             if(secretTapCount >= 5) {
                 secretTapCount = 0;
+                // matching Screenshot 1000076732 inputs are blank
+                document.getElementById('admin-id-input').value = '';
+                document.getElementById('admin-pass-input').value = '';
                 document.getElementById('modal-secret-admin').style.display = 'flex';
             }
         }
@@ -1341,7 +1369,8 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            if((id === "admin@fatalrush.com" || id === "admin") && pass === "admin123") {
+            // Static Admin Credentials
+            if(id === "admin@fatalrush.com" && pass === "admin123") {
                 closeModal('modal-secret-admin');
                 document.getElementById('modal-admin-panel').style.display = 'flex';
                 showToast("Welcome Admin!");
