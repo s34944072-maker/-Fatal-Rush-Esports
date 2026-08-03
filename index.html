@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
+    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -408,7 +409,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            padding: 20px;
+            padding: 15px;
         }
 
         .modal-box {
@@ -448,29 +449,126 @@
             z-index: 90;
         }
 
-        /* QR Scanner Modal Specific */
-        .qr-card-box {
+        /* Buy Coins Packages List UI (Screenshot 2 Style) */
+        .buy-coin-item {
             background: #fff;
-            border-radius: 12px;
-            padding: 16px;
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        .buy-coin-item:hover { background: #f9fafb; }
+        .buy-coin-left { display: flex; align-items: center; gap: 12px; }
+        .buy-coin-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.1rem;
+        }
+        .buy-coin-info h4 { font-size: 0.85rem; color: #111; font-weight: 800; }
+        .buy-coin-info p { font-size: 0.7rem; color: #666; font-weight: 600; line-height: 1.2; }
+        .buy-coin-btn-text { color: #dc2626; font-weight: 900; font-size: 0.85rem; letter-spacing: 0.5px; }
+
+        /* Payment QR Screen (Screenshot 3 - Native Replica) */
+        .arise-pay-screen {
+            background: #111428;
+            border-radius: 20px;
+            padding: 20px 16px;
             text-align: center;
-            color: #000;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: relative;
+        }
+        .arise-avatar {
+            width: 50px;
+            height: 50px;
+            background: #2a2e4a;
+            border-radius: 12px;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        .pay-subtitle { font-size: 0.7rem; color: #8c93b0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .pay-target-title { font-size: 1.2rem; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .pay-amount-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 30px;
+            padding: 6px 20px;
+            display: inline-block;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+        .qr-box-wrap {
+            background: #fff;
+            border-radius: 16px;
+            padding: 12px;
+            display: inline-block;
             margin-bottom: 14px;
         }
-
-        .qr-card-box img {
+        .qr-box-wrap img {
             width: 210px;
             height: 210px;
             object-fit: contain;
-            margin: 10px 0;
-            border: 2px dashed #ff2a5f;
+            display: block;
+        }
+        .pay-instruct-pill {
+            background: #eef2ff;
+            color: #1e1b4b;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 8px 14px;
             border-radius: 8px;
-            padding: 4px;
+            margin-bottom: 12px;
+        }
+        .pay-apps-pills {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin-bottom: 14px;
+        }
+        .app-pill {
+            background: #eef2ff;
+            color: #1e1b4b;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .app-pill i { font-size: 0.6rem; color: #10b981; }
+        .timer-sec {
+            background: #eef2ff;
+            color: #1e1b4b;
+            font-size: 0.75rem;
+            font-weight: 800;
+            padding: 8px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
 <body>
 
+    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -490,16 +588,20 @@
         </div>
     </div>
 
+    <!-- Notification Toast -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
 
+    <!-- Support Button -->
     <div class="floating-support-btn" onclick="openWhatsApp()">
         <i class="fa-solid fa-headset"></i>
     </div>
 
+    <!-- App Main Wrapper -->
     <div class="app-container">
 
+        <!-- App Header -->
         <header class="app-header">
             <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
             <div class="coin-badge" onclick="switchTab('wallet')">
@@ -508,6 +610,7 @@
             </div>
         </header>
 
+        <!-- Marquee Announcement -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -515,6 +618,7 @@
             </marquee>
         </div>
 
+        <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <h2>FATAL RUSH TOURNAMENTS</h2>
@@ -532,6 +636,7 @@
             <div id="tournament-list"></div>
         </div>
 
+        <!-- OFFER TAB -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
@@ -542,6 +647,7 @@
             </div>
         </div>
 
+        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
@@ -551,6 +657,7 @@
             </div>
         </div>
 
+        <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -575,7 +682,7 @@
             </div>
 
             <div class="wallet-actions-grid">
-                <div class="wallet-action-btn" onclick="openAddCoinsModal()">
+                <div class="wallet-action-btn" onclick="openBuyCoinsModal()">
                     <i class="fa-solid fa-qrcode"></i>
                     <span>Add Coins</span>
                 </div>
@@ -590,6 +697,7 @@
             </div>
         </div>
 
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -634,6 +742,7 @@
             </div>
         </div>
 
+        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
             <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
@@ -644,34 +753,159 @@
 
     </div>
 
-    <div id="modal-deposit" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title">
-                <span>Add Coins (Fatal Rush UPI)</span>
-                <i class="fa-solid fa-xmark" onclick="closeModal('modal-deposit')" style="cursor:pointer;"></i>
+    <!-- MODAL 1: BUY COINS PACKAGE SELECTION (SCREENSHOT 2 REPLICA) -->
+    <div id="modal-buy-coins" class="modal-overlay">
+        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
+            <div style="background:#6366f1; color:#fff; padding:14px; font-weight:800; font-size:1rem; display:flex; justify-content:space-between; align-items:center;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')" style="cursor:pointer;"></i>
+                    <span>Buy Coins</span>
+                </div>
             </div>
+            <div style="max-height: 70vh; overflow-y: auto;">
+                <!-- Coin Item -->
+                <div class="buy-coin-item" onclick="selectCoinPackage(10)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>10 INR 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">10 COINS</div>
+                </div>
 
-            <div class="qr-card-box">
-                <div style="font-size:0.9rem; font-weight:800; color:#ff2a5f; text-transform:uppercase;">FATAL RUSH QR PAYMENT</div>
-                <div style="font-size:0.75rem; color:#555; margin-top:2px;">Scan QR Code using Paytm / PhonePe / GPay</div>
-                
-                <img src="1000076613.png" alt="Fatal Rush QR Code">
+                <div class="buy-coin-item" onclick="selectCoinPackage(15)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>15 INR 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">15 COINS</div>
+                </div>
 
-                <div style="font-size:0.8rem; font-weight:700; color:#111;">UPI ID: <span style="color:#ff2a5f;">fatalrush@upi</span></div>
-            </div>
+                <div class="buy-coin-item" onclick="selectCoinPackage(20)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>20 INR 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">20 COINS</div>
+                </div>
 
-            <div class="form-group">
-                <label>Amount paid (₹)</label>
-                <input type="number" id="deposit-amount" class="form-input" placeholder="e.g. 50">
+                <div class="buy-coin-item" onclick="selectCoinPackage(25)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">25 COINS</div>
+                </div>
+
+                <div class="buy-coin-item" onclick="selectCoinPackage(30)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">30 COINS</div>
+                </div>
+
+                <div class="buy-coin-item" onclick="selectCoinPackage(50)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>50 INR 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">50 COINS</div>
+                </div>
+
+                <div class="buy-coin-item" onclick="selectCoinPackage(100)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>100 INR 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">100 COINS</div>
+                </div>
+
+                <div class="buy-coin-item" onclick="selectCoinPackage(500)">
+                    <div class="buy-coin-left">
+                        <div class="buy-coin-icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="buy-coin-info">
+                            <h4>TranzUPI</h4>
+                            <p>500 INR 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        </div>
+                    </div>
+                    <div class="buy-coin-btn-text">500 COINS</div>
+                </div>
             </div>
-            <div class="form-group">
-                <label>12-Digit UTR / Transaction ID</label>
-                <input type="text" id="deposit-utr" class="form-input" placeholder="Enter UTR Reference No">
-            </div>
-            <button class="btn-submit" onclick="submitDeposit()">SUBMIT PAYMENT</button>
         </div>
     </div>
 
+    <!-- MODAL 2: QR PAYMENT DISPLAY (SCREENSHOT 3 REPLICA WITH FATAL RUSH BRANDING) -->
+    <div id="modal-payment-qr" class="modal-overlay">
+        <div class="modal-box" style="background:transparent; border:none; padding:0;">
+            <div class="arise-pay-screen">
+                <i class="fa-solid fa-xmark" onclick="closeModal('modal-payment-qr')" style="position:absolute; right:16px; top:16px; color:#8c93b0; font-size:1.2rem; cursor:pointer;"></i>
+                
+                <div class="arise-avatar">FR</div>
+                <div class="pay-subtitle">PAYING TO</div>
+                <div class="pay-target-title">Fatal Rush</div>
+
+                <div class="pay-amount-badge">
+                    ₹ <span id="pay-dynamic-amount">10.00</span>
+                </div>
+
+                <div style="font-size:0.75rem; color:#8c93b0; font-weight:700; margin-bottom:10px; text-transform:uppercase;">SCAN TO PAY INSTANTLY</div>
+
+                <div class="qr-box-wrap">
+                    <!-- YOUR ATTACHED QR IMAGE -->
+                    <img src="1000076615_2.jpg" alt="Fatal Rush QR Payment">
+                </div>
+
+                <div class="pay-instruct-pill">
+                    QR scan karke payment karein
+                </div>
+
+                <div class="pay-apps-pills">
+                    <div class="app-pill"><i class="fa-solid fa-circle"></i> GPay</div>
+                    <div class="app-pill"><i class="fa-solid fa-circle"></i> PhonePe</div>
+                    <div class="app-pill"><i class="fa-solid fa-circle"></i> Paytm</div>
+                </div>
+
+                <!-- Input for UTR -->
+                <div class="form-group" style="margin-top:10px; text-align:left;">
+                    <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
+                    <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
+                </div>
+                <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">SUBMIT UTR</button>
+
+                <div class="timer-sec">
+                    <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
+                    <span style="color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Secure</span>
+                </div>
+
+                <div style="font-size:0.65rem; color:#6b7280; margin-top:10px;">
+                    Powered by TranzUPI · © 2026
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: MY PROFILE -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -703,6 +937,7 @@
         </div>
     </div>
 
+    <!-- MODAL: WITHDRAW -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -721,6 +956,7 @@
         </div>
     </div>
 
+    <!-- MODAL: TRANSACTIONS -->
     <div id="modal-transactions" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -733,6 +969,7 @@
         </div>
     </div>
 
+    <!-- MODAL: SECRET ADMIN AUTH -->
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">Admin Login Verification</div>
@@ -749,6 +986,7 @@
         </div>
     </div>
 
+    <!-- MODAL: ADMIN CREATOR PANEL -->
     <div id="modal-admin-panel" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">🛠️ Admin Control - Create Tournament</div>
@@ -781,12 +1019,14 @@
 
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let secretTapCount = 0;
+        let selectedAmount = 10;
+        let timerInterval = null;
 
         window.onload = function() {
             updateUserUI();
             renderTournaments();
 
-            // Auto-Close Splash Screen in 2 Seconds
+            // Splash Screen Timer
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
@@ -851,7 +1091,7 @@
                             <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Win Prize</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
                             <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                         </div>
-                        <button class="btn-action" style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
+                        <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
                     </div>
                 `;
             });
@@ -869,23 +1109,56 @@
             }
         }
 
-        function openAddCoinsModal() {
-            document.getElementById('modal-deposit').style.display = 'flex';
+        /* BUY COINS WORKFLOW */
+        function openBuyCoinsModal() {
+            document.getElementById('modal-buy-coins').style.display = 'flex';
         }
 
-        function submitDeposit() {
-            const amt = parseInt(document.getElementById('deposit-amount').value);
-            const utr = document.getElementById('deposit-utr').value.trim();
+        function selectCoinPackage(amount) {
+            selectedAmount = amount;
+            closeModal('modal-buy-coins');
+            
+            // Set dynamic amount
+            document.getElementById('pay-dynamic-amount').innerText = amount.toFixed(2);
+            document.getElementById('modal-payment-qr').style.display = 'flex';
+            
+            startCountdownTimer();
+        }
 
-            if(!amt || amt <= 0 || !utr) {
-                showToast("Please enter Amount & UTR Transaction ID!");
+        function startCountdownTimer() {
+            let duration = 170; // 2:50 in seconds
+            const timerDisplay = document.getElementById('pay-timer');
+            
+            if(timerInterval) clearInterval(timerInterval);
+
+            timerInterval = setInterval(() => {
+                let minutes = parseInt(duration / 60, 10);
+                let seconds = parseInt(duration % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                timerDisplay.textContent = minutes + ":" + seconds;
+
+                if (--duration < 0) {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = "00:00";
+                    showToast("Payment window expired!");
+                    closeModal('modal-payment-qr');
+                }
+            }, 1000);
+        }
+
+        function confirmPaymentSubmit() {
+            const utr = document.getElementById('pay-utr-input').value.trim();
+            if(!utr) {
+                showToast("Please enter 12-Digit UTR Number!");
                 return;
             }
 
-            closeModal('modal-deposit');
-            document.getElementById('deposit-amount').value = '';
-            document.getElementById('deposit-utr').value = '';
-            showToast("Deposit submitted! Pending Admin Approval.");
+            closeModal('modal-payment-qr');
+            document.getElementById('pay-utr-input').value = '';
+            showToast(`Payment of ₹${selectedAmount} Submitted! Pending Admin Approval.`);
         }
 
         function openMyProfileModal() {
