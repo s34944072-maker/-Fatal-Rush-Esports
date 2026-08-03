@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fatal Rush Esports</title>
-    <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -330,7 +329,7 @@
         .nav-item i { font-size: 1.1rem; }
         .nav-item.active { color: var(--primary-red); }
 
-        /* Modals & Toast */
+        /* Toast */
         .custom-toast {
             position: fixed;
             top: 20px;
@@ -397,7 +396,7 @@
             z-index: 90;
         }
 
-        /* Package Items UI (Buy/Withdrawal Lists matching Screenshot 2 & 3) */
+        /* Package Items UI */
         .pkg-item {
             background: #fff;
             border-bottom: 1px solid #e5e7eb;
@@ -420,7 +419,7 @@
         .pkg-info p { font-size: 0.72rem; color: #666; font-weight: 700; margin-top: 2px; }
         .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 0.95rem; }
 
-        /* Modal Header (Exact Top Bar) */
+        /* Modal Header */
         .modal-top-bar {
             background: #232936;
             color: #fff;
@@ -430,6 +429,59 @@
             display: flex;
             align-items: center;
             gap: 16px;
+        }
+
+        /* Alert/Dialog Dialog matching Screenshot 1000076733 */
+        .alert-modal-box {
+            background: #232936;
+            color: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            width: 88%;
+            max-width: 320px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+
+        .alert-modal-box h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .alert-modal-box p {
+            font-size: 0.78rem;
+            color: #a0aec0;
+            line-height: 1.4;
+            margin-bottom: 16px;
+        }
+
+        .alert-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid #3b82f6;
+            color: #fff;
+            padding: 8px 0;
+            font-size: 0.95rem;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        .alert-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 24px;
+        }
+
+        .alert-btn {
+            background: transparent;
+            border: none;
+            color: #3b82f6;
+            font-weight: 800;
+            font-size: 0.9rem;
+            cursor: pointer;
+            text-transform: uppercase;
         }
 
         /* Payment QR Screen Layout */
@@ -520,7 +572,6 @@
 </head>
 <body>
 
-    <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
@@ -540,20 +591,16 @@
         </div>
     </div>
 
-    <!-- Notification Toast -->
     <div id="toast" class="custom-toast">
         <span id="toast-msg">Notification</span>
     </div>
 
-    <!-- Floating Support Button -->
     <div class="floating-support-btn" onclick="openWhatsApp()">
         <i class="fa-solid fa-headset"></i>
     </div>
 
-    <!-- App Container -->
     <div class="app-container">
 
-        <!-- Header -->
         <header class="app-header">
             <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
             <div class="coin-badge" onclick="switchTab('wallet')">
@@ -562,7 +609,6 @@
             </div>
         </header>
 
-        <!-- Marquee -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
@@ -570,7 +616,6 @@
             </marquee>
         </div>
 
-        <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
                 <h2 style="font-size:1.1rem; font-weight:900;">FATAL RUSH TOURNAMENTS</h2>
@@ -588,7 +633,6 @@
             <div id="tournament-list"></div>
         </div>
 
-        <!-- OFFER TAB -->
         <div id="tab-offer" class="tab-content">
             <div class="section-title">Refer & Earn</div>
             <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
@@ -598,7 +642,6 @@
             </div>
         </div>
 
-        <!-- RANKING TAB -->
         <div id="tab-ranking" class="tab-content">
             <div class="section-title">Top Players Leaderboard</div>
             <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
@@ -607,7 +650,6 @@
             </div>
         </div>
 
-        <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
                 <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
@@ -653,7 +695,6 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -685,7 +726,6 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <nav class="bottom-nav">
             <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
             <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
@@ -696,7 +736,6 @@
 
     </div>
 
-    <!-- MODAL 1: BUY COINS PACKAGES -->
     <div id="modal-buy-coins" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -740,7 +779,6 @@
         </div>
     </div>
 
-    <!-- MODAL 2: WITHDRAWAL PACKAGES (EXACT SCREENSHOT 2) -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -748,8 +786,7 @@
                 <span>Withdrawal</span>
             </div>
             <div style="max-height: 75vh; overflow-y: auto;">
-                <!-- UPI LIST -->
-                <div class="pkg-item" onclick="selectWithdrawPackage(50, 48, 'UPI')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div>
@@ -757,7 +794,7 @@
                     <div class="pkg-btn-text">48 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(100, 95, 'UPI')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div>
@@ -765,7 +802,7 @@
                     <div class="pkg-btn-text">95 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(200, 190, 'UPI')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>UPI</h4><p>200 COINS = 190 INR</p></div>
@@ -773,7 +810,7 @@
                     <div class="pkg-btn-text">190 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(300, 285, 'UPI')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>UPI</h4><p>300 COINS = 285 INR</p></div>
@@ -781,8 +818,7 @@
                     <div class="pkg-btn-text">285 INR</div>
                 </div>
 
-                <!-- REDEEM CODE LIST -->
-                <div class="pkg-item" onclick="selectWithdrawPackage(50, 48, 'REDEEM')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
                     <div class="pkg-left">
                         <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
                         <div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div>
@@ -790,7 +826,7 @@
                     <div class="pkg-btn-text">50 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(100, 97, 'REDEEM')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')">
                     <div class="pkg-left">
                         <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
                         <div class="pkg-info"><h4>REDEEM CODE</h4><p>100 COINS = 97 INR</p></div>
@@ -798,7 +834,7 @@
                     <div class="pkg-btn-text">100 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(150, 146, 'REDEEM')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')">
                     <div class="pkg-left">
                         <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
                         <div class="pkg-info"><h4>REDEEM CODE</h4><p>150 COINS = 146 INR</p></div>
@@ -806,7 +842,7 @@
                     <div class="pkg-btn-text">150 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(200, 195, 'REDEEM')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')">
                     <div class="pkg-left">
                         <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
                         <div class="pkg-info"><h4>REDEEM CODE</h4><p>200 COINS = 195 INR</p></div>
@@ -817,7 +853,6 @@
         </div>
     </div>
 
-    <!-- MODAL 3: EMERGENCY WITHDRAWAL PACKAGES (EXACT SCREENSHOT 3) -->
     <div id="modal-emergency-withdraw" class="modal-overlay">
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
@@ -825,7 +860,7 @@
                 <span>Emergency Withdrawal</span>
             </div>
             <div style="max-height: 75vh; overflow-y: auto;">
-                <div class="pkg-item" onclick="selectWithdrawPackage(50, 35, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div>
@@ -833,7 +868,7 @@
                     <div class="pkg-btn-text">35 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(100, 70, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>100 COINS = 70 INR</p></div>
@@ -841,7 +876,7 @@
                     <div class="pkg-btn-text">70 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(200, 140, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>200 COINS = 140 INR</p></div>
@@ -849,7 +884,7 @@
                     <div class="pkg-btn-text">140 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(300, 210, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>300 COINS = 210 INR</p></div>
@@ -857,7 +892,7 @@
                     <div class="pkg-btn-text">210 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(400, 280, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>400 COINS = 280 INR</p></div>
@@ -865,7 +900,7 @@
                     <div class="pkg-btn-text">280 INR</div>
                 </div>
 
-                <div class="pkg-item" onclick="selectWithdrawPackage(500, 350, 'EMERGENCY')">
+                <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')">
                     <div class="pkg-left">
                         <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
                         <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>500 COINS = 350 INR</p></div>
@@ -876,20 +911,18 @@
         </div>
     </div>
 
-    <!-- MODAL 4: WITHDRAW INPUT CONFIRMATION -->
-    <div id="modal-withdraw-confirm" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title"><span id="wd-confirm-title">Request Withdrawal</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-withdraw-confirm')" style="cursor:pointer;"></i></div>
-            <p style="font-size:0.8rem; color:#d1d5db; margin-bottom:12px;" id="wd-confirm-subtitle">Amount: 50 Coins = 48 INR</p>
-            <div class="form-group">
-                <label id="wd-field-label">Enter UPI ID / Mobile Number:</label>
-                <input type="text" id="wd-target-input" class="form-input" placeholder="e.g. 9876543210@upi">
+    <div id="modal-withdraw-alert" class="modal-overlay">
+        <div class="alert-modal-box">
+            <h3 id="alert-title">Enter UPI ID</h3>
+            <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
+            <input type="text" id="alert-input-box" class="alert-input" placeholder="Enter UPI ID">
+            <div class="alert-buttons">
+                <button class="alert-btn" style="color: #9ca3af;" onclick="closeModal('modal-withdraw-alert')">CANCEL</button>
+                <button class="alert-btn" onclick="submitFinalWithdrawal()">WITHDRAWAL</button>
             </div>
-            <button class="btn-submit" onclick="submitFinalWithdrawal()">CONFIRM WITHDRAWAL</button>
         </div>
     </div>
 
-    <!-- MODAL: QR PAYMENT DISPLAY -->
     <div id="modal-payment-qr" class="modal-overlay">
         <div class="modal-box" style="background:transparent; border:none; padding:0;">
             <div class="fatal-pay-screen">
@@ -937,7 +970,6 @@
         </div>
     </div>
 
-    <!-- OTHER MODALS -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
@@ -1087,7 +1119,8 @@
             startCountdownTimer();
         }
 
-        function selectWithdrawPackage(coins, inr, type) {
+        // TRIGGER DIALOG DIALOG EXACTLY LIKE SCREENSHOT 1000076733
+        function triggerWithdrawAlert(coins, inr, type) {
             if(userData.coins < coins) {
                 showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
                 return;
@@ -1096,25 +1129,35 @@
             selectedWithdrawInr = inr;
             selectedWithdrawType = type;
 
-            closeModal('modal-withdraw');
-            closeModal('modal-emergency-withdraw');
+            const inputField = document.getElementById('alert-input-box');
+            inputField.value = '';
 
-            document.getElementById('wd-confirm-title').innerText = `${type} Withdrawal`;
-            document.getElementById('wd-confirm-subtitle').innerText = `${coins} COINS = ${inr} INR`;
-            document.getElementById('wd-field-label').innerText = type === 'REDEEM' ? 'Enter Email or Mobile for Redeem Code:' : 'Enter UPI ID / PhonePe Number:';
-            document.getElementById('modal-withdraw-confirm').style.display = 'flex';
+            if(type === 'REDEEM') {
+                document.getElementById('alert-title').innerText = "Enter Number";
+                document.getElementById('alert-message').innerText = "Fill details carefully. Code will be sent on your given phone number/email.";
+                inputField.placeholder = "Enter Number / Email";
+            } else {
+                document.getElementById('alert-title').innerText = "Enter UPI ID";
+                document.getElementById('alert-message').innerText = "Fill details carefully. Wrong details will lead to payment failure.";
+                inputField.placeholder = "Enter UPI ID";
+            }
+
+            document.getElementById('modal-withdraw-alert').style.display = 'flex';
         }
 
         function submitFinalWithdrawal() {
-            const inputVal = document.getElementById('wd-target-input').value.trim();
+            const inputVal = document.getElementById('alert-input-box').value.trim();
             if(!inputVal) {
                 showToast("Please enter details!");
                 return;
             }
             userData.coins -= selectedWithdrawCoins;
             updateUserUI();
-            closeModal('modal-withdraw-confirm');
-            document.getElementById('wd-target-input').value = '';
+
+            closeModal('modal-withdraw-alert');
+            closeModal('modal-withdraw');
+            closeModal('modal-emergency-withdraw');
+
             showToast(`Withdrawal of ${selectedWithdrawCoins} Coins (${selectedWithdrawInr} INR) Requested!`);
         }
 
