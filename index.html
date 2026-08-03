@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BLOCK PINCH ZOOM (Fixes zooming issue in mobile browsers) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fatal Rush Esports</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -24,6 +25,8 @@
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            /* Extra prevention for zooming on input focus */
+            touch-action: pan-x pan-y;
         }
 
         body {
@@ -33,6 +36,7 @@
             justify-content: center;
             min-height: 100vh;
             overflow-x: hidden;
+            overscroll-behavior: none; /* Disable bounce scroll */
         }
 
         /* Splash Screen */
@@ -106,6 +110,7 @@
             padding-bottom: 75px;
             min-height: 100vh;
             box-shadow: 0 0 25px rgba(0,0,0,0.9);
+            overflow-x: hidden;
         }
 
         /* Header */
@@ -432,83 +437,103 @@
             gap: 16px;
         }
 
-        /* Alert/Dialog Dialog matching Screenshots 1000076733 & 1000076742 */
-        .alert-modal-box {
-            background: #232936;
-            color: #fff;
+        /* Withdrawal Popup (MATCHES Screenshots 1000076733, 1000076742, 1000076766, 1000076767) */
+        .withdraw-modal-box {
+            background: var(--text-main);
+            color: #000;
             border-radius: 12px;
-            padding: 20px;
             width: 90%;
-            max-width: 330px;
+            max-width: 350px;
+            overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        .alert-modal-box h3 {
-            font-size: 1.1rem;
-            font-weight: 800;
+        .withdraw-title-bar {
+            background: #000;
             color: #fff;
-            margin-bottom: 8px;
+            padding: 16px 20px;
+            font-size: 1.2rem;
+            font-weight: 900;
         }
 
-        .alert-modal-box p {
-            font-size: 0.78rem;
-            color: #a0aec0;
+        .withdraw-content {
+            padding: 20px;
+        }
+
+        .withdraw-msg {
+            font-size: 0.8rem;
+            color: #555;
             line-height: 1.4;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
-        .alert-input {
+        .withdraw-form-input {
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 2px solid #3b82f6;
-            color: #fff;
-            padding: 6px 0;
-            font-size: 0.9rem;
+            border-bottom: 2px solid #ddd;
+            color: #000;
+            padding: 10px 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 15px;
             outline: none;
-            margin-bottom: 14px;
+        }
+        
+        .withdraw-form-input::placeholder {
+            color: #999;
+            font-weight: 600;
         }
 
-        .alert-buttons {
+        .withdraw-buttons-row {
             display: flex;
             justify-content: flex-end;
-            gap: 24px;
+            gap: 20px;
             margin-top: 10px;
         }
 
-        .alert-btn {
+        .withdraw-btn-action {
             background: transparent;
             border: none;
             color: #3b82f6;
-            font-weight: 800;
-            font-size: 0.9rem;
+            font-weight: 900;
+            font-size: 0.95rem;
             cursor: pointer;
             text-transform: uppercase;
         }
 
-        /* Transactions Slider Tabs (Screenshot 1000076735) */
-        .tx-tabs-container {
-            display: flex;
-            background: #111322;
-            border-bottom: 1px solid var(--card-border);
-            overflow-x: auto;
-            white-space: nowrap;
-        }
-        .tx-tab {
-            padding: 12px 18px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--text-sub);
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
+        /* Package Items UI - Exact MATCH to screens */
+        .pkg-item {
+            background: #fff;
+            border-bottom: 1px solid #f3f4f6;
+            padding: 16px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: space-between;
+            cursor: pointer;
         }
-        .tx-tab.active {
-            color: var(--primary-red);
-            border-bottom-color: var(--primary-red);
+        .pkg-left { display: flex; align-items: center; gap: 16px; }
+        .pkg-icon-fatal {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: #000;
+            display: flex; align-items: center; justify-content: center;
+            color: #ff2a5f; font-size: 1.4rem; font-weight: 900; flex-shrink: 0;
+            border: 2px solid #ff2a5f;
+            box-shadow: 0 0 10px rgba(255,42,95,0.4);
         }
+        .pkg-icon-redeem {
+            width: 48px; height: 48px;
+            border-radius: 50%;
+            background: rgba(255,42,95,0.1);
+            color: var(--primary-red); font-size: 1.3rem; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,42,95,0.2);
+        }
+        .pkg-info h4 { font-size: 1.05rem; color: #000; font-weight: 900; }
+        .pkg-info p { font-size: 0.75rem; color: #666; font-weight: 700; margin-top: 1px; }
+        .pkg-btn-text-fatal { color: #dc2626; font-weight: 900; font-size: 1.05rem; }
 
         /* Payment QR Screen Layout */
         .fatal-pay-screen {
@@ -529,70 +554,6 @@
             font-size: 1.3rem; font-weight: 900; color: #ff2a5f;
             border: 2px solid #ff2a5f;
             box-shadow: 0 0 15px rgba(255,42,95,0.4);
-        }
-        .pay-subtitle { font-size: 0.65rem; color: #8c93b0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
-        .pay-target-title { font-size: 1.3rem; font-weight: 900; color: #fff; margin-bottom: 10px; letter-spacing: 0.5px; }
-        .pay-amount-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 30px;
-            padding: 6px 24px;
-            display: inline-block;
-            font-size: 1.6rem;
-            font-weight: 900;
-            color: #fff;
-            margin-bottom: 14px;
-        }
-        .qr-box-wrap {
-            background: #fff;
-            border-radius: 16px;
-            padding: 12px;
-            display: inline-block;
-            margin-bottom: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
-        }
-        .qr-box-wrap canvas, .qr-box-wrap img {
-            width: 200px;
-            height: 200px;
-            display: block;
-        }
-        .pay-instruct-pill {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 8px 14px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        .pay-apps-pills {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-        .app-pill {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.7rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .app-pill i { font-size: 0.55rem; color: #10b981; }
-        .timer-sec {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
     </style>
 </head>
@@ -666,25 +627,6 @@
             <div id="tournament-list"></div>
         </div>
 
-        <!-- OFFER TAB -->
-        <div id="tab-offer" class="tab-content">
-            <div class="section-title">Refer & Earn</div>
-            <div class="wallet-card" style="text-align: center; padding: 30px 15px;">
-                <i class="fa-solid fa-users" style="font-size: 2.5rem; color: var(--gold); margin-bottom: 10px;"></i>
-                <h3 style="margin-bottom: 6px;">Invite Friends & Get Bonus</h3>
-                <span style="background: #eab308; color: #000; font-size: 0.7rem; padding: 3px 12px; border-radius: 12px; font-weight: bold;">COMING SOON</span>
-            </div>
-        </div>
-
-        <!-- RANKING TAB -->
-        <div id="tab-ranking" class="tab-content">
-            <div class="section-title">Top Players Leaderboard</div>
-            <div class="wallet-card" style="text-align: center; padding: 40px 15px;">
-                <i class="fa-solid fa-trophy" style="font-size: 2.5rem; color: #4b5563; margin-bottom: 10px;"></i>
-                <p style="font-size: 0.9rem; font-weight: 700; color: #9ca3af;">No rankings available yet</p>
-            </div>
-        </div>
-
         <!-- WALLET TAB -->
         <div id="tab-wallet" class="tab-content">
             <div style="background: #111322; border: 1px solid #1f2438; border-radius: 12px; padding: 20px 14px 14px; text-align: center; color: #fff; margin-bottom: 16px;">
@@ -724,9 +666,9 @@
                 </div>
             </div>
             <div class="wallet-actions-grid" style="grid-template-columns: 1fr; margin-top:-2px;">
-                <div class="wallet-action-btn" onclick="openTransactionsModal()">
-                    <i class="fa-solid fa-receipt"></i>
-                    <span>Transactions</span>
+                <div class="wallet-action-btn" onclick="openWhatsApp()">
+                    <i class="fa-brands fa-whatsapp" style="color:#25D366;"></i>
+                    <span>Contact Support</span>
                 </div>
             </div>
         </div>
@@ -737,14 +679,8 @@
                 <div class="profile-avatar-circle">
                     <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem; color: #fff;"></i>
                 </div>
-                <div class="user-name-text" id="display-username" style="font-size:1.1rem; font-weight:800;"></div>
+                <div class="user-name-text" id="display-username" style="font-size:1.1rem; font-weight:800;">Name : User</div>
                 <div style="color:var(--accent-green); font-weight:700; font-size:0.85rem; margin-bottom:16px;"><i class="fa-solid fa-circle-check"></i> Kyc Verified</div>
-            </div>
-
-            <div class="stats-summary-card">
-                <div class="stat-item"><div class="stat-num" id="stat-matches">0</div><div class="stat-label">Matches Played</div></div>
-                <div class="stat-item"><div class="stat-num" id="stat-kills">0</div><div class="stat-label">Total Kills</div></div>
-                <div class="stat-item"><div class="stat-num" style="color:#00d2ff;"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.8rem;"></i> <span id="stat-won">0</span></div><div class="stat-label">PlayCoin Won</div></div>
             </div>
 
             <div class="menu-list">
@@ -756,18 +692,12 @@
                     <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
-                <div class="menu-item" onclick="openWhatsApp()">
-                    <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Contact Us</span></div>
-                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
-                </div>
             </div>
         </div>
 
         <!-- Bottom Navigation -->
         <nav class="bottom-nav">
-            <div class="nav-item" onclick="switchTab('offer')" id="nav-offer"><i class="fa-solid fa-percent"></i><span>Offer</span></div>
-            <div class="nav-item" onclick="switchTab('ranking')" id="nav-ranking"><i class="fa-solid fa-chart-simple"></i><span>Ranking</span></div>
-            <div class="nav-item active" onclick="switchTab('home')" id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></div>
+            <div class="nav-itemactive" onclick="switchTab('home')" id="nav-home"><i class="fa-solid fa-house"></i><span>Home</span></div>
             <div class="nav-item" onclick="switchTab('wallet')" id="nav-wallet"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
             <div class="nav-item" onclick="switchTab('profile')" id="nav-profile"><i class="fa-solid fa-user-gear"></i><span>Profile</span></div>
         </nav>
@@ -783,36 +713,12 @@
             </div>
             <div style="max-height: 70vh; overflow-y: auto;">
                 <div class="pkg-item" onclick="selectCoinPackage(10)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">10 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(15)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">15 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(20)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">20 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(25)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">25 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(30)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">30 COINS</div>
+                    <div class="pkg-left"><div class="pkg-icon-fatal">FR</div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! TAKE SCREENSHOT OF QR CODE...</p></div></div>
+                    <div class="pkg-btn-text-fatal">10 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(50)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">50 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(100)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">100 COINS</div>
-                </div>
-                <div class="pkg-item" onclick="selectCoinPackage(500)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! TAKE SCREENSHOT OF QR CODE & PAY IN 2 MINS.</p></div></div>
-                    <div class="pkg-btn-text">500 COINS</div>
+                    <div class="pkg-left"><div class="pkg-icon-fatal">FR</div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! TAKE SCREENSHOT OF QR CODE...</p></div></div>
+                    <div class="pkg-btn-text-fatal">50 COINS</div>
                 </div>
             </div>
         </div>
@@ -828,68 +734,13 @@
             <div style="max-height: 75vh; overflow-y: auto;">
                 <!-- UPI LIST -->
                 <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">48 INR</div>
+                    <div class="pkg-left"><div class="pkg-icon-fatal">FR</div><div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div></div>
+                    <div class="pkg-btn-text-fatal">48 INR</div>
                 </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">95 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>200 COINS = 190 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">190 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>300 COINS = 285 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">285 INR</div>
-                </div>
-
                 <!-- REDEEM CODE LIST -->
                 <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">50 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>100 COINS = 97 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">100 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>150 COINS = 146 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">150 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>200 COINS = 195 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">200 INR</div>
+                    <div class="pkg-left"><div class="pkg-icon-redeem"><i class="fa-solid fa-wallet"></i></div><div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div></div>
+                    <div class="pkg-btn-text-fatal">50 INR</div>
                 </div>
             </div>
         </div>
@@ -904,209 +755,75 @@
             </div>
             <div style="max-height: 75vh; overflow-y: auto;">
                 <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">35 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>100 COINS = 70 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">70 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>200 COINS = 140 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">140 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>300 COINS = 210 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">210 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>400 COINS = 280 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">280 INR</div>
-                </div>
-
-                <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>500 COINS = 350 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">350 INR</div>
+                    <div class="pkg-left"><div class="pkg-icon-fatal">FR</div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div></div>
+                    <div class="pkg-btn-text-fatal">35 INR</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- ALERT/DIALOG POPUP WITH DYNAMIC INPUTS (Screenshot 1000076733 & 1000076742) -->
-    <div id="modal-withdraw-alert" class="modal-overlay">
-        <div class="alert-modal-box">
-            <h3 id="alert-title">Enter Details</h3>
-            <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
-            
-            <div id="alert-inputs-container">
-                <!-- Inputs generated dynamically -->
+    <!-- WITHDRAWAL POPUP DIALOG (EXACT MATCH to Screenshot 1000076733, 1000076742, etc.) -->
+    <div id="modal-withdraw-confirm" class="modal-overlay">
+        <div class="withdraw-modal-box">
+            <div class="withdraw-title-bar">
+                Redeem Won Balance
             </div>
-
-            <div class="alert-buttons">
-                <button class="alert-btn" style="color: #9ca3af;" onclick="closeModal('modal-withdraw-alert')">CANCEL</button>
-                <button class="alert-btn" onclick="submitFinalWithdrawal()">WITHDRAWAL</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL 4: TRANSACTIONS WITH SLIDE TABS (Screenshot 1000076735) -->
-    <div id="modal-transactions" class="modal-overlay">
-        <div class="modal-box" style="padding:0; overflow:hidden;">
-            <div class="modal-top-bar">
-                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-transactions')" style="cursor:pointer;"></i>
-                <span>Transactions</span>
-            </div>
-
-            <div class="tx-tabs-container">
-                <div class="tx-tab active" onclick="switchTxTab('all', this)"><i class="fa-solid fa-list"></i> All</div>
-                <div class="tx-tab" onclick="switchTxTab('deposit', this)"><i class="fa-solid fa-arrow-down-left"></i> Deposit</div>
-                <div class="tx-tab" onclick="switchTxTab('withdraw', this)"><i class="fa-solid fa-arrow-up-right"></i> Withdraw</div>
-            </div>
-
-            <div id="tx-history-list" style="padding:20px; max-height:60vh; overflow-y:auto;">
-                <!-- History items loaded here -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL: QR PAYMENT DISPLAY -->
-    <div id="modal-payment-qr" class="modal-overlay">
-        <div class="modal-box" style="background:transparent; border:none; padding:0;">
-            <div class="fatal-pay-screen">
-                <i class="fa-solid fa-xmark" onclick="closeModal('modal-payment-qr')" style="position:absolute; right:16px; top:16px; color:#8c93b0; font-size:1.2rem; cursor:pointer;"></i>
+            <div class="withdraw-content">
+                <p id="withdraw-msg-text" class="withdraw-msg">Fill details carefully. Wrong details will lead to payment failure.</p>
                 
-                <div class="fatal-avatar">FR</div>
-                <div class="pay-subtitle">PAYING TO</div>
-                <div class="pay-target-title">Fatal Rush</div>
-
-                <div class="pay-amount-badge">
-                    ₹ <span id="pay-dynamic-amount">10.00</span>
+                <div id="withdraw-dynamic-inputs">
+                    <!-- Dynamic Inputs Inserted Here (REDEEM needs WhatsApp/Email, others need Name/UPI) -->
                 </div>
 
-                <div style="font-size:0.75rem; color:#8c93b0; font-weight:700; margin-bottom:10px; text-transform:uppercase;">SCAN TO PAY INSTANTLY</div>
-
-                <div class="qr-box-wrap">
-                    <img id="dynamic-qr-img" src="" alt="Fatal Rush QR Code">
-                </div>
-
-                <div class="pay-instruct-pill">
-                    QR scan karke payment karein
-                </div>
-
-                <div class="pay-apps-pills">
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> GPay</div>
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> PhonePe</div>
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> Paytm</div>
-                </div>
-
-                <div class="form-group" style="margin-top:10px; text-align:left;">
-                    <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
-                    <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
-                </div>
-                <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">SUBMIT UTR</button>
-
-                <div class="timer-sec">
-                    <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
-                    <span style="color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Secure</span>
-                </div>
-
-                <div style="font-size:0.65rem; color:#6b7280; margin-top:10px;">
-                    Powered by TranzUPI · © 2026
+                <div class="withdraw-buttons-row">
+                    <button class="withdraw-btn-action" onclick="closeModal('modal-withdraw-confirm')" style="color:#888;">CANCEL</button>
+                    <button class="withdraw-btn-action" onclick="confirmWithdrawSubmission()">PROCEED</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- OTHER MODALS -->
+    <!-- PROFILE MODAL -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
             <div class="form-group"><label>User's Name</label><input type="text" id="edit-username" class="form-input" placeholder="Enter Name"></div>
-            <div class="form-group"><label>Email Address</label><input type="email" id="edit-email" class="form-input" placeholder="Enter Email"></div>
-            <div class="form-group"><label>Mobile Number</label><input type="text" id="edit-mobile" class="form-input" placeholder="Enter Mobile Number"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="edit-newpass" class="form-input" placeholder="Enter Password"></div>
-            <button class="btn-submit" onclick="saveProfileDetails()">SAVE / LOGIN</button>
+            <button class="btn-submit" onclick="saveProfileDetails()">SAVE PROFILE</button>
         </div>
     </div>
 
-    <!-- ADMIN LOGIN POPUP (EXACT layout - matching Screenshot 1000076732) -->
+    <!-- ADMIN LOGIN POPUP (EXACT MATCH - Screenshots 1000076732, 1000076738 - Fields BLANK) -->
     <div id="modal-secret-admin" class="modal-overlay">
-        <div class="alert-modal-box">
-            <h3>Admin Verification</h3>
+        <div class="alert-modal-box" style="background:#232936; color:#fff; padding:20px; border-radius:12px; width:90%; max-width:330px;">
+            <h3 style="font-size:1.1rem; font-weight:900;">Admin Verification</h3>
             
             <div class="form-group" style="margin-top:16px;">
                 <label style="font-size:0.75rem; color:#a0aec0;">Admin ID</label>
-                <!-- Inputs are blank for security - matching Screenshot 1000076732 input style -->
+                <!-- Input BLANK with example placeholder -->
                 <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. admin@fatalrush.com">
             </div>
             
             <div class="form-group">
                 <label style="font-size:0.75rem; color:#a0aec0;">Password</label>
+                <!-- Input BLANK -->
                 <input type="password" id="admin-pass-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="Enter Password">
             </div>
 
-            <button class="btn-submit" onclick="verifyAdminPass()">LOGIN ADMIN</button>
-            <button class="btn-close" onclick="closeModal('modal-secret-admin')">Cancel</button>
-        </div>
-    </div>
-
-    <div id="modal-admin-panel" class="modal-overlay">
-        <div class="modal-box">
-            <div class="modal-title">🛠️ Admin Panel - Create Match</div>
-            <div class="form-group"><label>Match Title</label><input type="text" id="adm-title" class="form-input" placeholder="Free Fire Solo #101"></div>
-            <div class="form-group"><label>Mode</label><input type="text" id="adm-mode" class="form-input" placeholder="SOLO"></div>
-            <div class="form-group"><label>Time</label><input type="text" id="adm-time" class="form-input" placeholder="Today - 08:00 PM"></div>
-            <div class="form-group"><label>Map</label><input type="text" id="adm-map" class="form-input" placeholder="Bermuda"></div>
-            <div class="form-group"><label>Win Prize (Coins)</label><input type="number" id="adm-prize" class="form-input" placeholder="100"></div>
-            <div class="form-group"><label>Per Kill (Coins)</label><input type="number" id="adm-perkill" class="form-input" placeholder="10"></div>
-            <div class="form-group"><label>Entry Fee (Coins)</label><input type="number" id="adm-fee" class="form-input" placeholder="15"></div>
-            <button class="btn-submit" onclick="adminCreateMatch()">PUBLISH MATCH</button>
-            <button class="btn-close" onclick="closeModal('modal-admin-panel')">Close</button>
+            <button class="btn-submit" style="background:#ff2a5f; margin-top:20px;" onclick="verifyAdminPass()">LOGIN ADMIN</button>
+            <button class="btn-close" style="color:#ddd; margin-top:10px;" onclick="closeModal('modal-secret-admin')">Cancel</button>
         </div>
     </div>
 
     <script>
-        let userData = { name: "", email: "", mobile: "", coins: 0, deposited: 0, winning: 0, bonus: 0, matches: 0, kills: 0, won: 0 };
-        let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
-        let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
+        let userData = { name: "User", coins: 0 };
         let secretTapCount = 0;
-        let selectedAmount = 10;
-        let selectedWithdrawCoins = 0;
-        let selectedWithdrawInr = 0;
-        let selectedWithdrawType = '';
-        let timerInterval = null;
+        let pendingWithdrawalData = null;
 
         window.onload = function() {
             updateUserUI();
-            renderTournaments();
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
-                if(splash) {
-                    splash.style.opacity = '0';
-                    setTimeout(() => { splash.style.visibility = 'hidden'; }, 500);
-                }
+                if(splash) { splash.style.opacity = '0'; setTimeout(() => { splash.style.visibility = 'hidden'; }, 500); }
             }, 1800);
         };
 
@@ -1119,237 +836,63 @@
 
         function switchTab(tabName) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.getElementById(`tab-${tabName}`).classList.add('active');
-            document.getElementById(`nav-${tabName}`).classList.add('active');
         }
 
         function updateUserUI() {
-            document.getElementById('display-username').innerText = userData.name ? ("Name : " + userData.name) : "";
+            document.getElementById('display-username').innerText = "Name : " + userData.name;
             document.getElementById('header-coins').innerText = userData.coins;
             document.getElementById('wallet-coins').innerText = userData.coins;
-            document.getElementById('deposit-coins').innerText = userData.deposited;
-            document.getElementById('winning-coins').innerText = userData.winning;
-            document.getElementById('bonus-coins').innerText = userData.bonus;
-            document.getElementById('stat-matches').innerText = userData.matches;
-            document.getElementById('stat-kills').innerText = userData.kills;
-            document.getElementById('stat-won').innerText = userData.won;
-        }
-
-        function renderTournaments() {
-            const list = document.getElementById('tournament-list');
-            if(tournaments.length === 0) {
-                list.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-sub); background:var(--card-bg); border-radius:12px; border:1px solid var(--card-border);"><i class="fa-solid fa-gamepad" style="font-size:2rem; margin-bottom:8px; color:var(--primary-red);"></i><p>No active matches right now.</p></div>`;
-                return;
-            }
-            list.innerHTML = '';
-            tournaments.forEach(m => {
-                list.innerHTML += `<div class="match-card">
-                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
-                        <div style="font-size:0.95rem; font-weight:700; color:#fff;">${m.title}</div>
-                        <span style="background:var(--primary-red); color:#fff; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:4px;">${m.mode}</span>
-                    </div>
-                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:rgba(0,0,0,0.25); padding:10px; border-radius:8px; margin-bottom:12px;">
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Time</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.time}</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Map</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.map}</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Win Prize</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
-                    </div>
-                    <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
-                </div>`;
-            });
-        }
-
-        function joinMatch(fee) {
-            if(userData.coins < fee) {
-                showToast("Insufficient Coins! Add coins first.");
-                switchTab('wallet');
-            } else {
-                userData.coins -= fee;
-                userData.matches += 1;
-                updateUserUI();
-                showToast("Joined Match Successfully!");
-            }
         }
 
         function openBuyCoinsModal() { document.getElementById('modal-buy-coins').style.display = 'flex'; }
         function openWithdrawModal() { document.getElementById('modal-withdraw').style.display = 'flex'; }
         function openEmergencyWithdrawModal() { document.getElementById('modal-emergency-withdraw').style.display = 'flex'; }
+        function openMyProfileModal() { document.getElementById('modal-my-profile').style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
 
-        function selectCoinPackage(amount) {
-            selectedAmount = amount;
-            closeModal('modal-buy-coins');
-            document.getElementById('pay-dynamic-amount').innerText = amount.toFixed(2);
-            const upiString = `upi://pay?pa=fatalrush@upi&pn=FatalRush&am=${amount}&cu=INR`;
-            document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
-            document.getElementById('modal-payment-qr').style.display = 'flex';
-            startCountdownTimer();
-        }
-
-        /* TRIGGER DYNAMIC ALERT DIALOG (Screenshot 1000076733 & 1000076742) */
         function triggerWithdrawAlert(coins, inr, type) {
-            if(userData.coins < coins) {
-                showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
-                return;
-            }
-            selectedWithdrawCoins = coins;
-            selectedWithdrawInr = inr;
-            selectedWithdrawType = type;
-
-            const container = document.getElementById('alert-inputs-container');
-            container.innerHTML = '';
+            pendingWithdrawalData = { coins, inr, type };
+            const dynamicInputs = document.getElementById('withdraw-dynamic-inputs');
+            dynamicInputs.innerHTML = ''; // Clear old
 
             if(type === 'REDEEM') {
-                document.getElementById('alert-title').innerText = "Enter Number";
-                document.getElementById('alert-message').innerText = "Fill details carefully. Code will be sent on your given phone number/email.";
-                
-                container.innerHTML = `
-                    <input type="text" id="alert-input-whatsapp" class="alert-input" placeholder="Enter WhatsApp Number">
-                    <input type="email" id="alert-input-email" class="alert-input" placeholder="Enter Your Email Address">
+                dynamicInputs.innerHTML = `
+                    <input type="text" id="withdraw-whatsapp" class="withdraw-form-input" placeholder="Enter WhatsApp Number">
+                    <input type="email" id="withdraw-email" class="withdraw-form-input" placeholder="Enter Your Email Address">
                 `;
             } else {
-                document.getElementById('alert-title').innerText = "Enter UPI ID";
-                document.getElementById('alert-message').innerText = "Fill details carefully. Wrong details will lead to payment failure.";
-                
-                container.innerHTML = `
-                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="Enter UPI ID">
+                dynamicInputs.innerHTML = `
+                    <input type="text" id="withdraw-name" class="withdraw-form-input" placeholder="Enter Account Holder Name">
+                    <input type="text" id="withdraw-upi" class="withdraw-form-input" placeholder="ENTER Your UPI ID OR VPA">
                 `;
             }
-
-            document.getElementById('modal-withdraw-alert').style.display = 'flex';
+            document.getElementById('modal-withdraw-confirm').style.display = 'flex';
         }
 
-        function submitFinalWithdrawal() {
-            if(selectedWithdrawType === 'REDEEM') {
-                const whatsapp = document.getElementById('alert-input-whatsapp').value.trim();
-                const email = document.getElementById('alert-input-email').value.trim();
-                if(!whatsapp || !email) {
-                    showToast("Please enter both WhatsApp number & Email!");
-                    return;
-                }
+        function confirmWithdrawSubmission() {
+            const data = pendingWithdrawalData;
+            let isValid = true;
+            if(data.type === 'REDEEM') {
+                if(!document.getElementById('withdraw-whatsapp').value || !document.getElementById('withdraw-email').value) isValid = false;
             } else {
-                const upi = document.getElementById('alert-input-upi').value.trim();
-                if(!upi) {
-                    showToast("Please enter valid UPI ID!");
-                    return;
-                }
+                if(!document.getElementById('withdraw-name').value || !document.getElementById('withdraw-upi').value) isValid = false;
             }
 
-            userData.coins -= selectedWithdrawCoins;
-            updateUserUI();
+            if(!isValid) {
+                showToast("Please fill all details correctly.");
+                return;
+            }
 
-            // Record transaction
-            txHistory.unshift({
-                id: Date.now(),
-                type: 'withdraw',
-                title: selectedWithdrawType + ' Withdrawal',
-                coins: selectedWithdrawCoins,
-                inr: selectedWithdrawInr,
-                date: new Date().toLocaleDateString(),
-                status: 'Pending'
-            });
-            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
-
-            closeModal('modal-withdraw-alert');
+            closeModal('modal-withdraw-confirm');
             closeModal('modal-withdraw');
             closeModal('modal-emergency-withdraw');
-
-            showToast(`Withdrawal of ${selectedWithdrawCoins} Coins (${selectedWithdrawInr} INR) Requested!`);
+            showToast("Withdrawal request submitted.");
+            pendingWithdrawalData = null;
         }
-
-        function startCountdownTimer() {
-            let duration = 170;
-            const timerDisplay = document.getElementById('pay-timer');
-            if(timerInterval) clearInterval(timerInterval);
-
-            timerInterval = setInterval(() => {
-                let minutes = parseInt(duration / 60, 10);
-                let seconds = parseInt(duration % 60, 10);
-                minutes = minutes < 10 ? "0" + minutes : minutes;
-                seconds = seconds < 10 ? "0" + seconds : seconds;
-                timerDisplay.textContent = minutes + ":" + seconds;
-
-                if (--duration < 0) {
-                    clearInterval(timerInterval);
-                    timerDisplay.textContent = "00:00";
-                    showToast("Payment window expired!");
-                    closeModal('modal-payment-qr');
-                }
-            }, 1000);
-        }
-
-        function confirmPaymentSubmit() {
-            const utr = document.getElementById('pay-utr-input').value.trim();
-            if(!utr) {
-                showToast("Please enter 12-Digit UTR Number!");
-                return;
-            }
-            closeModal('modal-payment-qr');
-            document.getElementById('pay-utr-input').value = '';
-
-            txHistory.unshift({
-                id: Date.now(),
-                type: 'deposit',
-                title: 'Coin Purchase',
-                coins: selectedAmount,
-                inr: selectedAmount,
-                date: new Date().toLocaleDateString(),
-                status: 'Pending'
-            });
-            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
-
-            showToast(`Payment of ₹${selectedAmount} Submitted for Verification!`);
-        }
-
-        function openTransactionsModal() {
-            document.getElementById('modal-transactions').style.display = 'flex';
-            renderTransactions('all');
-        }
-
-        function switchTxTab(filter, element) {
-            document.querySelectorAll('.tx-tab').forEach(el => el.classList.remove('active'));
-            element.classList.add('active');
-            renderTransactions(filter);
-        }
-
-        function renderTransactions(filter) {
-            const container = document.getElementById('tx-history-list');
-            let list = txHistory;
-            if(filter !== 'all') {
-                list = txHistory.filter(t => t.type === filter);
-            }
-
-            if(list.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:30px; font-size:0.85rem; color:var(--text-sub);">No transactions found in this section.</div>`;
-                return;
-            }
-
-            container.innerHTML = '';
-            list.forEach(item => {
-                const isDeposit = item.type === 'deposit';
-                container.innerHTML += `
-                    <div style="background:#111322; border:1px solid #1f2438; border-radius:10px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
-                        <div>
-                            <div style="font-size:0.9rem; font-weight:700; color:#fff;">${item.title}</div>
-                            <div style="font-size:0.7rem; color:var(--text-sub); margin-top:2px;">${item.date} · <span style="color:#eab308;">${item.status}</span></div>
-                        </div>
-                        <div style="text-align:right;">
-                            <div style="font-size:0.95rem; font-weight:800; color:${isDeposit ? '#10b981' : '#f43f5e'};">
-                                ${isDeposit ? '+' : '-'}${item.coins} Coins
-                            </div>
-                            <div style="font-size:0.75rem; color:var(--text-sub);">₹${item.inr}</div>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function openMyProfileModal() { document.getElementById('modal-my-profile').style.display = 'flex'; }
 
         function saveProfileDetails() {
             userData.name = document.getElementById('edit-username').value;
-            userData.email = document.getElementById('edit-email').value;
-            userData.mobile = document.getElementById('edit-mobile').value;
             updateUserUI();
             closeModal('modal-my-profile');
             showToast("Profile Saved!");
@@ -1359,7 +902,7 @@
             secretTapCount++;
             if(secretTapCount >= 5) {
                 secretTapCount = 0;
-                // matching Screenshot 1000076732 inputs are blank
+                // CLEAR ADMIN INPUTS BEFORE SHOWING (matching screenshot behavior)
                 document.getElementById('admin-id-input').value = '';
                 document.getElementById('admin-pass-input').value = '';
                 document.getElementById('modal-secret-admin').style.display = 'flex';
@@ -1369,42 +912,15 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            // Static Admin Credentials
             if(id === "admin@fatalrush.com" && pass === "admin123") {
-                closeModal('modal-secret-admin');
-                document.getElementById('modal-admin-panel').style.display = 'flex';
                 showToast("Welcome Admin!");
+                closeModal('modal-secret-admin');
             } else {
-                showToast("Incorrect Admin Credentials!");
+                showToast("Incorrect Credentials!");
             }
         }
 
-        function adminCreateMatch() {
-            const title = document.getElementById('adm-title').value.trim();
-            if(!title) { showToast("Enter Match Title!"); return; }
-            tournaments.unshift({
-                id: Date.now(),
-                title,
-                mode: document.getElementById('adm-mode').value.trim() || 'SOLO',
-                time: document.getElementById('adm-time').value.trim() || 'Today - 08:00 PM',
-                map: document.getElementById('adm-map').value.trim() || 'Bermuda',
-                prize: parseInt(document.getElementById('adm-prize').value) || 100,
-                perkill: parseInt(document.getElementById('adm-perkill').value) || 10,
-                fee: parseInt(document.getElementById('adm-fee').value) || 15
-            });
-            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
-            renderTournaments();
-            closeModal('modal-admin-panel');
-            showToast("Tournament Created Live!");
-        }
-
-        function openWhatsApp() {
-            window.open("https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z", '_blank');
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).style.display = 'none';
-        }
+        function openWhatsApp() { window.open("https://whatsapp.com/", '_blank'); }
     </script>
 </body>
 </html>
