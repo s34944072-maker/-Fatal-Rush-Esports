@@ -129,6 +129,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
+            user-select: none;
         }
 
         .coin-badge {
@@ -374,7 +375,7 @@
         .modal-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--primary-red); display: flex; align-items: center; justify-content: space-between; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 0.75rem; color: var(--text-sub); margin-bottom: 4px; }
-        .form-input { width: 100%; background: #0a0b10; border: 1px solid var(--card-border); padding: 10px; border-radius: 6px; color: #fff; font-size: 0.85rem; }
+        .form-input { width: 100%; background: #0a0b10; border: 1px solid var(--card-border); padding: 10px; border-radius: 6px; color: #fff; font-size: 0.85rem; outline: none; }
         .btn-submit { width: 100%; background: var(--primary-red); color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn-close { background: transparent; color: var(--text-sub); border: none; margin-top: 8px; cursor: pointer; width: 100%; font-size: 0.8rem; }
 
@@ -1139,8 +1140,20 @@
     </div>
 
     <script>
-        // ADDED LOCAL STORAGE PERSISTENCE SO DATA DOESN'T DISAPPEAR
-        let userData = JSON.parse(localStorage.getItem('fatal_user_data')) || { name: "", email: "", mobile: "", coins: 0, deposited: 0, winning: 0, bonus: 0, matches: 0, kills: 0, won: 0 };
+        // FULL LOCAL STORAGE PERSISTENCE TO ENSURE NO DATA IS LOST
+        let userData = JSON.parse(localStorage.getItem('fatal_user_data')) || { 
+            name: "Pro Gamer", 
+            email: "", 
+            mobile: "", 
+            coins: 0, 
+            deposited: 0, 
+            winning: 0, 
+            bonus: 0, 
+            matches: 0, 
+            kills: 0, 
+            won: 0 
+        };
+        
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
         
@@ -1155,11 +1168,12 @@
             updateUserUI();
             renderTournaments();
             
-            // Populate profile fields if data exists
+            // Auto Populate profile fields
             if(userData.name) document.getElementById('edit-username').value = userData.name;
             if(userData.email) document.getElementById('edit-email').value = userData.email;
             if(userData.mobile) document.getElementById('edit-mobile').value = userData.mobile;
 
+            // Smooth Splash screen transition
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
@@ -1169,7 +1183,7 @@
             }, 1800);
         };
 
-        // FUNCTION TO SAVE USER DATA
+        // SAVE DATA LOCALLY ALWAYS
         function saveUserDataLocally() {
             localStorage.setItem('fatal_user_data', JSON.stringify(userData));
             updateUserUI();
@@ -1221,7 +1235,6 @@
                         <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                     </div>
                     <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
-                    ${ /* Delete Match option for Admin side (hidden visually from regular users but functional if called) */ '' }
                 </div>`;
             });
         }
@@ -1429,7 +1442,7 @@
             showToast("Profile Saved!");
         }
 
-        // --- ADMIN PANEL SECRETS AND FUNCTIONS --- //
+        // --- ADMIN PANEL FUNCTIONS --- //
         function handleSecretTap() {
             secretTapCount++;
             if(secretTapCount >= 5) {
@@ -1443,7 +1456,7 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            // Static Admin Credentials
+            // Default Admin Credentials
             if(id === "admin@fatalrush.com" && pass === "admin123") {
                 closeModal('modal-secret-admin');
                 document.getElementById('modal-admin-panel').style.display = 'flex';
@@ -1480,7 +1493,7 @@
             renderTournaments();
             showToast("Tournament Created Live!");
             
-            // Clear inputs
+            // Reset input
             document.getElementById('adm-title').value = '';
         }
 
@@ -1489,7 +1502,7 @@
             if(isNaN(val)) { showToast("Enter a valid number!"); return; }
             
             userData.coins += val;
-            if(val > 0) userData.bonus += val; // Just tracking it as bonus for fun
+            if(val > 0) userData.bonus += val;
             
             saveUserDataLocally();
             showToast(`Successfully ${val > 0 ? 'Added' : 'Removed'} ${Math.abs(val)} Coins!`);
@@ -1539,10 +1552,10 @@
                 
                 // If Rejected Withdraw -> Refund Coins
                 if(tx.type === 'withdraw' && newStatus === 'Failed') {
-                    userData.coins += tx.coins; // refund
+                    userData.coins += tx.coins; 
                 }
                 
-                // If Approved Withdraw -> Add to winning stat just for show
+                // If Approved Withdraw -> Update winning stats
                 if(tx.type === 'withdraw' && newStatus === 'Success') {
                     userData.winning += tx.coins;
                 }
