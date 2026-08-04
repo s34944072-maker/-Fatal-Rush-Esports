@@ -359,32 +359,120 @@
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: 600;
-            z-index: 2000;
+            z-index: 20000;
             transition: 0.4s ease;
         }
 
         .custom-toast.show { transform: translateX(-50%) translateY(0); }
 
+        /* FULLSCREEN MODALS LAYOUT FOR BUY / WITHDRAW / EMERGENCY */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
+            background: #f8fafc;
             display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            padding: 15px;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+            z-index: 99999;
+            overflow-y: auto;
         }
 
         .modal-box {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 12px;
-            padding: 20px;
+            background: transparent;
+            border: none;
+            padding: 0;
             width: 100%;
-            max-width: 400px;
-            max-height: 85vh;
-            overflow-y: auto;
+            height: 100%;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Modal Header (Native Mobile App Top Bar) */
+        .modal-top-bar {
+            background: #5b21b6;
+            color: #fff;
+            padding: 16px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .modal-top-bar.withdraw-bar {
+            background: #28303d;
+        }
+
+        .modal-top-bar i {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Package Items UI (Native List Layout) */
+        .pkg-list-container {
+            width: 100%;
+            flex: 1;
+            background: #f8fafc;
+        }
+
+        .pkg-item {
+            background: #ffffff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .pkg-item:active {
+            background: #f1f5f9;
+        }
+
+        .pkg-left { display: flex; align-items: center; gap: 16px; }
+        
+        .pkg-icon {
+            width: 46px; height: 46px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 1.3rem; flex-shrink: 0;
+        }
+
+        .pkg-icon.tranz {
+            background: #000;
+            border: 2px solid #10b981;
+        }
+
+        .pkg-icon.tranz img {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+        }
+
+        .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
+        .pkg-icon.redeem { background: #f43f5e; color: #fff; }
+
+        .pkg-info h4 { font-size: 1rem; color: #0f172a; font-weight: 900; letter-spacing: 0.2px; }
+        .pkg-info p { font-size: 0.72rem; color: #64748b; font-weight: 700; margin-top: 3px; line-height: 1.2; max-width: 210px; }
+
+        .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 1.05rem; }
+
+        /* Dialog Popups Style */
+        .dialog-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 100000;
+            padding: 15px;
         }
 
         .modal-title { font-size: 1rem; font-weight: 700; margin-bottom: 12px; color: var(--primary-red); display: flex; align-items: center; justify-content: space-between; }
@@ -411,41 +499,6 @@
             box-shadow: 0 4px 15px rgba(255,42,95,0.6);
             cursor: pointer;
             z-index: 90;
-        }
-
-        /* Package Items UI */
-        .pkg-item {
-            background: #fff;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 14px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-        }
-        .pkg-left { display: flex; align-items: center; gap: 14px; }
-        .pkg-icon {
-            width: 42px; height: 42px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; font-size: 1.2rem; flex-shrink: 0;
-        }
-        .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
-        .pkg-icon.redeem { background: #f43f5e; color: #fff; }
-        .pkg-info h4 { font-size: 0.95rem; color: #000; font-weight: 900; letter-spacing: 0.3px; }
-        .pkg-info p { font-size: 0.72rem; color: #666; font-weight: 700; margin-top: 2px; }
-        .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 0.95rem; }
-
-        /* Modal Header */
-        .modal-top-bar {
-            background: #232936;
-            color: #fff;
-            padding: 14px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            gap: 16px;
         }
 
         /* Alert/Dialog Dialog */
@@ -535,6 +588,8 @@
             color: #fff;
             border: 1px solid rgba(255,255,255,0.1);
             position: relative;
+            max-width: 400px;
+            margin: auto;
         }
         .fatal-avatar {
             width: 54px; height: 54px;
@@ -810,188 +865,380 @@
 
     </div>
 
-    <!-- MODAL 1: BUY COINS PACKAGES -->
+    <!-- FULLSCREEN MODAL 1: BUY COINS PACKAGES -->
     <div id="modal-buy-coins" class="modal-overlay">
-        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
-            <div class="modal-top-bar">
-                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')" style="cursor:pointer;"></i>
-                <span>Buy Coins (Instant Auto Credit)</span>
+        <div class="modal-top-bar">
+            <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')"></i>
+            <span>Buy Coins</span>
+        </div>
+        <div class="pkg-list-container">
+            <div class="pkg-item" onclick="selectCoinPackage(10)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>10 INR 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">10 COINS</div>
             </div>
-            <div style="max-height: 70vh; overflow-y: auto;">
-                <div class="pkg-item" onclick="selectCoinPackage(10)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">10 COINS</div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(15)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>15 INR 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(15)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">15 COINS</div>
+                <div class="pkg-btn-text">15 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(20)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>20 INR 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(20)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">20 COINS</div>
+                <div class="pkg-btn-text">20 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(25)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(25)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">25 COINS</div>
+                <div class="pkg-btn-text">25 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(30)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(30)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">30 COINS</div>
+                <div class="pkg-btn-text">30 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(35)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>35 INR 35 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(50)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">50 COINS</div>
+                <div class="pkg-btn-text">35 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(40)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>40 INR 40 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(100)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">100 COINS</div>
+                <div class="pkg-btn-text">40 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(45)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>45 INR 45 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
-                <div class="pkg-item" onclick="selectCoinPackage(500)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! INSTANT AUTO CREDIT.</p></div></div>
-                    <div class="pkg-btn-text">500 COINS</div>
+                <div class="pkg-btn-text">45 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(50)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>50 INR 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">50 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(80)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>80 INR 80 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">80 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(100)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>100 INR 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">100 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(200)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>200 INR = 200 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">200 COINS</div>
+            </div>
+
+            <div class="pkg-item" onclick="selectCoinPackage(500)">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>TranzUPI</h4>
+                        <p>500 INR 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">500 COINS</div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 2: WITHDRAWAL PACKAGES -->
+    <!-- FULLSCREEN MODAL 2: WITHDRAWAL PACKAGES -->
     <div id="modal-withdraw" class="modal-overlay">
-        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
-            <div class="modal-top-bar">
-                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-withdraw')" style="cursor:pointer;"></i>
-                <span>Withdrawal</span>
+        <div class="modal-top-bar withdraw-bar">
+            <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-withdraw')"></i>
+            <span>Withdrawal</span>
+        </div>
+        <div class="pkg-list-container">
+            <!-- UPI LIST -->
+            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 48 INR</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">48 INR</div>
             </div>
-            <div style="max-height: 75vh; overflow-y: auto;">
-                <!-- UPI LIST -->
-                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">48 INR</div>
-                </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">95 INR</div>
+                    <div class="pkg-info">
+                        <h4>UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 95 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">95 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>200 COINS = 190 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">190 INR</div>
+                    <div class="pkg-info">
+                        <h4>UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 190 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">190 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>UPI</h4><p>300 COINS = 285 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">285 INR</div>
+                    <div class="pkg-info">
+                        <h4>UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">300 COINS = 285 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">285 INR</div>
+            </div>
 
-                <!-- REDEEM CODE LIST -->
-                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div>
+            <!-- REDEEM CODE LIST -->
+            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
+                <div class="pkg-left">
+                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="pkg-info">
+                        <h4>REDEEM CODE</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 48 INR</p>
                     </div>
-                    <div class="pkg-btn-text">50 INR</div>
                 </div>
+                <div class="pkg-btn-text">50 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>100 COINS = 97 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')">
+                <div class="pkg-left">
+                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="pkg-info">
+                        <h4>REDEEM CODE</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 97 INR</p>
                     </div>
-                    <div class="pkg-btn-text">100 INR</div>
                 </div>
+                <div class="pkg-btn-text">100 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>150 COINS = 146 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')">
+                <div class="pkg-left">
+                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="pkg-info">
+                        <h4>REDEEM CODE</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">150 COINS = 146 INR</p>
                     </div>
-                    <div class="pkg-btn-text">150 INR</div>
                 </div>
+                <div class="pkg-btn-text">150 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                        <div class="pkg-info"><h4>REDEEM CODE</h4><p>200 COINS = 195 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')">
+                <div class="pkg-left">
+                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
+                    <div class="pkg-info">
+                        <h4>REDEEM CODE</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 195 INR</p>
                     </div>
-                    <div class="pkg-btn-text">200 INR</div>
                 </div>
+                <div class="pkg-btn-text">200 INR</div>
             </div>
         </div>
     </div>
 
-    <!-- MODAL 3: EMERGENCY WITHDRAWAL PACKAGES -->
+    <!-- FULLSCREEN MODAL 3: EMERGENCY WITHDRAWAL PACKAGES -->
     <div id="modal-emergency-withdraw" class="modal-overlay">
-        <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
-            <div class="modal-top-bar">
-                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-emergency-withdraw')" style="cursor:pointer;"></i>
-                <span>Emergency Withdrawal</span>
+        <div class="modal-top-bar withdraw-bar">
+            <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-emergency-withdraw')"></i>
+            <span>Emergency Withdrawal</span>
+        </div>
+        <div class="pkg-list-container">
+            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
+                    </div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 35 INR</p>
+                    </div>
+                </div>
+                <div class="pkg-btn-text">35 INR</div>
             </div>
-            <div style="max-height: 75vh; overflow-y: auto;">
-                <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div>
-                    </div>
-                    <div class="pkg-btn-text">35 INR</div>
-                </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>100 COINS = 70 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">70 INR</div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 70 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">70 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>200 COINS = 140 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">140 INR</div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 140 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">140 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>300 COINS = 210 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">210 INR</div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">300 COINS = 210 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">210 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>400 COINS = 280 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">280 INR</div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">400 COINS = 280 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">280 INR</div>
+            </div>
 
-                <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')">
-                    <div class="pkg-left">
-                        <div class="pkg-icon upi"><i class="fa-solid fa-play" style="transform: rotate(-45deg);"></i></div>
-                        <div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>500 COINS = 350 INR</p></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')">
+                <div class="pkg-left">
+                    <div class="pkg-icon tranz">
+                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
                     </div>
-                    <div class="pkg-btn-text">350 INR</div>
+                    <div class="pkg-info">
+                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
+                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">500 COINS = 350 INR</p>
+                    </div>
                 </div>
+                <div class="pkg-btn-text">350 INR</div>
             </div>
         </div>
     </div>
 
     <!-- ALERT/DIALOG POPUP WITH DYNAMIC INPUTS -->
-    <div id="modal-withdraw-alert" class="modal-overlay">
+    <div id="modal-withdraw-alert" class="dialog-overlay">
         <div class="alert-modal-box">
             <h3 id="alert-title">Enter Details</h3>
             <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
@@ -1007,77 +1254,73 @@
         </div>
     </div>
 
-    <!-- MODAL 4: TRANSACTIONS WITH SLIDE TABS -->
-    <div id="modal-transactions" class="modal-overlay">
-        <div class="modal-box" style="padding:0; overflow:hidden;">
-            <div class="modal-top-bar">
-                <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-transactions')" style="cursor:pointer;"></i>
-                <span>Transactions</span>
-            </div>
+    <!-- FULLSCREEN MODAL 4: TRANSACTIONS WITH SLIDE TABS -->
+    <div id="modal-transactions" class="modal-overlay" style="background:#0a0b10;">
+        <div class="modal-top-bar withdraw-bar">
+            <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-transactions')"></i>
+            <span>Transactions</span>
+        </div>
 
-            <div class="tx-tabs-container">
-                <div class="tx-tab active" onclick="switchTxTab('all', this)"><i class="fa-solid fa-list"></i> All</div>
-                <div class="tx-tab" onclick="switchTxTab('deposit', this)"><i class="fa-solid fa-arrow-down-left"></i> Deposit</div>
-                <div class="tx-tab" onclick="switchTxTab('withdraw', this)"><i class="fa-solid fa-arrow-up-right"></i> Withdraw</div>
-            </div>
+        <div class="tx-tabs-container">
+            <div class="tx-tab active" onclick="switchTxTab('all', this)"><i class="fa-solid fa-list"></i> All</div>
+            <div class="tx-tab" onclick="switchTxTab('deposit', this)"><i class="fa-solid fa-arrow-down-left"></i> Deposit</div>
+            <div class="tx-tab" onclick="switchTxTab('withdraw', this)"><i class="fa-solid fa-arrow-up-right"></i> Withdraw</div>
+        </div>
 
-            <div id="tx-history-list" style="padding:20px; max-height:60vh; overflow-y:auto;">
-                <!-- History items loaded here -->
-            </div>
+        <div id="tx-history-list" style="padding:20px; flex:1; overflow-y:auto;">
+            <!-- History items loaded here -->
         </div>
     </div>
 
     <!-- MODAL: QR PAYMENT DISPLAY -->
-    <div id="modal-payment-qr" class="modal-overlay">
-        <div class="modal-box" style="background:transparent; border:none; padding:0;">
-            <div class="fatal-pay-screen">
-                <i class="fa-solid fa-xmark" onclick="closeModal('modal-payment-qr')" style="position:absolute; right:16px; top:16px; color:#8c93b0; font-size:1.2rem; cursor:pointer;"></i>
-                
-                <div class="fatal-avatar">FR</div>
-                <div class="pay-subtitle">PAYING TO</div>
-                <div class="pay-target-title">Fatal Rush</div>
+    <div id="modal-payment-qr" class="dialog-overlay">
+        <div class="fatal-pay-screen">
+            <i class="fa-solid fa-xmark" onclick="closeModal('modal-payment-qr')" style="position:absolute; right:16px; top:16px; color:#8c93b0; font-size:1.2rem; cursor:pointer;"></i>
+            
+            <div class="fatal-avatar">FR</div>
+            <div class="pay-subtitle">PAYING TO</div>
+            <div class="pay-target-title">Fatal Rush</div>
 
-                <div class="pay-amount-badge">
-                    ₹ <span id="pay-dynamic-amount">10.00</span>
-                </div>
+            <div class="pay-amount-badge">
+                ₹ <span id="pay-dynamic-amount">10.00</span>
+            </div>
 
-                <div style="font-size:0.75rem; color:#8c93b0; font-weight:700; margin-bottom:10px; text-transform:uppercase;">SCAN TO PAY INSTANTLY</div>
+            <div style="font-size:0.75rem; color:#8c93b0; font-weight:700; margin-bottom:10px; text-transform:uppercase;">SCAN TO PAY INSTANTLY</div>
 
-                <div class="qr-box-wrap">
-                    <img id="dynamic-qr-img" src="" alt="Fatal Rush QR Code">
-                </div>
+            <div class="qr-box-wrap">
+                <img id="dynamic-qr-img" src="" alt="Fatal Rush QR Code">
+            </div>
 
-                <div class="pay-instruct-pill">
-                    QR scan karke payment karein
-                </div>
+            <div class="pay-instruct-pill">
+                QR scan karke payment karein
+            </div>
 
-                <div class="pay-apps-pills">
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> GPay</div>
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> PhonePe</div>
-                    <div class="app-pill"><i class="fa-solid fa-circle"></i> Paytm</div>
-                </div>
+            <div class="pay-apps-pills">
+                <div class="app-pill"><i class="fa-solid fa-circle"></i> GPay</div>
+                <div class="app-pill"><i class="fa-solid fa-circle"></i> PhonePe</div>
+                <div class="app-pill"><i class="fa-solid fa-circle"></i> Paytm</div>
+            </div>
 
-                <div class="form-group" style="margin-top:10px; text-align:left;">
-                    <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
-                    <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
-                </div>
-                <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">VERIFY & AUTO ADD</button>
+            <div class="form-group" style="margin-top:10px; text-align:left;">
+                <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
+                <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
+            </div>
+            <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">VERIFY & AUTO ADD</button>
 
-                <div class="timer-sec">
-                    <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
-                    <span style="color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Secure</span>
-                </div>
+            <div class="timer-sec">
+                <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
+                <span style="color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Secure</span>
+            </div>
 
-                <div style="font-size:0.65rem; color:#6b7280; margin-top:10px;">
-                    Powered by TranzUPI · © 2026
-                </div>
+            <div style="font-size:0.65rem; color:#6b7280; margin-top:10px;">
+                Powered by TranzUPI · © 2026
             </div>
         </div>
     </div>
 
     <!-- PROFILE EDIT MODAL -->
-    <div id="modal-my-profile" class="modal-overlay">
-        <div class="modal-box">
+    <div id="modal-my-profile" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
             <div class="form-group"><label>User's Name</label><input type="text" id="edit-username" class="form-input" placeholder="Enter Name"></div>
             <div class="form-group"><label>Email Address</label><input type="email" id="edit-email" class="form-input" placeholder="Enter Email"></div>
@@ -1088,7 +1331,7 @@
     </div>
 
     <!-- ADMIN LOGIN POPUP -->
-    <div id="modal-secret-admin" class="modal-overlay">
+    <div id="modal-secret-admin" class="dialog-overlay">
         <div class="alert-modal-box">
             <h3>Admin Verification</h3>
             
@@ -1108,8 +1351,8 @@
     </div>
 
     <!-- ADMIN PANEL -->
-    <div id="modal-admin-panel" class="modal-overlay">
-        <div class="modal-box">
+    <div id="modal-admin-panel" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:420px; max-height:85vh; overflow-y:auto;">
             <div class="modal-title">
                 🛠️ Admin Control Panel
                 <i class="fa-solid fa-xmark" onclick="closeModal('modal-admin-panel')" style="cursor:pointer;"></i>
@@ -1279,7 +1522,7 @@
             startCountdownTimer();
         }
 
-        // TRIGGER WITHDRAW DIALOG - BAL CHECK YAHAN SE HATA DIYA HAI AGAR PEHLE FORM DIKHANA HO
+        // TRIGGER WITHDRAW DIALOG
         function triggerWithdrawAlert(coins, inr, type) {
             selectedWithdrawCoins = coins;
             selectedWithdrawInr = inr;
@@ -1309,7 +1552,7 @@
             document.getElementById('modal-withdraw-alert').style.display = 'flex';
         }
 
-        // FINAL SUBMIT BUTTON PAR CHECK HO KI BALANCE HAI YA INSUFFICIENT
+        // FINAL SUBMIT BUTTON WITH BALANCE CHECK
         function submitFinalWithdrawal() {
             let details = "";
             if(selectedWithdrawType === 'REDEEM') {
