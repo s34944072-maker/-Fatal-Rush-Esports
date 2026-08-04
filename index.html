@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Viewport scale locked to disable Mobile Pinch-To-Zoom -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Fatal Rush Esports</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -18,12 +19,26 @@
             --gold: #ffb703;
         }
 
+        /* Disable text selection everywhere to prevent Copy/Share context menu */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        /* Allow typing selection in inputs */
+        input, textarea {
+            -webkit-user-select: text;
+            -moz-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
         }
 
         body {
@@ -33,6 +48,7 @@
             justify-content: center;
             min-height: 100vh;
             overflow-x: hidden;
+            touch-action: manipulation;
         }
 
         /* Splash Screen */
@@ -129,7 +145,6 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
-            user-select: none;
         }
 
         .coin-badge {
@@ -337,8 +352,8 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: #2b1055;
-            border: 1px solid #8b5cf6;
+            background: #ff2a5f;
+            border: 1px solid #ff2a5f;
             color: #fff;
             padding: 10px 18px;
             border-radius: 30px;
@@ -615,7 +630,6 @@
         .admin-tx-actions { display: flex; gap: 10px; margin-top: 10px; }
         .admin-btn-approve { flex: 1; background: #10b981; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .admin-btn-reject { flex: 1; background: #f43f5e; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
-
     </style>
 </head>
 <body>
@@ -801,39 +815,39 @@
         <div class="modal-box" style="background:#fff; color:#000; padding:0; overflow:hidden;">
             <div class="modal-top-bar">
                 <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')" style="cursor:pointer;"></i>
-                <span>Buy Coins</span>
+                <span>Buy Coins (Instant Auto Credit)</span>
             </div>
             <div style="max-height: 70vh; overflow-y: auto;">
                 <div class="pkg-item" onclick="selectCoinPackage(10)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">10 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(15)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR = 15 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">15 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(20)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">20 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(25)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">25 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(30)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">30 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(50)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">50 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(100)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">100 COINS</div>
                 </div>
                 <div class="pkg-item" onclick="selectCoinPackage(500)">
-                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! TAKE SCREENSHOT & PAY.</p></div></div>
+                    <div class="pkg-left"><div class="pkg-icon" style="background:#10b981;"><i class="fa-solid fa-bolt"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR = 500 COINS! INSTANT AUTO CREDIT.</p></div></div>
                     <div class="pkg-btn-text">500 COINS</div>
                 </div>
             </div>
@@ -983,7 +997,7 @@
             <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
             
             <div id="alert-inputs-container">
-                <!-- Inputs generated dynamically -->
+                <!-- Dynamic Input Fields based on Type selection -->
             </div>
 
             <div class="alert-buttons">
@@ -1047,7 +1061,7 @@
                     <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
                     <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
                 </div>
-                <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">SUBMIT UTR</button>
+                <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">VERIFY & AUTO ADD</button>
 
                 <div class="timer-sec">
                     <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
@@ -1061,7 +1075,7 @@
         </div>
     </div>
 
-    <!-- OTHER MODALS -->
+    <!-- PROFILE EDIT MODAL -->
     <div id="modal-my-profile" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title"><span>My Profile</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-my-profile')" style="cursor:pointer;"></i></div>
@@ -1073,14 +1087,14 @@
         </div>
     </div>
 
-    <!-- ADMIN LOGIN POPUP -->
+    <!-- ADMIN LOGIN POPUP (Cleaned Placeholder) -->
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="alert-modal-box">
             <h3>Admin Verification</h3>
             
             <div class="form-group" style="margin-top:16px;">
                 <label style="font-size:0.75rem; color:#a0aec0;">Admin ID</label>
-                <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. admin@fatalrush.com">
+                <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="Enter Admin Email">
             </div>
             
             <div class="form-group">
@@ -1093,7 +1107,7 @@
         </div>
     </div>
 
-    <!-- ENHANCED ADMIN PANEL (Transactions, Users, Matches) -->
+    <!-- ADMIN PANEL -->
     <div id="modal-admin-panel" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-title">
@@ -1123,7 +1137,7 @@
             <!-- Tab 2: Approve/Reject Transactions -->
             <div id="admin-tab-tx" class="admin-section">
                 <div id="admin-pending-list" style="max-height:50vh; overflow-y:auto;">
-                    <!-- Pending transactions will load here -->
+                    <!-- Pending transactions load here -->
                 </div>
             </div>
 
@@ -1140,7 +1154,10 @@
     </div>
 
     <script>
-        // FULL LOCAL STORAGE PERSISTENCE TO ENSURE NO DATA IS LOST
+        // Disable Right-Click / Context Menu Globally to prevent Copy/Share options popup
+        document.addEventListener('contextmenu', event => event.preventDefault());
+
+        // LOCAL STORAGE PERSISTENCE
         let userData = JSON.parse(localStorage.getItem('fatal_user_data')) || { 
             name: "Pro Gamer", 
             email: "", 
@@ -1168,12 +1185,10 @@
             updateUserUI();
             renderTournaments();
             
-            // Auto Populate profile fields
             if(userData.name) document.getElementById('edit-username').value = userData.name;
             if(userData.email) document.getElementById('edit-email').value = userData.email;
             if(userData.mobile) document.getElementById('edit-mobile').value = userData.mobile;
 
-            // Smooth Splash screen transition
             setTimeout(() => {
                 const splash = document.getElementById('splash-screen');
                 if(splash) {
@@ -1183,7 +1198,6 @@
             }, 1800);
         };
 
-        // SAVE DATA LOCALLY ALWAYS
         function saveUserDataLocally() {
             localStorage.setItem('fatal_user_data', JSON.stringify(userData));
             updateUserUI();
@@ -1222,7 +1236,7 @@
                 return;
             }
             list.innerHTML = '';
-            tournaments.forEach((m, index) => {
+            tournaments.forEach((m) => {
                 list.innerHTML += `<div class="match-card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                         <div style="font-size:0.95rem; font-weight:700; color:#fff;">${m.title}</div>
@@ -1265,6 +1279,7 @@
             startCountdownTimer();
         }
 
+        // DYNAMIC DIALOG FIELDS DRIVEN BY SELECTION
         function triggerWithdrawAlert(coins, inr, type) {
             if(userData.coins < coins) {
                 showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
@@ -1278,19 +1293,20 @@
             container.innerHTML = '';
 
             if(type === 'REDEEM') {
-                document.getElementById('alert-title').innerText = "Enter Number";
-                document.getElementById('alert-message').innerText = "Fill details carefully. Code will be sent on your given phone number/email.";
+                document.getElementById('alert-title').innerText = "Enter Number / Email";
+                document.getElementById('alert-message').innerText = "Fill details carefully. Redeem code will be sent on your WhatsApp number or Email.";
                 
                 container.innerHTML = `
                     <input type="text" id="alert-input-whatsapp" class="alert-input" placeholder="Enter WhatsApp Number">
                     <input type="email" id="alert-input-email" class="alert-input" placeholder="Enter Your Email Address">
                 `;
             } else {
-                document.getElementById('alert-title').innerText = "Enter UPI ID";
+                document.getElementById('alert-title').innerText = "Enter Account Holder & UPI ID";
                 document.getElementById('alert-message').innerText = "Fill details carefully. Wrong details will lead to payment failure.";
                 
                 container.innerHTML = `
-                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="Enter UPI ID">
+                    <input type="text" id="alert-input-name" class="alert-input" placeholder="Enter Account Holder Name">
+                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="ENTER Your UPI ID OR VPA">
                 `;
             }
 
@@ -1308,18 +1324,18 @@
                 }
                 details = `WA: ${whatsapp}, Email: ${email}`;
             } else {
+                const holderName = document.getElementById('alert-input-name').value.trim();
                 const upi = document.getElementById('alert-input-upi').value.trim();
-                if(!upi) {
-                    showToast("Please enter valid UPI ID!");
+                if(!holderName || !upi) {
+                    showToast("Please enter Account Name & UPI ID!");
                     return;
                 }
-                details = `UPI: ${upi}`;
+                details = `Name: ${holderName}, UPI: ${upi}`;
             }
 
             userData.coins -= selectedWithdrawCoins;
             saveUserDataLocally();
 
-            // Record transaction
             txHistory.unshift({
                 id: Date.now(),
                 type: 'withdraw',
@@ -1360,28 +1376,34 @@
             }, 1000);
         }
 
+        // INSTANT AUTO-CREDIT COINS FLOW
         function confirmPaymentSubmit() {
             const utr = document.getElementById('pay-utr-input').value.trim();
-            if(!utr) {
-                showToast("Please enter 12-Digit UTR Number!");
+            if(utr.length < 6) {
+                showToast("Please enter a valid 12-Digit UTR Number!");
                 return;
             }
             closeModal('modal-payment-qr');
             document.getElementById('pay-utr-input').value = '';
 
+            // Instant wallet updates
+            userData.coins += selectedAmount;
+            userData.deposited += selectedAmount;
+            saveUserDataLocally();
+
             txHistory.unshift({
                 id: Date.now(),
                 type: 'deposit',
-                title: 'Coin Purchase',
+                title: 'Coin Purchase (Auto)',
                 coins: selectedAmount,
                 inr: selectedAmount,
                 date: new Date().toLocaleDateString(),
-                status: 'Pending',
+                status: 'Success',
                 details: `UTR: ${utr}`
             });
             localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
 
-            showToast(`Payment Submitted! Admin will verify and add coins.`);
+            showToast(`Payment Verified! ${selectedAmount} Coins added automatically!`);
         }
 
         function openTransactionsModal() {
@@ -1410,7 +1432,7 @@
             container.innerHTML = '';
             list.forEach(item => {
                 const isDeposit = item.type === 'deposit';
-                let statusColor = '#eab308'; // Pending
+                let statusColor = '#eab308';
                 if(item.status === 'Success') statusColor = '#10b981';
                 if(item.status === 'Failed') statusColor = '#f43f5e';
 
@@ -1442,7 +1464,7 @@
             showToast("Profile Saved!");
         }
 
-        // --- ADMIN PANEL FUNCTIONS --- //
+        // --- ADMIN CONTROL ---
         function handleSecretTap() {
             secretTapCount++;
             if(secretTapCount >= 5) {
@@ -1456,7 +1478,6 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            // Default Admin Credentials
             if(id === "admin@fatalrush.com" && pass === "admin123") {
                 closeModal('modal-secret-admin');
                 document.getElementById('modal-admin-panel').style.display = 'flex';
@@ -1492,8 +1513,6 @@
             localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
             renderTournaments();
             showToast("Tournament Created Live!");
-            
-            // Reset input
             document.getElementById('adm-title').value = '';
         }
 
@@ -1544,18 +1563,15 @@
                 let tx = txHistory[idx];
                 tx.status = newStatus;
                 
-                // If Approved Deposit -> Add Coins
                 if(tx.type === 'deposit' && newStatus === 'Success') {
                     userData.coins += tx.coins;
                     userData.deposited += tx.coins;
                 }
                 
-                // If Rejected Withdraw -> Refund Coins
                 if(tx.type === 'withdraw' && newStatus === 'Failed') {
                     userData.coins += tx.coins; 
                 }
                 
-                // If Approved Withdraw -> Update winning stats
                 if(tx.type === 'withdraw' && newStatus === 'Success') {
                     userData.winning += tx.coins;
                 }
