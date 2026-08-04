@@ -2,9 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <!-- Viewport scale locked to disable Mobile Pinch-To-Zoom -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fatal Rush Esports</title>
+    <title>Fatal Rush Esports - Official Platform</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -19,22 +18,20 @@
             --gold: #ffb703;
         }
 
-        /* Disable text selection where specified, maintain inputs editable */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: text;
-            -moz-user-select: text;
-            -ms-user-select: text;
-            user-select: text;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
             -webkit-touch-callout: none;
         }
 
-        /* Allow typing selection in inputs */
-        input, textarea {
+        input, textarea, select {
             -webkit-user-select: text;
             -moz-user-select: text;
             -ms-user-select: text;
@@ -55,13 +52,13 @@
         #splash-screen {
             position: fixed;
             top: 0; left: 0;
-            width: 100vw; height: 100vh;
+            width: 100%; height: 100%;
             background: radial-gradient(circle at center, #0a192f 0%, #020617 70%, #000000 100%);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
-            z-index: 99999;
+            z-index: 9999;
             padding: 24px 16px;
             transition: opacity 0.5s ease-out, visibility 0.5s;
         }
@@ -113,9 +110,9 @@
             letter-spacing: 2px;
         }
 
-        /* App Container FULL SCREEN / Max Width Adaptive */
+        /* App Container */
         .app-container {
-            width: 100vw;
+            width: 100%;
             max-width: 480px;
             background: var(--bg-dark);
             position: relative;
@@ -145,23 +142,18 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
-        }
-
-        .header-actions {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
-        .admin-create-btn {
-            background: var(--primary-red);
-            color: #fff;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 6px 10px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
+        .admin-badge-indicator {
+            background: #10b981;
+            color: #000;
+            font-size: 0.6rem;
+            font-weight: 900;
+            padding: 2px 6px;
+            border-radius: 4px;
             display: none;
         }
 
@@ -265,6 +257,9 @@
             letter-spacing: 0.5px;
             margin-bottom: 12px;
             text-transform: uppercase;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .match-card, .wallet-card {
@@ -273,6 +268,7 @@
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 14px;
+            position: relative;
         }
 
         /* Profile Menu List UI */
@@ -280,20 +276,19 @@
         .menu-item {
             background: #111322;
             border: 1px solid #1f2438;
-            padding: 14px 16px;
+            padding: 12px 16px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
         }
 
         .menu-item-left { display: flex; align-items: center; gap: 12px; }
-        .menu-item-left i { font-size: 1.1rem; color: #38bdf8; width: 22px; text-align: center; }
+        .menu-item-left i { font-size: 1.05rem; color: #38bdf8; width: 22px; text-align: center; }
 
-        /* Toggle Switch for Importance Notice */
         .switch {
             position: relative;
             display: inline-block;
@@ -373,13 +368,13 @@
         .bottom-nav {
             position: fixed;
             bottom: 0;
-            left: 0;
-            width: 100vw;
+            width: 100%;
+            max-width: 480px;
             background: #090a12;
             border-top: 1px solid var(--card-border);
             display: flex;
             justify-content: space-around;
-            padding: 10px 0;
+            padding: 8px 0;
             z-index: 100;
         }
 
@@ -389,12 +384,12 @@
             align-items: center;
             gap: 3px;
             color: var(--text-sub);
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             cursor: pointer;
             width: 20%;
         }
 
-        .nav-item i { font-size: 1.2rem; }
+        .nav-item i { font-size: 1.1rem; }
         .nav-item.active { color: var(--primary-red); }
 
         /* Toast */
@@ -410,72 +405,48 @@
             border-radius: 30px;
             font-size: 0.8rem;
             font-weight: 600;
-            z-index: 200000;
+            z-index: 20000;
             transition: 0.4s ease;
         }
 
         .custom-toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* FULLSCREEN MODAL OVERLAYS COVER 100% SCREEN */
+        /* FULLSCREEN MODALS */
         .modal-overlay {
             position: fixed;
-            top: 0; left: 0;
-            width: 100vw; height: 100vh;
-            background: #0a0b10;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #f8fafc;
             display: none;
             flex-direction: column;
             justify-content: flex-start;
             align-items: stretch;
-            z-index: 100000;
+            z-index: 99999;
             overflow-y: auto;
         }
 
-        .modal-box {
-            background: transparent;
-            border: none;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 0;
-            box-shadow: none;
-        }
-
-        /* Modal Header (Native Mobile App Top Bar) */
         .modal-top-bar {
-            background: var(--primary-red);
+            background: #5b21b6;
             color: #fff;
-            padding: 18px 16px;
+            padding: 16px;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             display: flex;
             align-items: center;
             gap: 20px;
             position: sticky;
             top: 0;
             z-index: 10;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
 
-        .modal-top-bar.withdraw-bar {
-            background: #28303d;
-        }
+        .modal-top-bar.withdraw-bar { background: #28303d; }
+        .modal-top-bar i { font-size: 1.2rem; cursor: pointer; }
 
-        .modal-top-bar i {
-            font-size: 1.3rem;
-            cursor: pointer;
-        }
-
-        /* Package Items UI (Native List Layout) */
-        .pkg-list-container {
-            width: 100%;
-            flex: 1;
-            background: #f8fafc;
-        }
-
+        .pkg-list-container { width: 100%; flex: 1; background: #f8fafc; }
         .pkg-item {
             background: #ffffff;
             border-bottom: 1px solid #e2e8f0;
-            padding: 18px 20px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -484,33 +455,24 @@
         }
 
         .pkg-item:active { background: #f1f5f9; }
-
         .pkg-left { display: flex; align-items: center; gap: 16px; }
-        
         .pkg-icon {
-            width: 48px; height: 48px;
+            width: 46px; height: 46px;
             border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
             color: #fff; font-size: 1.3rem; flex-shrink: 0;
         }
 
         .pkg-icon.tranz { background: #000; border: 2px solid #10b981; }
-
-        .pkg-icon.tranz img { width: 28px; height: 28px; object-fit: contain; }
-
-        .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
         .pkg-icon.redeem { background: #f43f5e; color: #fff; }
-
         .pkg-info h4 { font-size: 1rem; color: #0f172a; font-weight: 900; letter-spacing: 0.2px; }
         .pkg-info p { font-size: 0.72rem; color: #64748b; font-weight: 700; margin-top: 3px; line-height: 1.2; max-width: 210px; }
-
         .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 1.05rem; }
 
-        /* Dialog Popups Style */
         .dialog-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.8);
+            background: rgba(0,0,0,0.85);
             display: none;
             justify-content: center;
             align-items: center;
@@ -525,7 +487,6 @@
         .btn-submit { width: 100%; background: var(--primary-red); color: #fff; border: none; padding: 10px; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 8px; }
         .btn-close { background: transparent; color: var(--text-sub); border: none; margin-top: 8px; cursor: pointer; width: 100%; font-size: 0.8rem; }
 
-        /* Floating Support Button */
         .floating-support-btn {
             position: fixed;
             bottom: 80px;
@@ -544,7 +505,6 @@
             z-index: 90;
         }
 
-        /* Alert/Dialog Dialog */
         .alert-modal-box {
             background: #232936;
             color: #fff;
@@ -556,7 +516,6 @@
         }
 
         .alert-modal-box h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
-
         .alert-modal-box p { font-size: 0.78rem; color: #a0aec0; line-height: 1.4; margin-bottom: 16px; }
 
         .alert-input {
@@ -572,12 +531,8 @@
         }
 
         .alert-buttons { display: flex; justify-content: flex-end; gap: 24px; margin-top: 10px; }
+        .alert-btn { background: transparent; border: none; color: #3b82f6; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase; }
 
-        .alert-btn {
-            background: transparent; border: none; color: #3b82f6; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase;
-        }
-
-        /* Transactions Slider Tabs */
         .tx-tabs-container {
             display: flex;
             background: #111322;
@@ -596,12 +551,9 @@
             align-items: center;
             gap: 8px;
         }
-        .tx-tab.active {
-            color: var(--primary-red);
-            border-bottom-color: var(--primary-red);
-        }
+        .tx-tab.active { color: var(--primary-red); border-bottom-color: var(--primary-red); }
 
-        /* Payment QR Screen Layout */
+        /* Payment QR Screen */
         .fatal-pay-screen {
             background: #0f1329;
             border-radius: 20px;
@@ -644,71 +596,46 @@
             margin-bottom: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .qr-box-wrap canvas, .qr-box-wrap img {
-            width: 200px;
-            height: 200px;
-            display: block;
-        }
+        .qr-box-wrap img { width: 200px; height: 200px; display: block; }
         .pay-instruct-pill {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 8px 14px;
-            border-radius: 8px;
-            margin-bottom: 10px;
+            background: #eef2ff; color: #1e1b4b; font-size: 0.75rem; font-weight: 800; padding: 8px 14px; border-radius: 8px; margin-bottom: 10px;
         }
-        .pay-apps-pills {
-            display: flex;
-            justify-content: center;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
+        .pay-apps-pills { display: flex; justify-content: center; gap: 6px; margin-bottom: 12px; }
         .app-pill {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.7rem;
-            font-weight: 800;
-            padding: 4px 10px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
+            background: #eef2ff; color: #1e1b4b; font-size: 0.7rem; font-weight: 800; padding: 4px 10px; border-radius: 20px; display: flex; align-items: center; gap: 4px;
         }
         .app-pill i { font-size: 0.55rem; color: #10b981; }
         .timer-sec {
-            background: #eef2ff;
-            color: #1e1b4b;
-            font-size: 0.75rem;
-            font-weight: 800;
-            padding: 8px 12px;
-            border-radius: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: #eef2ff; color: #1e1b4b; font-size: 0.75rem; font-weight: 800; padding: 8px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;
         }
 
-        /* ADMIN PANEL EXTRA TABS UI */
-        .admin-nav {
-            display: flex; gap: 8px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px;
-        }
+        /* ADMIN PANEL UI */
+        .admin-nav { display: flex; gap: 8px; margin-bottom: 15px; overflow-x: auto; padding-bottom: 5px; }
         .admin-nav-btn {
             background: #1e2342; border: 1px solid #3730a3; color: #fff;
-            padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer;
-            white-space: nowrap;
+            padding: 8px 12px; border-radius: 6px; font-size: 0.8rem; font-weight: bold; cursor: pointer; white-space: nowrap;
         }
         .admin-nav-btn.active { background: var(--primary-red); border-color: var(--primary-red); }
         .admin-section { display: none; }
         .admin-section.active { display: block; }
-        
-        .admin-tx-card {
-            background: #111322; border: 1px solid #1f2438; border-radius: 8px; padding: 10px; margin-bottom: 10px;
-        }
+        .admin-tx-card { background: #111322; border: 1px solid #1f2438; border-radius: 8px; padding: 10px; margin-bottom: 10px; }
         .admin-tx-actions { display: flex; gap: 10px; margin-top: 10px; }
         .admin-btn-approve { flex: 1; background: #10b981; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .admin-btn-reject { flex: 1; background: #f43f5e; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
 
-        /* Information Modals Content Area */
+        .btn-delete-match {
+            background: #f43f5e;
+            color: #fff;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 8px;
+            width: 100%;
+        }
+
         .info-content-box {
             font-size: 0.8rem;
             color: #cbd5e1;
@@ -718,6 +645,15 @@
             padding-right: 5px;
         }
         .info-content-box h4 { color: #fff; margin: 10px 0 4px; font-size: 0.85rem; }
+
+        .admin-inline-dashboard {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 16px;
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -727,7 +663,6 @@
         <div class="splash-header-logo">
             <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
         </div>
-
         <div>
             <div class="hero-avatar-icon">
                 <i class="fa-solid fa-user-ninja"></i>
@@ -736,7 +671,6 @@
                 PLAY SMALL <span style="color:var(--gold);">WIN BIG</span>
             </div>
         </div>
-
         <div class="splash-welcome-banner">
             WELCOME TO FATAL RUSH
         </div>
@@ -757,20 +691,20 @@
 
         <!-- Header -->
         <header class="app-header">
-            <div class="app-title" onclick="handleSecretTap()">FATAL RUSH</div>
-            <div class="header-actions">
-                <button id="admin-header-btn" class="admin-create-btn" onclick="openAdminTab('matches')">+ Create</button>
-                <div class="coin-badge" onclick="switchTab('wallet')">
-                    <i class="fa-solid fa-coins"></i>
-                    <span id="header-coins">0</span> Coins
-                </div>
+            <div class="app-title" onclick="handleSecretTap()">
+                <span>FATAL RUSH</span>
+                <span class="admin-badge-indicator" id="admin-header-indicator">ADMIN</span>
+            </div>
+            <div class="coin-badge" onclick="switchTab('wallet')">
+                <i class="fa-solid fa-coins"></i>
+                <span id="header-coins">0</span> Coins
             </div>
         </header>
 
-        <!-- Marquee -->
+        <!-- Marquee Announcement -->
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
-            <marquee behavior="scroll" direction="left" scrollamount="4">
+            <marquee behavior="scroll" direction="left" scrollamount="4" id="marquee-text-display">
                 Welcome to Fatal Rush Esports! Play BGMI & Free Fire Daily to Win Exciting Rewards!
             </marquee>
         </div>
@@ -782,6 +716,15 @@
                 <p style="font-size:0.8rem; color:#fca5a5; margin-top:4px;">Play Free Fire & BGMI Matches and Earn Daily!</p>
             </div>
 
+            <!-- PERMANENT ADMIN QUICK CONTROL (VISIBLE WHEN LOGGED IN AS ADMIN) -->
+            <div id="admin-quick-dashboard" class="admin-inline-dashboard">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-weight:900; color:#10b981; font-size:0.9rem;"><i class="fa-solid fa-user-shield"></i> ADMIN QUICK PANEL</span>
+                    <button onclick="openFullAdminModal()" style="background:#10b981; color:#000; border:none; padding:4px 10px; border-radius:4px; font-weight:800; font-size:0.75rem; cursor:pointer;">FULL PANEL</button>
+                </div>
+                <div style="font-size:0.75rem; color:#a7f3d0;">Aap permanent admin mode mein hain. Tournaments create & delete karein.</div>
+            </div>
+
             <div class="quick-grid">
                 <div class="quick-item" onclick="switchTab('profile')"><i class="fa-solid fa-user"></i><span>Profile</span></div>
                 <div class="quick-item" onclick="switchTab('wallet')"><i class="fa-solid fa-wallet"></i><span>Wallet</span></div>
@@ -789,7 +732,10 @@
                 <div class="quick-item" onclick="openWhatsApp()"><i class="fa-brands fa-whatsapp" style="color:#25D366;"></i><span>WhatsApp</span></div>
             </div>
 
-            <div class="section-title">Live & Upcoming Matches</div>
+            <div class="section-title">
+                <span>Live & Upcoming Matches</span>
+                <button id="admin-create-match-trigger" style="display:none; background:#ff2a5f; color:#fff; border:none; padding:4px 10px; border-radius:4px; font-weight:700; font-size:0.75rem; cursor:pointer;" onclick="openFullAdminModal()">+ Create Match</button>
+            </div>
             <div id="tournament-list"></div>
         </div>
 
@@ -875,49 +821,41 @@
             </div>
 
             <div class="menu-list">
-                <!-- 1. My Profile -->
                 <div class="menu-item" onclick="openMyProfileModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-user-circle"></i><span>My Profile</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 2. My Wallet -->
                 <div class="menu-item" onclick="switchTab('wallet')">
                     <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 3. My Statics -->
                 <div class="menu-item" onclick="openStaticsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-chart-line"></i><span>My Statics</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 4. Top Players -->
                 <div class="menu-item" onclick="switchTab('ranking')">
                     <div class="menu-item-left"><i class="fa-solid fa-trophy"></i><span>Top Players</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 5. Refer & Earn -->
                 <div class="menu-item" onclick="switchTab('offer')">
                     <div class="menu-item-left"><i class="fa-solid fa-user-plus"></i><span>Refer & Earn</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 6. Notifications -->
                 <div class="menu-item" onclick="openNotificationsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Notifications</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 7. Contact Us -->
                 <div class="menu-item" onclick="openWhatsApp()">
                     <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Contact Us</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 8. Importance Notice Toggle Switch -->
                 <div class="menu-item" style="cursor:default;">
                     <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Importance Notice</span></div>
                     <label class="switch">
@@ -926,39 +864,33 @@
                     </label>
                 </div>
 
-                <!-- 9. FAQ -->
                 <div class="menu-item" onclick="openFAQModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 10. About Us -->
                 <div class="menu-item" onclick="openAboutModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About Us</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 11. Privacy Policy -->
                 <div class="menu-item" onclick="openPrivacyModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-lock"></i><span>Privacy Policy</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 12. Terms & Conditions -->
                 <div class="menu-item" onclick="openTermsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-shield-halved"></i><span>Terms & Conditions</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
-                <!-- 13. Logout -->
                 <div class="menu-item" onclick="logoutUser()">
                     <div class="menu-item-left"><i class="fa-solid fa-power-off" style="color:#f43f5e;"></i><span style="color:#f43f5e;">Logout</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
             </div>
 
-            <!-- Footer App Version -->
-            <div class="app-version-text">App Version: v1.7</div>
+            <div class="app-version-text">App Version: v1.8</div>
         </div>
 
         <!-- Bottom Navigation -->
@@ -972,7 +904,7 @@
 
     </div>
 
-    <!-- FULLSCREEN MODAL 1: BUY COINS PACKAGES -->
+    <!-- BUY COINS MODAL -->
     <div id="modal-buy-coins" class="modal-overlay">
         <div class="modal-top-bar">
             <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')"></i>
@@ -980,284 +912,43 @@
         </div>
         <div class="pkg-list-container">
             <div class="pkg-item" onclick="selectCoinPackage(10)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>10 INR 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS!</p></div></div>
                 <div class="pkg-btn-text">10 COINS</div>
             </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(15)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>15 INR 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">15 COINS</div>
-            </div>
-
             <div class="pkg-item" onclick="selectCoinPackage(20)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>20 INR 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS!</p></div></div>
                 <div class="pkg-btn-text">20 COINS</div>
             </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(25)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">25 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(30)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">30 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(35)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>35 INR 35 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">35 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(40)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>40 INR 40 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">40 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(45)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>45 INR 45 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">45 COINS</div>
-            </div>
-
             <div class="pkg-item" onclick="selectCoinPackage(50)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>50 INR 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS!</p></div></div>
                 <div class="pkg-btn-text">50 COINS</div>
             </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(80)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>80 INR 80 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">80 COINS</div>
-            </div>
-
             <div class="pkg-item" onclick="selectCoinPackage(100)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>100 INR 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS!</p></div></div>
                 <div class="pkg-btn-text">100 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(200)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>200 INR = 200 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">200 COINS</div>
-            </div>
-
-            <div class="pkg-item" onclick="selectCoinPackage(500)">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>TranzUPI</h4>
-                        <p>500 INR 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">500 COINS</div>
             </div>
         </div>
     </div>
 
-    <!-- FULLSCREEN MODAL 2: WITHDRAWAL PACKAGES -->
+    <!-- WITHDRAWAL MODAL -->
     <div id="modal-withdraw" class="modal-overlay">
         <div class="modal-top-bar withdraw-bar">
             <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-withdraw')"></i>
             <span>Withdrawal</span>
         </div>
         <div class="pkg-list-container">
-            <!-- UPI LIST -->
             <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 48 INR</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div></div>
                 <div class="pkg-btn-text">48 INR</div>
             </div>
-
             <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 95 INR</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div></div>
                 <div class="pkg-btn-text">95 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 190 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">190 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">300 COINS = 285 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">285 INR</div>
-            </div>
-
-            <!-- REDEEM CODE LIST -->
-            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')">
-                <div class="pkg-left">
-                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                    <div class="pkg-info">
-                        <h4>REDEEM CODE</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 48 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">50 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')">
-                <div class="pkg-left">
-                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                    <div class="pkg-info">
-                        <h4>REDEEM CODE</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 97 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">100 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')">
-                <div class="pkg-left">
-                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                    <div class="pkg-info">
-                        <h4>REDEEM CODE</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">150 COINS = 146 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">150 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')">
-                <div class="pkg-left">
-                    <div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div>
-                    <div class="pkg-info">
-                        <h4>REDEEM CODE</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 195 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">200 INR</div>
             </div>
         </div>
     </div>
 
-    <!-- FULLSCREEN MODAL 3: EMERGENCY WITHDRAWAL PACKAGES -->
+    <!-- EMERGENCY WITHDRAWAL MODAL -->
     <div id="modal-emergency-withdraw" class="modal-overlay">
         <div class="modal-top-bar withdraw-bar">
             <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-emergency-withdraw')"></i>
@@ -1265,95 +956,18 @@
         </div>
         <div class="pkg-list-container">
             <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">50 COINS = 35 INR</p>
-                    </div>
-                </div>
+                <div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>EMERGENCY UPI</h4><p>50 COINS = 35 INR</p></div></div>
                 <div class="pkg-btn-text">35 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">100 COINS = 70 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">70 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">200 COINS = 140 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">140 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">300 COINS = 210 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">210 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">400 COINS = 280 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">280 INR</div>
-            </div>
-
-            <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')">
-                <div class="pkg-left">
-                    <div class="pkg-icon tranz">
-                        <i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i>
-                    </div>
-                    <div class="pkg-info">
-                        <h4>EMERGENCY WITHDRAWAL UPI</h4>
-                        <p style="font-size:0.85rem; color:#334155; font-weight:800; margin-top:2px;">500 COINS = 350 INR</p>
-                    </div>
-                </div>
-                <div class="pkg-btn-text">350 INR</div>
             </div>
         </div>
     </div>
 
-    <!-- ALERT/DIALOG POPUP WITH DYNAMIC INPUTS -->
+    <!-- WITHDRAW ALERT POPUP -->
     <div id="modal-withdraw-alert" class="dialog-overlay">
         <div class="alert-modal-box">
             <h3 id="alert-title">Enter Details</h3>
-            <p id="alert-message">Fill details carefully. Wrong details will lead to payment failure.</p>
-            
-            <div id="alert-inputs-container">
-                <!-- Dynamic Input Fields based on Type selection -->
-            </div>
-
+            <p id="alert-message">Fill details carefully.</p>
+            <div id="alert-inputs-container"></div>
             <div class="alert-buttons">
                 <button class="alert-btn" style="color: #9ca3af;" onclick="closeModal('modal-withdraw-alert')">CANCEL</button>
                 <button class="alert-btn" onclick="submitFinalWithdrawal()">WITHDRAWAL</button>
@@ -1361,66 +975,37 @@
         </div>
     </div>
 
-    <!-- FULLSCREEN MODAL 4: TRANSACTIONS WITH SLIDE TABS -->
+    <!-- TRANSACTIONS MODAL -->
     <div id="modal-transactions" class="modal-overlay" style="background:#0a0b10;">
         <div class="modal-top-bar withdraw-bar">
             <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-transactions')"></i>
             <span>Transactions</span>
         </div>
-
         <div class="tx-tabs-container">
             <div class="tx-tab active" onclick="switchTxTab('all', this)"><i class="fa-solid fa-list"></i> All</div>
             <div class="tx-tab" onclick="switchTxTab('deposit', this)"><i class="fa-solid fa-arrow-down-left"></i> Deposit</div>
             <div class="tx-tab" onclick="switchTxTab('withdraw', this)"><i class="fa-solid fa-arrow-up-right"></i> Withdraw</div>
         </div>
-
-        <div id="tx-history-list" style="padding:20px; flex:1; overflow-y:auto;">
-            <!-- History items loaded here -->
-        </div>
+        <div id="tx-history-list" style="padding:20px; flex:1; overflow-y:auto;"></div>
     </div>
 
-    <!-- MODAL: QR PAYMENT DISPLAY -->
+    <!-- PAYMENT QR DISPLAY MODAL -->
     <div id="modal-payment-qr" class="dialog-overlay">
         <div class="fatal-pay-screen">
             <i class="fa-solid fa-xmark" onclick="closeModal('modal-payment-qr')" style="position:absolute; right:16px; top:16px; color:#8c93b0; font-size:1.2rem; cursor:pointer;"></i>
-            
             <div class="fatal-avatar">FR</div>
             <div class="pay-subtitle">PAYING TO</div>
             <div class="pay-target-title">Fatal Rush</div>
-
-            <div class="pay-amount-badge">
-                ₹ <span id="pay-dynamic-amount">10.00</span>
-            </div>
-
-            <div style="font-size:0.75rem; color:#8c93b0; font-weight:700; margin-bottom:10px; text-transform:uppercase;">SCAN TO PAY INSTANTLY</div>
-
-            <div class="qr-box-wrap">
-                <img id="dynamic-qr-img" src="" alt="Fatal Rush QR Code">
-            </div>
-
-            <div class="pay-instruct-pill">
-                QR scan karke payment karein
-            </div>
-
-            <div class="pay-apps-pills">
-                <div class="app-pill"><i class="fa-solid fa-circle"></i> GPay</div>
-                <div class="app-pill"><i class="fa-solid fa-circle"></i> PhonePe</div>
-                <div class="app-pill"><i class="fa-solid fa-circle"></i> Paytm</div>
-            </div>
-
+            <div class="pay-amount-badge">₹ <span id="pay-dynamic-amount">10.00</span></div>
+            <div class="qr-box-wrap"><img id="dynamic-qr-img" src="" alt="Fatal Rush QR"></div>
             <div class="form-group" style="margin-top:10px; text-align:left;">
                 <label style="color:#a5b4fc;">Enter 12-Digit UTR after payment:</label>
                 <input type="text" id="pay-utr-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="e.g. 423456789012">
             </div>
             <button class="btn-submit" style="background:#10b981; margin-bottom:12px;" onclick="confirmPaymentSubmit()">VERIFY & AUTO ADD</button>
-
             <div class="timer-sec">
                 <span><i class="fa-regular fa-clock"></i> Expires in <strong id="pay-timer">02:50</strong></span>
                 <span style="color:#10b981;"><i class="fa-solid fa-shield-halved"></i> Secure</span>
-            </div>
-
-            <div style="font-size:0.65rem; color:#6b7280; margin-top:10px;">
-                Powered by TranzUPI · © 2026
             </div>
         </div>
     </div>
@@ -1432,143 +1017,89 @@
             <div class="form-group"><label>User's Name</label><input type="text" id="edit-username" class="form-input" placeholder="Enter Name"></div>
             <div class="form-group"><label>Email Address</label><input type="email" id="edit-email" class="form-input" placeholder="Enter Email"></div>
             <div class="form-group"><label>Mobile Number</label><input type="text" id="edit-mobile" class="form-input" placeholder="Enter Mobile Number"></div>
-            <div class="form-group"><label>Password</label><input type="password" id="edit-newpass" class="form-input" placeholder="Enter Password"></div>
-            <button class="btn-submit" onclick="saveProfileDetails()">SAVE / LOGIN</button>
+            <button class="btn-submit" onclick="saveProfileDetails()">SAVE PROFILE</button>
         </div>
     </div>
 
-    <!-- MODAL: MY STATICS -->
+    <!-- DYNAMIC INFORMATIONAL MODALS -->
     <div id="modal-statics" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>My Statistics</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-statics')" style="cursor:pointer;"></i></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-sub); border-bottom:1px solid #374151; padding-bottom:8px; margin-bottom:12px;">
-                <span style="width:10%;">#</span>
-                <span style="width:50%;">Match Info</span>
-                <span style="width:20%; text-align:center;">Paid</span>
-                <span style="width:20%; text-align:right;">Won</span>
-            </div>
-            <div id="statics-list-container" style="max-height:50vh; overflow-y:auto; text-align:center; font-size:0.8rem; color:#9ca3af; padding:20px 0;">
-                No Match History Available.
-            </div>
+            <div id="statics-list-container" style="text-align:center; font-size:0.8rem; color:#9ca3af; padding:20px 0;">No Match History Available.</div>
         </div>
     </div>
 
-    <!-- MODAL: NOTIFICATIONS -->
     <div id="modal-notifications" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>Notifications</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-notifications')" style="cursor:pointer;"></i></div>
-            <div style="text-align:center; color:#9ca3af; padding:20px; font-size:0.85rem;">
-                <i class="fa-solid fa-bell-slash" style="font-size:2rem; margin-bottom:10px; color:#4b5563;"></i>
-                <p>No new notifications right now!</p>
-            </div>
+            <div style="text-align:center; color:#9ca3af; padding:20px; font-size:0.85rem;"><i class="fa-solid fa-bell-slash" style="font-size:2rem; margin-bottom:10px;"></i><p>No new notifications right now!</p></div>
         </div>
     </div>
 
-    <!-- MODAL: FAQ -->
     <div id="modal-faq" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
-            <div class="modal-title"><span>Frequently Asked Questions (FAQ)</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i></div>
-            <div class="info-content-box">
-                <h4>Q. What is Fatal Rush Esports?</h4>
-                <p>Fatal Rush Esports is a dedicated app for organizing and participating in Free Fire & BGMI Tournaments.</p>
-                
-                <h4>Q. How to Register in Tournaments?</h4>
-                <p>Simply choose your match from Home screen, click on Join Match, and ensure you have required entry coins.</p>
-                
-                <h4>Q. Are Tournaments Free or Paid?</h4>
-                <p>Some tournaments may have entry fees while others are completely free to enter.</p>
-
-                <h4>Q. How are Winners Determined?</h4>
-                <p>Winners are calculated automatically based on total kills and position placement points in the match.</p>
-
-                <h4>Q. How to Contact Support?</h4>
-                <p>You can click on Contact Us in Profile section or use WhatsApp Floating Icon to reach our support team directly.</p>
-            </div>
+            <div class="modal-title"><span>Frequently Asked Questions</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i></div>
+            <div class="info-content-box" id="display-faq-content"></div>
         </div>
     </div>
 
-    <!-- MODAL: ABOUT US -->
     <div id="modal-about" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>About Us</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i></div>
-            <div class="info-content-box">
-                <p><strong>Welcome To Fatal Rush Esports!</strong></p>
-                <p style="margin-top:8px;">The premier tournament platform designed for gamers. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.</p>
-                <p style="margin-top:8px;">With a user-friendly interface and daily match options, we strive to elevate your gaming experience to new heights. Let's Game On!</p>
-            </div>
+            <div class="info-content-box" id="display-about-content"></div>
         </div>
     </div>
 
-    <!-- MODAL: PRIVACY POLICY -->
     <div id="modal-privacy" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>Privacy Policy</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-privacy')" style="cursor:pointer;"></i></div>
-            <div class="info-content-box">
-                <p>We respect your personal information and privacy. All account data, phone numbers, and transactional records are encrypted securely.</p>
-                <p style="margin-top:8px;">We do not share your private account data with third parties without your consent.</p>
-            </div>
+            <div class="info-content-box" id="display-privacy-content"></div>
         </div>
     </div>
 
-    <!-- MODAL: TERMS & CONDITIONS -->
     <div id="modal-terms" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
             <div class="modal-title"><span>Terms and Conditions</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-terms')" style="cursor:pointer;"></i></div>
-            <div class="info-content-box">
-                <h4>1. Requirements</h4>
-                <p>Participants must be at least 14 years old to join standard esports events.</p>
-                
-                <h4>2. Fair Play Policy</h4>
-                <p>Strictly No Cheating, Hacking, or use of third-party scripts. Any player caught hacking will be permanently banned.</p>
-
-                <h4>3. Entry Fees & Refunds</h4>
-                <p>Fees are non-refundable unless a tournament is explicitly cancelled by the organizers.</p>
-
-                <h4>4. Conduct</h4>
-                <p>Respectful behavior is required. Any harassment or abusive language will lead to disqualification.</p>
-            </div>
+            <div class="info-content-box" id="display-terms-content"></div>
         </div>
     </div>
 
-    <!-- ADMIN LOGIN POPUP -->
+    <!-- SECRET ADMIN LOGIN POPUP -->
     <div id="modal-secret-admin" class="dialog-overlay">
         <div class="alert-modal-box">
-            <h3>Admin Verification</h3>
-            
+            <h3>Admin Login</h3>
             <div class="form-group" style="margin-top:16px;">
-                <label style="font-size:0.75rem; color:#a0aec0;">Admin ID</label>
-                <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="Enter Admin Email">
+                <label>Admin ID</label>
+                <input type="text" id="admin-id-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="admin@fatalrush.com">
             </div>
-            
             <div class="form-group">
-                <label style="font-size:0.75rem; color:#a0aec0;">Password</label>
+                <label>Password</label>
                 <input type="password" id="admin-pass-input" class="form-input" style="background:#1e2342; border-color:#3730a3;" placeholder="Enter Password">
             </div>
-
-            <button class="btn-submit" onclick="verifyAdminPass()">LOGIN ADMIN</button>
+            <button class="btn-submit" onclick="verifyAdminPass()">LOGIN ADMIN PERMANENTLY</button>
             <button class="btn-close" onclick="closeModal('modal-secret-admin')">Cancel</button>
         </div>
     </div>
 
-    <!-- ADMIN PANEL -->
+    <!-- ADMIN CONTROL PANEL MODAL -->
     <div id="modal-admin-panel" class="dialog-overlay">
-        <div class="alert-modal-box" style="width:100%; max-width:420px; max-height:85vh; overflow-y:auto;">
+        <div class="alert-modal-box" style="width:100%; max-width:440px; max-height:90vh; overflow-y:auto;">
             <div class="modal-title">
-                🛠️ Admin Control Panel
+                🛠️ Admin Control Center
                 <i class="fa-solid fa-xmark" onclick="closeModal('modal-admin-panel')" style="cursor:pointer;"></i>
             </div>
             
-            <!-- Admin Navigation Tabs -->
             <div class="admin-nav">
-                <button class="admin-nav-btn active" id="adm-btn-matches" onclick="openAdminTab('matches')">Add Match</button>
+                <button class="admin-nav-btn active" id="adm-btn-matches" onclick="openAdminTab('matches')">+ Add Match</button>
                 <button class="admin-nav-btn" id="adm-btn-tx" onclick="openAdminTab('tx')">Pending Tx</button>
                 <button class="admin-nav-btn" id="adm-btn-users" onclick="openAdminTab('users')">Manage Coins</button>
+                <button class="admin-nav-btn" id="adm-btn-content" onclick="openAdminTab('content')">Edit Content</button>
             </div>
 
-            <!-- Tab 1: Create Match -->
+            <!-- TAB 1: ADD MATCH -->
             <div id="admin-tab-matches" class="admin-section active">
                 <div class="form-group"><label>Match Title</label><input type="text" id="adm-title" class="form-input" placeholder="Free Fire Solo #101"></div>
-                <div class="form-group"><label>Mode</label><input type="text" id="adm-mode" class="form-input" placeholder="SOLO"></div>
+                <div class="form-group"><label>Mode</label><input type="text" id="adm-mode" class="form-input" placeholder="SOLO / DUO / SQUAD"></div>
                 <div class="form-group"><label>Time</label><input type="text" id="adm-time" class="form-input" placeholder="Today - 08:00 PM"></div>
                 <div class="form-group"><label>Map</label><input type="text" id="adm-map" class="form-input" placeholder="Bermuda"></div>
                 <div class="form-group"><label>Win Prize (Coins)</label><input type="number" id="adm-prize" class="form-input" placeholder="100"></div>
@@ -1577,19 +1108,56 @@
                 <button class="btn-submit" onclick="adminCreateMatch()">PUBLISH MATCH</button>
             </div>
 
-            <!-- Tab 2: Approve/Reject Transactions -->
+            <!-- TAB 2: PENDING TRANSACTIONS -->
             <div id="admin-tab-tx" class="admin-section">
-                <div id="admin-pending-list" style="max-height:50vh; overflow-y:auto;">
-                    <!-- Pending transactions load here -->
-                </div>
+                <div id="admin-pending-list" style="max-height:50vh; overflow-y:auto;"></div>
             </div>
 
-            <!-- Tab 3: Manual Coin Management -->
+            <!-- TAB 3: MANAGE USER COINS -->
             <div id="admin-tab-users" class="admin-section">
-                <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;">Directly Add or Remove Coins from the User's Wallet.</p>
-                <div class="form-group"><label>Enter Amount to Add/Remove</label>
-                <input type="number" id="admin-manual-coins" class="form-input" placeholder="e.g. 50 (to add) or -20 (to cut)"></div>
+                <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;">Add or Deduct Coins directly in your active wallet.</p>
+                <div class="form-group">
+                    <label>Amount (+ to Add, - to Cut)</label>
+                    <input type="number" id="admin-manual-coins" class="form-input" placeholder="e.g. 50 or -20">
+                </div>
                 <button class="btn-submit" onclick="adminManualCoins()">UPDATE WALLET</button>
+            </div>
+
+            <!-- TAB 4: EDIT STATIC TEXT CONTENT -->
+            <div id="admin-tab-content" class="admin-section">
+                <p style="font-size:0.8rem; color:var(--text-sub); margin-bottom:12px;">App ke text & sections ko dynamically edit karein:</p>
+                
+                <div class="form-group">
+                    <label>Marquee Announcement Text</label>
+                    <input type="text" id="adm-edit-marquee" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>WhatsApp Support Channel URL</label>
+                    <input type="text" id="adm-edit-whatsapp" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label>About Us Text</label>
+                    <textarea id="adm-edit-about" class="form-input" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Privacy Policy Text</label>
+                    <textarea id="adm-edit-privacy" class="form-input" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Terms & Conditions Text</label>
+                    <textarea id="adm-edit-terms" class="form-input" rows="3"></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>FAQ Text</label>
+                    <textarea id="adm-edit-faq" class="form-input" rows="3"></textarea>
+                </div>
+
+                <button class="btn-submit" style="background:#10b981;" onclick="adminSaveAppContent()">SAVE & UPDATE ALL TEXT</button>
             </div>
             
             <button class="btn-close" onclick="closeModal('modal-admin-panel')">Close Admin Panel</button>
@@ -1597,10 +1165,11 @@
     </div>
 
     <script>
-        // Disable Context Menu globally to avoid Copy/Share context menu overrides
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // LOCAL STORAGE PERSISTENCE
+        // PERMANENT STORAGE INITS
+        let isAdminLoggedIn = localStorage.getItem('fatal_is_admin') === 'true';
+
         let userData = JSON.parse(localStorage.getItem('fatal_user_data')) || { 
             name: "Pro Gamer", 
             email: "", 
@@ -1614,21 +1183,34 @@
             won: 0 
         };
         
-        let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
+        let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [
+            { id: 101, title: "Free Fire Solo Match #101", mode: "SOLO", time: "Today - 08:00 PM", map: "Bermuda", prize: 100, perkill: 10, fee: 15 }
+        ];
+
         let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
-        
+
+        let appContent = JSON.parse(localStorage.getItem('fatal_app_content')) || {
+            marquee: "Welcome to Fatal Rush Esports! Play BGMI & Free Fire Daily to Win Exciting Rewards!",
+            whatsapp: "https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z",
+            about: "Welcome To Fatal Rush Esports! The premier tournament platform designed for gamers. Compete, connect, and earn daily rewards.",
+            privacy: "We respect your personal privacy. All user account data and payment records are encrypted securely.",
+            terms: "1. Must be 14+ years old. 2. Strictly No Cheating or Scripting allowed. 3. Respectful conduct is required.",
+            faq: "Q. How to Register? Choose match and click Join. Q. Winners? Calculated on kills and rank."
+        };
+
         let secretTapCount = 0;
         let selectedAmount = 10;
         let selectedWithdrawCoins = 0;
         let selectedWithdrawInr = 0;
         let selectedWithdrawType = '';
         let timerInterval = null;
-        let isAdminLoggedIn = false;
 
         window.onload = function() {
             updateUserUI();
             renderTournaments();
-            
+            applySavedAppContent();
+            checkAdminStatusUI();
+
             if(userData.name) document.getElementById('edit-username').value = userData.name;
             if(userData.email) document.getElementById('edit-email').value = userData.email;
             if(userData.mobile) document.getElementById('edit-mobile').value = userData.mobile;
@@ -1641,6 +1223,18 @@
                 }
             }, 1800);
         };
+
+        function checkAdminStatusUI() {
+            if(isAdminLoggedIn) {
+                document.getElementById('admin-header-indicator').style.display = 'inline-block';
+                document.getElementById('admin-quick-dashboard').style.display = 'block';
+                document.getElementById('admin-create-match-trigger').style.display = 'block';
+            } else {
+                document.getElementById('admin-header-indicator').style.display = 'none';
+                document.getElementById('admin-quick-dashboard').style.display = 'none';
+                document.getElementById('admin-create-match-trigger').style.display = 'none';
+            }
+        }
 
         function saveUserDataLocally() {
             localStorage.setItem('fatal_user_data', JSON.stringify(userData));
@@ -1673,6 +1267,21 @@
             document.getElementById('stat-won').innerText = userData.won;
         }
 
+        function applySavedAppContent() {
+            document.getElementById('marquee-text-display').innerText = appContent.marquee;
+            document.getElementById('display-about-content').innerText = appContent.about;
+            document.getElementById('display-privacy-content').innerText = appContent.privacy;
+            document.getElementById('display-terms-content').innerText = appContent.terms;
+            document.getElementById('display-faq-content').innerText = appContent.faq;
+
+            document.getElementById('adm-edit-marquee').value = appContent.marquee;
+            document.getElementById('adm-edit-whatsapp').value = appContent.whatsapp;
+            document.getElementById('adm-edit-about').value = appContent.about;
+            document.getElementById('adm-edit-privacy').value = appContent.privacy;
+            document.getElementById('adm-edit-terms').value = appContent.terms;
+            document.getElementById('adm-edit-faq').value = appContent.faq;
+        }
+
         function renderTournaments() {
             const list = document.getElementById('tournament-list');
             if(tournaments.length === 0) {
@@ -1681,6 +1290,8 @@
             }
             list.innerHTML = '';
             tournaments.forEach((m) => {
+                let deleteBtnHTML = isAdminLoggedIn ? `<button class="btn-delete-match" onclick="adminDeleteMatch(${m.id})"><i class="fa-solid fa-trash"></i> DELETE MATCH (ADMIN)</button>` : '';
+
                 list.innerHTML += `<div class="match-card">
                     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                         <div style="font-size:0.95rem; font-weight:700; color:#fff;">${m.title}</div>
@@ -1693,6 +1304,7 @@
                         <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                     </div>
                     <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
+                    ${deleteBtnHTML}
                 </div>`;
             });
         }
@@ -1732,20 +1344,18 @@
             container.innerHTML = '';
 
             if(type === 'REDEEM') {
-                document.getElementById('alert-title').innerText = "Enter Number / Email";
-                document.getElementById('alert-message').innerText = "Fill details carefully. Redeem code will be sent on your WhatsApp number or Email.";
-                
+                document.getElementById('alert-title').innerText = "Enter Details";
+                document.getElementById('alert-message').innerText = "Redeem code will be sent on WhatsApp/Email.";
                 container.innerHTML = `
                     <input type="text" id="alert-input-whatsapp" class="alert-input" placeholder="Enter WhatsApp Number">
-                    <input type="email" id="alert-input-email" class="alert-input" placeholder="Enter Your Email Address">
+                    <input type="email" id="alert-input-email" class="alert-input" placeholder="Enter Email Address">
                 `;
             } else {
                 document.getElementById('alert-title').innerText = "Enter Account Holder & UPI ID";
-                document.getElementById('alert-message').innerText = "Fill details carefully. Wrong details will lead to payment failure.";
-                
+                document.getElementById('alert-message').innerText = "Fill details carefully.";
                 container.innerHTML = `
-                    <input type="text" id="alert-input-name" class="alert-input" placeholder="Enter Account Holder Name">
-                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="ENTER Your UPI ID OR VPA">
+                    <input type="text" id="alert-input-name" class="alert-input" placeholder="Account Holder Name">
+                    <input type="text" id="alert-input-upi" class="alert-input" placeholder="ENTER UPI ID OR VPA">
                 `;
             }
 
@@ -1757,23 +1367,17 @@
             if(selectedWithdrawType === 'REDEEM') {
                 const whatsapp = document.getElementById('alert-input-whatsapp').value.trim();
                 const email = document.getElementById('alert-input-email').value.trim();
-                if(!whatsapp || !email) {
-                    showToast("Please enter both WhatsApp number & Email!");
-                    return;
-                }
+                if(!whatsapp || !email) { showToast("Enter WhatsApp number & Email!"); return; }
                 details = `WA: ${whatsapp}, Email: ${email}`;
             } else {
                 const holderName = document.getElementById('alert-input-name').value.trim();
                 const upi = document.getElementById('alert-input-upi').value.trim();
-                if(!holderName || !upi) {
-                    showToast("Please enter Account Name & UPI ID!");
-                    return;
-                }
+                if(!holderName || !upi) { showToast("Enter Account Name & UPI ID!"); return; }
                 details = `Name: ${holderName}, UPI: ${upi}`;
             }
 
             if(userData.coins < selectedWithdrawCoins) {
-                showToast(`Insufficient Balance! You need at least ${selectedWithdrawCoins} Coins.`);
+                showToast(`Insufficient Balance! You need ${selectedWithdrawCoins} Coins.`);
                 return;
             }
 
@@ -1795,8 +1399,7 @@
             closeModal('modal-withdraw-alert');
             closeModal('modal-withdraw');
             closeModal('modal-emergency-withdraw');
-
-            showToast(`Withdrawal Requested! Waiting for Admin Approval.`);
+            showToast(`Withdrawal Requested! Pending Approval.`);
         }
 
         function startCountdownTimer() {
@@ -1823,7 +1426,7 @@
         function confirmPaymentSubmit() {
             const utr = document.getElementById('pay-utr-input').value.trim();
             if(utr.length < 6) {
-                showToast("Please enter a valid 12-Digit UTR Number!");
+                showToast("Please enter a valid 12-Digit UTR!");
                 return;
             }
             closeModal('modal-payment-qr');
@@ -1845,7 +1448,7 @@
             });
             localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
 
-            showToast(`Payment Verified! ${selectedAmount} Coins added automatically!`);
+            showToast(`Payment Verified! ${selectedAmount} Coins added!`);
         }
 
         function openTransactionsModal() {
@@ -1862,12 +1465,10 @@
         function renderTransactions(filter) {
             const container = document.getElementById('tx-history-list');
             let list = txHistory;
-            if(filter !== 'all') {
-                list = txHistory.filter(t => t.type === filter);
-            }
+            if(filter !== 'all') list = txHistory.filter(t => t.type === filter);
 
             if(list.length === 0) {
-                container.innerHTML = `<div style="text-align:center; padding:30px; font-size:0.85rem; color:var(--text-sub);">No transactions found in this section.</div>`;
+                container.innerHTML = `<div style="text-align:center; padding:30px; font-size:0.85rem; color:var(--text-sub);">No transactions found.</div>`;
                 return;
             }
 
@@ -1890,8 +1491,7 @@
                             </div>
                             <div style="font-size:0.75rem; color:var(--text-sub);">₹${item.inr}</div>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -1914,24 +1514,18 @@
         function openTermsModal() { document.getElementById('modal-terms').style.display = 'flex'; }
 
         function toggleNotice(chk) {
-            if(chk.checked) {
-                showToast("Important Notifications Enabled");
-            } else {
-                showToast("Important Notifications Disabled");
-            }
+            showToast(chk.checked ? "Notifications Enabled" : "Notifications Disabled");
         }
 
-        function logoutUser() {
-            showToast("Logged Out Successfully!");
-        }
+        function logoutUser() { showToast("Logged Out Successfully!"); }
 
-        // ADMIN ACCESS TRIGGER
+        // SECRET HEADER TAP LOGIC FOR PERMANENT ADMIN ACCESS
         function handleSecretTap() {
             secretTapCount++;
             if(secretTapCount >= 5) {
                 secretTapCount = 0;
                 if(isAdminLoggedIn) {
-                    document.getElementById('modal-admin-panel').style.display = 'flex';
+                    openFullAdminModal();
                 } else {
                     document.getElementById('admin-id-input').value = '';
                     document.getElementById('admin-pass-input').value = '';
@@ -1945,22 +1539,23 @@
             const pass = document.getElementById('admin-pass-input').value.trim();
             if(id === "admin@fatalrush.com" && pass === "admin123") {
                 isAdminLoggedIn = true;
+                localStorage.setItem('fatal_is_admin', 'true');
+                checkAdminStatusUI();
+                renderTournaments();
                 closeModal('modal-secret-admin');
-                document.getElementById('admin-header-btn').style.display = 'inline-block';
-                document.getElementById('modal-admin-panel').style.display = 'flex';
-                openAdminTab('matches');
-                showToast("Welcome Admin!");
+                openFullAdminModal();
+                showToast("Admin Logged In Permanently!");
             } else {
                 showToast("Incorrect Admin Credentials!");
             }
         }
 
-        function openAdminTab(tabName) {
-            if(!isAdminLoggedIn && tabName === 'matches') {
-                document.getElementById('modal-secret-admin').style.display = 'flex';
-                return;
-            }
+        function openFullAdminModal() {
             document.getElementById('modal-admin-panel').style.display = 'flex';
+            openAdminTab('matches');
+        }
+
+        function openAdminTab(tabName) {
             document.querySelectorAll('.admin-section').forEach(el => el.classList.remove('active'));
             document.querySelectorAll('.admin-nav-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(`admin-tab-${tabName}`).classList.add('active');
@@ -1984,20 +1579,38 @@
             });
             localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
             renderTournaments();
-            showToast("Tournament Created Live!");
+            showToast("Tournament Created!");
             document.getElementById('adm-title').value = '';
+        }
+
+        function adminDeleteMatch(id) {
+            tournaments = tournaments.filter(t => t.id !== id);
+            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+            renderTournaments();
+            showToast("Tournament Deleted!");
         }
 
         function adminManualCoins() {
             const val = parseInt(document.getElementById('admin-manual-coins').value);
-            if(isNaN(val)) { showToast("Enter a valid number!"); return; }
-            
+            if(isNaN(val)) { showToast("Enter valid number!"); return; }
             userData.coins += val;
             if(val > 0) userData.bonus += val;
-            
             saveUserDataLocally();
-            showToast(`Successfully ${val > 0 ? 'Added' : 'Removed'} ${Math.abs(val)} Coins!`);
+            showToast(`Updated Wallet Coins!`);
             document.getElementById('admin-manual-coins').value = '';
+        }
+
+        function adminSaveAppContent() {
+            appContent.marquee = document.getElementById('adm-edit-marquee').value.trim();
+            appContent.whatsapp = document.getElementById('adm-edit-whatsapp').value.trim();
+            appContent.about = document.getElementById('adm-edit-about').value.trim();
+            appContent.privacy = document.getElementById('adm-edit-privacy').value.trim();
+            appContent.terms = document.getElementById('adm-edit-terms').value.trim();
+            appContent.faq = document.getElementById('adm-edit-faq').value.trim();
+
+            localStorage.setItem('fatal_app_content', JSON.stringify(appContent));
+            applySavedAppContent();
+            showToast("All App Content Saved Successfully!");
         }
 
         function renderAdminPendingTx() {
@@ -2014,7 +1627,7 @@
                 const isDep = item.type === 'deposit';
                 container.innerHTML += `
                     <div class="admin-tx-card">
-                        <div style="display:flex; justify-content:space-between;">
+                        <div style="display:flex; justify-style:space-between;">
                             <strong style="color:${isDep ? '#10b981' : '#f43f5e'}">${isDep ? 'DEPOSIT' : 'WITHDRAW'}</strong>
                             <span>${item.coins} Coins (₹${item.inr})</span>
                         </div>
@@ -2024,8 +1637,7 @@
                             <button class="admin-btn-approve" onclick="adminProcessTx(${item.id}, 'Success')">Approve</button>
                             <button class="admin-btn-reject" onclick="adminProcessTx(${item.id}, 'Failed')">Reject</button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
             });
         }
 
@@ -2039,14 +1651,8 @@
                     userData.coins += tx.coins;
                     userData.deposited += tx.coins;
                 }
-                
-                if(tx.type === 'withdraw' && newStatus === 'Failed') {
-                    userData.coins += tx.coins; 
-                }
-                
-                if(tx.type === 'withdraw' && newStatus === 'Success') {
-                    userData.winning += tx.coins;
-                }
+                if(tx.type === 'withdraw' && newStatus === 'Failed') userData.coins += tx.coins; 
+                if(tx.type === 'withdraw' && newStatus === 'Success') userData.winning += tx.coins;
                 
                 localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
                 saveUserDataLocally();
@@ -2056,7 +1662,7 @@
         }
 
         function openWhatsApp() {
-            window.open("https://whatsapp.com/channel/0029Vb8Ex4OBfxo1wQM3jQ2Z", '_blank');
+            window.open(appContent.whatsapp || "https://whatsapp.com", '_blank');
         }
 
         function closeModal(id) {
