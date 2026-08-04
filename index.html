@@ -257,22 +257,55 @@
             margin-bottom: 14px;
         }
 
-        .menu-list { display: flex; flex-direction: column; gap: 10px; }
+        /* Profile Menu List UI */
+        .menu-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
         .menu-item {
             background: #111322;
             border: 1px solid #1f2438;
-            padding: 14px 16px;
+            padding: 12px 16px;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 600;
         }
 
         .menu-item-left { display: flex; align-items: center; gap: 12px; }
-        .menu-item-left i { font-size: 1.1rem; color: #ff2a5f; width: 22px; text-align: center; }
+        .menu-item-left i { font-size: 1.05rem; color: #38bdf8; width: 22px; text-align: center; }
+
+        /* Toggle Switch for Importance Notice */
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 42px;
+            height: 22px;
+        }
+
+        .switch input { opacity: 0; width: 0; height: 0; }
+
+        .slider {
+            position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #374151; transition: .3s; border-radius: 20px;
+        }
+
+        .slider:before {
+            position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px;
+            background-color: white; transition: .3s; border-radius: 50%;
+        }
+
+        input:checked + .slider { background-color: var(--primary-red); }
+        input:checked + .slider:before { transform: translateX(20px); }
+
+        .app-version-text {
+            text-align: center;
+            color: var(--text-sub);
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
 
         /* Wallet Cards */
         .wallet-stat-cards {
@@ -431,9 +464,7 @@
             transition: background 0.2s;
         }
 
-        .pkg-item:active {
-            background: #f1f5f9;
-        }
+        .pkg-item:active { background: #f1f5f9; }
 
         .pkg-left { display: flex; align-items: center; gap: 16px; }
         
@@ -444,16 +475,9 @@
             color: #fff; font-size: 1.3rem; flex-shrink: 0;
         }
 
-        .pkg-icon.tranz {
-            background: #000;
-            border: 2px solid #10b981;
-        }
+        .pkg-icon.tranz { background: #000; border: 2px solid #10b981; }
 
-        .pkg-icon.tranz img {
-            width: 28px;
-            height: 28px;
-            object-fit: contain;
-        }
+        .pkg-icon.tranz img { width: 28px; height: 28px; object-fit: contain; }
 
         .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
         .pkg-icon.redeem { background: #f43f5e; color: #fff; }
@@ -508,23 +532,13 @@
             border-radius: 12px;
             padding: 20px;
             width: 90%;
-            max-width: 330px;
+            max-width: 380px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.8);
         }
 
-        .alert-modal-box h3 {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 8px;
-        }
+        .alert-modal-box h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
 
-        .alert-modal-box p {
-            font-size: 0.78rem;
-            color: #a0aec0;
-            line-height: 1.4;
-            margin-bottom: 16px;
-        }
+        .alert-modal-box p { font-size: 0.78rem; color: #a0aec0; line-height: 1.4; margin-bottom: 16px; }
 
         .alert-input {
             width: 100%;
@@ -538,21 +552,10 @@
             margin-bottom: 14px;
         }
 
-        .alert-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 24px;
-            margin-top: 10px;
-        }
+        .alert-buttons { display: flex; justify-content: flex-end; gap: 24px; margin-top: 10px; }
 
         .alert-btn {
-            background: transparent;
-            border: none;
-            color: #3b82f6;
-            font-weight: 800;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-transform: uppercase;
+            background: transparent; border: none; color: #3b82f6; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase;
         }
 
         /* Transactions Slider Tabs */
@@ -685,6 +688,17 @@
         .admin-tx-actions { display: flex; gap: 10px; margin-top: 10px; }
         .admin-btn-approve { flex: 1; background: #10b981; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
         .admin-btn-reject { flex: 1; background: #f43f5e; color: #fff; border: none; padding: 6px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+
+        /* Information Modals Content Area */
+        .info-content-box {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            line-height: 1.5;
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+        .info-content-box h4 { color: #fff; margin: 10px 0 4px; font-size: 0.85rem; }
     </style>
 </head>
 <body>
@@ -822,13 +836,13 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB -->
+        <!-- PROFILE TAB (UPDATED WITH ALL SCREENSHOT ITEMS) -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
                     <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem; color: #fff;"></i>
                 </div>
-                <div class="user-name-text" id="display-username" style="font-size:1.1rem; font-weight:800;"></div>
+                <div class="user-name-text" id="display-username" style="font-size:1.1rem; font-weight:800;">Name : Loading</div>
                 <div style="color:var(--accent-green); font-weight:700; font-size:0.85rem; margin-bottom:16px;"><i class="fa-solid fa-circle-check"></i> Kyc Verified</div>
             </div>
 
@@ -839,19 +853,90 @@
             </div>
 
             <div class="menu-list">
+                <!-- 1. My Profile -->
                 <div class="menu-item" onclick="openMyProfileModal()">
-                    <div class="menu-item-left"><i class="fa-solid fa-user"></i><span>My Profile</span></div>
+                    <div class="menu-item-left"><i class="fa-solid fa-user-circle"></i><span>My Profile</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
+
+                <!-- 2. My Wallet -->
                 <div class="menu-item" onclick="switchTab('wallet')">
                     <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
+
+                <!-- 3. My Statics -->
+                <div class="menu-item" onclick="openStaticsModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-chart-line"></i><span>My Statics</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 4. Top Players -->
+                <div class="menu-item" onclick="switchTab('ranking')">
+                    <div class="menu-item-left"><i class="fa-solid fa-trophy"></i><span>Top Players</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 5. Refer & Earn -->
+                <div class="menu-item" onclick="switchTab('offer')">
+                    <div class="menu-item-left"><i class="fa-solid fa-user-plus"></i><span>Refer & Earn</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 6. Notifications -->
+                <div class="menu-item" onclick="openNotificationsModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Notifications</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 7. Contact Us -->
                 <div class="menu-item" onclick="openWhatsApp()">
                     <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Contact Us</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
+
+                <!-- 8. Importance Notice Toggle Switch -->
+                <div class="menu-item" style="cursor:default;">
+                    <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Importance Notice</span></div>
+                    <label class="switch">
+                        <input type="checkbox" id="importance-notice-toggle" checked onchange="toggleNotice(this)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <!-- 9. FAQ -->
+                <div class="menu-item" onclick="openFAQModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 10. About Us -->
+                <div class="menu-item" onclick="openAboutModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About Us</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 11. Privacy Policy -->
+                <div class="menu-item" onclick="openPrivacyModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-lock"></i><span>Privacy Policy</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 12. Terms & Conditions -->
+                <div class="menu-item" onclick="openTermsModal()">
+                    <div class="menu-item-left"><i class="fa-solid fa-shield-halved"></i><span>Terms & Conditions</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
+
+                <!-- 13. Logout -->
+                <div class="menu-item" onclick="logoutUser()">
+                    <div class="menu-item-left"><i class="fa-solid fa-power-off" style="color:#f43f5e;"></i><span style="color:#f43f5e;">Logout</span></div>
+                    <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
+                </div>
             </div>
+
+            <!-- Footer App Version -->
+            <div class="app-version-text">App Version: v1.7</div>
         </div>
 
         <!-- Bottom Navigation -->
@@ -1330,6 +1415,99 @@
         </div>
     </div>
 
+    <!-- MODAL: MY STATICS (FROM SCREENSHOT) -->
+    <div id="modal-statics" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:400px;">
+            <div class="modal-title"><span>My Statistics</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-statics')" style="cursor:pointer;"></i></div>
+            <div style="display:flex; justify-style:space-between; font-size:0.75rem; color:var(--text-sub); border-bottom:1px solid #374151; padding-bottom:8px; margin-bottom:12px;">
+                <span style="width:10%;">#</span>
+                <span style="width:50%;">Match Info</span>
+                <span style="width:20%; text-align:center;">Paid</span>
+                <span style="width:20%; text-align:right;">Won</span>
+            </div>
+            <div id="statics-list-container" style="max-height:50vh; overflow-y:auto; text-align:center; font-size:0.8rem; color:#9ca3af; padding:20px 0;">
+                No Match History Available.
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: NOTIFICATIONS -->
+    <div id="modal-notifications" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:400px;">
+            <div class="modal-title"><span>Notifications</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-notifications')" style="cursor:pointer;"></i></div>
+            <div style="text-align:center; color:#9ca3af; padding:20px; font-size:0.85rem;">
+                <i class="fa-solid fa-bell-slash" style="font-size:2rem; margin-bottom:10px; color:#4b5563;"></i>
+                <p>No new notifications right now!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: FAQ (FROM SCREENSHOT) -->
+    <div id="modal-faq" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:420px;">
+            <div class="modal-title"><span>Frequently Asked Questions (FAQ)</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i></div>
+            <div class="info-content-box">
+                <h4>Q. What is Fatal Rush Esports?</h4>
+                <p>Fatal Rush Esports is a dedicated app for organizing and participating in Free Fire & BGMI Tournaments.</p>
+                
+                <h4>Q. How to Register in Tournaments?</h4>
+                <p>Simply choose your match from Home screen, click on Join Match, and ensure you have required entry coins.</p>
+                
+                <h4>Q. Are Tournaments Free or Paid?</h4>
+                <p>Some tournaments may have entry fees while others are completely free to enter.</p>
+
+                <h4>Q. How are Winners Determined?</h4>
+                <p>Winners are calculated automatically based on total kills and position placement points in the match.</p>
+
+                <h4>Q. How to Contact Support?</h4>
+                <p>You can click on Contact Us in Profile section or use WhatsApp Floating Icon to reach our support team directly.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: ABOUT US (FROM SCREENSHOT) -->
+    <div id="modal-about" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:400px;">
+            <div class="modal-title"><span>About Us</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i></div>
+            <div class="info-content-box">
+                <p><strong>Welcome To Fatal Rush Esports!</strong></p>
+                <p style="margin-top:8px;">The premier tournament platform designed for gamers. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.</p>
+                <p style="margin-top:8px;">With a user-friendly interface and daily match options, we strive to elevate your gaming experience to new heights. Let's Game On!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PRIVACY POLICY -->
+    <div id="modal-privacy" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:400px;">
+            <div class="modal-title"><span>Privacy Policy</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-privacy')" style="cursor:pointer;"></i></div>
+            <div class="info-content-box">
+                <p>We respect your personal information and privacy. All account data, phone numbers, and transactional records are encrypted securely.</p>
+                <p style="margin-top:8px;">We do not share your private account data with third parties without your consent.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TERMS & CONDITIONS (FROM SCREENSHOT) -->
+    <div id="modal-terms" class="dialog-overlay">
+        <div class="alert-modal-box" style="width:100%; max-width:420px;">
+            <div class="modal-title"><span>Terms and Conditions</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-terms')" style="cursor:pointer;"></i></div>
+            <div class="info-content-box">
+                <h4>1. Requirements</h4>
+                <p>Participants must be at least 14 years old to join standard esports events.</p>
+                
+                <h4>2. Fair Play Policy</h4>
+                <p>Strictly No Cheating, Hacking, or use of third-party scripts. Any player caught hacking will be permanently banned.</p>
+
+                <h4>3. Entry Fees & Refunds</h4>
+                <p>Fees are non-refundable unless a tournament is explicitly cancelled by the organizers.</p>
+
+                <h4>4. Conduct</h4>
+                <p>Respectful behavior is required. Any harassment or abusive language will lead to disqualification.</p>
+            </div>
+        </div>
+    </div>
+
     <!-- ADMIN LOGIN POPUP -->
     <div id="modal-secret-admin" class="dialog-overlay">
         <div class="alert-modal-box">
@@ -1461,7 +1639,7 @@
         }
 
         function updateUserUI() {
-            document.getElementById('display-username').innerText = userData.name ? ("Name : " + userData.name) : "Guest User";
+            document.getElementById('display-username').innerText = userData.name ? ("Name : " + userData.name) : "Name : Guest";
             document.getElementById('header-coins').innerText = userData.coins;
             document.getElementById('wallet-coins').innerText = userData.coins;
             document.getElementById('deposit-coins').innerText = userData.deposited;
@@ -1573,7 +1751,6 @@
                 details = `Name: ${holderName}, UPI: ${upi}`;
             }
 
-            // BALANCE CHECK HERE BEFORE FINALIZING WITHDRAWAL
             if(userData.coins < selectedWithdrawCoins) {
                 showToast(`Insufficient Balance! You need at least ${selectedWithdrawCoins} Coins.`);
                 return;
@@ -1632,7 +1809,6 @@
             closeModal('modal-payment-qr');
             document.getElementById('pay-utr-input').value = '';
 
-            // Instant wallet updates
             userData.coins += selectedAmount;
             userData.deposited += selectedAmount;
             saveUserDataLocally();
@@ -1708,6 +1884,26 @@
             saveUserDataLocally();
             closeModal('modal-my-profile');
             showToast("Profile Saved!");
+        }
+
+        // SCREENSHOT MODAL HANDLERS
+        function openStaticsModal() { document.getElementById('modal-statics').style.display = 'flex'; }
+        function openNotificationsModal() { document.getElementById('modal-notifications').style.display = 'flex'; }
+        function openFAQModal() { document.getElementById('modal-faq').style.display = 'flex'; }
+        function openAboutModal() { document.getElementById('modal-about').style.display = 'flex'; }
+        function openPrivacyModal() { document.getElementById('modal-privacy').style.display = 'flex'; }
+        function openTermsModal() { document.getElementById('modal-terms').style.display = 'flex'; }
+
+        function toggleNotice(chk) {
+            if(chk.checked) {
+                showToast("Important Notifications Enabled");
+            } else {
+                showToast("Important Notifications Disabled");
+            }
+        }
+
+        function logoutUser() {
+            showToast("Logged Out Successfully!");
         }
 
         // --- ADMIN CONTROL ---
