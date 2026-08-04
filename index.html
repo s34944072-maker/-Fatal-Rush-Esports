@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <!-- Viewport scale locked to disable Mobile Pinch-To-Zoom -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fatal Rush Esports - Official Platform</title>
+    <title>Fatal Rush Esports</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -34,7 +34,7 @@
         }
 
         /* Allow typing selection in inputs */
-        input, textarea, select {
+        input, textarea {
             -webkit-user-select: text;
             -moz-user-select: text;
             -ms-user-select: text;
@@ -124,7 +124,7 @@
             box-shadow: 0 0 25px rgba(0,0,0,0.9);
         }
 
-        /* Header UI */
+        /* Header */
         .app-header {
             background: rgba(19, 21, 32, 0.95);
             backdrop-filter: blur(10px);
@@ -398,7 +398,7 @@
 
         .custom-toast.show { transform: translateX(-50%) translateY(0); }
 
-        /* FULLSCREEN MODALS */
+        /* FULLSCREEN MODALS LAYOUT FOR BUY / WITHDRAW / EMERGENCY */
         .modal-overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -411,6 +411,17 @@
             overflow-y: auto;
         }
 
+        .modal-box {
+            background: transparent;
+            border: none;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            box-shadow: none;
+        }
+
+        /* Modal Header (Native Mobile App Top Bar) */
         .modal-top-bar {
             background: #5b21b6;
             color: #fff;
@@ -426,10 +437,22 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
 
-        .modal-top-bar.withdraw-bar { background: #28303d; }
-        .modal-top-bar i { font-size: 1.2rem; cursor: pointer; }
+        .modal-top-bar.withdraw-bar {
+            background: #28303d;
+        }
 
-        .pkg-list-container { width: 100%; flex: 1; background: #f8fafc; }
+        .modal-top-bar i {
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Package Items UI (Native List Layout) */
+        .pkg-list-container {
+            width: 100%;
+            flex: 1;
+            background: #f8fafc;
+        }
+
         .pkg-item {
             background: #ffffff;
             border-bottom: 1px solid #e2e8f0;
@@ -442,7 +465,9 @@
         }
 
         .pkg-item:active { background: #f1f5f9; }
+
         .pkg-left { display: flex; align-items: center; gap: 16px; }
+        
         .pkg-icon {
             width: 46px; height: 46px;
             border-radius: 50%;
@@ -451,10 +476,15 @@
         }
 
         .pkg-icon.tranz { background: #000; border: 2px solid #10b981; }
+
+        .pkg-icon.tranz img { width: 28px; height: 28px; object-fit: contain; }
+
+        .pkg-icon.upi { background: #000; color: #10b981; border: 2px solid #10b981; }
         .pkg-icon.redeem { background: #f43f5e; color: #fff; }
 
         .pkg-info h4 { font-size: 1rem; color: #0f172a; font-weight: 900; letter-spacing: 0.2px; }
         .pkg-info p { font-size: 0.72rem; color: #64748b; font-weight: 700; margin-top: 3px; line-height: 1.2; max-width: 210px; }
+
         .pkg-btn-text { color: #dc2626; font-weight: 900; font-size: 1.05rem; }
 
         /* Dialog Popups Style */
@@ -495,7 +525,7 @@
             z-index: 90;
         }
 
-        /* Alert/Dialog Box */
+        /* Alert/Dialog Dialog */
         .alert-modal-box {
             background: #232936;
             color: #fff;
@@ -507,6 +537,7 @@
         }
 
         .alert-modal-box h3 { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 8px; }
+
         .alert-modal-box p { font-size: 0.78rem; color: #a0aec0; line-height: 1.4; margin-bottom: 16px; }
 
         .alert-input {
@@ -522,6 +553,7 @@
         }
 
         .alert-buttons { display: flex; justify-content: flex-end; gap: 24px; margin-top: 10px; }
+
         .alert-btn {
             background: transparent; border: none; color: #3b82f6; font-weight: 800; font-size: 0.9rem; cursor: pointer; text-transform: uppercase;
         }
@@ -593,7 +625,7 @@
             margin-bottom: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.5);
         }
-        .qr-box-wrap img {
+        .qr-box-wrap canvas, .qr-box-wrap img {
             width: 200px;
             height: 200px;
             display: block;
@@ -804,7 +836,7 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB -->
+        <!-- PROFILE TAB (UPDATED WITH ALL SCREENSHOT ITEMS) -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -821,41 +853,49 @@
             </div>
 
             <div class="menu-list">
+                <!-- 1. My Profile -->
                 <div class="menu-item" onclick="openMyProfileModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-user-circle"></i><span>My Profile</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 2. My Wallet -->
                 <div class="menu-item" onclick="switchTab('wallet')">
                     <div class="menu-item-left"><i class="fa-solid fa-wallet"></i><span>My Wallet</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 3. My Statics -->
                 <div class="menu-item" onclick="openStaticsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-chart-line"></i><span>My Statics</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 4. Top Players -->
                 <div class="menu-item" onclick="switchTab('ranking')">
                     <div class="menu-item-left"><i class="fa-solid fa-trophy"></i><span>Top Players</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 5. Refer & Earn -->
                 <div class="menu-item" onclick="switchTab('offer')">
                     <div class="menu-item-left"><i class="fa-solid fa-user-plus"></i><span>Refer & Earn</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 6. Notifications -->
                 <div class="menu-item" onclick="openNotificationsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Notifications</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 7. Contact Us -->
                 <div class="menu-item" onclick="openWhatsApp()">
                     <div class="menu-item-left"><i class="fa-solid fa-headset"></i><span>Contact Us</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 8. Importance Notice Toggle Switch -->
                 <div class="menu-item" style="cursor:default;">
                     <div class="menu-item-left"><i class="fa-solid fa-bell"></i><span>Importance Notice</span></div>
                     <label class="switch">
@@ -864,32 +904,38 @@
                     </label>
                 </div>
 
+                <!-- 9. FAQ -->
                 <div class="menu-item" onclick="openFAQModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 10. About Us -->
                 <div class="menu-item" onclick="openAboutModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-circle-info"></i><span>About Us</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 11. Privacy Policy -->
                 <div class="menu-item" onclick="openPrivacyModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-lock"></i><span>Privacy Policy</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 12. Terms & Conditions -->
                 <div class="menu-item" onclick="openTermsModal()">
                     <div class="menu-item-left"><i class="fa-solid fa-shield-halved"></i><span>Terms & Conditions</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
 
+                <!-- 13. Logout -->
                 <div class="menu-item" onclick="logoutUser()">
                     <div class="menu-item-left"><i class="fa-solid fa-power-off" style="color:#f43f5e;"></i><span style="color:#f43f5e;">Logout</span></div>
                     <i class="fa-solid fa-chevron-right" style="font-size:0.8rem; color:#6b7280;"></i>
                 </div>
             </div>
 
+            <!-- Footer App Version -->
             <div class="app-version-text">App Version: v1.7</div>
         </div>
 
@@ -918,7 +964,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>10 INR = 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>10 INR 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">10 COINS</div>
@@ -931,7 +977,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>15 INR = 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>15 INR 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">15 COINS</div>
@@ -944,7 +990,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>20 INR = 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>20 INR 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">20 COINS</div>
@@ -983,7 +1029,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>35 INR = 35 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>35 INR 35 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">35 COINS</div>
@@ -996,7 +1042,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>40 INR = 40 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>40 INR 40 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">40 COINS</div>
@@ -1009,7 +1055,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>45 INR = 45 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>45 INR 45 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">45 COINS</div>
@@ -1022,7 +1068,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>50 INR = 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>50 INR 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">50 COINS</div>
@@ -1035,7 +1081,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>80 INR = 80 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>80 INR 80 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">80 COINS</div>
@@ -1048,7 +1094,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>100 INR = 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>100 INR 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">100 COINS</div>
@@ -1074,7 +1120,7 @@
                     </div>
                     <div class="pkg-info">
                         <h4>TranzUPI</h4>
-                        <p>500 INR = 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
+                        <p>500 INR 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p>
                     </div>
                 </div>
                 <div class="pkg-btn-text">500 COINS</div>
@@ -1369,11 +1415,11 @@
         </div>
     </div>
 
-    <!-- MODAL: MY STATICS -->
+    <!-- MODAL: MY STATICS (FROM SCREENSHOT) -->
     <div id="modal-statics" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>My Statistics</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-statics')" style="cursor:pointer;"></i></div>
-            <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-sub); border-bottom:1px solid #374151; padding-bottom:8px; margin-bottom:12px;">
+            <div style="display:flex; justify-style:space-between; font-size:0.75rem; color:var(--text-sub); border-bottom:1px solid #374151; padding-bottom:8px; margin-bottom:12px;">
                 <span style="width:10%;">#</span>
                 <span style="width:50%;">Match Info</span>
                 <span style="width:20%; text-align:center;">Paid</span>
@@ -1396,7 +1442,7 @@
         </div>
     </div>
 
-    <!-- MODAL: FAQ -->
+    <!-- MODAL: FAQ (FROM SCREENSHOT) -->
     <div id="modal-faq" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
             <div class="modal-title"><span>Frequently Asked Questions (FAQ)</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i></div>
@@ -1419,7 +1465,7 @@
         </div>
     </div>
 
-    <!-- MODAL: ABOUT US -->
+    <!-- MODAL: ABOUT US (FROM SCREENSHOT) -->
     <div id="modal-about" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>About Us</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i></div>
@@ -1442,7 +1488,7 @@
         </div>
     </div>
 
-    <!-- MODAL: TERMS & CONDITIONS -->
+    <!-- MODAL: TERMS & CONDITIONS (FROM SCREENSHOT) -->
     <div id="modal-terms" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
             <div class="modal-title"><span>Terms and Conditions</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-terms')" style="cursor:pointer;"></i></div>
