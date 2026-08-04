@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Favourite Sports</title>
+    <title>FATAL RUSH SPORTS</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -511,8 +511,36 @@
             color: #fff; font-size: 1.3rem; flex-shrink: 0;
         }
 
-        .pkg-icon.tranz { background: #000; border: 2px solid #10b981; }
-        .pkg-icon.redeem { background: #f43f5e; color: #fff; }
+        .pkg-icon.tranz {
+            background: #000;
+            position: relative;
+        }
+
+        .tranz-shape {
+            width: 22px;
+            height: 22px;
+            position: relative;
+        }
+
+        .tranz-shape::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #ea580c;
+            clip-path: polygon(0 0, 100% 0, 0 100%);
+        }
+
+        .tranz-shape::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: #16a34a;
+            clip-path: polygon(100% 0, 100% 100%, 0 100%);
+        }
+
+        .pkg-icon.redeem { background: #fca5a5; color: #e11d48; }
 
         .pkg-info h4 { font-size: 1rem; color: #0f172a; font-weight: 900; }
         .pkg-info p { font-size: 0.72rem; color: #64748b; font-weight: 700; margin-top: 3px; max-width: 210px; }
@@ -646,7 +674,7 @@
     <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
-            <h1><i class="fa-solid fa-trophy" style="color:#00e676;"></i> FAVOURITE SPORTS</h1>
+            <h1><i class="fa-solid fa-trophy" style="color:#00e676;"></i> FATAL RUSH SPORTS</h1>
         </div>
 
         <div>
@@ -659,7 +687,7 @@
         </div>
 
         <div class="splash-welcome-banner">
-            WELCOME TO FAVOURITE SPORTS
+            WELCOME TO FATAL RUSH SPORTS
         </div>
     </div>
 
@@ -678,7 +706,7 @@
 
         <!-- App Header -->
         <header class="app-header">
-            <div class="app-title" onclick="handleSecretTap()">FAVOURITE SPORTS <span id="admin-badge" style="display:none; background:var(--accent-green); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; margin-left:4px;">ADMIN</span></div>
+            <div class="app-title" onclick="handleSecretTap()">FATAL RUSH SPORTS <span id="admin-badge" style="display:none; background:var(--accent-green); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; margin-left:4px;">ADMIN</span></div>
             <div class="coin-badge" onclick="switchTab('wallet')">
                 <i class="fa-solid fa-coins"></i>
                 <span id="header-coins">0</span> Coins
@@ -689,14 +717,14 @@
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
-                Welcome to Favourite Sports! Join Tournaments Daily & Win Rewards!
+                Welcome to Fatal Rush Sports! Join Tournaments Daily & Win Rewards!
             </marquee>
         </div>
 
         <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
-                <h2 style="font-size:1.1rem; font-weight:900;">FAVOURITE SPORTS TOURNAMENTS</h2>
+                <h2 style="font-size:1.1rem; font-weight:900;">FATAL RUSH SPORTS TOURNAMENTS</h2>
                 <p style="font-size:0.8rem; color:#e2e8f0; margin-top:4px;">Play Games and Earn Daily Rewards!</p>
             </div>
 
@@ -881,50 +909,67 @@
 
     </div>
 
-    <!-- FULLSCREEN MODAL 1: BUY COINS PACKAGES -->
+    <!-- FULLSCREEN MODAL 1: BUY COINS PACKAGES (EXACT FROM SCREENSHOT 2) -->
     <div id="modal-buy-coins" class="modal-overlay">
-        <div class="modal-top-bar">
+        <div class="modal-top-bar" style="background:#6a1b9a; color:#fff;">
             <div class="modal-top-bar-left">
                 <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-buy-coins')"></i>
                 <span>Buy Coins</span>
             </div>
         </div>
         <div class="pkg-list-container">
-            <div class="pkg-item" onclick="selectCoinPackage(10)"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR = 10 COINS! PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">10 COINS</div></div>
-            <div class="pkg-item" onclick="selectCoinPackage(20)"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR = 20 COINS! PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">20 COINS</div></div>
-            <div class="pkg-item" onclick="selectCoinPackage(50)"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR = 50 COINS! PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">50 COINS</div></div>
-            <div class="pkg-item" onclick="selectCoinPackage(100)"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR = 100 COINS! PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">100 COINS</div></div>
-            <div class="pkg-item" onclick="selectCoinPackage(200)"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>TranzUPI</h4><p>200 INR = 200 COINS! PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">200 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(10)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>10 INR 10 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">10 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(15)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>15 INR 15 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">15 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(20)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>20 INR 20 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">20 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(25)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>25 INR = 25 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">25 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(30)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>30 INR = 30 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">30 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(35)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>35 INR 35 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">35 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(40)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>40 INR 40 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">40 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(45)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>45 INR 45 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">45 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(50)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>50 INR 50 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">50 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(80)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>80 INR 80 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">80 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(100)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>100 INR 100 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">100 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(200)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>200 INR = 200 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">200 COINS</div></div>
+            <div class="pkg-item" onclick="selectCoinPackage(500)"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>TranzUPI</h4><p>500 INR 500 COINS! TAKE SCREENSHOT OF QR CODE, DON'T REMOVE APP FROM BACKGROUND & PAY IN 2 MINS.</p></div></div><div class="pkg-btn-text">500 COINS</div></div>
         </div>
     </div>
 
-    <!-- FULLSCREEN MODAL 2: WITHDRAWAL PACKAGES -->
+    <!-- FULLSCREEN MODAL 2: WITHDRAWAL PACKAGES (EXACT FROM SCREENSHOT 3) -->
     <div id="modal-withdraw" class="modal-overlay">
-        <div class="modal-top-bar">
+        <div class="modal-top-bar" style="background:#263238; color:#fff;">
             <div class="modal-top-bar-left">
                 <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-withdraw')"></i>
                 <span>Withdrawal</span>
             </div>
         </div>
         <div class="pkg-list-container">
-            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>UPI Withdrawal</h4><p>50 COINS = 48 INR</p></div></div><div class="pkg-btn-text">48 INR</div></div>
-            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>UPI Withdrawal</h4><p>100 COINS = 95 INR</p></div></div><div class="pkg-btn-text">95 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>UPI</h4><p>50 COINS = 48 INR</p></div></div><div class="pkg-btn-text">48 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 95, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>UPI</h4><p>100 COINS = 95 INR</p></div></div><div class="pkg-btn-text">95 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 190, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>UPI</h4><p>200 COINS = 190 INR</p></div></div><div class="pkg-btn-text">190 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 285, 'UPI')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>UPI</h4><p>300 COINS = 285 INR</p></div></div><div class="pkg-btn-text">285 INR</div></div>
+            
             <div class="pkg-item" onclick="triggerWithdrawAlert(50, 48, 'REDEEM')"><div class="pkg-left"><div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div><div class="pkg-info"><h4>REDEEM CODE</h4><p>50 COINS = 48 INR</p></div></div><div class="pkg-btn-text">50 INR</div></div>
             <div class="pkg-item" onclick="triggerWithdrawAlert(100, 97, 'REDEEM')"><div class="pkg-left"><div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div><div class="pkg-info"><h4>REDEEM CODE</h4><p>100 COINS = 97 INR</p></div></div><div class="pkg-btn-text">100 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(150, 146, 'REDEEM')"><div class="pkg-left"><div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div><div class="pkg-info"><h4>REDEEM CODE</h4><p>150 COINS = 146 INR</p></div></div><div class="pkg-btn-text">150 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 195, 'REDEEM')"><div class="pkg-left"><div class="pkg-icon redeem"><i class="fa-solid fa-wallet"></i></div><div class="pkg-info"><h4>REDEEM CODE</h4><p>200 COINS = 195 INR</p></div></div><div class="pkg-btn-text">200 INR</div></div>
         </div>
     </div>
 
-    <!-- FULLSCREEN MODAL 3: EMERGENCY WITHDRAWAL PACKAGES -->
+    <!-- FULLSCREEN MODAL 3: EMERGENCY WITHDRAWAL PACKAGES (EXACT FROM SCREENSHOT 4) -->
     <div id="modal-emergency-withdraw" class="modal-overlay">
-        <div class="modal-top-bar">
+        <div class="modal-top-bar" style="background:#263238; color:#fff;">
             <div class="modal-top-bar-left">
                 <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-emergency-withdraw')"></i>
                 <span>Emergency Withdrawal</span>
             </div>
         </div>
         <div class="pkg-list-container">
-            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>EMERGENCY UPI</h4><p>50 COINS = 35 INR</p></div></div><div class="pkg-btn-text">35 INR</div></div>
-            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><i class="fa-solid fa-caret-up" style="color:#00d26a; font-size:1.6rem; transform: rotate(45deg);"></i></div><div class="pkg-info"><h4>EMERGENCY UPI</h4><p>100 COINS = 70 INR</p></div></div><div class="pkg-btn-text">70 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(50, 35, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>50 COINS = 35 INR</p></div></div><div class="pkg-btn-text">35 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(100, 70, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>100 COINS = 70 INR</p></div></div><div class="pkg-btn-text">70 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(200, 140, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>200 COINS = 140 INR</p></div></div><div class="pkg-btn-text">140 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(300, 210, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>300 COINS = 210 INR</p></div></div><div class="pkg-btn-text">210 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(400, 280, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>400 COINS = 280 INR</p></div></div><div class="pkg-btn-text">280 INR</div></div>
+            <div class="pkg-item" onclick="triggerWithdrawAlert(500, 350, 'EMERGENCY')"><div class="pkg-left"><div class="pkg-icon tranz"><div class="tranz-shape"></div></div><div class="pkg-info"><h4>EMERGENCY WITHDRAWAL UPI</h4><p>500 COINS = 350 INR</p></div></div><div class="pkg-btn-text">350 INR</div></div>
         </div>
     </div>
 
@@ -969,16 +1014,16 @@
         </div>
         <div class="modal-body-fullscreen" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
             <div class="fatal-pay-screen">
-                <div class="fatal-avatar">FS</div>
+                <div class="fatal-avatar">FRS</div>
                 <div class="pay-subtitle">PAYING TO</div>
-                <div class="pay-target-title">Favourite Sports</div>
+                <div class="pay-target-title">Fatal Rush Sports</div>
 
                 <div class="pay-amount-badge">
                     ₹ <span id="pay-dynamic-amount">10.00</span>
                 </div>
 
                 <div class="qr-box-wrap">
-                    <img id="dynamic-qr-img" src="" alt="Favourite Sports QR Code">
+                    <img id="dynamic-qr-img" src="" alt="Fatal Rush Sports QR Code">
                 </div>
 
                 <div class="form-group" style="text-align:left; width:100%;">
@@ -1051,8 +1096,8 @@
             </div>
         </div>
         <div class="modal-body-fullscreen info-content-box">
-            <h4>Q. What is Favourite Sports?</h4>
-            <p>Favourite Sports is a dedicated tournament platform for participating in various online esports & tournaments to earn rewards.</p>
+            <h4>Q. What is Fatal Rush Sports?</h4>
+            <p>Fatal Rush Sports is a dedicated tournament platform for participating in various online esports & tournaments to earn rewards.</p>
             
             <h4>Q. How to Register in Tournaments?</h4>
             <p>Simply choose your match from Home screen, click on Join Match, and ensure you have required entry coins.</p>
@@ -1077,7 +1122,7 @@
             </div>
         </div>
         <div class="modal-body-fullscreen info-content-box">
-            <p><strong>Welcome To Favourite Sports!</strong></p>
+            <p><strong>Welcome To Fatal Rush Sports!</strong></p>
             <p style="margin-top:10px;">The premier tournament platform designed for players. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.</p>
             <p style="margin-top:10px;">With a user-friendly interface and daily match options, we strive to elevate your sports & gaming experience. Let's Play On!</p>
         </div>
@@ -1213,7 +1258,7 @@
         document.addEventListener('contextmenu', event => event.preventDefault());
 
         // INITIALIZE USER DATA
-        let userData = JSON.parse(localStorage.getItem('favsports_user_data')) || { 
+        let userData = JSON.parse(localStorage.getItem('fatalrush_user_data')) || { 
             name: "Pro Player", 
             email: "", 
             mobile: "", 
@@ -1232,8 +1277,8 @@
         userData.winning = userData.winning || 0;
         userData.bonus = userData.bonus || 0;
 
-        let tournaments = JSON.parse(localStorage.getItem('favsports_matches')) || [];
-        let txHistory = JSON.parse(localStorage.getItem('favsports_tx_history')) || [];
+        let tournaments = JSON.parse(localStorage.getItem('fatalrush_matches')) || [];
+        let txHistory = JSON.parse(localStorage.getItem('fatalrush_tx_history')) || [];
         
         let isAdminLoggedIn = false;
         let secretTapCount = 0;
@@ -1260,7 +1305,7 @@
         };
 
         function saveUserDataLocally() {
-            localStorage.setItem('favsports_user_data', JSON.stringify(userData));
+            localStorage.setItem('fatalrush_user_data', JSON.stringify(userData));
             updateUserUI();
         }
 
@@ -1366,7 +1411,7 @@
             selectedAmount = amount;
             closeModal('modal-buy-coins');
             document.getElementById('pay-dynamic-amount').innerText = amount.toFixed(2);
-            const upiString = `upi://pay?pa=favouritesports@upi&pn=FavouriteSports&am=${amount}&cu=INR`;
+            const upiString = `upi://pay?pa=fatalrushsports@upi&pn=FatalRushSports&am=${amount}&cu=INR`;
             document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
             document.getElementById('modal-payment-qr').style.display = 'flex';
         }
@@ -1428,7 +1473,7 @@
                 status: 'Pending',
                 details: details
             });
-            localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
+            localStorage.setItem('fatalrush_tx_history', JSON.stringify(txHistory));
 
             closeModal('modal-withdraw-alert');
             closeModal('modal-withdraw');
@@ -1458,7 +1503,7 @@
                 status: 'Success',
                 details: `UTR: ${utr}`
             });
-            localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
+            localStorage.setItem('fatalrush_tx_history', JSON.stringify(txHistory));
 
             showToast(`Payment Verified! ${selectedAmount} Coins added!`);
         }
@@ -1544,7 +1589,7 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            if(id === "admin@favouritesports.com" && pass === "admin123") {
+            if(id === "admin@fatalrushsports.com" && pass === "admin123") {
                 isAdminLoggedIn = true;
                 document.getElementById('admin-badge').style.display = 'inline-block';
                 document.getElementById('btn-top-create').style.display = 'flex';
@@ -1588,7 +1633,7 @@
                 roomId: '',
                 roomPass: ''
             });
-            localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
+            localStorage.setItem('fatalrush_matches', JSON.stringify(tournaments));
             renderTournaments();
             closeModal('modal-admin-panel');
             showToast("Tournament Published Successfully!");
@@ -1616,7 +1661,7 @@
                 tournaments[matchIndex].roomId = document.getElementById('edit-match-room-id').value;
                 tournaments[matchIndex].roomPass = document.getElementById('edit-match-room-pass').value;
                 tournaments[matchIndex].rules = document.getElementById('edit-match-rules').value;
-                localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
+                localStorage.setItem('fatalrush_matches', JSON.stringify(tournaments));
                 renderTournaments();
                 closeModal('modal-admin-edit-match');
                 showToast("Tournament Updated!");
@@ -1625,7 +1670,7 @@
 
         function deleteMatch(matchId) {
             tournaments = tournaments.filter(t => t.id !== matchId);
-            localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
+            localStorage.setItem('fatalrush_matches', JSON.stringify(tournaments));
             renderTournaments();
             showToast("Tournament Deleted!");
         }
@@ -1681,7 +1726,7 @@
                 if(tx.type === 'withdraw' && newStatus === 'Failed') userData.coins += tx.coins;
                 if(tx.type === 'withdraw' && newStatus === 'Success') userData.winning += tx.coins;
                 
-                localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
+                localStorage.setItem('fatalrush_tx_history', JSON.stringify(txHistory));
                 saveUserDataLocally();
                 renderAdminPendingTx();
                 showToast(`Transaction ${newStatus}!`);
