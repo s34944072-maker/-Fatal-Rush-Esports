@@ -1087,7 +1087,7 @@
         </div>
     </div>
 
-    <!-- ADMIN LOGIN POPUP (Cleaned Placeholder) -->
+    <!-- ADMIN LOGIN POPUP -->
     <div id="modal-secret-admin" class="modal-overlay">
         <div class="alert-modal-box">
             <h3>Admin Verification</h3>
@@ -1279,12 +1279,8 @@
             startCountdownTimer();
         }
 
-        // DYNAMIC DIALOG FIELDS DRIVEN BY SELECTION
+        // TRIGGER WITHDRAW DIALOG - BAL CHECK YAHAN SE HATA DIYA HAI AGAR PEHLE FORM DIKHANA HO
         function triggerWithdrawAlert(coins, inr, type) {
-            if(userData.coins < coins) {
-                showToast(`Insufficient Balance! You need at least ${coins} Coins.`);
-                return;
-            }
             selectedWithdrawCoins = coins;
             selectedWithdrawInr = inr;
             selectedWithdrawType = type;
@@ -1313,6 +1309,7 @@
             document.getElementById('modal-withdraw-alert').style.display = 'flex';
         }
 
+        // FINAL SUBMIT BUTTON PAR CHECK HO KI BALANCE HAI YA INSUFFICIENT
         function submitFinalWithdrawal() {
             let details = "";
             if(selectedWithdrawType === 'REDEEM') {
@@ -1331,6 +1328,12 @@
                     return;
                 }
                 details = `Name: ${holderName}, UPI: ${upi}`;
+            }
+
+            // BALANCE CHECK HERE BEFORE FINALIZING WITHDRAWAL
+            if(userData.coins < selectedWithdrawCoins) {
+                showToast(`Insufficient Balance! You need at least ${selectedWithdrawCoins} Coins.`);
+                return;
             }
 
             userData.coins -= selectedWithdrawCoins;
