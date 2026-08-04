@@ -836,7 +836,7 @@
             </div>
         </div>
 
-        <!-- PROFILE TAB (UPDATED WITH ALL SCREENSHOT ITEMS) -->
+        <!-- PROFILE TAB -->
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
@@ -1415,7 +1415,7 @@
         </div>
     </div>
 
-    <!-- MODAL: MY STATICS (FROM SCREENSHOT) -->
+    <!-- MODAL: MY STATICS -->
     <div id="modal-statics" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>My Statistics</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-statics')" style="cursor:pointer;"></i></div>
@@ -1425,7 +1425,7 @@
                 <span style="width:20%; text-align:center;">Paid</span>
                 <span style="width:20%; text-align:right;">Won</span>
             </div>
-            <div id="statics-list-container" style="max-height:50vh; overflow-y:auto; text-align:center; font-size:0.8rem; color:#9ca3af; padding:20px 0;">
+            <div id="statics-list-container" style="max-height:50vh; overflow-y:auto; text-align:center; font-size:0.8rem; color:#9ca3af; padding:10px 0;">
                 No Match History Available.
             </div>
         </div>
@@ -1442,7 +1442,7 @@
         </div>
     </div>
 
-    <!-- MODAL: FAQ (FROM SCREENSHOT) -->
+    <!-- MODAL: FAQ -->
     <div id="modal-faq" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
             <div class="modal-title"><span>Frequently Asked Questions (FAQ)</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-faq')" style="cursor:pointer;"></i></div>
@@ -1465,7 +1465,7 @@
         </div>
     </div>
 
-    <!-- MODAL: ABOUT US (FROM SCREENSHOT) -->
+    <!-- MODAL: ABOUT US -->
     <div id="modal-about" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:400px;">
             <div class="modal-title"><span>About Us</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-about')" style="cursor:pointer;"></i></div>
@@ -1488,7 +1488,7 @@
         </div>
     </div>
 
-    <!-- MODAL: TERMS & CONDITIONS (FROM SCREENSHOT) -->
+    <!-- MODAL: TERMS & CONDITIONS -->
     <div id="modal-terms" class="dialog-overlay">
         <div class="alert-modal-box" style="width:100%; max-width:420px;">
             <div class="modal-title"><span>Terms and Conditions</span><i class="fa-solid fa-xmark" onclick="closeModal('modal-terms')" style="cursor:pointer;"></i></div>
@@ -1594,6 +1594,7 @@
         
         let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
         let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
+        let matchHistory = JSON.parse(localStorage.getItem('fatal_match_history')) || [];
         
         let secretTapCount = 0;
         let selectedAmount = 10;
@@ -1669,18 +1670,28 @@
                         <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Win Prize</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
                         <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                     </div>
-                    <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
+                    <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch('${m.title}', ${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
                 </div>`;
             });
         }
 
-        function joinMatch(fee) {
+        function joinMatch(title, fee) {
             if(userData.coins < fee) {
                 showToast("Insufficient Coins! Add coins first.");
                 switchTab('wallet');
             } else {
                 userData.coins -= fee;
                 userData.matches += 1;
+                
+                matchHistory.unshift({
+                    id: Date.now(),
+                    title: title || "Tournament Match",
+                    fee: fee,
+                    won: 0,
+                    date: new Date().toLocaleDateString()
+                });
+                localStorage.setItem('fatal_match_history', JSON.stringify(matchHistory));
+                
                 saveUserDataLocally();
                 showToast("Joined Match Successfully!");
             }
@@ -1700,7 +1711,6 @@
             startCountdownTimer();
         }
 
-        // TRIGGER WITHDRAW DIALOG
         function triggerWithdrawAlert(coins, inr, type) {
             selectedWithdrawCoins = coins;
             selectedWithdrawInr = inr;
@@ -1730,7 +1740,6 @@
             document.getElementById('modal-withdraw-alert').style.display = 'flex';
         }
 
-        // FINAL SUBMIT BUTTON WITH BALANCE CHECK
         function submitFinalWithdrawal() {
             let details = "";
             if(selectedWithdrawType === 'REDEEM') {
@@ -1799,7 +1808,6 @@
             }, 1000);
         }
 
-        // INSTANT AUTO-CREDIT COINS FLOW
         function confirmPaymentSubmit() {
             const utr = document.getElementById('pay-utr-input').value.trim();
             if(utr.length < 6) {
@@ -1886,8 +1894,26 @@
             showToast("Profile Saved!");
         }
 
-        // SCREENSHOT MODAL HANDLERS
-        function openStaticsModal() { document.getElementById('modal-statics').style.display = 'flex'; }
+        function openStaticsModal() { 
+            const container = document.getElementById('statics-list-container');
+            if(matchHistory.length === 0) {
+                container.innerHTML = '<div style="padding:20px; color:#9ca3af;">No Match History Available.</div>';
+            } else {
+                container.innerHTML = '';
+                matchHistory.forEach((m, idx) => {
+                    container.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; font-size:0.78rem; padding:8px 0; border-bottom:1px solid #1f2438;">
+                            <span style="width:10%; color:#fff;">${idx + 1}</span>
+                            <span style="width:50%; text-align:left; color:#e2e8f0;">${m.title}</span>
+                            <span style="width:20%; text-align:center; color:#f43f5e;">${m.fee}</span>
+                            <span style="width:20%; text-align:right; color:#10b981;">${m.won}</span>
+                        </div>
+                    `;
+                });
+            }
+            document.getElementById('modal-statics').style.display = 'flex'; 
+        }
+
         function openNotificationsModal() { document.getElementById('modal-notifications').style.display = 'flex'; }
         function openFAQModal() { document.getElementById('modal-faq').style.display = 'flex'; }
         function openAboutModal() { document.getElementById('modal-about').style.display = 'flex'; }
@@ -1906,7 +1932,7 @@
             showToast("Logged Out Successfully!");
         }
 
-        // --- ADMIN CONTROL ---
+        // ADMIN CONTROL
         function handleSecretTap() {
             secretTapCount++;
             if(secretTapCount >= 5) {
