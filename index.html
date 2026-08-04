@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fatal Rush Esports</title>
+    <title>Favourite Sports</title>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -31,7 +31,7 @@
             -webkit-touch-callout: none;
         }
 
-        input, textarea {
+        input, textarea, select {
             -webkit-user-select: text;
             -moz-user-select: text;
             -ms-user-select: text;
@@ -65,10 +65,10 @@
 
         .splash-header-logo {
             background: rgba(15, 23, 42, 0.8);
-            border: 2px solid #ff2a5f;
+            border: 2px solid #00e676;
             padding: 8px 18px;
             border-radius: 12px;
-            box-shadow: 0 0 20px rgba(255, 42, 95, 0.6);
+            box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
             margin-top: 10px;
         }
 
@@ -99,8 +99,8 @@
         .splash-welcome-banner {
             width: 100%;
             max-width: 380px;
-            background: rgba(255, 42, 95, 0.15);
-            border: 2px solid #ff2a5f;
+            background: rgba(0, 230, 118, 0.15);
+            border: 2px solid #00e676;
             color: #fff;
             font-size: 0.95rem;
             font-weight: 900;
@@ -138,7 +138,7 @@
         .app-title {
             font-size: 1.1rem;
             font-weight: 800;
-            color: var(--primary-red);
+            color: #00e676;
             letter-spacing: 1px;
             text-transform: uppercase;
             cursor: pointer;
@@ -183,12 +183,12 @@
             width: 85px;
             height: 85px;
             border-radius: 50%;
-            background: var(--primary-red);
+            background: #00e676;
             border: 3px solid #fff;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 42, 95, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.4);
             margin-bottom: 10px;
         }
 
@@ -209,12 +209,12 @@
         .stat-label { font-size: 0.7rem; color: var(--text-sub); font-weight: 600; margin-top: 4px; }
 
         .hero-banner {
-            background: linear-gradient(135deg, #b91c1c, #450a0a);
+            background: linear-gradient(135deg, #00c853, #004d40);
             border-radius: 12px;
             padding: 18px;
             text-align: center;
             margin-bottom: 16px;
-            border: 1px solid rgba(255,42,95,0.3);
+            border: 1px solid rgba(0,230,118,0.3);
         }
 
         .quick-grid {
@@ -233,7 +233,7 @@
             cursor: pointer;
         }
 
-        .quick-item i { font-size: 1.2rem; color: var(--primary-red); margin-bottom: 6px; }
+        .quick-item i { font-size: 1.2rem; color: #00e676; margin-bottom: 6px; }
         .quick-item span { display: block; font-size: 0.7rem; color: var(--text-sub); font-weight: 600; }
 
         .section-header {
@@ -271,6 +271,15 @@
             border-radius: 12px;
             padding: 14px;
             margin-bottom: 14px;
+        }
+
+        .tournament-banner-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            display: block;
         }
 
         .admin-controls-card {
@@ -331,7 +340,7 @@
             background-color: white; transition: .3s; border-radius: 50%;
         }
 
-        input:checked + .slider { background-color: var(--primary-red); }
+        input:checked + .slider { background-color: #00e676; }
         input:checked + .slider:before { transform: translateX(20px); }
 
         .app-version-text {
@@ -383,7 +392,7 @@
             cursor: pointer;
         }
 
-        .wallet-action-btn i { font-size: 1.4rem; color: #ff2a5f; }
+        .wallet-action-btn i { font-size: 1.4rem; color: #00e676; }
         .wallet-action-btn span { font-size: 0.7rem; font-weight: 700; }
 
         .bottom-nav {
@@ -411,20 +420,20 @@
         }
 
         .nav-item i { font-size: 1.1rem; }
-        .nav-item.active { color: var(--primary-red); }
+        .nav-item.active { color: #00e676; }
 
         .custom-toast {
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: #ff2a5f;
-            border: 1px solid #ff2a5f;
-            color: #fff;
+            background: #00e676;
+            border: 1px solid #00e676;
+            color: #000;
             padding: 10px 18px;
             border-radius: 30px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
             z-index: 20000;
             transition: 0.4s ease;
         }
@@ -513,7 +522,7 @@
         .form-group { margin-bottom: 14px; }
         .form-group label { display: block; font-size: 0.8rem; color: var(--text-sub); margin-bottom: 6px; }
         .form-input { width: 100%; background: #131520; border: 1px solid var(--card-border); padding: 12px; border-radius: 8px; color: #fff; font-size: 0.9rem; outline: none; }
-        .btn-submit { width: 100%; background: var(--primary-red); color: #fff; border: none; padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        .btn-submit { width: 100%; background: #00e676; color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; margin-top: 10px; }
 
         .floating-support-btn {
             position: fixed;
@@ -521,14 +530,14 @@
             right: 20px;
             width: 50px;
             height: 50px;
-            background: var(--primary-red);
-            color: #fff;
+            background: #00e676;
+            color: #000;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.3rem;
-            box-shadow: 0 4px 15px rgba(255,42,95,0.6);
+            box-shadow: 0 4px 15px rgba(0, 230, 118, 0.6);
             cursor: pointer;
             z-index: 90;
         }
@@ -554,8 +563,8 @@
         }
 
         .tx-tab.active {
-            color: var(--primary-red);
-            border-bottom-color: var(--primary-red);
+            color: #00e676;
+            border-bottom-color: #00e676;
         }
 
         .fatal-pay-screen {
@@ -576,8 +585,8 @@
             border-radius: 14px;
             margin: 0 auto 8px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 1.3rem; font-weight: 900; color: #ff2a5f;
-            border: 2px solid #ff2a5f;
+            font-size: 1.3rem; font-weight: 900; color: #00e676;
+            border: 2px solid #00e676;
         }
 
         .pay-subtitle { font-size: 0.65rem; color: #8c93b0; font-weight: 700; text-transform: uppercase; }
@@ -603,7 +612,7 @@
             margin-bottom: 12px;
         }
 
-        .qr-box-wrap canvas, .qr-box-wrap img {
+        .qr-box-wrap img {
             width: 200px;
             height: 200px;
             display: block;
@@ -619,7 +628,7 @@
             white-space: nowrap;
         }
 
-        .admin-nav-btn.active { background: var(--primary-red); border-color: var(--primary-red); }
+        .admin-nav-btn.active { background: #00e676; border-color: #00e676; color: #000; }
         .admin-section { display: none; }
         .admin-section.active { display: block; }
 
@@ -637,12 +646,12 @@
     <!-- Splash Screen -->
     <div id="splash-screen">
         <div class="splash-header-logo">
-            <h1><i class="fa-solid fa-fire" style="color:#ff2a5f;"></i> FATAL RUSH ESPORTS</h1>
+            <h1><i class="fa-solid fa-trophy" style="color:#00e676;"></i> FAVOURITE SPORTS</h1>
         </div>
 
         <div>
             <div class="hero-avatar-icon">
-                <i class="fa-solid fa-user-ninja"></i>
+                <i class="fa-solid fa-gamepad"></i>
             </div>
             <div class="splash-tagline">
                 PLAY SMALL <span style="color:var(--gold);">WIN BIG</span>
@@ -650,7 +659,7 @@
         </div>
 
         <div class="splash-welcome-banner">
-            WELCOME TO FATAL RUSH
+            WELCOME TO FAVOURITE SPORTS
         </div>
     </div>
 
@@ -669,7 +678,7 @@
 
         <!-- App Header -->
         <header class="app-header">
-            <div class="app-title" onclick="handleSecretTap()">FATAL RUSH <span id="admin-badge" style="display:none; background:var(--accent-green); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; margin-left:4px;">ADMIN</span></div>
+            <div class="app-title" onclick="handleSecretTap()">FAVOURITE SPORTS <span id="admin-badge" style="display:none; background:var(--accent-green); color:#000; font-size:0.6rem; padding:2px 6px; border-radius:4px; margin-left:4px;">ADMIN</span></div>
             <div class="coin-badge" onclick="switchTab('wallet')">
                 <i class="fa-solid fa-coins"></i>
                 <span id="header-coins">0</span> Coins
@@ -680,15 +689,15 @@
         <div class="announcement">
             <i class="fa-solid fa-bullhorn"></i>
             <marquee behavior="scroll" direction="left" scrollamount="4">
-                Welcome to Fatal Rush Esports! Play BGMI & Free Fire Daily to Win Exciting Rewards!
+                Welcome to Favourite Sports! Join Tournaments Daily & Win Rewards!
             </marquee>
         </div>
 
         <!-- HOME TAB -->
         <div id="tab-home" class="tab-content active">
             <div class="hero-banner">
-                <h2 style="font-size:1.1rem; font-weight:900;">FATAL RUSH TOURNAMENTS</h2>
-                <p style="font-size:0.8rem; color:#fca5a5; margin-top:4px;">Play Free Fire & BGMI Matches and Earn Daily!</p>
+                <h2 style="font-size:1.1rem; font-weight:900;">FAVOURITE SPORTS TOURNAMENTS</h2>
+                <p style="font-size:0.8rem; color:#e2e8f0; margin-top:4px;">Play Games and Earn Daily Rewards!</p>
             </div>
 
             <div class="quick-grid">
@@ -702,6 +711,8 @@
                 <div class="section-title">Live & Upcoming Matches</div>
                 <button class="btn-create-admin" id="btn-top-create" onclick="openAdminCreateModal()"><i class="fa-solid fa-plus"></i> CREATE</button>
             </div>
+            
+            <!-- Dynamic Tournament List Container -->
             <div id="tournament-list"></div>
         </div>
 
@@ -774,7 +785,7 @@
         <div id="tab-profile" class="tab-content">
             <div class="profile-hero">
                 <div class="profile-avatar-circle">
-                    <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem; color: #fff;"></i>
+                    <i class="fa-solid fa-user-astronaut" style="font-size: 2.5rem; color: #000;"></i>
                 </div>
                 <div class="user-name-text" id="display-username" style="font-size:1.1rem; font-weight:800;">Name : Guest</div>
                 <div style="color:var(--accent-green); font-weight:700; font-size:0.85rem; margin-bottom:16px;"><i class="fa-solid fa-circle-check"></i> Kyc Verified</div>
@@ -783,7 +794,7 @@
             <div class="stats-summary-card">
                 <div class="stat-item"><div class="stat-num" id="stat-matches">0</div><div class="stat-label">Matches Played</div></div>
                 <div class="stat-item"><div class="stat-num" id="stat-kills">0</div><div class="stat-label">Total Kills</div></div>
-                <div class="stat-item"><div class="stat-num" style="color:#00d2ff;"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.8rem;"></i> <span id="stat-won">0</span></div><div class="stat-label">PlayCoin Won</div></div>
+                <div class="stat-item"><div class="stat-num" style="color:#00d2ff;"><i class="fa-solid fa-coins" style="color:var(--gold); font-size:0.8rem;"></i> <span id="stat-won">0</span></div><div class="stat-label">Coins Won</div></div>
             </div>
 
             <div class="menu-list">
@@ -856,7 +867,7 @@
                 </div>
             </div>
 
-            <div class="app-version-text">App Version: v1.7</div>
+            <div class="app-version-text">App Version: v2.0</div>
         </div>
 
         <!-- Bottom Navigation -->
@@ -958,16 +969,16 @@
         </div>
         <div class="modal-body-fullscreen" style="display:flex; flex-direction:column; align-items:center; justify-content:center;">
             <div class="fatal-pay-screen">
-                <div class="fatal-avatar">FR</div>
+                <div class="fatal-avatar">FS</div>
                 <div class="pay-subtitle">PAYING TO</div>
-                <div class="pay-target-title">Fatal Rush</div>
+                <div class="pay-target-title">Favourite Sports</div>
 
                 <div class="pay-amount-badge">
                     ₹ <span id="pay-dynamic-amount">10.00</span>
                 </div>
 
                 <div class="qr-box-wrap">
-                    <img id="dynamic-qr-img" src="" alt="Fatal Rush QR Code">
+                    <img id="dynamic-qr-img" src="" alt="Favourite Sports QR Code">
                 </div>
 
                 <div class="form-group" style="text-align:left; width:100%;">
@@ -1040,8 +1051,8 @@
             </div>
         </div>
         <div class="modal-body-fullscreen info-content-box">
-            <h4>Q. What is Fatal Rush Esports?</h4>
-            <p>Fatal Rush Esports is a dedicated platform for participating in Free Fire & BGMI Tournaments and earning rewards.</p>
+            <h4>Q. What is Favourite Sports?</h4>
+            <p>Favourite Sports is a dedicated tournament platform for participating in various online esports & tournaments to earn rewards.</p>
             
             <h4>Q. How to Register in Tournaments?</h4>
             <p>Simply choose your match from Home screen, click on Join Match, and ensure you have required entry coins.</p>
@@ -1066,9 +1077,9 @@
             </div>
         </div>
         <div class="modal-body-fullscreen info-content-box">
-            <p><strong>Welcome To Fatal Rush Esports!</strong></p>
-            <p style="margin-top:10px;">The premier tournament platform designed for gamers. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.</p>
-            <p style="margin-top:10px;">With a user-friendly interface and daily match options, we strive to elevate your gaming experience to new heights. Let's Game On!</p>
+            <p><strong>Welcome To Favourite Sports!</strong></p>
+            <p style="margin-top:10px;">The premier tournament platform designed for players. Our mission is to create an inclusive and thrilling environment where players can compete, connect, and showcase their skills.</p>
+            <p style="margin-top:10px;">With a user-friendly interface and daily match options, we strive to elevate your sports & gaming experience. Let's Play On!</p>
         </div>
     </div>
 
@@ -1096,10 +1107,10 @@
         </div>
         <div class="modal-body-fullscreen info-content-box">
             <h4>1. Requirements</h4>
-            <p>Participants must be at least 14 years old to join standard esports events.</p>
+            <p>Participants must be at least 14 years old to join standard events.</p>
             
             <h4>2. Fair Play Policy</h4>
-            <p>Strictly No Cheating, Hacking, or use of third-party scripts. Any player caught hacking will be permanently banned.</p>
+            <p>Strictly No Cheating or Hacking. Any player caught violating rules will be permanently banned.</p>
 
             <h4>3. Entry Fees & Refunds</h4>
             <p>Fees are non-refundable unless a tournament is explicitly cancelled by the organizers.</p>
@@ -1134,22 +1145,32 @@
         </div>
         <div class="modal-body-fullscreen">
             <div class="admin-nav">
-                <button class="admin-nav-btn active" id="adm-btn-matches" onclick="openAdminTab('matches')">Add Match</button>
+                <button class="admin-nav-btn active" id="adm-btn-matches" onclick="openAdminTab('matches')">Create Tournament</button>
                 <button class="admin-nav-btn" id="adm-btn-tx" onclick="openAdminTab('tx')">Pending Tx</button>
                 <button class="admin-nav-btn" id="adm-btn-users" onclick="openAdminTab('users')">Manage Wallet</button>
             </div>
 
-            <!-- Tab 1: Create Match -->
+            <!-- Tab 1: Create Match / Tournament Form -->
             <div id="admin-tab-matches" class="admin-section active">
-                <div class="form-group"><label>Match Title</label><input type="text" id="adm-title" class="form-input" placeholder="e.g. Pro Scrim Showdown"></div>
-                <div class="form-group"><label>Game Type</label><input type="text" id="adm-game" class="form-input" placeholder="BGMI or FREE FIRE"></div>
-                <div class="form-group"><label>Mode</label><input type="text" id="adm-mode" class="form-input" placeholder="SOLO / SQUAD"></div>
-                <div class="form-group"><label>Date & Time</label><input type="text" id="adm-time" class="form-input" placeholder="22 Jul, 06:00 pm"></div>
-                <div class="form-group"><label>Map Name</label><input type="text" id="adm-map" class="form-input" placeholder="Erangel / Bermuda"></div>
-                <div class="form-group"><label>Win Prize (Coins)</label><input type="number" id="adm-prize" class="form-input" placeholder="500"></div>
-                <div class="form-group"><label>Per Kill (Coins)</label><input type="number" id="adm-perkill" class="form-input" placeholder="10"></div>
-                <div class="form-group"><label>Entry Fee (Coins)</label><input type="number" id="adm-fee" class="form-input" placeholder="15"></div>
-                <button class="btn-submit" onclick="adminCreateMatch()">PUBLISH TOURNAMENT</button>
+                <div class="form-group"><label>Tournament Name / Title</label><input type="text" id="adm-title" class="form-input" placeholder="e.g. Mega Sports League"></div>
+                <div class="form-group">
+                    <label>Khel (Sport Category)</label>
+                    <select id="adm-game" class="form-input">
+                        <option value="Cricket">Cricket</option>
+                        <option value="Football">Football</option>
+                        <option value="eSports / Gaming">eSports / Gaming</option>
+                        <option value="Badminton">Badminton</option>
+                    </select>
+                </div>
+                <div class="form-group"><label>Banner / Poster Image URL</label><input type="text" id="adm-image" class="form-input" placeholder="Image URL ya poster link daalein"></div>
+                <div class="form-group"><label>Mode / Format</label><input type="text" id="adm-mode" class="form-input" placeholder="e.g. SOLO / SQUAD / 11v11"></div>
+                <div class="form-group"><label>Date & Time</label><input type="text" id="adm-time" class="form-input" placeholder="e.g. 25 Aug, 06:00 PM"></div>
+                <div class="form-group"><label>Map / Venue</label><input type="text" id="adm-map" class="form-input" placeholder="e.g. Main Ground / Erangel"></div>
+                <div class="form-group"><label>Prize Pool (Coins)</label><input type="number" id="adm-prize" class="form-input" placeholder="e.g. 500"></div>
+                <div class="form-group"><label>Per Kill / Point (Coins)</label><input type="number" id="adm-perkill" class="form-input" placeholder="e.g. 10"></div>
+                <div class="form-group"><label>Entry Fee (Coins)</label><input type="number" id="adm-fee" class="form-input" placeholder="e.g. 15"></div>
+                <div class="form-group"><label>Rules & Details</label><textarea id="adm-rules" class="form-input" rows="3" placeholder="Tournament ke niyam yahan likhein..."></textarea></div>
+                <button class="btn-submit" onclick="adminCreateMatch()">CREATE TOURNAMENT</button>
             </div>
 
             <!-- Tab 2: Approve/Reject Transactions -->
@@ -1174,14 +1195,16 @@
         <div class="modal-top-bar">
             <div class="modal-top-bar-left">
                 <i class="fa-solid fa-arrow-left" onclick="closeModal('modal-admin-edit-match')"></i>
-                <span>Edit Tournament / Room Details</span>
+                <span>Edit Tournament Details</span>
             </div>
         </div>
         <div class="modal-body-fullscreen">
             <input type="hidden" id="edit-match-id">
-            <div class="form-group"><label>Match Title</label><input type="text" id="edit-match-title" class="form-input"></div>
-            <div class="form-group"><label>Room ID</label><input type="text" id="edit-match-room-id" class="form-input" placeholder="Enter Room ID"></div>
-            <div class="form-group"><label>Room Password</label><input type="text" id="edit-match-room-pass" class="form-input" placeholder="Enter Room Password"></div>
+            <div class="form-group"><label>Tournament Name</label><input type="text" id="edit-match-title" class="form-input"></div>
+            <div class="form-group"><label>Banner / Image URL</label><input type="text" id="edit-match-image" class="form-input"></div>
+            <div class="form-group"><label>Room ID / Match Details</label><input type="text" id="edit-match-room-id" class="form-input" placeholder="Enter Room ID / Info"></div>
+            <div class="form-group"><label>Room Password / Access Code</label><input type="text" id="edit-match-room-pass" class="form-input" placeholder="Enter Password"></div>
+            <div class="form-group"><label>Rules & Description</label><textarea id="edit-match-rules" class="form-input" rows="3"></textarea></div>
             <button class="btn-submit" onclick="saveAdminMatchEdit()">SAVE CHANGES</button>
         </div>
     </div>
@@ -1189,9 +1212,9 @@
     <script>
         document.addEventListener('contextmenu', event => event.preventDefault());
 
-        // INITIALIZE OR RESET USER BALANCE TO ZERO
-        let userData = JSON.parse(localStorage.getItem('fatal_user_data')) || { 
-            name: "Pro Gamer", 
+        // INITIALIZE USER DATA
+        let userData = JSON.parse(localStorage.getItem('favsports_user_data')) || { 
+            name: "Pro Player", 
             email: "", 
             mobile: "", 
             coins: 0, 
@@ -1203,14 +1226,14 @@
             won: 0 
         };
 
-        // Reset balance to 0 as per request
-        userData.coins = 0;
-        userData.deposited = 0;
-        userData.winning = 0;
-        userData.bonus = 0;
+        // Reset balance state
+        userData.coins = userData.coins || 0;
+        userData.deposited = userData.deposited || 0;
+        userData.winning = userData.winning || 0;
+        userData.bonus = userData.bonus || 0;
 
-        let tournaments = JSON.parse(localStorage.getItem('fatal_matches')) || [];
-        let txHistory = JSON.parse(localStorage.getItem('fatal_tx_history')) || [];
+        let tournaments = JSON.parse(localStorage.getItem('favsports_matches')) || [];
+        let txHistory = JSON.parse(localStorage.getItem('favsports_tx_history')) || [];
         
         let isAdminLoggedIn = false;
         let secretTapCount = 0;
@@ -1237,7 +1260,7 @@
         };
 
         function saveUserDataLocally() {
-            localStorage.setItem('fatal_user_data', JSON.stringify(userData));
+            localStorage.setItem('favsports_user_data', JSON.stringify(userData));
             updateUserUI();
         }
 
@@ -1270,7 +1293,7 @@
         function renderTournaments() {
             const list = document.getElementById('tournament-list');
             if(tournaments.length === 0) {
-                list.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-sub); background:var(--card-bg); border-radius:12px; border:1px solid var(--card-border);"><i class="fa-solid fa-gamepad" style="font-size:2rem; margin-bottom:8px; color:var(--primary-red);"></i><p>No active matches right now.</p></div>`;
+                list.innerHTML = `<div style="text-align:center; padding:30px; color:var(--text-sub); background:var(--card-bg); border-radius:12px; border:1px solid var(--card-border);"><i class="fa-solid fa-trophy" style="font-size:2rem; margin-bottom:8px; color:#00e676;"></i><p>No active tournaments right now.</p></div>`;
                 return;
             }
             list.innerHTML = '';
@@ -1279,9 +1302,14 @@
                 if(isAdminLoggedIn) {
                     adminControls = `
                     <div class="admin-controls-card">
-                        <button class="admin-action-btn" style="background:#0284c7; color:#fff;" onclick="openEditMatchModal(${m.id})"><i class="fa-solid fa-pen"></i> Edit / Room</button>
+                        <button class="admin-action-btn" style="background:#0284c7; color:#fff;" onclick="openEditMatchModal(${m.id})"><i class="fa-solid fa-pen"></i> Edit Details</button>
                         <button class="admin-action-btn" style="background:#dc2626; color:#fff;" onclick="deleteMatch(${m.id})"><i class="fa-solid fa-trash"></i> Delete</button>
                     </div>`;
+                }
+
+                let bannerHtml = '';
+                if(m.image && m.image.trim() !== '') {
+                    bannerHtml = `<img src="${m.image}" class="tournament-banner-img" alt="Banner">`;
                 }
 
                 let roomDetailsView = '';
@@ -1291,19 +1319,28 @@
                     </div>`;
                 }
 
+                let rulesView = '';
+                if(m.rules && m.rules.trim() !== '') {
+                    rulesView = `<div style="background:rgba(255,255,255,0.05); padding:8px; border-radius:6px; margin-bottom:10px; font-size:0.75rem; color:#ccc;">
+                        <strong>Rules:</strong> ${m.rules}
+                    </div>`;
+                }
+
                 list.innerHTML += `<div class="match-card">
-                    <div style="display:flex; justify-style:space-between; align-items:center; margin-bottom:12px;">
+                    ${bannerHtml}
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
                         <div style="font-size:0.95rem; font-weight:700; color:#fff;">${m.title}</div>
-                        <span style="background:var(--primary-red); color:#fff; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:4px;">${m.mode || 'SOLO'}</span>
+                        <span style="background:#00e676; color:#000; font-size:0.65rem; font-weight:800; padding:2px 8px; border-radius:4px;">${m.sport || m.mode}</span>
                     </div>
                     ${roomDetailsView}
+                    ${rulesView}
                     <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; background:rgba(0,0,0,0.25); padding:10px; border-radius:8px; margin-bottom:12px;">
                         <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Time</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.time}</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Map</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.map}</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Win Prize</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
-                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
+                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Venue/Map</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.map}</strong></div>
+                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Prize Pool</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.prize} Coins</strong></div>
+                        <div><span style="display:block; font-size:0.65rem; color:var(--text-sub);">Per Kill/Point</span><strong style="font-size:0.85rem; color:#e2e8f0;">${m.perkill} Coins</strong></div>
                     </div>
-                    <button style="width:100%; background:var(--primary-red); color:#fff; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN MATCH (${m.fee} COINS)</button>
+                    <button style="width:100%; background:#00e676; color:#000; border:none; padding:10px; border-radius:6px; font-weight:bold; cursor:pointer;" onclick="joinMatch(${m.fee})">JOIN TOURNAMENT (${m.fee} COINS)</button>
                     ${adminControls}
                 </div>`;
             });
@@ -1317,7 +1354,7 @@
                 userData.coins -= fee;
                 userData.matches += 1;
                 saveUserDataLocally();
-                showToast("Joined Match Successfully!");
+                showToast("Joined Tournament Successfully!");
             }
         }
 
@@ -1329,7 +1366,7 @@
             selectedAmount = amount;
             closeModal('modal-buy-coins');
             document.getElementById('pay-dynamic-amount').innerText = amount.toFixed(2);
-            const upiString = `upi://pay?pa=fatalrush@upi&pn=FatalRush&am=${amount}&cu=INR`;
+            const upiString = `upi://pay?pa=favouritesports@upi&pn=FavouriteSports&am=${amount}&cu=INR`;
             document.getElementById('dynamic-qr-img').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(upiString)}`;
             document.getElementById('modal-payment-qr').style.display = 'flex';
         }
@@ -1391,7 +1428,7 @@
                 status: 'Pending',
                 details: details
             });
-            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
+            localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
 
             closeModal('modal-withdraw-alert');
             closeModal('modal-withdraw');
@@ -1421,7 +1458,7 @@
                 status: 'Success',
                 details: `UTR: ${utr}`
             });
-            localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
+            localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
 
             showToast(`Payment Verified! ${selectedAmount} Coins added!`);
         }
@@ -1507,7 +1544,7 @@
         function verifyAdminPass() {
             const id = document.getElementById('admin-id-input').value.trim();
             const pass = document.getElementById('admin-pass-input').value.trim();
-            if(id === "admin@fatalrush.com" && pass === "admin123") {
+            if(id === "admin@favouritesports.com" && pass === "admin123") {
                 isAdminLoggedIn = true;
                 document.getElementById('admin-badge').style.display = 'inline-block';
                 document.getElementById('btn-top-create').style.display = 'flex';
@@ -1535,20 +1572,23 @@
 
         function adminCreateMatch() {
             const title = document.getElementById('adm-title').value.trim();
-            if(!title) { showToast("Enter Match Title!"); return; }
+            if(!title) { showToast("Enter Tournament Name!"); return; }
             tournaments.unshift({
                 id: Date.now(),
                 title,
+                sport: document.getElementById('adm-game').value,
+                image: document.getElementById('adm-image').value.trim(),
                 mode: document.getElementById('adm-mode').value.trim() || 'SOLO',
                 time: document.getElementById('adm-time').value.trim() || 'Today - 08:00 PM',
-                map: document.getElementById('adm-map').value.trim() || 'Bermuda',
+                map: document.getElementById('adm-map').value.trim() || 'Main Stadium',
                 prize: parseInt(document.getElementById('adm-prize').value) || 100,
                 perkill: parseInt(document.getElementById('adm-perkill').value) || 10,
                 fee: parseInt(document.getElementById('adm-fee').value) || 15,
+                rules: document.getElementById('adm-rules').value.trim(),
                 roomId: '',
                 roomPass: ''
             });
-            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+            localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
             renderTournaments();
             closeModal('modal-admin-panel');
             showToast("Tournament Published Successfully!");
@@ -1559,8 +1599,10 @@
             if(m) {
                 document.getElementById('edit-match-id').value = m.id;
                 document.getElementById('edit-match-title').value = m.title;
+                document.getElementById('edit-match-image').value = m.image || '';
                 document.getElementById('edit-match-room-id').value = m.roomId || '';
                 document.getElementById('edit-match-room-pass').value = m.roomPass || '';
+                document.getElementById('edit-match-rules').value = m.rules || '';
                 document.getElementById('modal-admin-edit-match').style.display = 'flex';
             }
         }
@@ -1570,9 +1612,11 @@
             const matchIndex = tournaments.findIndex(t => t.id === id);
             if(matchIndex > -1) {
                 tournaments[matchIndex].title = document.getElementById('edit-match-title').value;
+                tournaments[matchIndex].image = document.getElementById('edit-match-image').value;
                 tournaments[matchIndex].roomId = document.getElementById('edit-match-room-id').value;
                 tournaments[matchIndex].roomPass = document.getElementById('edit-match-room-pass').value;
-                localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+                tournaments[matchIndex].rules = document.getElementById('edit-match-rules').value;
+                localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
                 renderTournaments();
                 closeModal('modal-admin-edit-match');
                 showToast("Tournament Updated!");
@@ -1581,9 +1625,9 @@
 
         function deleteMatch(matchId) {
             tournaments = tournaments.filter(t => t.id !== matchId);
-            localStorage.setItem('fatal_matches', JSON.stringify(tournaments));
+            localStorage.setItem('favsports_matches', JSON.stringify(tournaments));
             renderTournaments();
-            showToast("Match Deleted!");
+            showToast("Tournament Deleted!");
         }
 
         function adminManualCoins() {
@@ -1637,7 +1681,7 @@
                 if(tx.type === 'withdraw' && newStatus === 'Failed') userData.coins += tx.coins;
                 if(tx.type === 'withdraw' && newStatus === 'Success') userData.winning += tx.coins;
                 
-                localStorage.setItem('fatal_tx_history', JSON.stringify(txHistory));
+                localStorage.setItem('favsports_tx_history', JSON.stringify(txHistory));
                 saveUserDataLocally();
                 renderAdminPendingTx();
                 showToast(`Transaction ${newStatus}!`);
